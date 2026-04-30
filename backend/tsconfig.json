@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,      /* Permite importar express sin errores */
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false         /* Para darte un poco más de flexibilidad al inicio */
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
