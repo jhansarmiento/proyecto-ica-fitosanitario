@@ -3,6 +3,7 @@ import StatItem from '../components/ui/StatItem';
 import TextInput from '../components/ui/TextInput';
 import CheckboxField from '../components/ui/CheckboxField';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import { IconTrazabilidad, IconInspeccion, IconInforme } from "../components/ui/icons";
 
 function LoginPage() {
   return (
@@ -29,12 +30,12 @@ function LoginPage() {
           </div>
 
           <div className="mt-2 flex flex-col gap-3.5">
-            <FeatureItem text="Trazabilidad Completa" />
-            <FeatureItem text="Inspecciones Digitalizadas" />
-            <FeatureItem text="Informes Especializados" />
+            <FeatureItem text="Trazabilidad Completa" icon={<IconTrazabilidad />}/>
+            <FeatureItem text="Inspecciones Digitalizadas" icon={<IconInspeccion />}/>
+            <FeatureItem text="Informes Especializados" icon={<IconInforme />}/>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-8 border-t border-white/20 pt-5">
+          <div className="mt-4 flex flex-wrap gap-20 border-t border-white/20 pt-5">
             <StatItem value="10K+" label="Inspecciones" />
             <StatItem value="5K+" label="Usuarios" />
             <StatItem value="99%" label="Satisfacción" />
