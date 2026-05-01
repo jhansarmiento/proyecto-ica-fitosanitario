@@ -19,9 +19,9 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
 export const checkConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('✅ Conexión a PostgreSQL establecida exitosamente.');
+    console.log('✅ Conexión a BD Operacional establecida exitosamente.');
   } catch (error) {
-    console.error('❌ No se pudo conectar a la base de datos:', error);
+    console.error('❌ No se pudo conectar a la base de datos operacional:', error);
   }
 };
 

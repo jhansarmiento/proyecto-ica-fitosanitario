@@ -1,8 +1,10 @@
 import express from 'express';
-import sequelize, { checkConnection } from './config/database'; // Ruta corregida
+import sequelize, { checkConnection } from './config/database';
+import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
 import Lote from './models/Lote';
+import InspeccionFitosanitaria from './models/InspeccionFitosanitaria';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -31,10 +33,11 @@ Lote.belongsTo(LugarProduccion, {
 const models = {
     Usuario,
     LugarProduccion,
-    Lote
+    Lote,
+    InspeccionFitosanitaria
 }
 
-export { sequelize };
+export { sequelize, sequelizeCatalog };
 export default models;
 
 const app = express();
@@ -44,14 +47,20 @@ app.use(express.json());
 
 const startServer = async () => {
   try {
+    // OPERACIONAL
     await checkConnection();
+    await checkConnectionCatalog();  
 
     // DEPURACIÓN: Esto nos dirá qué modelos (tablas) tiene Sequelize en memoria
-    console.log('Modelos detectados por Sequelize:', Object.keys(sequelize.models));
+    console.log('Modelos detectados por BD Operacional:', Object.keys(sequelize.models));
+    console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Forzamos la sincronización
     await sequelize.sync({ alter: true });
-    console.log('📊 Tablas de la base de datos sincronizadas');
+    console.log('📊 Tablas de la BD Operacional sincronizadas');
+
+    await sequelizeCatalog.sync({ alter: true });
+    console.log('📊 Tablas de BD Catalógo sincronizadas');
 
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
@@ -59,7 +68,7 @@ const startServer = async () => {
     
   } catch (error) {
     console.error('❌ Error crítico al iniciar el servidor:', error);
-  }
+  }  
 };
 
 startServer();
