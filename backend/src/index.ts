@@ -1,15 +1,23 @@
-// Este archivo es el punto de entrada de la aplicación. 
-// Aquí se configura el servidor Express, se establece la conexión a la base de datos y se definen las rutas básicas.
-// 1. Verificar que hay internet/conexión.
-// 2. Sincronizar las tablas (Sequelize Sync).
-// 3. Encender el servidor Express.
-
 import express from 'express';
 import sequelize, { checkConnection } from './config/database'; // Ruta corregida
 import Usuario from './models/Usuario';
+import LugarProduccion from './models/LugarProduccion';
+
+// Un Productor (Usuario) puede tener muchos Lugares de Producción
+Usuario.hasMany(LugarProduccion, {
+  foreignKey: 'idUsuarioProductor',
+  as: 'lugaresProduccion',
+})
+
+// Un Lugar de Producción pertenece a un único Productor
+LugarProduccion.belongsTo(Usuario, {
+  foreignKey: 'idUsuarioProductor',
+  as: 'productor',
+})
 
 const models = {
-    Usuario
+    Usuario,
+    LugarProduccion
 }
 
 export { sequelize };
@@ -41,3 +49,9 @@ const startServer = async () => {
 };
 
 startServer();
+
+// Este archivo es el punto de entrada de la aplicación. 
+// Aquí se configura el servidor Express, se establece la conexión a la base de datos y se definen las rutas básicas.
+// 1. Verificar que hay internet/conexión.
+// 2. Sincronizar las tablas (Sequelize Sync).
+// 3. Encender el servidor Express.

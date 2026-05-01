@@ -66,6 +66,4 @@ Usuario.init(
   }
 );
 
-// Al final de src/models/Usuario.ts
-console.log('🚀 El archivo Usuario.ts ha sido ejecutado y el modelo inicializado.');
 export default Usuario;
