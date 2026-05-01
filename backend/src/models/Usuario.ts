@@ -62,7 +62,8 @@ Usuario.init(
   },
   {
     sequelize,
-    tableName: 'usuarios',
+    tableName: 'usuario',
+    freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
   }
 );
 

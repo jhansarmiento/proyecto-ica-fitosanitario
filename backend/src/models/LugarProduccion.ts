@@ -31,11 +31,16 @@ LugarProduccion.init({
     idUsuarioProductor: {
         type: DataTypes.UUID,
         allowNull: false,
+        references : {
+            model: 'usuario', // Nombre de la tabla referenciada
+            key: 'id', // Columna referenciada
+        }
     },
 },   
     {
         sequelize,
         tableName: 'Lugar_Produccion',
+        freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
     }
 )
 

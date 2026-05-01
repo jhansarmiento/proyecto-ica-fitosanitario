@@ -2,6 +2,7 @@ import express from 'express';
 import sequelize, { checkConnection } from './config/database'; // Ruta corregida
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
+import Lote from './models/Lote';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -15,9 +16,22 @@ LugarProduccion.belongsTo(Usuario, {
   as: 'productor',
 })
 
+// Un Lugar de Producción puede tener muchos Lotes
+LugarProduccion.hasMany(Lote, {
+  foreignKey: 'idLugarProduccion',
+  as: 'lotes',
+})
+
+// Un Lote pertenece a un único Lugar de Producción
+Lote.belongsTo(LugarProduccion, {
+  foreignKey: 'idLugarProduccion',
+  as: 'lugarProduccion',
+})
+
 const models = {
     Usuario,
-    LugarProduccion
+    LugarProduccion,
+    Lote
 }
 
 export { sequelize };
