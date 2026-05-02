@@ -1,6 +1,16 @@
 import SidebarItem from '../components/ui/SidebarItem';
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
+import {
+  Home,
+  Users,
+  FileText,
+  Layers,
+  Folder,
+  ShieldCheck,
+  BarChart3,
+  Bell,
+} from "lucide-react";
 
 function HomePage() {
   return (
@@ -16,16 +26,15 @@ function HomePage() {
             </div>
           </div>
 
-          <nav className="flex flex-1 flex-col gap-1.5">
-            <SidebarItem label="Inicio" active icon="⌂" />
-            <SidebarItem label="Gestion de Usuarios" hasChevron icon="👤" />
-            <SidebarItem label="Gestion de Catalogos" hasChevron icon="📄" />
-            <SidebarItem label="Gestion Agricola" icon="🌱" />
-            <SidebarItem label="Mis Solicitudes" icon="☰" />
-            <SidebarItem label="Inspecciones" hasChevron icon="◉" />
-            <SidebarItem label="Reportes" icon="◫" />
+<         nav className="flex flex-1 flex-col gap-1.5">
+            <SidebarItem label="Inicio" active icon={<Home size={20} />} />
+            <SidebarItem label="Gestion de Usuarios" hasChevron icon={<Users size={20} />} />
+            <SidebarItem label="Gestion de Catalogos" hasChevron icon={<FileText size={20} />} />
+            <SidebarItem label="Gestion Agricola" icon={<Layers size={20} />} />
+            <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
+            <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
+            <SidebarItem label="Reportes" icon={<BarChart3 size={20} />} />
           </nav>
-
           <button
             type="button"
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
@@ -50,8 +59,7 @@ function HomePage() {
                   className="w-44 bg-transparent text-sm text-emerald-50 placeholder:text-emerald-200/70 outline-none"
                 />
               </div>
-              <button className="grid h-10 w-10 place-items-center rounded-xl border border-emerald-700 bg-emerald-800/70 text-emerald-50 transition hover:bg-emerald-700">
-                🔔
+              <button className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-900/40 text-emerald-300 transition-all duration-300 hover:bg-emerald-700/80 hover:text-white"><Bell size={18} />
               </button>
               <div className="text-right">
                 <p className="text-base font-bold leading-none">Pepito Perez</p>
