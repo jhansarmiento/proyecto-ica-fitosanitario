@@ -4,7 +4,11 @@ import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
 import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,} from "lucide-react";
 
-function HomePage() {
+type HomePageProps = {
+  onGoUsers?: () => void;
+};
+
+function HomePage({ onGoUsers }: HomePageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -38,7 +42,8 @@ function HomePage() {
               <div className="ml-3 mt-1 space-y-1">
                 <button
                   type="button"
-                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-whit"
+                  onClick={onGoUsers}
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-white"
                 >
                   <Users size={18} />
                   Usuarios
