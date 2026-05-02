@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import SidebarItem from '../components/ui/SidebarItem';
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
-import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,} from "lucide-react";
+import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,} from "lucide-react";
 
 function HomePage() {
+  const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
       <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[280px_1fr]">
@@ -17,9 +19,39 @@ function HomePage() {
             </div>
           </div>
 
-<         nav className="flex flex-1 flex-col gap-1.5">
+          <nav className="flex flex-1 flex-col gap-1.5">
             <SidebarItem label="Inicio" active icon={<Home size={20} />} />
-            <SidebarItem label="Gestion de Usuarios" hasChevron icon={<Users size={20} />} />
+            <button
+              type="button"
+              onClick={() => setIsUsersOpen((prev) => !prev)}
+              className="group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-emerald-50/90 transition-all duration-300 hover:bg-white/10 hover:text-white"
+            >
+              <Users size={20} className="text-emerald-200" />
+              <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestion de Usuarios</span>
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+
+            {isUsersOpen ? (
+              <div className="ml-3 mt-1 space-y-1">
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-whit"
+                >
+                  <Users size={18} />
+                  Usuarios
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-white"
+                >
+                  <ShieldCheck size={18} />
+                  Roles
+                </button>
+              </div>
+            ) : null}
             <SidebarItem label="Gestion de Catalogos" hasChevron icon={<FileText size={20} />} />
             <SidebarItem label="Gestion Agricola" icon={<Layers size={20} />} />
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
