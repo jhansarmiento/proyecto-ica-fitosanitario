@@ -7,11 +7,15 @@ import LugarProduccion from './models/LugarProduccion';
 import Lote from './models/Lote';
 import InspeccionFitosanitaria from './models/InspeccionFitosanitaria';
 import HallazgoPlaga from './models/HallazgoPlaga';
+import AutorizacionEspecie from './models/AutorizacionEspecie';
 
 // Modelos de BD Catalógo
 import EspecieVegetal from './models/EspecieVegetal';
 import VariedadEspecie from './models/VariedadEspecie';
 import Plaga from './models/Plaga';
+import Departamento from './models/Departamento';
+import Municipio from './models/Municipio';
+import Vereda from './models/Vereda';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -38,14 +42,20 @@ Lote.belongsTo(LugarProduccion, {
 })
 
 const models = {
+    // Modelos de BD Operacional
     Usuario,
     LugarProduccion,
     Lote,
     InspeccionFitosanitaria,
     HallazgoPlaga,
+    AutorizacionEspecie,
+    // Modelos de BD Catalógo
     EspecieVegetal,
     VariedadEspecie,
-    Plaga
+    Plaga,
+    Departamento,
+    Municipio,    
+    Vereda
 }
 
 export { sequelize, sequelizeCatalog };
