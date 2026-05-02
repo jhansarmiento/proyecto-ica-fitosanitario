@@ -6,9 +6,10 @@ import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown
 
 type HomePageProps = {
   onGoUsers?: () => void;
+  onGoRoles?: () => void;
 };
 
-function HomePage({ onGoUsers }: HomePageProps) {
+function HomePage({ onGoUsers, onGoRoles }: HomePageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -31,7 +32,7 @@ function HomePage({ onGoUsers }: HomePageProps) {
               className="group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-emerald-50/90 transition-all duration-300 hover:bg-white/10 hover:text-white"
             >
               <Users size={20} className="text-emerald-200" />
-              <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestion de Usuarios</span>
+              <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestión de Usuarios</span>
               <ChevronDown
                 size={16}
                 className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`}
@@ -50,6 +51,7 @@ function HomePage({ onGoUsers }: HomePageProps) {
                 </button>
                 <button
                   type="button"
+                  onClick={onGoRoles}
                   className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-white"
                 >
                   <ShieldCheck size={18} />
@@ -57,8 +59,8 @@ function HomePage({ onGoUsers }: HomePageProps) {
                 </button>
               </div>
             ) : null}
-            <SidebarItem label="Gestion de Catalogos" hasChevron icon={<FileText size={20} />} />
-            <SidebarItem label="Gestion Agricola" icon={<Layers size={20} />} />
+            <SidebarItem label="Gestión de Catalogos" hasChevron icon={<FileText size={20} />} />
+            <SidebarItem label="Gestión Agricola" icon={<Layers size={20} />} />
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
             <SidebarItem label="Reportes" icon={<BarChart3 size={20} />} />

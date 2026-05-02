@@ -1,43 +1,46 @@
 import { useState } from 'react';
-import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,Search,Pencil,Trash2,Plus,} from 'lucide-react';
+import {
+  Home,
+  Users,
+  FileText,
+  Layers,
+  Folder,
+  ShieldCheck,
+  BarChart3,
+  Bell,
+  ChevronDown,
+  Search,
+  Pencil,
+  Trash2,
+  Plus,
+} from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 
-type UserRow = {
+type RoleRow = {
   id: number;
-  identificacion: string;
-  nombres: string;
-  apellidos: string;
   rol: string;
+  descripcion: string;
 };
 
-const users: UserRow[] = [
-  { id: 1, identificacion: '1032456789', nombres: 'Laura', apellidos: 'Pineda', rol: 'Administrador' },
-  { id: 2, identificacion: '80211455', nombres: 'Carlos', apellidos: 'Ramírez', rol: 'Inspector' },
-  { id: 3, identificacion: '1145567890', nombres: 'Diana', apellidos: 'Torres', rol: 'Técnico' },
-  { id: 4, identificacion: '91234567', nombres: 'Jorge', apellidos: 'Quintero', rol: 'Inspector' },
-  { id: 5, identificacion: '1099988877', nombres: 'María', apellidos: 'López', rol: 'Coordinador' },
-  { id: 6, identificacion: '1010101010', nombres: 'Andrés', apellidos: 'Castro', rol: 'Técnico' },
+const roles: RoleRow[] = [
+  { id: 1, rol: 'Administrador', descripcion: 'Acceso total a los permisos' },
+  { id: 2, rol: 'Productor', descripcion: 'Encargado de lotes' },
+  { id: 3, rol: 'Asistente Técnico', descripcion: 'Técnico para inspecciones' },
 ];
 
-
-type UsersPageProps = {
+type RolesPageProps = {
   onGoHome?: () => void;
-  onGoRoles?: () => void;
+  onGoUsers?: () => void;
 };
 
-function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
+function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
 
-  const filteredUsers = users.filter((u) => {
+  const filteredRoles = roles.filter((r) => {
     const q = search.toLowerCase().trim();
     if (!q) return true;
-    return (
-      u.identificacion.toLowerCase().includes(q) ||
-      u.nombres.toLowerCase().includes(q) ||
-      u.apellidos.toLowerCase().includes(q) ||
-      u.rol.toLowerCase().includes(q) 
-    );
+    return r.rol.toLowerCase().includes(q) || r.descripcion.toLowerCase().includes(q);
   });
 
   return (
@@ -54,11 +57,7 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
           </div>
 
           <nav className="flex flex-1 flex-col gap-1.5">
-            <button
-              type="button"
-              onClick={onGoHome}
-              className="w-full"
-            >
+            <button type="button" onClick={onGoHome} className="w-full">
               <SidebarItem label="Inicio" icon={<Home size={20} />} />
             </button>
 
@@ -69,25 +68,22 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
             >
               <Users size={20} className="text-emerald-200" />
               <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestión de Usuarios</span>
-              <ChevronDown
-                size={16}
-                className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`}
-              />
+              <ChevronDown size={16} className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {isUsersOpen ? (
               <div className="ml-3 mt-1 space-y-1">
                 <button
                   type="button"
-                  className="flex w-full items-center gap-2 rounded-xl bg-white px-3 py-2 text-left text-base font-semibold text-emerald-900 shadow-sm"
+                  onClick={onGoUsers}
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-white"
                 >
                   <Users size={18} />
                   Usuarios
                 </button>
                 <button
                   type="button"
-                  onClick={onGoRoles}
-                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base font-medium text-emerald-100 transition hover:bg-white/10 hover:text-white"
+                  className="flex w-full items-center gap-2 rounded-xl bg-white px-3 py-2 text-left text-base font-semibold text-emerald-900 shadow-sm"
                 >
                   <ShieldCheck size={18} />
                   Roles
@@ -114,7 +110,7 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
         <div className="flex flex-col">
           <header className="sticky top-0 z-10 flex min-h-[84px] flex-wrap items-center justify-between gap-3 border-b border-emerald-800/40 bg-emerald-900/95 px-5 py-3 text-white backdrop-blur sm:px-8">
             <div>
-              <h1 className="text-3xl font-bold leading-none">Gestión de Usuarios</h1>
+              <h1 className="text-3xl font-bold leading-none">Gestión de Roles</h1>
               <p className="mt-1 text-sm text-emerald-100">Sistema de Inspección Fitosanitaria</p>
             </div>
 
@@ -132,14 +128,14 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
 
           <section className="flex-1 p-4 sm:p-6">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Listado de Usuarios</h2>
+              <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Listado de Roles</h2>
 
               <button
                 type="button"
                 className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-800 hover:shadow-md"
               >
                 <Plus size={18} />
-                Nuevo Usuario
+                Nuevo Rol
               </button>
             </div>
 
@@ -149,42 +145,38 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Buscar usuarios"
+                placeholder="Buscar roles"
                 className="w-full bg-transparent text-base text-slate-700 placeholder:text-slate-400 outline-none"
               />
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
-                <p>Identificación</p>
-                <p>Nombres</p>
-                <p>Apellidos</p>
+              <div className="grid grid-cols-[1fr_2fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
                 <p>Rol</p>
+                <p>Descripción</p>
                 <p className="text-right">Acciones</p>
               </div>
 
-              {filteredUsers.map((row, idx) => (
+              {filteredRoles.map((row, idx) => (
                 <div
                   key={row.id}
-                  className={`grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] items-center px-5 py-3 text-sm transition hover:bg-emerald-50/40 ${
-                    idx !== filteredUsers.length - 1 ? 'border-b border-slate-200' : ''
+                  className={`grid grid-cols-[1fr_2fr_0.8fr] items-center px-5 py-3 text-sm transition hover:bg-emerald-50/40 ${
+                    idx !== filteredRoles.length - 1 ? 'border-b border-slate-200' : ''
                   }`}
                 >
-                  <p className="font-medium text-slate-700">{row.identificacion}</p>
-                  <p className="text-slate-700">{row.nombres}</p>
-                  <p className="text-slate-700">{row.apellidos}</p>
-                  <p className="text-slate-600">{row.rol}</p>
+                  <p className="font-medium text-slate-700">{row.rol}</p>
+                  <p className="text-slate-700">{row.descripcion}</p>
                   <div className="flex items-center justify-end gap-2">
                     <button
                       type="button"
-                      title="Editar usuario"
+                      title="Editar rol"
                       className="grid h-8 w-8 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                     >
                       <Pencil size={16} />
                     </button>
                     <button
                       type="button"
-                      title="Eliminar usuario"
+                      title="Eliminar rol"
                       className="grid h-8 w-8 place-items-center rounded-lg text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     >
                       <Trash2 size={16} />
@@ -193,9 +185,8 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
                 </div>
               ))}
             </div>
-
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-slate-600">
-              <p>Mostrando 1-{filteredUsers.length} de {users.length} resultados</p>
+              <p>Mostrando 1-{filteredRoles.length} de {roles.length} resultados</p>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
@@ -221,4 +212,4 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
   );
 }
 
-export default UsersPage;
+export default RolesPage;
