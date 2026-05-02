@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,Search,Pencil,Trash2,Plus,} from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
+import NewUserModal from '../components/ui/NewUserModal';
 
 type UserRow = {
   id: number;
@@ -28,6 +29,7 @@ type UsersPageProps = {
 function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
+  const [isNewUserOpen, setIsNewUserOpen] = useState(false);
 
   const filteredUsers = users.filter((u) => {
     const q = search.toLowerCase().trim();
@@ -136,6 +138,7 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
 
               <button
                 type="button"
+                onClick={() => setIsNewUserOpen(true)}
                 className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-800 hover:shadow-md"
               >
                 <Plus size={18} />
@@ -217,6 +220,8 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
           </section>
         </div>
       </div>
+
+      <NewUserModal isOpen={isNewUserOpen} onClose={() => setIsNewUserOpen(false)} />
     </main>
   );
 }
