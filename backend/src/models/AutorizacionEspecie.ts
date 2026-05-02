@@ -4,7 +4,7 @@ import sequelize from '../config/database';
 class AutorizacionEspecie extends Model {
   public id!: string;
   public areaDestinadaCultivo!: number;
-  public capadidadProduccion!: number;
+  public capacidadProduccion!: number;
 //   public idLugarProduccion!: string; // FK Física (Misma DB)
 //   public idEspecieCatalogo!: string; // Relación Lógica (Hacia Catálogo)
 }
@@ -19,7 +19,7 @@ AutorizacionEspecie.init({
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    capadidadProduccion: {
+    capacidadProduccion: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },

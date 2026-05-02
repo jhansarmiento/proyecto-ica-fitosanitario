@@ -6,7 +6,7 @@ class HallazgoPlaga extends Model {
     public cantidadPlantasInfestadas!: number
     public porcentajeInfestacion!: number
     // public idPlaga!: string // Clave foránea para Plaga
-    // public idInspeccion!: string // Clave foránea para InspeccionFitosanitaria
+    // public idInspeccionFitosanitaria!: string // Clave foránea para InspeccionFitosanitaria
 }
 
 HallazgoPlaga.init({
@@ -31,7 +31,7 @@ HallazgoPlaga.init({
     //         key: 'id', // Columna referenciada
     //     }
     // },
-    // idInspeccion: {
+    // idInspeccionFitosanitaria: {
     //     type: DataTypes.UUID,
     //     allowNull: false,
     //     references : {

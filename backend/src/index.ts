@@ -15,31 +15,7 @@ import Predio from './models/Predio';
 import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 
-// Un Productor (Usuario) puede tener muchos Lugares de Producción
-Usuario.hasMany(LugarProduccion, {
-  foreignKey: 'idUsuarioProductor',
-  as: 'lugaresProduccion',
-})
-
-// Un Lugar de Producción pertenece a un único Productor
-LugarProduccion.belongsTo(Usuario, {
-  foreignKey: 'idUsuarioProductor',
-  as: 'productor',
-})
-
-// Un Lugar de Producción puede tener muchos Lotes
-LugarProduccion.hasMany(Lote, {
-  foreignKey: 'idLugarProduccion',
-  as: 'lotes',
-})
-
-// Un Lote pertenece a un único Lugar de Producción
-Lote.belongsTo(LugarProduccion, {
-  foreignKey: 'idLugarProduccion',
-  as: 'lugarProduccion',
-})
-
-const models = {
+const models: any = {
     // Modelos de BD Operacional
     Usuario,
     LugarProduccion,
@@ -53,6 +29,12 @@ const models = {
     SolicitudRegistroLugar,
     SolicitudInspeccion
 }
+
+Object.values(models).forEach((model: any) => {
+    if (model.associate) {
+        model.associate(models);
+    }
+});
 
 export { sequelize };
 export default models;

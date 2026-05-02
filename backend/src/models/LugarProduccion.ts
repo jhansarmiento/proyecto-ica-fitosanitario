@@ -7,7 +7,28 @@ class LugarProduccion extends Model {
     public numeroRegistroICA!: string;
     public estado!: string;
     public idUsuarioProductor!: string; // Clave foránea para el Productor (Usuario)
+
+    // Métodos de asociación
+    static associate(models: any) {
+        // Un Lugar de Producción pertenece a un Usuario (Productor)
+        this.belongsTo(models.Usuario, {
+            foreignKey: 'idUsuarioProductor',
+            as: 'productor',
+        });
+        // Un Lugar de Producción puede tener muchos Predios
+        this.hasMany(models.Predio, {
+            foreignKey: 'idLugarProduccion',
+            as: 'predio',
+        });
+        // Un Lugar de Producción puede tener muchos Lotes
+        this.hasMany(models.Lote, {
+            foreignKey: 'idLugarProduccion',
+            as: 'lote',
+        });
+    }
 }
+
+
 
 LugarProduccion.init({
     id: {
