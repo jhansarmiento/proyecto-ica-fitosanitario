@@ -24,7 +24,7 @@ export const checkConnectionCatalog = async () => {
     await sequelizeCatalog.authenticate();
     console.log('✅ Conexión a BD Catalógo establecida exitosamente.');
   } catch (error) {
-    console.error('❌ No se pudo conectar a la BDCatalógo:', error);
+    console.error('❌ No se pudo conectar a la BD Catalógo:', error);
   }
 };
 

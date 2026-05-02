@@ -39,7 +39,7 @@ LugarProduccion.init({
 },   
     {
         sequelize,
-        tableName: 'Lugar_Produccion',
+        tableName: 'lugar_produccion',
         freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
     }
 )

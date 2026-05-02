@@ -1,10 +1,17 @@
 import express from 'express';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
+// Modelos de BD Operacional
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
 import Lote from './models/Lote';
 import InspeccionFitosanitaria from './models/InspeccionFitosanitaria';
+import HallazgoPlaga from './models/HallazgoPlaga';
+
+// Modelos de BD Catalógo
+import EspecieVegetal from './models/EspecieVegetal';
+import VariedadEspecie from './models/VariedadEspecie';
+import Plaga from './models/Plaga';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -34,7 +41,11 @@ const models = {
     Usuario,
     LugarProduccion,
     Lote,
-    InspeccionFitosanitaria
+    InspeccionFitosanitaria,
+    HallazgoPlaga,
+    EspecieVegetal,
+    VariedadEspecie,
+    Plaga
 }
 
 export { sequelize, sequelizeCatalog };
@@ -57,7 +68,7 @@ const startServer = async () => {
 
     // Forzamos la sincronización
     await sequelize.sync({ alter: true });
-    console.log('📊 Tablas de la BD Operacional sincronizadas');
+    console.log('📊 Tablas de BD Operacional sincronizadas');
 
     await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');

@@ -45,7 +45,7 @@ Lote.init({
         type: DataTypes.UUID,
         allowNull: false,
         references : {
-            model: 'Lugar_Produccion', // Nombre de la tabla referenciada
+            model: 'lugar_produccion', // Nombre de la tabla referenciada
             key: 'id', // Columna referenciada
         }
     },
