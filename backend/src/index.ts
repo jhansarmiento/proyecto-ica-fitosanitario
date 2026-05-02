@@ -13,6 +13,7 @@ import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
+import SolicitudInspeccion from './models/SolicitudInspeccion';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -49,7 +50,8 @@ const models = {
     Rol,
     Propietario,
     Predio,
-    SolicitudRegistroLugar
+    SolicitudRegistroLugar,
+    SolicitudInspeccion
 }
 
 export { sequelize };
