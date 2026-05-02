@@ -1,6 +1,7 @@
 import express from 'express';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
+import './catalogIndex';
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
@@ -8,14 +9,6 @@ import Lote from './models/Lote';
 import InspeccionFitosanitaria from './models/InspeccionFitosanitaria';
 import HallazgoPlaga from './models/HallazgoPlaga';
 import AutorizacionEspecie from './models/AutorizacionEspecie';
-
-// Modelos de BD Catalógo
-import EspecieVegetal from './models/EspecieVegetal';
-import VariedadEspecie from './models/VariedadEspecie';
-import Plaga from './models/Plaga';
-import Departamento from './models/Departamento';
-import Municipio from './models/Municipio';
-import Vereda from './models/Vereda';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -49,16 +42,9 @@ const models = {
     InspeccionFitosanitaria,
     HallazgoPlaga,
     AutorizacionEspecie,
-    // Modelos de BD Catalógo
-    EspecieVegetal,
-    VariedadEspecie,
-    Plaga,
-    Departamento,
-    Municipio,    
-    Vereda
 }
 
-export { sequelize, sequelizeCatalog };
+export { sequelize };
 export default models;
 
 const app = express();
@@ -94,7 +80,6 @@ const startServer = async () => {
 
 startServer();
 
-// Este archivo es el punto de entrada de la aplicación. 
 // Aquí se configura el servidor Express, se establece la conexión a la base de datos y se definen las rutas básicas.
 // 1. Verificar que hay internet/conexión.
 // 2. Sincronizar las tablas (Sequelize Sync).
