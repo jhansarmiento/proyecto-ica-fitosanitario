@@ -9,6 +9,10 @@ import Lote from './models/Lote';
 import InspeccionFitosanitaria from './models/InspeccionFitosanitaria';
 import HallazgoPlaga from './models/HallazgoPlaga';
 import AutorizacionEspecie from './models/AutorizacionEspecie';
+import Rol from './models/Rol';
+import Propietario from './models/Propietario';
+import Predio from './models/Predio';
+import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
 
 // Un Productor (Usuario) puede tener muchos Lugares de Producción
 Usuario.hasMany(LugarProduccion, {
@@ -42,6 +46,10 @@ const models = {
     InspeccionFitosanitaria,
     HallazgoPlaga,
     AutorizacionEspecie,
+    Rol,
+    Propietario,
+    Predio,
+    SolicitudRegistroLugar
 }
 
 export { sequelize };
