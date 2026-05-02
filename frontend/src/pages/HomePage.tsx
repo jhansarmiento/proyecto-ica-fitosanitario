@@ -1,16 +1,7 @@
 import SidebarItem from '../components/ui/SidebarItem';
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
-import {
-  Home,
-  Users,
-  FileText,
-  Layers,
-  Folder,
-  ShieldCheck,
-  BarChart3,
-  Bell,
-} from "lucide-react";
+import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,} from "lucide-react";
 
 function HomePage() {
   return (

@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import FeatureItem from '../components/ui/FeatureItem';
 import StatItem from '../components/ui/StatItem';
 import TextInput from '../components/ui/TextInput';
 import CheckboxField from '../components/ui/CheckboxField';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import ForgotPasswordModal from '../components/ui/ForgotPasswordModal';
 import { IconTrazabilidad, IconInspeccion, IconInforme } from "../components/ui/icons";
 
 function LoginPage() {
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
   return (
     <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_20%_25%,#00b06a_0%,#00784b_30%,#014f35_55%,#02241a_78%,#050d0a_100%)] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(16,185,129,0.18),transparent_45%)]" />
@@ -55,6 +58,7 @@ function LoginPage() {
                 <CheckboxField id="remember" label="Recordarme" />
                 <button
                   type="button"
+                  onClick={() => setIsForgotOpen(true)}
                   className="text-[0.96rem] font-medium text-emerald-50/90 transition-colors duration-300 hover:text-emerald-200"
                 >
                   ¿Olvidaste tu contraseña?
@@ -74,6 +78,8 @@ function LoginPage() {
       <p className="relative pb-5 text-center text-sm text-emerald-50/85">
         © 2026 Instituto Colombiano Agropecuario (ICA)
       </p>
+
+      <ForgotPasswordModal isOpen={isForgotOpen} onClose={() => setIsForgotOpen(false)} />
     </main>
   );
 }
