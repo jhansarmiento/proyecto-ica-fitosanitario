@@ -15,6 +15,7 @@ import {
   Plus,
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
+import NewRoleModal from '../components/ui/NewRoleModal';
 
 type RoleRow = {
   id: number;
@@ -36,6 +37,7 @@ type RolesPageProps = {
 function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
+  const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
 
   const filteredRoles = roles.filter((r) => {
     const q = search.toLowerCase().trim();
@@ -91,7 +93,7 @@ function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
               </div>
             ) : null}
 
-            <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} />
+            {/* <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} /> */}
             <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
@@ -132,6 +134,7 @@ function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
 
               <button
                 type="button"
+                onClick={() => setIsNewRoleOpen(true)}
                 className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-800 hover:shadow-md"
               >
                 <Plus size={18} />
@@ -208,6 +211,8 @@ function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
           </section>
         </div>
       </div>
+
+      <NewRoleModal isOpen={isNewRoleOpen} onClose={() => setIsNewRoleOpen(false)} />
     </main>
   );
 }

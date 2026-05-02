@@ -59,7 +59,7 @@ function HomePage({ onGoUsers, onGoRoles }: HomePageProps) {
                 </button>
               </div>
             ) : null}
-            <SidebarItem label="Gestión de Catalogos" hasChevron icon={<FileText size={20} />} />
+            {/* <SidebarItem label="Gestión de Catalogos" hasChevron icon={<FileText size={20} />} /> */}
             <SidebarItem label="Gestión Agricola" icon={<Layers size={20} />} />
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />

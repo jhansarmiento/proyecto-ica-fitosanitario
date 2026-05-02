@@ -97,7 +97,7 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
               </div>
             ) : null}
 
-            <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} />
+            {/* <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} /> */}
             <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
