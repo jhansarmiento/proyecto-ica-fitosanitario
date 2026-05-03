@@ -23,6 +23,11 @@ class Predio extends Model {
             foreignKey: 'idLugarProduccion',
             as: 'lugarProduccion',
         })
+        // Un predio puede tener muchos lotes
+        this.hasMany(models.Lote, {
+            foreignKey: 'idPredio',
+            as: 'lotes',
+        })
     }
 }
 

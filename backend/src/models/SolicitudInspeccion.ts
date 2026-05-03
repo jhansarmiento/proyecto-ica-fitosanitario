@@ -9,6 +9,14 @@ class SolicitudInspeccion extends Model {
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
     public idLote!: string; // Clave foránea para el Lote
     public idAsistenteTecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
+
+    static associate(models: any) {
+        // Una solicitud de inspección pertenece a un lote
+        this.belongsTo(models.Lote, {
+            foreignKey: 'idLote',
+            as: 'lote',
+        });
+    }
 }
 
 SolicitudInspeccion.init(
@@ -40,18 +48,18 @@ SolicitudInspeccion.init(
         idLote: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'lote', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
+            references : {
+                model: 'lote', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
         idAsistenteTecnico: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'usuario', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
+            references : {
+                model: 'usuario', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
     },
     {

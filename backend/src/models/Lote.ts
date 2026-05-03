@@ -9,6 +9,19 @@ class Lote extends Model {
     public fechaCosecha!: Date;
     public idVariedad!: string; // Clave foránea para la Variedad Ejemplo: Hass, Cafe, etc
     public idPredio!: string; // Clave foránea para el Lugar de Producción
+
+    static associate(models: any) {
+        // Un lote pertenece a un predio
+        this.belongsTo(models.Predio, {
+            foreignKey: 'idPredio',
+            as: 'predio',
+        });
+        // Un lote puede tener muchas solicitudes de inspección
+        this.hasMany(models.SolicitudInspeccion, {
+            foreignKey: 'idLote',
+            as: 'solicitudesInspeccion',
+        });
+    }
 }
 
 Lote.init(
