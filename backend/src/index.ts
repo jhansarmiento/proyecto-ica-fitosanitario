@@ -2,6 +2,7 @@ import express from 'express';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
 import './catalogIndex';
+import { seedGeoData } from './seeders/geoSeeder';
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
@@ -14,6 +15,7 @@ import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
+import catalogModels from './catalogIndex';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -54,12 +56,20 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Operacional:', Object.keys(sequelize.models));
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
-    // Forzamos la sincronización
+    // Sincronizamos las tablas de la base de datos operacional
     await sequelize.sync({ alter: true });
     console.log('📊 Tablas de BD Operacional sincronizadas');
 
+    // Sincronizamos las tablas del catálogo
     await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
+
+    // Solo inyectamos datos geográficos si no hay departamentos en la base de datos
+    const count = await catalogModels.Departamento.count();
+    if(count === 0) {
+        console.log('⚠️  No hay departamentos en la base de datos. Inyectando datos geográficos...');
+        await seedGeoData();
+    }
 
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
