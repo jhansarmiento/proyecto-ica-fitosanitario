@@ -1,0 +1,157 @@
+[
+  {
+    "departamento": "Santander",
+    "codigo_dep": "68",
+    "municipios": [
+      {
+        "nombre": "Bucaramanga",
+        "codigo_mun": "68001",
+        "veredas": ["El Solar", "La Malaña", "Santa Rita", "San José", "Retiro Chiquito"]
+      },
+      {
+        "nombre": "Floridablanca",
+        "codigo_mun": "68276",
+        "veredas": ["Casiano", "Helechales", "Ruperto", "Vericute", "La Hormiga"]
+      },
+      {
+        "nombre": "Girón",
+        "codigo_mun": "68307",
+        "veredas": ["Acacias", "Bocas", "Carrizal", "Chocoita", "El Recreo"]
+      },
+      {
+        "nombre": "Piedecuesta",
+        "codigo_mun": "68547",
+        "veredas": ["Sevilla", "Pajonal", "Planadas", "Mensulí", "Cristales"]
+      },
+      {
+        "nombre": "San Gil",
+        "codigo_mun": "68679",
+        "veredas": ["Ojo de Agua", "Jarardita", "La Laja", "Monas", "Versalles"]
+      }
+    ]
+  },
+  {
+    "departamento": "Antioquia",
+    "codigo_dep": "05",
+    "municipios": [
+      {
+        "nombre": "Medellín",
+        "codigo_mun": "05001",
+        "veredas": ["San Cristóbal", "Santa Elena", "Altavista", "San Antonio de Prado", "Palmitas"]
+      },
+      {
+        "nombre": "Envigado",
+        "codigo_mun": "05266",
+        "veredas": ["Las Palmas", "El Vallano", "Perico", "Pantanillo", "Santa Catalina"]
+      },
+      {
+        "nombre": "Rionegro",
+        "codigo_mun": "05615",
+        "veredas": ["Llanogrande", "Abreo", "Cuchillas", "Cabeceras", "Higuerón"]
+      },
+      {
+        "nombre": "Itagüí",
+        "codigo_mun": "05360",
+        "veredas": ["La María", "Los Gómez", "El Ajizal", "El Porvenir", "Los Olivares"]
+      },
+      {
+        "nombre": "Bello",
+        "codigo_mun": "05088",
+        "veredas": ["San Félix", "La Unión", "Tierradentro", "Hato Viejo", "Potrerito"]
+      }
+    ]
+  },
+  {
+    "departamento": "Cundinamarca",
+    "codigo_dep": "25",
+    "municipios": [
+      {
+        "nombre": "Zipaquirá",
+        "codigo_mun": "25899",
+        "veredas": ["El Abra", "Barandillas", "Río Frío", "San Jorge", "Venta Larga"]
+      },
+      {
+        "nombre": "Facatativá",
+        "codigo_mun": "25269",
+        "veredas": ["Prado", "Pueblo Viejo", "Mancilla", "La Selva", "Los Olivos"]
+      },
+      {
+        "nombre": "Chía",
+        "codigo_mun": "25175",
+        "veredas": ["Bojacá", "Fagua", "Tíquiza", "Cerca de Piedra", "Fonquetá"]
+      },
+      {
+        "nombre": "Fusagasugá",
+        "codigo_mun": "25290",
+        "veredas": ["Chinauta", "Bermejal", "Piamonte", "La Aguadita", "Espinalito"]
+      },
+      {
+        "nombre": "Soacha",
+        "codigo_mun": "25754",
+        "veredas": ["Bosatama", "Cascajal", "Alto de la Cruz", "Panamá", "Villanueva"]
+      }
+    ]
+  },
+  {
+    "departamento": "Valle del Cauca",
+    "codigo_dep": "76",
+    "municipios": [
+      {
+        "nombre": "Cali",
+        "codigo_mun": "76001",
+        "veredas": ["Pance", "La Leonera", "Felidia", "Pichindé", "Villacarmelo"]
+      },
+      {
+        "nombre": "Palmira",
+        "codigo_mun": "76520",
+        "veredas": ["Rozo", "La Buitrera", "Tienda Nueva", "Tuluá", "La Zapata"]
+      },
+      {
+        "nombre": "Buga",
+        "codigo_mun": "76111",
+        "veredas": ["La Habana", "Alaska", "El Vínculo", "Monterrey", "Quebrada Seca"]
+      },
+      {
+        "nombre": "Tulua",
+        "codigo_mun": "76834",
+        "veredas": ["La Marina", "Barragán", "Santa Lucía", "Monteloro", "Venus"]
+      },
+      {
+        "nombre": "Cartago",
+        "codigo_mun": "76147",
+        "veredas": ["Cauca", "Modín", "Coloradas", "Piedra de Moler", "Santa Ana"]
+      }
+    ]
+  },
+  {
+    "departamento": "Atlántico",
+    "codigo_dep": "08",
+    "municipios": [
+      {
+        "nombre": "Barranquilla",
+        "codigo_mun": "08001",
+        "veredas": ["Juan Mina", "La Playa", "Las Flores", "Palmarito", "El Morro"]
+      },
+      {
+        "nombre": "Soledad",
+        "codigo_mun": "08758",
+        "veredas": ["Cabica", "El Oasis", "La Central", "Hacienda El Oasis", "Isla de Cabica"]
+      },
+      {
+        "nombre": "Malambo",
+        "codigo_mun": "08433",
+        "veredas": ["La Aguada", "El Espinal", "Caracolí", "Caimital", "Juan de Acosta"]
+      },
+      {
+        "nombre": "Puerto Colombia",
+        "codigo_mun": "08573",
+        "veredas": ["Sabanilla", "Salgar", "El Castillo", "Lagos de Caujaral", "Punta Roca"]
+      },
+      {
+        "nombre": "Baranoa",
+        "codigo_mun": "08078",
+        "veredas": ["Pital de Megua", "Sibarco", "Campeche", "La Esperanza", "El Desorden"]
+      }
+    ]
+  }
+]
