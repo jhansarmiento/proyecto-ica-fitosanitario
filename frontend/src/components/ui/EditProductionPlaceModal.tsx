@@ -11,6 +11,7 @@ type ProductionSiteEditable = {
   activeLots: number;
   area: string;
   ica: string;
+  ownerName: string;
   status: 'Activo' | 'Pendiente';
 };
 

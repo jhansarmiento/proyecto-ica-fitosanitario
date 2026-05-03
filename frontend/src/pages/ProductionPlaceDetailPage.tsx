@@ -244,6 +244,12 @@ function ProductionPlaceDetailPage({
                       <p className="text-xs uppercase tracking-wide text-slate-500">Área total</p>
                       <p className="mt-1 text-base font-semibold text-slate-800">{site?.area ?? '27.9 ha'}</p>
                     </div>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-slate-500">Propietario</p>
+                      <p className="mt-1 text-base font-semibold text-slate-800">
+                        {site?.ownerName ?? 'No definido'}
+                      </p>
+                    </div>
                   </div>
                 </article>
 
@@ -320,6 +326,10 @@ function ProductionPlaceDetailPage({
                         <MapPin size={14} />
                         {site?.municipality ?? 'Chinchiná'}
                       </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <p className="text-slate-600">Propietario</p>
+                      <p className="font-bold text-slate-900">{site?.ownerName ?? 'No definido'}</p>
                     </div>
                   </div>
                 </div>

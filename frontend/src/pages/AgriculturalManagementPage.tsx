@@ -33,6 +33,7 @@ const initialSites: ProductionSite[] = [
     activeLots: 3,
     area: '37.8 ha',
     ica: 'ICA-2026-0015',
+    ownerName: 'Carlos Ramírez',
     status: 'Activo',
   },
   {
@@ -45,6 +46,7 @@ const initialSites: ProductionSite[] = [
     activeLots: 1,
     area: '18.7 ha',
     ica: 'ICA-2026-0032',
+    ownerName: 'María Fernanda López',
     status: 'Activo',
   },
   {
@@ -57,6 +59,7 @@ const initialSites: ProductionSite[] = [
     activeLots: 0,
     area: '38.0 ha',
     ica: 'ICA-2026-0047',
+    ownerName: 'Jorge Alberto Peña',
     status: 'Pendiente',
   },
 ];
@@ -71,6 +74,7 @@ export type ProductionSite = {
   activeLots: number;
   area: string;
   ica: string;
+  ownerName: string;
   status: 'Activo' | 'Pendiente';
 };
 

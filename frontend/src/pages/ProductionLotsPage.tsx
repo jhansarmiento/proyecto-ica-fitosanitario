@@ -265,9 +265,6 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
                         <td className="px-4 py-2.5 text-sm font-semibold text-slate-800">{lote.areaHa}</td>
                         <td className="px-4 py-2.5 text-sm text-slate-700">{lote.fechaSiembra}</td>
                         <td className="px-4 py-2.5 text-sm text-slate-700">{lote.fechaCosecha ?? '—'}</td>
-                        <td className="px-4 py-2.5">
-                          <span className="inline-flex h-5 min-w-[46px] rounded-full bg-emerald-500/95" />
-                        </td>
                         <td className="px-4 py-3">
                           <div className="flex justify-end gap-2 text-slate-500">
                             <button
