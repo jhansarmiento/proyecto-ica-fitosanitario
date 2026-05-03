@@ -8,6 +8,14 @@ class Propietario extends Model {
     public direccion!: string;
     public telefono!: string;
     public correoElectronico!: string;
+
+    static associate(models: any) {
+        // Un Propietario puede tener muchos Predios
+        this.hasMany(models.Predio, {
+            foreignKey: 'idPropietario',
+            as: 'predios'
+        })
+    }
 }
 
 Propietario.init(

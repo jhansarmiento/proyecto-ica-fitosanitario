@@ -11,6 +11,19 @@ class Predio extends Model {
     public idVereda!: number;
     public idLugarProduccion!: string; // Clave foránea para el Productor (Usuario)
     public idPropietario!: string; // Clave foránea para el Propietario (Usuario)
+
+    static associate(models: any) {
+        // Un Predio pertenece a un Propietario
+        this.belongsTo(models.Propietario, {
+            foreignKey: 'idPropietario',
+            as: 'propietario',
+        })
+        // Un Predio pertenece a un Lugar de Producción
+        this.belongsTo(models.LugarProduccion, {
+            foreignKey: 'idLugarProduccion',
+            as: 'lugarProduccion',
+        })
+    }
 }
 
 Predio.init(
@@ -52,17 +65,18 @@ Predio.init(
         idLugarProduccion: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'lugar_produccion', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
+            references : {
+                model: 'lugar_produccion', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
         idPropietario: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'propietario', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
+            references : {
+                model: 'propietario', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
     },
     {
