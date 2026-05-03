@@ -18,5 +18,13 @@ const catalogModels = {
     Vereda
 }
 
+Object.values(catalogModels).forEach((model: any) => {
+    if (model.associate) {
+        model.associate(catalogModels);
+    }
+});
+
+
+
 export { sequelizeCatalog };
 export default catalogModels;
