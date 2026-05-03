@@ -16,6 +16,11 @@ class SolicitudInspeccion extends Model {
             foreignKey: 'idLote',
             as: 'lote',
         });
+        // Una solicitud de inspección tiene una inspección fitosanitaria asociada
+        this.hasOne(models.InspeccionFitosanitaria, {
+            foreignKey: 'idSolicitudInspeccion',
+            as: 'inspeccionFitosanitaria',
+        });
     }
 }
 

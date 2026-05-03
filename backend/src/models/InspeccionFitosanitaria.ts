@@ -7,8 +7,15 @@ class InspeccionFitosanitaria extends Model {
     public estadoFenologico!: string;
     public fechaInspeccion!: Date;
     public observaciones!: string;
-    public idUsuarioAsistente!: string; // Clave foránea para el Asistente Técnico (Usuario)
-    public idLote!: string; // Clave foránea para el Lote
+    public idSolicitudInspeccion!: string; // Clave foránea para el Asistente Técnico (Usuario)
+
+    static associate(models: any) {
+        // Una inspección fitosanitaria pertenece a una solicitud de inspección
+        this.belongsTo(models.SolicitudInspeccion, {
+            foreignKey: 'idSolicitudInspeccion',
+            as: 'solicitudInspeccion',
+        })
+    }
 }
 
 InspeccionFitosanitaria.init(
@@ -34,21 +41,13 @@ InspeccionFitosanitaria.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        idUsuarioAsistente: {
+        idSolicitudInspeccion: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'usuario', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
-        },
-        idLote: {
-            type: DataTypes.UUID,
-            allowNull: false,
-        //     references : {
-        //         model: 'lote', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
+            references : {
+                model: 'solicitud_inspeccion', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
     },   
     {

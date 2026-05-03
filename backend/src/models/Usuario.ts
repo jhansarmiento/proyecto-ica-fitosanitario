@@ -19,7 +19,7 @@ class Usuario extends Model {
     this.belongsTo(models.Rol, {
       foreignKey: 'idRol',
       as: 'rol',
-    })
+    });
     // Un Usuario (Productor) puede tener muchos Lugares de Producción
     this.hasMany(models.LugarProduccion, {
       foreignKey: 'idUsuarioProductor',
@@ -34,7 +34,12 @@ class Usuario extends Model {
     this.hasMany(models.SolicitudRegistroLugar, {
       foreignKey: 'idAsistenteAsignado',
       as: 'asignacionesTecnicas',
-    })
+    });
+    // Un Usuario (Asistente) puede tener una Solicitud de Inspección asignada
+    this.hasOne(models.SolicitudInspeccion, {
+      foreignKey: 'idAsistenteTecnico',
+      as: 'solicitudInspeccion',
+    });
   }
 }
 
