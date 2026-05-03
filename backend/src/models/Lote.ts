@@ -7,7 +7,7 @@ class Lote extends Model {
     public areaTotal!: number;
     public fechaSiembra!: Date;
     public fechaCosecha!: Date;
-    public idVariedad!: string; // Clave foránea para la Variedad Ejemplo: Hass, Cafe, etc
+    public idVariedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
     public idPredio!: string; // Clave foránea para el Lugar de Producción
 
     static associate(models: any) {
@@ -50,10 +50,6 @@ Lote.init(
         idVariedad: {
         type: DataTypes.UUID,
         allowNull: false,
-        //  references : {
-        //      model: 'variedad_especie', // Nombre de la tabla referenciada
-        //      key: 'id', // Columna referenciada
-        //  }
         },
         idPredio: {
             type: DataTypes.UUID,

@@ -8,7 +8,7 @@ class Predio extends Model {
     public nombrePredio!: string;
     public direccion!: string;
     public areaTotal!: number;
-    public idVereda!: number;
+    public idVereda!: number; // Vereda traída desde la BD Catalógo
     public idLugarProduccion!: string; // Clave foránea para el Productor (Usuario)
     public idPropietario!: string; // Clave foránea para el Propietario (Usuario)
 
@@ -62,10 +62,6 @@ Predio.init(
         idVereda: {
             type: DataTypes.STRING,
             allowNull: false,
-        //     references : {
-        //         model: 'vereda', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
         },
         idLugarProduccion: {
             type: DataTypes.UUID,

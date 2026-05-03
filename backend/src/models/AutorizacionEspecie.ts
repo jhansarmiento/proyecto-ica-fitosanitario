@@ -5,7 +5,7 @@ class AutorizacionEspecie extends Model {
   public id!: string;
   public capacidadProduccion!: number;
   public idLugarProduccion!: string; // FK Física (Misma DB)
-  public idEspecieCatalogo!: string; // Relación Lógica (Hacia Catálogo)
+  public idEspecieVegetal!: string; // Dato traído desde la BD Catalógo (Relación Lógica, no FK física)
 
   static associate(models: any) {
     // Una Autorización de Especie pertenece a un Lugar de Producción
@@ -36,13 +36,9 @@ AutorizacionEspecie.init(
                 key: 'id', // Columna referenciada
             }
         },
-        idEspecieCatalogo: {
+        idEspecieVegetal: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'especie_vegetal', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
         },
     }, 
     {
