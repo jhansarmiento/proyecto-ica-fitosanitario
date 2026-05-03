@@ -6,6 +6,21 @@ class EspecieVegetal extends Model {
     public nombreEspecie!: string;
     public nombreComun!: string;
     public cicloCultivo!: string;
+
+    static associate(models: any) {
+        // Una especie vegetal tiene muchas variedades
+        this.hasMany(models.VariedadEspecie, {
+            foreignKey: 'idEspecie',   
+            as: 'Variedades'
+        });
+        // Relación muchos a muchos con Plaga a través de EspeciePlaga
+        this.belongsToMany(models.Plaga, {
+            through: models.EspeciePlaga,
+            foreignKey: 'idEspecieVegetal',
+            otherKey: 'idPlaga',
+            as: 'plagas'
+        })
+    }
 }
 
 EspecieVegetal.init(

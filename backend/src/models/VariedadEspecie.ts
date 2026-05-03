@@ -4,7 +4,15 @@ import sequelizeCatalog from '../config/database_catalog';
 class VariedadEspecie extends Model {
     public id!: string;
     public nombreVariedad!: string;
-    public idEspecie!: string; // Clave foránea para EspecieVegetal
+    public idEspecieVegetal!: string; // Clave foránea para EspecieVegetal
+
+    static associate(models: any) {
+        // Una variedad pertenece a una especie vegetal
+        this.belongsTo(models.EspecieVegetal, {
+            foreignKey: 'idEspecieVegetal',
+            as: 'especieVegetal'
+        })
+    }
 }
 
 VariedadEspecie.init(
@@ -18,7 +26,7 @@ VariedadEspecie.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        idEspecie: {
+        idEspecieVegetal: {
             type: DataTypes.UUID,
             allowNull: false,
         //     references : {

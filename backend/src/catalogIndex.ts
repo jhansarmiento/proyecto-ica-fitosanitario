@@ -7,12 +7,14 @@ import Plaga from './models/Plaga';
 import Departamento from './models/Departamento';
 import Municipio from './models/Municipio';
 import Vereda from './models/Vereda';
+import EspeciePlaga from './models/EspeciePlaga';
 
 const catalogModels = {
     // Modelos de BD Catalógo
     EspecieVegetal,
     VariedadEspecie,
     Plaga,
+    EspeciePlaga,
     Departamento,
     Municipio,    
     Vereda
