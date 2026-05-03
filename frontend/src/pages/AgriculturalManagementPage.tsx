@@ -15,11 +15,14 @@ import {
   Database,
   Leaf,
   Layers3,
+  Eye,
+  Pencil,
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewProductionPlaceModal from '../components/ui/NewProductionPlaceModal';
+import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal';
 
-const sites: ProductionSite[] = [
+const initialSites: ProductionSite[] = [
   {
     id: 1,
     name: 'Finca Los Arrayanes',
@@ -87,6 +90,9 @@ function AgriculturalManagementPage({
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [isNewProductionOpen, setIsNewProductionOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [sites, setSites] = useState<ProductionSite[]>(initialSites);
+  const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
 
   const filteredSites = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -218,20 +224,18 @@ function AgriculturalManagementPage({
               />
             </div>
 
-            <div className="grid gap-5 xl:grid-cols-3 lg:grid-cols-2">
+            <div className="grid gap-4 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2">
               {filteredSites.map((site) => (
-                <button
-                  type="button"
+                <article
                   key={site.id}
-                  onClick={() => onOpenProductionDetail?.(site)}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
+                  className="rounded-2xl border border-emerald-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
                 >
                   <div className="mb-4 flex items-start justify-between gap-3">
-                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-emerald-100 text-emerald-700">
-                      <FileText size={24} />
+                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-100 text-emerald-700">
+                      <FileText size={20} />
                     </div>
                     <span
-                      className={`rounded-full px-3 py-1 text-sm font-semibold ${
+                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
                         site.status === 'Activo'
                           ? 'bg-emerald-100 text-emerald-700'
                           : 'bg-amber-100 text-amber-700'
@@ -241,38 +245,62 @@ function AgriculturalManagementPage({
                     </span>
                   </div>
 
-                  <h3 className="text-4 font-extrabold tracking-tight text-slate-900">{site.name}</h3>
+                  <h3 className="text-xl font-bold tracking-tight text-slate-900">{site.name}</h3>
 
-                  <div className="mt-3 space-y-1.5 text-slate-700">
-                    <p className="flex items-center gap-2 text-2xl">
-                      <MapPin size={16} className="text-slate-500" />
+                  <div className="mt-2.5 space-y-1.5 text-slate-700">
+                    <p className="flex items-center gap-2 text-base font-medium">
+                      <MapPin size={15} className="text-slate-500" />
                       {site.municipality}, {site.department}
                     </p>
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base">
                       <Database size={16} className="text-slate-500" />
                       {site.associatedPredios} predios asociados
                     </p>
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base">
                       <Leaf size={16} className="text-slate-500" />
                       {site.authorizedSpecies} especies autorizadas
                     </p>
-                    <p className="flex items-center gap-2 text-sm">
+                    <p className="flex items-center gap-2 text-base">
                       <Layers3 size={16} className="text-slate-500" />
                       {site.activeLots} lotes activos
                     </p>
                   </div>
 
-                  <div className="mt-5 space-y-2 border-t border-slate-200 pt-3">
-                    <div className="flex items-center justify-between text-lg">
+                  <div className="mt-4 space-y-1.5 border-t border-slate-200 pt-2.5">
+                    <div className="flex items-center justify-between text-base">
                       <span className="text-slate-500">Área total:</span>
                       <span className="font-bold text-emerald-600">{site.area}</span>
                     </div>
-                    <div className="flex items-center justify-between text-lg">
+                    <div className="flex items-center justify-between text-base">
                       <span className="text-slate-500">Registro ICA:</span>
                       <span className="font-bold text-slate-800">{site.ica}</span>
                     </div>
                   </div>
-                </button>
+
+                  <div className="mt-3.5 grid grid-cols-[1fr_auto] items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onOpenProductionDetail?.(site)}
+                      className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl bg-emerald-900 px-3.5 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                    >
+                      <Eye size={16} />
+                      Ver detalle
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedSite(site);
+                        setIsEditOpen(true);
+                      }}
+                      className="grid h-10 w-10 place-items-center rounded-xl border border-slate-300 bg-white text-slate-600 transition hover:border-emerald-300 hover:text-emerald-700"
+                      aria-label={`Editar ${site.name}`}
+                      title="Editar"
+                    >
+                      <Pencil size={16} />
+                    </button>
+                  </div>
+                </article>
               ))}
             </div>
 
@@ -291,6 +319,20 @@ function AgriculturalManagementPage({
       <NewProductionPlaceModal
         isOpen={isNewProductionOpen}
         onClose={() => setIsNewProductionOpen(false)}
+      />
+
+      <EditProductionPlaceModal
+        isOpen={isEditOpen}
+        site={selectedSite}
+        onClose={() => {
+          setIsEditOpen(false);
+          setSelectedSite(null);
+        }}
+        onSave={(updated) => {
+          setSites((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+          setIsEditOpen(false);
+          setSelectedSite(null);
+        }}
       />
     </main>
   );

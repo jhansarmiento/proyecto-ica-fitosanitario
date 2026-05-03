@@ -2,22 +2,87 @@ import { useState } from 'react';
 import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown, Search, Pencil, Trash2, Plus } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewUserModal from '../components/ui/NewUserModal';
+import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
 
-type UserRow = {
-  id: number;
-  identificacion: string;
-  nombres: string;
-  apellidos: string;
-  rol: string;
-};
-
-const users: UserRow[] = [
-  { id: 1, identificacion: '1032456789', nombres: 'Laura', apellidos: 'Pineda', rol: 'Administrador' },
-  { id: 2, identificacion: '80211455', nombres: 'Carlos', apellidos: 'Ramírez', rol: 'Inspector' },
-  { id: 3, identificacion: '1145567890', nombres: 'Diana', apellidos: 'Torres', rol: 'Técnico' },
-  { id: 4, identificacion: '91234567', nombres: 'Jorge', apellidos: 'Quintero', rol: 'Inspector' },
-  { id: 5, identificacion: '1099988877', nombres: 'María', apellidos: 'López', rol: 'Coordinador' },
-  { id: 6, identificacion: '1010101010', nombres: 'Andrés', apellidos: 'Castro', rol: 'Técnico' },
+const usersMock: EditableUser[] = [
+  {
+    id: 1,
+    identificacion: '1032456789',
+    telefono: '3001234567',
+    nombres: 'Laura',
+    apellidos: 'Pineda',
+    direccion: 'Calle 123 #45-67',
+    usuario: 'lpineda',
+    correo: 'laura.pineda@fitogestor.com',
+    rol: 'Administrador',
+    registroIca: 'ICA-2026-00123',
+    tarjetaProfesional: 'TP-54879',
+  },
+  {
+    id: 2,
+    identificacion: '80211455',
+    telefono: '3112345678',
+    nombres: 'Carlos',
+    apellidos: 'Ramírez',
+    direccion: 'Carrera 12 #33-44',
+    usuario: 'cramirez',
+    correo: 'carlos.ramirez@fitogestor.com',
+    rol: 'Inspector',
+    registroIca: '',
+    tarjetaProfesional: '',
+  },
+  {
+    id: 3,
+    identificacion: '1145567890',
+    telefono: '3209988776',
+    nombres: 'Diana',
+    apellidos: 'Torres',
+    direccion: 'Av. Central 10-25',
+    usuario: 'dtorres',
+    correo: 'diana.torres@fitogestor.com',
+    rol: 'Asistente Técnico',
+    registroIca: 'ICA-2025-00991',
+    tarjetaProfesional: 'TP-22098',
+  },
+  {
+    id: 4,
+    identificacion: '91234567',
+    telefono: '3157788990',
+    nombres: 'Jorge',
+    apellidos: 'Quintero',
+    direccion: 'Calle 8 #90-11',
+    usuario: 'jquintero',
+    correo: 'jorge.quintero@fitogestor.com',
+    rol: 'Inspector',
+    registroIca: '',
+    tarjetaProfesional: '',
+  },
+  {
+    id: 5,
+    identificacion: '1099988877',
+    telefono: '3181010101',
+    nombres: 'María',
+    apellidos: 'López',
+    direccion: 'Cra 45 #60-12',
+    usuario: 'mlopez',
+    correo: 'maria.lopez@fitogestor.com',
+    rol: 'Coordinador',
+    registroIca: 'ICA-2026-00456',
+    tarjetaProfesional: 'TP-88541',
+  },
+  {
+    id: 6,
+    identificacion: '1010101010',
+    telefono: '3176644332',
+    nombres: 'Andrés',
+    apellidos: 'Castro',
+    direccion: 'Diagonal 5 #22-09',
+    usuario: 'acastro',
+    correo: 'andres.castro@fitogestor.com',
+    rol: 'Asistente Técnico',
+    registroIca: 'ICA-2024-00044',
+    tarjetaProfesional: 'TP-77120',
+  },
 ];
 
 
@@ -31,6 +96,9 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
+  const [users, setUsers] = useState<EditableUser[]>(usersMock);
+  const [isEditUserOpen, setIsEditUserOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<EditableUser | null>(null);
 
   const filteredUsers = users.filter((u) => {
     const q = search.toLowerCase().trim();
@@ -39,9 +107,18 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
       u.identificacion.toLowerCase().includes(q) ||
       u.nombres.toLowerCase().includes(q) ||
       u.apellidos.toLowerCase().includes(q) ||
-      u.rol.toLowerCase().includes(q) 
+      u.rol.toLowerCase().includes(q)
     );
   });
+
+  const handleEditClick = (user: EditableUser) => {
+    setSelectedUser(user);
+    setIsEditUserOpen(true);
+  };
+
+  const handleSaveUser = (payload: EditableUser) => {
+    setUsers((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
+  };
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -184,6 +261,7 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
                     <button
                       type="button"
                       title="Editar usuario"
+                      onClick={() => handleEditClick(row)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                     >
                       <Pencil size={16} />
@@ -225,6 +303,12 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
       </div>
 
       <NewUserModal isOpen={isNewUserOpen} onClose={() => setIsNewUserOpen(false)} />
+      <EditUserModal
+        isOpen={isEditUserOpen}
+        user={selectedUser}
+        onClose={() => setIsEditUserOpen(false)}
+        onSave={handleSaveUser}
+      />
     </main>
   );
 }

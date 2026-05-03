@@ -15,17 +15,12 @@ import {
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewRoleModal from '../components/ui/NewRoleModal';
+import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
 
-type RoleRow = {
-  id: number;
-  rol: string;
-  descripcion: string;
-};
-
-const roles: RoleRow[] = [
+const rolesMock: EditableRole[] = [
   { id: 1, rol: 'Administrador', descripcion: 'Acceso total a los permisos' },
-  { id: 2, rol: 'Productor', descripcion: 'Encargado de lotes' },
-  { id: 3, rol: 'Asistente Técnico', descripcion: 'Técnico para inspecciones' },
+  { id: 2, rol: 'Productor', descripcion: 'Encargado de lotes y producción' },
+  { id: 3, rol: 'Asistente Técnico', descripcion: 'Técnico para inspecciones de campo' },
 ];
 
 type RolesPageProps = {
@@ -38,12 +33,24 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
+  const [roles, setRoles] = useState<EditableRole[]>(rolesMock);
+  const [isEditRoleOpen, setIsEditRoleOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<EditableRole | null>(null);
 
   const filteredRoles = roles.filter((r) => {
     const q = search.toLowerCase().trim();
     if (!q) return true;
     return r.rol.toLowerCase().includes(q) || r.descripcion.toLowerCase().includes(q);
   });
+
+  const handleEditClick = (role: EditableRole) => {
+    setSelectedRole(role);
+    setIsEditRoleOpen(true);
+  };
+
+  const handleSaveRole = (payload: EditableRole) => {
+    setRoles((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
+  };
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -175,6 +182,7 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
                     <button
                       type="button"
                       title="Editar rol"
+                      onClick={() => handleEditClick(row)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
                     >
                       <Pencil size={16} />
@@ -215,6 +223,12 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
       </div>
 
       <NewRoleModal isOpen={isNewRoleOpen} onClose={() => setIsNewRoleOpen(false)} />
+      <EditRoleModal
+        isOpen={isEditRoleOpen}
+        role={selectedRole}
+        onClose={() => setIsEditRoleOpen(false)}
+        onSave={handleSaveRole}
+      />
     </main>
   );
 }

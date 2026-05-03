@@ -16,17 +16,10 @@ import {
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewLotModal from '../components/ui/NewLotModal';
+import EditLotModal, { type EditableLot } from '../components/ui/EditLotModal';
 import type { ProductionSite } from './AgriculturalManagementPage';
 
-type LotDetail = {
-  id: number;
-  code: string;
-  especie: string;
-  variedad: string;
-  areaHa: number;
-  fechaSiembra: string;
-  fechaCosecha?: string;
-};
+type LotDetail = EditableLot;
 
 type ProductionLotsPageProps = {
   site: ProductionSite | null;
@@ -60,6 +53,8 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
   const [isNewLotOpen, setIsNewLotOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [lotes, setLotes] = useState<LotDetail[]>(lotesMock);
+  const [isEditLotOpen, setIsEditLotOpen] = useState(false);
+  const [selectedLot, setSelectedLot] = useState<LotDetail | null>(null);
 
   const filteredLotes = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -92,6 +87,15 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
     };
 
     setLotes((prev) => [newLot, ...prev]);
+  };
+
+  const handleEditClick = (lot: LotDetail) => {
+    setSelectedLot(lot);
+    setIsEditLotOpen(true);
+  };
+
+  const handleSaveLot = (payload: EditableLot) => {
+    setLotes((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
   };
 
   return (
@@ -242,7 +246,6 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
                       <th className="px-4 py-3">Área (ha)</th>
                       <th className="px-4 py-3">Fecha Siembra</th>
                       <th className="px-4 py-3">Fecha Cosecha</th>
-                      <th className="px-4 py-3">Estado</th>
                       <th className="px-4 py-3 text-right">Acciones</th>
                     </tr>
                   </thead>
@@ -275,6 +278,7 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
                             </button>
                             <button
                               type="button"
+                              onClick={() => handleEditClick(lote)}
                               className="rounded-md p-1.5 transition hover:bg-slate-100 hover:text-emerald-700"
                             >
                               <Pencil size={15} />
@@ -295,6 +299,12 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
         isOpen={isNewLotOpen}
         onClose={() => setIsNewLotOpen(false)}
         onCreate={handleCreateLot}
+      />
+      <EditLotModal
+        isOpen={isEditLotOpen}
+        lot={selectedLot}
+        onClose={() => setIsEditLotOpen(false)}
+        onSave={handleSaveLot}
       />
     </main>
   );
