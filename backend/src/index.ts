@@ -4,6 +4,8 @@ import sequelizeCatalog, { checkConnectionCatalog } from './config/database_cata
 import './catalogIndex';
 import { seedGeoData } from './seeders/geoSeeder'; // Función para inyectar datos geográficos
 import { seedEspeciesVegetales } from './seeders/especieSeeder'; // Función para inyectar datos de especies vegetales
+import { seedRoles } from './seeders/rolSeeder'; // Función para inyectar roles
+import { seedAdmins } from './seeders/adminSeeder'; // Función para inyectar usuarios administradores
 
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
@@ -65,6 +67,10 @@ const startServer = async () => {
     // Sincronizamos las tablas del catálogo
     await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
+
+    // Inyectar roles y administradores
+    await seedRoles();
+    await seedAdmins();
 
     // Solo inyectamos datos geográficos si no hay departamentos en la base de datos
     const count = await catalogModels.Departamento.count();

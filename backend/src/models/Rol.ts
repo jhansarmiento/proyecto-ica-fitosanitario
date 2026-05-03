@@ -4,6 +4,7 @@ import sequelize from '../config/database';
 class Rol extends Model {
   public id!: string;
   public nombreRol!: string;
+  public descripcion!: string; 
 
   static associate(models: any) {
     // Un Rol puede tener muchos Usuarios
@@ -25,6 +26,11 @@ Rol.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      field: 'nombreRol',
+    },
+    descripcion: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

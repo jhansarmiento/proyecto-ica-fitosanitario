@@ -91,6 +91,7 @@ Usuario.init(
     idRol: {
       type: DataTypes.UUID,
       allowNull: false,
+      field: 'idRol',
       references: {
         model: 'rol', // Nombre de la tabla referenciada
         key: 'id', // Columna referenciada
@@ -101,6 +102,14 @@ Usuario.init(
     sequelize,
     tableName: 'usuario',
     freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
+    defaultScope: {
+      attributes: { exclude: ['ingresoContrasena'] },
+    },
+    scopes: {
+      withPassword: {
+        attributes: { include: ['ingresoContrasena'] },
+      },
+    },
   }
 );
 
