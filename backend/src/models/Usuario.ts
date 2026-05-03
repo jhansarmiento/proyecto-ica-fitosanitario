@@ -13,6 +13,19 @@ class Usuario extends Model {
   public ingresoContrasena!: string;
   public tarjetaProfesional?: string; // Opcional, solo para asistentes
   public idRol!: string; // Clave foránea para el Rol (Operacional)
+
+  static associate(models: any) {
+    // Un Usuario tiene un solo Rol
+    this.belongsTo(models.Rol, {
+      foreignKey: 'idRol',
+      as: 'rol',
+    })
+    // Un Usuario (Productor) puede tener muchos Lugares de Producción
+    this.hasMany(models.LugarProduccion, {
+      foreignKey: 'idUsuarioProductor',
+      as: 'lugarProduccion',
+    });
+  }
 }
 
 Usuario.init(

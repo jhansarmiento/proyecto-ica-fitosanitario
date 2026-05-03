@@ -23,7 +23,7 @@ class LugarProduccion extends Model {
         // Un Lugar de Producción puede tener muchos Lotes
         this.hasMany(models.Lote, {
             foreignKey: 'idLugarProduccion',
-            as: 'lote',
+            as: 'lote', 
         });
     }
 }

@@ -4,6 +4,14 @@ import sequelize from '../config/database';
 class Rol extends Model {
   public id!: string;
   public nombreRol!: string;
+
+  static associate(models: any) {
+    // Un Rol puede tener muchos Usuarios
+    this.hasMany(models.Usuario, {
+    foreignKey: 'idRol',
+    as: 'usuarios',
+    });
+  }
 }
 
 Rol.init(
