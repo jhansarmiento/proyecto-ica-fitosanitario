@@ -24,9 +24,10 @@ const users: UserRow[] = [
 type UsersPageProps = {
   onGoHome?: () => void;
   onGoRoles?: () => void;
+  onGoAgricultural?: () => void;
 };
 
-function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
+function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
@@ -98,7 +99,9 @@ function UsersPage({ onGoHome, onGoRoles }: UsersPageProps) {
             ) : null}
 
             {/* <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} /> */}
-            <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
+            <button type="button" onClick={onGoAgricultural} className="w-full">
+              <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
+            </button>
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
             <SidebarItem label="Reportes" icon={<BarChart3 size={20} />} />

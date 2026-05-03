@@ -32,9 +32,10 @@ const roles: RoleRow[] = [
 type RolesPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
+  onGoAgricultural?: () => void;
 };
 
-function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
+function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
@@ -94,7 +95,9 @@ function RolesPage({ onGoHome, onGoUsers }: RolesPageProps) {
             ) : null}
 
             {/* <SidebarItem label="Gestión de Catálogos" hasChevron icon={<FileText size={20} />} /> */}
-            <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
+            <button type="button" onClick={onGoAgricultural} className="w-full">
+              <SidebarItem label="Gestión Agrícola" icon={<Layers size={20} />} />
+            </button>
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
             <SidebarItem label="Reportes" icon={<BarChart3 size={20} />} />

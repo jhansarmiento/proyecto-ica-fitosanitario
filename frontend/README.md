@@ -1,75 +1,189 @@
-# React + TypeScript + Vite
+# Frontend - FitoGestor (React + TypeScript + Vite + Tailwind)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este frontend está construido para consumir la API del backend de forma centralizada y modular.
 
-Currently, two official plugins are available:
+## Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este documento le indica al equipo backend **dónde debe apuntar** y **qué contratos de datos** debe exponer para que las vistas del frontend puedan listar información correctamente.
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Estructura del frontend
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+frontend/src/
+  components/   # UI reutilizable (botones, modales, tarjetas, etc.)
+  pages/        # Vistas principales (Home, Users, Roles, Gestión Agrícola)
+  services/     # Capa de comunicación con backend (fetch/axios)
+  hooks/        # Lógica reutilizable (estado, side effects, etc.)
+  schemas/      # Validaciones (zod)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Regla principal:  
+- **Las páginas NO deben hacer llamadas directas al backend.**
+- Toda llamada debe pasar por `src/services/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## URL base del backend (a dónde apuntar)
+
+Definir la URL base por entorno usando variables de entorno de Vite.
+
+### Archivo `.env` (local)
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
 ```
+
+### Uso esperado en frontend
+`src/services/api.ts` debe construir peticiones usando `VITE_API_BASE_URL`.
+
+Ejemplo recomendado:
+```ts
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+```
+
+---
+
+## Módulos de UI ya implementados y contratos esperados
+
+Actualmente el frontend tiene páginas funcionales de:
+- Gestión de Usuarios
+- Gestión de Roles
+- Gestión Agrícola
+
+A continuación, los endpoints sugeridos para listar datos:
+
+---
+
+## 1) Gestión de Usuarios
+
+### Endpoint listado
+- `GET /api/users`
+
+### Respuesta esperada (ejemplo)
+```json
+[
+  {
+    "id": 1,
+    "identificacion": "1032456789",
+    "nombres": "Laura",
+    "apellidos": "Pineda",
+    "rol": "Administrador"
+  }
+]
+```
+
+### Campos usados por UI
+- `id`
+- `identificacion`
+- `nombres`
+- `apellidos`
+- `rol`
+
+---
+
+## 2) Gestión de Roles
+
+### Endpoint listado
+- `GET /api/roles`
+
+### Respuesta esperada (ejemplo)
+```json
+[
+  {
+    "id": 1,
+    "rol": "Administrador",
+    "descripcion": "Acceso total a los permisos"
+  }
+]
+```
+
+### Campos usados por UI
+- `id`
+- `rol`
+- `descripcion`
+
+---
+
+## 3) Gestión Agrícola
+
+### Endpoint listado
+- `GET /api/agricultural-sites`
+
+### Respuesta esperada (ejemplo)
+```json
+[
+  {
+    "id": 1,
+    "name": "Finca Los Arrayanes",
+    "municipality": "Chipaque",
+    "department": "Cundinamarca",
+    "associatedPredios": 2,
+    "authorizedSpecies": 3,
+    "activeLots": 3,
+    "area": "37.8 ha",
+    "ica": "ICA-2026-0015",
+    "status": "Activo"
+  }
+]
+```
+
+### Campos usados por UI
+- `id`
+- `name`
+- `municipality`
+- `department`
+- `associatedPredios`
+- `authorizedSpecies`
+- `activeLots`
+- `area`
+- `ica`
+- `status` (`Activo` | `Pendiente`)
+
+---
+
+## Endpoints adicionales sugeridos (futuro)
+
+### Usuarios
+- `POST /api/users`
+- `PUT /api/users/:id`
+- `DELETE /api/users/:id`
+
+### Roles
+- `POST /api/roles`
+- `PUT /api/roles/:id`
+- `DELETE /api/roles/:id`
+
+### Gestión Agrícola
+- `POST /api/agricultural-sites`
+- `PUT /api/agricultural-sites/:id`
+- `DELETE /api/agricultural-sites/:id`
+
+---
+
+## Convenciones recomendadas para backend
+
+- Responder JSON siempre.
+- Usar códigos HTTP correctos (`200`, `201`, `400`, `404`, `500`, etc.).
+- Mantener nombres de campos consistentes con los contratos anteriores.
+- Manejar CORS para permitir requests desde el frontend local (`http://localhost:5173` por defecto en Vite).
+
+---
+
+## Ejecución local frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+App por defecto en:
+- `http://localhost:5173`
+
+---
+
+## Nota de integración
+
+Mientras se conecta backend real, el frontend puede usar data mock.  
+Cuando backend esté listo, reemplazar mocks por servicios en `src/services/` sin cambiar la UI.

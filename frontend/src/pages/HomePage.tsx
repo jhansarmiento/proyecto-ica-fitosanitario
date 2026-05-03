@@ -7,9 +7,10 @@ import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown
 type HomePageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
+  onGoAgricultural?: () => void;
 };
 
-function HomePage({ onGoUsers, onGoRoles }: HomePageProps) {
+function HomePage({ onGoUsers, onGoRoles, onGoAgricultural }: HomePageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -60,7 +61,9 @@ function HomePage({ onGoUsers, onGoRoles }: HomePageProps) {
               </div>
             ) : null}
             {/* <SidebarItem label="Gestión de Catalogos" hasChevron icon={<FileText size={20} />} /> */}
-            <SidebarItem label="Gestión Agricola" icon={<Layers size={20} />} />
+            <button type="button" onClick={onGoAgricultural} className="w-full">
+              <SidebarItem label="Gestión Agricola" icon={<Layers size={20} />} />
+            </button>
             <SidebarItem label="Mis Solicitudes" icon={<Folder size={20} />} />
             <SidebarItem label="Inspecciones" hasChevron icon={<ShieldCheck size={20} />} />
             <SidebarItem label="Reportes" icon={<BarChart3 size={20} />} />
