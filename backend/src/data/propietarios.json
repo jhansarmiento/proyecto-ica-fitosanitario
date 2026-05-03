@@ -1,0 +1,51 @@
+[
+    {
+        "numeroIdentificacion": "111222",
+        "nombre": "Juan Pérez",
+        "direccion": "Calle 10 # 5-20",
+        "telefono": "3001234567",
+        "correoElectronico": "juan@mail.com"
+    },
+    {
+        "numeroIdentificacion": "222333",
+        "nombre": "Marta Gómez",
+        "direccion": "Carrera 15 # 2-30",
+        "telefono": "3114567890",
+        "correoElectronico": "marta@mail.com"
+    },
+    {
+        "numeroIdentificacion": "333444",
+        "nombre": "Roberto Cano",
+        "direccion": "Vereda El Salitre",
+        "telefono": "3207894561",
+        "correoElectronico": "roberto@mail.com"
+    },
+    {
+        "numeroIdentificacion": "444555",
+        "nombre": "Sofía Castro",
+        "direccion": "Calle Principal #1",
+        "telefono": "3156543210",
+        "correoElectronico": "sofia@mail.com"
+    },
+    {
+        "numeroIdentificacion": "555666",
+        "nombre": "Luis Martínez",
+        "direccion": "Finca La Esperanza",
+        "telefono": "3129876543",
+        "correoElectronico": "luis@mail.com"
+    },
+    {
+        "numeroIdentificacion": "666777",
+        "nombre": "Carmen Ruiz",
+        "direccion": "Av. Los Cerros 45",
+        "telefono": "3004561237",
+        "correoElectronico": "carmen@mail.com"
+    },
+    {
+        "numeroIdentificacion": "777888",
+        "nombre": "Andrés Villa",
+        "direccion": "Vereda Las Flores",
+        "telefono": "3112223334",
+        "correoElectronico": "andres@mail.com"
+    }
+]

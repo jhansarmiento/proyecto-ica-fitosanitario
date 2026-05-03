@@ -7,6 +7,7 @@ import { seedEspeciesVegetales } from './seeders/especieSeeder'; // Función par
 import { seedRoles } from './seeders/rolSeeder'; // Función para inyectar roles
 import { seedAdmins } from './seeders/adminSeeder'; // Función para inyectar usuarios administradores
 import { seedProductores } from './seeders/productorSeeder'; // Función para inyectar usuarios productores
+import { seedPropietariosYPredios } from './seeders/predioSeeder'; // Función para inyectar propietarios y predios
 
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
@@ -73,7 +74,7 @@ const startServer = async () => {
     await seedRoles();
     await seedAdmins();
     await seedProductores();
-    
+    await seedPropietariosYPredios();
 
     // Solo inyectamos datos geográficos si no hay departamentos en la base de datos
     const count = await catalogModels.Departamento.count();
