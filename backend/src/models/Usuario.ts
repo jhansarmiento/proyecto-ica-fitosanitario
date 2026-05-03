@@ -25,6 +25,16 @@ class Usuario extends Model {
       foreignKey: 'idUsuarioProductor',
       as: 'lugarProduccion',
     });
+    // Un Usuario (Administrador) puede aprobar muchas Solicitudes de Registro
+    this.hasMany(models.SolicitudRegistroLugar, {
+      foreignKey: 'idAdminAprobador',
+      as: 'solicitudesAprobadas',
+    });
+    // Un Usuario (Asistente) puede ser asignado a muchas Solicitudes de Registro
+    this.hasMany(models.SolicitudRegistroLugar, {
+      foreignKey: 'idAsistenteAsignado',
+      as: 'asignacionesTecnicas',
+    })
   }
 }
 
@@ -76,10 +86,10 @@ Usuario.init(
     idRol: {
       type: DataTypes.UUID,
       allowNull: false,
-    //   references: {
-    //     model: 'rol', // Nombre de la tabla referenciada
-    //     key: 'id', // Columna referenciada
-    //   },
+      references: {
+        model: 'rol', // Nombre de la tabla referenciada
+        key: 'id', // Columna referenciada
+      },
     },
   },
   {

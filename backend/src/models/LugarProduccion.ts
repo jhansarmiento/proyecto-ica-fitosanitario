@@ -15,6 +15,11 @@ class LugarProduccion extends Model {
             foreignKey: 'idUsuarioProductor',
             as: 'productor',
         });
+        // Un Lugar de Producción tiene una Solicitud de Registro
+        this.hasOne(models.SolicitudRegistroLugar, {
+            foreignKey: 'idLugarProduccion',
+            as: 'solicitudRegistroLugar',
+        });
         // Un Lugar de Producción puede tener muchos Predios
         this.hasMany(models.Predio, {
             foreignKey: 'idLugarProduccion',

@@ -9,6 +9,24 @@ class SolicitudRegistroLugar extends Model {
   public idLugarProduccion!: string;
   public idAdminAprobador!: string; // Clave foránea para el Administrador (Usuario)
   public idAsistenteAsignado?: string; // Clave foránea para el Asistente Técnico (Usuario), solo se llena si el estado es Aprobada
+
+  static associate(models: any) {
+    // Una Solicitud de Registro pertenece a un Lugar de Producción
+    this.belongsTo(models.LugarProduccion, {
+      foreignKey: 'idLugarProduccion',
+      as: 'lugarProduccion',
+    });
+    // Una Solicitud de Registro es aprobada por un Usuario (Administrador)
+    this.belongsTo(models.Usuario, {
+      foreignKey: 'idAdminAprobador',
+      as: 'administradorAprobador',
+    })
+    // Una Solicitud de Registro es asignada a un Usuario (Asistente Técnico)
+    this.belongsTo(models.Usuario, {
+      foreignKey: 'idAsistenteAsignado',
+      as: 'asistenteAsignado'
+    })
+  }
 }
 
 SolicitudRegistroLugar.init(
@@ -36,26 +54,26 @@ SolicitudRegistroLugar.init(
     idLugarProduccion: {
       type: DataTypes.UUID,
       allowNull: false,
-    //   references: {
-    //     model: 'lugar_produccion', // Nombre de la tabla referenciada
-    //     key: 'id', // Columna referenciada
-    //   },
+      references: {
+        model: 'lugar_produccion', // Nombre de la tabla referenciada
+        key: 'id', // Columna referenciada
+      },
     },
     idAdminAprobador: {
       type: DataTypes.UUID,
       allowNull: false,
-    //   references: {
-    //     model: 'usuario', // Nombre de la tabla referenciada
-    //     key: 'id', // Columna referenciada
-    //   },
+      references: {
+        model: 'usuario', // Nombre de la tabla referenciada
+        key: 'id', // Columna referenciada
+      },
     },
     idAsistenteAsignado: {
       type: DataTypes.UUID,
       allowNull: true, // Solo se llena si el estado es Aprobada
-    //   references: {
-    //     model: 'usuario', // Nombre de la tabla referenciada
-    //     key: 'id', // Columna referenciada
-    //   },
+      references: {
+        model: 'usuario', // Nombre de la tabla referenciada
+        key: 'id', // Columna referenciada
+      },
     },
   },
   {
