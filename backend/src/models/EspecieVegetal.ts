@@ -8,25 +8,26 @@ class EspecieVegetal extends Model {
     public cicloCultivo!: string;
 }
 
-EspecieVegetal.init({
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
-    nombreEspecie: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    nombreComun: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    cicloCultivo: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-},   
+EspecieVegetal.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+        },
+        nombreEspecie: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        nombreComun: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        cicloCultivo: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    },   
     {
         sequelize: sequelizeCatalog,
         tableName: 'especie_vegetal',

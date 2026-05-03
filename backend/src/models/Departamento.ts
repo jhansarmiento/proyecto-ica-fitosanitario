@@ -6,21 +6,22 @@ class Departamento extends Model {
   public nombre!: string;
 }
 
-Departamento.init({
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-    },
-    nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+Departamento.init(
+    {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+        },
+        nombre: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, 
     {
         sequelize: sequelizeCatalog,
         tableName: 'departamento',
         freezeTableName: true
     }
-)
+);
 
 export default Departamento;

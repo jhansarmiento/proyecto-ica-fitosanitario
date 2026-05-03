@@ -12,7 +12,7 @@ class Usuario extends Model {
   public ingresoUsuario!: string;
   public ingresoContrasena!: string;
   public tarjetaProfesional?: string; // Opcional, solo para asistentes
-  // public idRol!: string; // Clave foránea para el Rol (Operacional)
+  public idRol!: string; // Clave foránea para el Rol (Operacional)
 }
 
 Usuario.init(
@@ -60,14 +60,14 @@ Usuario.init(
       type: DataTypes.STRING,
       allowNull: true, // Solo se llena si es Asistente Técnico
     },
-    // idRol: {
-    //   type: DataTypes.UUID,
-    //   allowNull: false,
+    idRol: {
+      type: DataTypes.UUID,
+      allowNull: false,
     //   references: {
     //     model: 'rol', // Nombre de la tabla referenciada
     //     key: 'id', // Columna referenciada
     //   },
-    // },
+    },
   },
   {
     sequelize,

@@ -30,39 +30,40 @@ class LugarProduccion extends Model {
 
 
 
-LugarProduccion.init({
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-    },
-    nombreLugarProduccion: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    numeroRegistroICA: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-    },
-    estado: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    idUsuarioProductor: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references : {
-            model: 'usuario', // Nombre de la tabla referenciada
-            key: 'id', // Columna referenciada
-        }
-    },
-},   
+LugarProduccion.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+        },
+        nombreLugarProduccion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        numeroRegistroICA: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
+        estado: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        idUsuarioProductor: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references : {
+                model: 'usuario', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
+        },
+    },   
     {
         sequelize,
         tableName: 'lugar_produccion',
         freezeTableName: true, // Evita que Sequelize pluralice el nombre de la tabla
     }
-)
+);
 
 export default LugarProduccion;

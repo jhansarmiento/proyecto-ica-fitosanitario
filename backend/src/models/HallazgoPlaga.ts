@@ -5,41 +5,42 @@ class HallazgoPlaga extends Model {
     public id!: string
     public cantidadPlantasInfestadas!: number
     public porcentajeInfestacion!: number
-    // public idPlaga!: string // Clave foránea para Plaga
-    // public idInspeccionFitosanitaria!: string // Clave foránea para InspeccionFitosanitaria
+    public idPlaga!: string // Clave foránea para Plaga
+    public idInspeccionFitosanitaria!: string // Clave foránea para InspeccionFitosanitaria
 }
 
-HallazgoPlaga.init({
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
+HallazgoPlaga.init(
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true,
+        },
+        cantidadPlantasInfestadas: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        porcentajeInfestacion: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        idPlaga: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        //     references : {
+        //         model: 'plaga', // Nombre de la tabla referenciada
+        //         key: 'id', // Columna referenciada
+        //     }
+        },
+        idInspeccionFitosanitaria: {
+            type: DataTypes.UUID,
+            allowNull: false,
+        //     references : {
+        //         model: 'inspeccion_fitosanitaria', // Nombre de la tabla referenciada
+        //         key: 'id', // Columna referenciada
+        //     }
     },
-    cantidadPlantasInfestadas: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
     },
-    porcentajeInfestacion: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
-    },
-    // idPlaga: {
-    //     type: DataTypes.UUID,
-    //     allowNull: false,
-    //     references : {
-    //         model: 'plaga', // Nombre de la tabla referenciada
-    //         key: 'id', // Columna referenciada
-    //     }
-    // },
-    // idInspeccionFitosanitaria: {
-    //     type: DataTypes.UUID,
-    //     allowNull: false,
-    //     references : {
-    //         model: 'inspeccion_fitosanitaria', // Nombre de la tabla referenciada
-    //         key: 'id', // Columna referenciada
-    //     }
-    // },
-},
     {
         sequelize,
         tableName: 'hallazgo_plaga',

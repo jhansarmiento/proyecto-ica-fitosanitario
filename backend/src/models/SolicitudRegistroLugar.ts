@@ -6,9 +6,9 @@ class SolicitudRegistroLugar extends Model {
   public fechaSolicitud!: Date;
   public estado!: string; // Pendiente, Aprobada, Rechazada
   public observacionesAdministrador?: string; // Solo se llena si el estado es Rechazada
-  // public idLugarProduccion!: string;
-  // public idAminAprobador!: string; // Clave foránea para el Administrador (Usuario)
-  // public idAsistenteAsignado?: string; // Clave foránea para el Asistente Técnico (Usuario), solo se llena si el estado es Aprobada
+  public idLugarProduccion!: string;
+  public idAdminAprobador!: string; // Clave foránea para el Administrador (Usuario)
+  public idAsistenteAsignado?: string; // Clave foránea para el Asistente Técnico (Usuario), solo se llena si el estado es Aprobada
 }
 
 SolicitudRegistroLugar.init(
@@ -33,30 +33,30 @@ SolicitudRegistroLugar.init(
       type: DataTypes.STRING,
       allowNull: true, // Solo se llena si el estado es Rechazada
     },
-    // idLugarProduccion: {
-    //   type: DataTypes.UUID,
-    //   allowNull: false,
+    idLugarProduccion: {
+      type: DataTypes.UUID,
+      allowNull: false,
     //   references: {
     //     model: 'lugar_produccion', // Nombre de la tabla referenciada
     //     key: 'id', // Columna referenciada
     //   },
-    // },
-    // idAdminAprobador: {
-    //   type: DataTypes.UUID,
-    //   allowNull: false,
+    },
+    idAdminAprobador: {
+      type: DataTypes.UUID,
+      allowNull: false,
     //   references: {
     //     model: 'usuario', // Nombre de la tabla referenciada
     //     key: 'id', // Columna referenciada
     //   },
-    // },
-    // idAsistenteAsignado: {
-    //   type: DataTypes.UUID,
-    //   allowNull: true, // Solo se llena si el estado es Aprobada
+    },
+    idAsistenteAsignado: {
+      type: DataTypes.UUID,
+      allowNull: true, // Solo se llena si el estado es Aprobada
     //   references: {
     //     model: 'usuario', // Nombre de la tabla referenciada
     //     key: 'id', // Columna referenciada
     //   },
-    // },
+    },
   },
   {
     sequelize,
