@@ -28,11 +28,8 @@ VariedadEspecie.init(
         },
         idEspecieVegetal: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             allowNull: false,
-        //     references : {
-        //         model: 'especie_vegetal', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
         },
     },   
     {

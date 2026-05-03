@@ -2,7 +2,9 @@ import express from 'express';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
 import './catalogIndex';
-import { seedGeoData } from './seeders/geoSeeder';
+import { seedGeoData } from './seeders/geoSeeder'; // Función para inyectar datos geográficos
+import { seedEspeciesVegetales } from './seeders/especieSeeder'; // Función para inyectar datos de especies vegetales
+
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
 import LugarProduccion from './models/LugarProduccion';
@@ -69,6 +71,12 @@ const startServer = async () => {
     if(count === 0) {
         console.log('⚠️  No hay departamentos en la base de datos. Inyectando datos geográficos...');
         await seedGeoData();
+    }
+
+    const especieCount = await catalogModels.EspecieVegetal.count();
+    if(especieCount === 0) {
+        console.log('⚠️  Catalógos de especies vegetales vacíos. Inyectando datos...');
+        await seedEspeciesVegetales();
     }
 
     app.listen(PORT, () => {

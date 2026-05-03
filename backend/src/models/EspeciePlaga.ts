@@ -11,6 +11,7 @@ EspeciePlaga.init(
         idEspecieVegetal: {
             type: DataTypes.UUID,
             allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             references: {
                 model: 'especie_vegetal', // Nombre de la tabla referenciada
                 key: 'id', // Columna referenciada
@@ -19,6 +20,7 @@ EspeciePlaga.init(
         idPlaga: {
             type: DataTypes.UUID,
             allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
             references: {
                 model: 'plaga', // Nombre de la tabla referenciada
                 key: 'id', // Columna referenciada

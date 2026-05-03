@@ -10,8 +10,8 @@ class EspecieVegetal extends Model {
     static associate(models: any) {
         // Una especie vegetal tiene muchas variedades
         this.hasMany(models.VariedadEspecie, {
-            foreignKey: 'idEspecie',   
-            as: 'Variedades'
+            foreignKey: 'idEspecieVegetal',   
+            as: 'variedades'
         });
         // Relación muchos a muchos con Plaga a través de EspeciePlaga
         this.belongsToMany(models.Plaga, {

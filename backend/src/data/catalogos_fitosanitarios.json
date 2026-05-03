@@ -1,0 +1,118 @@
+[
+  {
+    "nombre_especie": "Persea americana",
+    "nombre_comun": "Aguacate",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Hass", "Lorena", "Choquette", "Fuerte", "Reed"],
+    "plagas": [
+      { "nombre_especie_plaga": "Heilipus lauri", "nombre_comun_plaga": "Barrenador de la semilla" },
+      { "nombre_especie_plaga": "Stenoma catenifer", "nombre_comun_plaga": "Pasador del fruto" },
+      { "nombre_especie_plaga": "Monalonion velezangeli", "nombre_comun_plaga": "Chinche del aguacate" },
+      { "nombre_especie_plaga": "Oligonychus punicae", "nombre_comun_plaga": "Ácaro cristalino" }
+    ]
+  },
+  {
+    "nombre_especie": "Mangifera indica",
+    "nombre_comun": "Mango",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Keitt", "Tommy Atkins", "Kent", "Yulima", "Hilacha"],
+    "plagas": [
+      { "nombre_especie_plaga": "Anastrepha obliqua", "nombre_comun_plaga": "Mosca de las Antillas" },
+      { "nombre_especie_plaga": "Ceratitis capitata", "nombre_comun_plaga": "Mosca del Mediterráneo" },
+      { "nombre_especie_plaga": "Aulacaspis tubercularis", "nombre_comun_plaga": "Escama blanca del mango" },
+      { "nombre_especie_plaga": "Selenothrips rubrocinctus", "nombre_comun_plaga": "Trips de la banda roja" }
+    ]
+  },
+  {
+    "nombre_especie": "Physalis peruviana",
+    "nombre_comun": "Uchuva",
+    "ciclo_cultivo": "Transitorio/Perenne",
+    "variedades": ["Ecotipo Colombia", "Ecotipo Kenia", "Ecotipo Sudáfrica"],
+    "plagas": [
+      { "nombre_especie_plaga": "Heliothis subflexa", "nombre_comun_plaga": "Gusano de la uchuva" },
+      { "nombre_especie_plaga": "Aculops sp.", "nombre_comun_plaga": "Ácaro tostador" },
+      { "nombre_especie_plaga": "Trialeurodes vaporariorum", "nombre_comun_plaga": "Mosca blanca" },
+      { "nombre_especie_plaga": "Phoma physalidis", "nombre_comun_plaga": "Mancha de hongo" }
+    ]
+  },
+  {
+    "nombre_especie": "Citrus latifolia",
+    "nombre_comun": "Limón Tahití",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Bearss", "Persian", "Tahiti"],
+    "plagas": [
+      { "nombre_especie_plaga": "Diaphorina citri", "nombre_comun_plaga": "Psílido de los cítricos" },
+      { "nombre_especie_plaga": "Phyllocnistis citrella", "nombre_comun_plaga": "Minador de la hoja" },
+      { "nombre_especie_plaga": "Brevipalpus phoenicis", "nombre_comun_plaga": "Ácaro de la leprosis" },
+      { "nombre_especie_plaga": "Toxoptera citricida", "nombre_comun_plaga": "Pulgón negro" }
+    ]
+  },
+  {
+    "nombre_especie": "Passiflora edulis f. edulis",
+    "nombre_comun": "Gulupa",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Selección Colombia", "Púrpura", "Hawái"],
+    "plagas": [
+      { "nombre_especie_plaga": "Dasiops inedulis", "nombre_comun_plaga": "Mosca de la flor" },
+      { "nombre_especie_plaga": "Tetranychus urticae", "nombre_comun_plaga": "Ácaro de dos manchas" },
+      { "nombre_especie_plaga": "Agraulis vanillae", "nombre_comun_plaga": "Gusano de las pasifloras" }
+    ]
+  },
+  {
+    "nombre_especie": "Ananas comosus",
+    "nombre_comun": "Piña",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["MD2 Golden", "Perolera", "Manzana", "Champaka"],
+    "plagas": [
+      { "nombre_especie_plaga": "Thecla basilides", "nombre_comun_plaga": "Tecla de la piña" },
+      { "nombre_especie_plaga": "Dysmicoccus brevipes", "nombre_comun_plaga": "Cochinilla harinosa" },
+      { "nombre_especie_plaga": "Strymon megarus", "nombre_comun_plaga": "Barrenador del fruto" },
+      { "nombre_especie_plaga": "Fusarium oxysporum", "nombre_comun_plaga": "Fusariosis" }
+    ]
+  },
+  {
+    "nombre_especie": "Selenicereus megalanthus",
+    "nombre_comun": "Pitahaya Amarilla",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Palora", "Colombiana", "Israelí"],
+    "plagas": [
+      { "nombre_especie_plaga": "Dasiops saltans", "nombre_comun_plaga": "Mosca del botón floral" },
+      { "nombre_especie_plaga": "Leptoglossus zonatus", "nombre_comun_plaga": "Chinche patona" },
+      { "nombre_especie_plaga": "Cactophagus spinolae", "nombre_comun_plaga": "Picudo de la cactácea" }
+    ]
+  },
+  {
+    "nombre_especie": "Musa x paradisiaca",
+    "nombre_comun": "Banano",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Cavendish", "Valery", "Gran Enano", "Williams"],
+    "plagas": [
+      { "nombre_especie_plaga": "Mycosphaerella fijiensis", "nombre_comun_plaga": "Sigatoka negra" },
+      { "nombre_especie_plaga": "Cosmopolites sordidus", "nombre_comun_plaga": "Picudo negro" },
+      { "nombre_especie_plaga": "Opsiphanes tamarindi", "nombre_comun_plaga": "Gusano cabrito" },
+      { "nombre_especie_plaga": "Pseudococcus elisae", "nombre_comun_plaga": "Cochinilla del banano" }
+    ]
+  },
+  {
+    "nombre_especie": "Passiflora ligularis",
+    "nombre_comun": "Granadilla",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Selección Colombia", "Urrao", "Huila"],
+    "plagas": [
+      { "nombre_especie_plaga": "Dasiops spp.", "nombre_comun_plaga": "Mosca de la fruta" },
+      { "nombre_especie_plaga": "Corythucha gossypii", "nombre_comun_plaga": "Chinche de encaje" },
+      { "nombre_especie_plaga": "Zapriothrica salebrosa", "nombre_comun_plaga": "Mosca de la flor" }
+    ]
+  },
+  {
+    "nombre_especie": "Passiflora edulis f. flavicarpa",
+    "nombre_comun": "Maracuyá",
+    "ciclo_cultivo": "Perenne",
+    "variedades": ["Hawaiana", "Selección Colombia", "Amarilla Gruesa"],
+    "plagas": [
+      { "nombre_especie_plaga": "Dasiops caestus", "nombre_comun_plaga": "Mosca del botón" },
+      { "nombre_especie_plaga": "Xanthomonas axonopodis", "nombre_comun_plaga": "Mancha bacteriana" },
+      { "nombre_especie_plaga": "Colletotrichum gloeosporioides", "nombre_comun_plaga": "Antracnosis" }
+    ]
+  }
+]
