@@ -7,6 +7,14 @@ class HallazgoPlaga extends Model {
     public porcentajeInfestacion!: number
     public idPlaga!: string // Clave foránea para Plaga
     public idInspeccionFitosanitaria!: string // Clave foránea para InspeccionFitosanitaria
+
+    static associate(models: any) {
+        // Un hallazgo de plaga pertenece a una inspección fitosanitaria
+        this.belongsTo(models.InspeccionFitosanitaria, {
+            foreignKey: 'idInspeccionFitosanitaria',
+            as: 'inspeccionFitosanitaria',
+        })
+    }
 }
 
 HallazgoPlaga.init(
@@ -35,11 +43,11 @@ HallazgoPlaga.init(
         idInspeccionFitosanitaria: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'inspeccion_fitosanitaria', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
-    },
+            references : {
+                model: 'inspeccion_fitosanitaria', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
+        },
     },
     {
         sequelize,

@@ -6,6 +6,15 @@ class AutorizacionEspecie extends Model {
   public capacidadProduccion!: number;
   public idLugarProduccion!: string; // FK Física (Misma DB)
   public idEspecieCatalogo!: string; // Relación Lógica (Hacia Catálogo)
+
+  static associate(models: any) {
+    // Una Autorización de Especie pertenece a un Lugar de Producción
+    this.belongsTo(models.LugarProduccion, {
+      foreignKey: 'idLugarProduccion',
+      as: 'lugarProduccion',
+    });
+    // NOTA: No definimos una asociación Sequelize directa con EspecieVegetal del catálogo, ya que es una relación lógica.
+  }
 }
 
 AutorizacionEspecie.init(
@@ -22,10 +31,10 @@ AutorizacionEspecie.init(
         idLugarProduccion: {
             type: DataTypes.UUID,
             allowNull: false,
-        //     references : {
-        //         model: 'lugar_produccion', // Nombre de la tabla referenciada
-        //         key: 'id', // Columna referenciada
-        //     }
+            references : {
+                model: 'lugar_produccion', // Nombre de la tabla referenciada
+                key: 'id', // Columna referenciada
+            }
         },
         idEspecieCatalogo: {
             type: DataTypes.UUID,

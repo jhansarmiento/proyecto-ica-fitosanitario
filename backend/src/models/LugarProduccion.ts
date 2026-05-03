@@ -30,6 +30,11 @@ class LugarProduccion extends Model {
             foreignKey: 'idLugarProduccion',
             as: 'lote', 
         });
+        // Un Lugar de Producción puede asociar muchas especies para producción (Autorización de Especies)
+        this.hasMany(models.AutorizacionEspecie, {
+            foreignKey: 'idLugarProduccion',
+            as: 'autorizacionEspecie',
+        })
     }
 }
 

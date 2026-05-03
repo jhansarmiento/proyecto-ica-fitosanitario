@@ -15,6 +15,11 @@ class InspeccionFitosanitaria extends Model {
             foreignKey: 'idSolicitudInspeccion',
             as: 'solicitudInspeccion',
         })
+        // Una inspección fitosanitaria puede tener muchos hallazgos de plagas
+        this.hasMany(models.HallazgoPlaga, {
+            foreignKey: 'idInspeccionFitosanitaria',
+            as: 'hallazgosPlaga',
+        })
     }
 }
 
