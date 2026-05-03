@@ -39,7 +39,7 @@ export const seedAdmins = async () => {
             },
         ];
 
-        console.log('⏳ Verificando e inyectando administradores...');
+        console.log('⏳ Inyectando administradores...');
 
         for (const adminData of adminsParaCrear) {
             // Buscamos por ingresoUsuario (que es el nombre del atributo en el modelo)
@@ -59,7 +59,7 @@ export const seedAdmins = async () => {
             }
         }
         
-        console.log('✅ Proceso de seed de administradores finalizado.');
+        console.log('✅ Proceso de inyección de administradores finalizado.');
 
     } catch (error) {
         // Deberíamos para ver qué campo está fallando si hay un error
