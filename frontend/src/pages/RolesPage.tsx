@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Home,
   Users,
-  FileText,
   Layers,
   Folder,
   ShieldCheck,

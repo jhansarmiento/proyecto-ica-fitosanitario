@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,Search,Pencil,Trash2,Plus,} from 'lucide-react';
+import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown, Search, Pencil, Trash2, Plus } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewUserModal from '../components/ui/NewUserModal';
 

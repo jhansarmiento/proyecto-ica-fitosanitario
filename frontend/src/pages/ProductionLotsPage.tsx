@@ -15,6 +15,7 @@ import {
   Users,
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
+import NewLotModal from '../components/ui/NewLotModal';
 import type { ProductionSite } from './AgriculturalManagementPage';
 
 type LotDetail = {
@@ -24,6 +25,7 @@ type LotDetail = {
   variedad: string;
   areaHa: number;
   fechaSiembra: string;
+  fechaCosecha?: string;
 };
 
 type ProductionLotsPageProps = {
@@ -55,19 +57,42 @@ const lotesMock: LotDetail[] = [
 
 function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles }: ProductionLotsPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
+  const [isNewLotOpen, setIsNewLotOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [lotes, setLotes] = useState<LotDetail[]>(lotesMock);
 
   const filteredLotes = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return lotesMock;
-    return lotesMock.filter((lote) => {
+    if (!q) return lotes;
+    return lotes.filter((lote) => {
       return (
         lote.code.toLowerCase().includes(q) ||
         lote.especie.toLowerCase().includes(q) ||
         lote.variedad.toLowerCase().includes(q)
       );
     });
-  }, [search]);
+  }, [search, lotes]);
+
+  const handleCreateLot = (payload: {
+    numero: string;
+    areaHa: number;
+    fechaSiembra: string;
+    fechaCosecha?: string;
+    especie: string;
+    variedad: string;
+  }) => {
+    const newLot: LotDetail = {
+      id: Date.now(),
+      code: payload.numero,
+      especie: payload.especie,
+      variedad: payload.variedad,
+      areaHa: payload.areaHa,
+      fechaSiembra: payload.fechaSiembra,
+      fechaCosecha: payload.fechaCosecha,
+    };
+
+    setLotes((prev) => [newLot, ...prev]);
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
@@ -198,6 +223,7 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
 
               <button
                 type="button"
+                onClick={() => setIsNewLotOpen(true)}
                 className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800"
               >
                 <Plus size={16} />
@@ -215,6 +241,7 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
                       <th className="px-4 py-3">Variedad</th>
                       <th className="px-4 py-3">Área (ha)</th>
                       <th className="px-4 py-3">Fecha Siembra</th>
+                      <th className="px-4 py-3">Fecha Cosecha</th>
                       <th className="px-4 py-3">Estado</th>
                       <th className="px-4 py-3 text-right">Acciones</th>
                     </tr>
@@ -234,6 +261,7 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
                         <td className="px-4 py-2.5 text-sm text-slate-700">{lote.variedad}</td>
                         <td className="px-4 py-2.5 text-sm font-semibold text-slate-800">{lote.areaHa}</td>
                         <td className="px-4 py-2.5 text-sm text-slate-700">{lote.fechaSiembra}</td>
+                        <td className="px-4 py-2.5 text-sm text-slate-700">{lote.fechaCosecha ?? '—'}</td>
                         <td className="px-4 py-2.5">
                           <span className="inline-flex h-5 min-w-[46px] rounded-full bg-emerald-500/95" />
                         </td>
@@ -262,6 +290,12 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
           </section>
         </div>
       </div>
+
+      <NewLotModal
+        isOpen={isNewLotOpen}
+        onClose={() => setIsNewLotOpen(false)}
+        onCreate={handleCreateLot}
+      />
     </main>
   );
 }

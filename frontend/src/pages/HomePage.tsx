@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SidebarItem from '../components/ui/SidebarItem';
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
-import {Home,Users,FileText,Layers,Folder,ShieldCheck,BarChart3,Bell,ChevronDown,} from "lucide-react";
+import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown } from 'lucide-react';
 
 type HomePageProps = {
   onGoUsers?: () => void;
