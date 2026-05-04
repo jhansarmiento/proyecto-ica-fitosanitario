@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Home,
   Users,
@@ -16,12 +16,7 @@ import {
 import SidebarItem from '../components/ui/SidebarItem';
 import NewRoleModal from '../components/ui/NewRoleModal';
 import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
-
-const rolesMock: EditableRole[] = [
-  { id: 1, rol: 'Administrador', descripcion: 'Acceso total a los permisos' },
-  { id: 2, rol: 'Productor', descripcion: 'Encargado de lotes y producción' },
-  { id: 3, rol: 'Asistente Técnico', descripcion: 'Técnico para inspecciones de campo' },
-];
+import { api } from '../services/api';
 
 type RolesPageProps = {
   onGoHome?: () => void;
@@ -33,7 +28,9 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
-  const [roles, setRoles] = useState<EditableRole[]>(rolesMock);
+  const [roles, setRoles] = useState<EditableRole[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [isEditRoleOpen, setIsEditRoleOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<EditableRole | null>(null);
 
@@ -48,8 +45,47 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
     setIsEditRoleOpen(true);
   };
 
-  const handleSaveRole = (payload: EditableRole) => {
-    setRoles((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
+  const loadRoles = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const response = await api.getRoles();
+      const mapped: EditableRole[] = response.data.map((r) => ({
+        id: Number(r.id),
+        rol: r.nombreRol,
+        descripcion: r.descripcion || '',
+      }));
+      setRoles(mapped);
+    } catch (e: any) {
+      setError(e.message || 'No se pudieron cargar los roles');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadRoles();
+  }, []);
+
+  const handleSaveRole = async (payload: EditableRole) => {
+    try {
+      await api.updateRole(String(payload.id), {
+        nombreRol: payload.rol,
+        descripcion: payload.descripcion,
+      });
+      await loadRoles();
+    } catch (e: any) {
+      setError(e.message || 'No se pudo actualizar el rol');
+    }
+  };
+
+  const handleDeleteRole = async (id: number) => {
+    try {
+      await api.deleteRole(String(id));
+      await loadRoles();
+    } catch (e: any) {
+      setError(e.message || 'No se pudo eliminar el rol');
+    }
   };
 
   return (
@@ -162,6 +198,12 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
               />
             </div>
 
+            {error ? (
+              <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+                {error}
+              </div>
+            ) : null}
+
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="grid grid-cols-[1fr_2fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
                 <p>Rol</p>
@@ -169,7 +211,9 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
                 <p className="text-right">Acciones</p>
               </div>
 
-              {filteredRoles.map((row, idx) => (
+              {loading ? (
+                <div className="px-5 py-6 text-sm text-slate-500">Cargando roles...</div>
+              ) : filteredRoles.map((row, idx) => (
                 <div
                   key={row.id}
                   className={`grid grid-cols-[1fr_2fr_0.8fr] items-center px-5 py-3 text-sm transition hover:bg-emerald-50/40 ${
@@ -190,6 +234,7 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
                     <button
                       type="button"
                       title="Eliminar rol"
+                      onClick={() => handleDeleteRole(row.id)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     >
                       <Trash2 size={16} />

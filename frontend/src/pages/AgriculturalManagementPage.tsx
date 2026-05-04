@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Home,
   Users,
@@ -21,48 +21,7 @@ import {
 import SidebarItem from '../components/ui/SidebarItem';
 import NewProductionPlaceModal from '../components/ui/NewProductionPlaceModal';
 import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal';
-
-const initialSites: ProductionSite[] = [
-  {
-    id: 1,
-    name: 'Finca Los Arrayanes',
-    municipality: 'Chipaque',
-    department: 'Cundinamarca',
-    associatedPredios: 2,
-    authorizedSpecies: 3,
-    activeLots: 3,
-    area: '37.8 ha',
-    ica: 'ICA-2026-0015',
-    ownerName: 'Carlos Ramírez',
-    status: 'Activo',
-  },
-  {
-    id: 2,
-    name: 'Hacienda San José',
-    municipality: 'Cáqueza',
-    department: 'Cundinamarca',
-    associatedPredios: 1,
-    authorizedSpecies: 2,
-    activeLots: 1,
-    area: '18.7 ha',
-    ica: 'ICA-2026-0032',
-    ownerName: 'María Fernanda López',
-    status: 'Activo',
-  },
-  {
-    id: 3,
-    name: 'Parcela El Porvenir',
-    municipality: 'Fómeque',
-    department: 'Cundinamarca',
-    associatedPredios: 2,
-    authorizedSpecies: 2,
-    activeLots: 0,
-    area: '38.0 ha',
-    ica: 'ICA-2026-0047',
-    ownerName: 'Jorge Alberto Peña',
-    status: 'Pendiente',
-  },
-];
+import { api } from '../services/api';
 
 export type ProductionSite = {
   id: number;
@@ -95,8 +54,59 @@ function AgriculturalManagementPage({
   const [search, setSearch] = useState('');
   const [isNewProductionOpen, setIsNewProductionOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const [sites, setSites] = useState<ProductionSite[]>(initialSites);
+  const [sites, setSites] = useState<ProductionSite[]>([]);
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const loadSites = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const [lugaresRes, prediosRes, lotesRes] = await Promise.all([
+        api.getLugaresProduccion(),
+        api.getPredios(),
+        api.getLotes(),
+      ]);
+
+      const prediosByLugar = new Map<string, number>();
+      for (const p of prediosRes.data) {
+        if (!p.idLugarProduccion) continue;
+        prediosByLugar.set(p.idLugarProduccion, (prediosByLugar.get(p.idLugarProduccion) || 0) + 1);
+      }
+
+      const lotesByLugar = new Map<string, number>();
+      for (const l of lotesRes.data) {
+        const predio = prediosRes.data.find((p) => p.id === l.idPredio);
+        if (!predio?.idLugarProduccion) continue;
+        lotesByLugar.set(predio.idLugarProduccion, (lotesByLugar.get(predio.idLugarProduccion) || 0) + 1);
+      }
+
+      const mapped: ProductionSite[] = lugaresRes.data.map((l) => ({
+        id: Number(l.id),
+        name: l.nombreLugarProduccion,
+        municipality: 'N/A',
+        department: 'N/A',
+        associatedPredios: prediosByLugar.get(l.id) || 0,
+        authorizedSpecies: 0,
+        activeLots: lotesByLugar.get(l.id) || 0,
+        area: 'N/D',
+        ica: l.numeroRegistroICA,
+        ownerName: l.productor ? `${l.productor.nombre} ${l.productor.apellidos}` : 'Sin productor',
+        status: l.estado === 'Activo' ? 'Activo' : 'Pendiente',
+      }));
+
+      setSites(mapped);
+    } catch (e: any) {
+      setError(e.message || 'No se pudieron cargar los lugares de producción');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadSites();
+  }, []);
 
   const filteredSites = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -109,7 +119,7 @@ function AgriculturalManagementPage({
         site.ica.toLowerCase().includes(q)
       );
     });
-  }, [search]);
+  }, [search, sites]);
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -228,8 +238,19 @@ function AgriculturalManagementPage({
               />
             </div>
 
-            <div className="grid gap-4 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2">
-              {filteredSites.map((site) => (
+            {error ? (
+              <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+                {error}
+              </div>
+            ) : null}
+
+            {loading ? (
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm">
+                Cargando lugares de producción...
+              </div>
+            ) : (
+              <div className="grid gap-4 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2">
+                {filteredSites.map((site) => (
                 <article
                   key={site.id}
                   className="rounded-2xl border border-emerald-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
@@ -305,10 +326,11 @@ function AgriculturalManagementPage({
                     </button>
                   </div>
                 </article>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
-            {filteredSites.length === 0 ? (
+            {!loading && filteredSites.length === 0 ? (
               <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
                 <p className="text-lg font-semibold text-slate-800">No se encontraron resultados</p>
                 <p className="mt-1 text-sm text-slate-500">

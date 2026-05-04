@@ -1,89 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown, Search, Pencil, Trash2, Plus } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewUserModal from '../components/ui/NewUserModal';
 import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
-
-const usersMock: EditableUser[] = [
-  {
-    id: 1,
-    identificacion: '1032456789',
-    telefono: '3001234567',
-    nombres: 'Laura',
-    apellidos: 'Pineda',
-    direccion: 'Calle 123 #45-67',
-    usuario: 'lpineda',
-    correo: 'laura.pineda@fitogestor.com',
-    rol: 'Administrador',
-    registroIca: 'ICA-2026-00123',
-    tarjetaProfesional: 'TP-54879',
-  },
-  {
-    id: 2,
-    identificacion: '80211455',
-    telefono: '3112345678',
-    nombres: 'Carlos',
-    apellidos: 'Ramírez',
-    direccion: 'Carrera 12 #33-44',
-    usuario: 'cramirez',
-    correo: 'carlos.ramirez@fitogestor.com',
-    rol: 'Inspector',
-    registroIca: '',
-    tarjetaProfesional: '',
-  },
-  {
-    id: 3,
-    identificacion: '1145567890',
-    telefono: '3209988776',
-    nombres: 'Diana',
-    apellidos: 'Torres',
-    direccion: 'Av. Central 10-25',
-    usuario: 'dtorres',
-    correo: 'diana.torres@fitogestor.com',
-    rol: 'Asistente Técnico',
-    registroIca: 'ICA-2025-00991',
-    tarjetaProfesional: 'TP-22098',
-  },
-  {
-    id: 4,
-    identificacion: '91234567',
-    telefono: '3157788990',
-    nombres: 'Jorge',
-    apellidos: 'Quintero',
-    direccion: 'Calle 8 #90-11',
-    usuario: 'jquintero',
-    correo: 'jorge.quintero@fitogestor.com',
-    rol: 'Inspector',
-    registroIca: '',
-    tarjetaProfesional: '',
-  },
-  {
-    id: 5,
-    identificacion: '1099988877',
-    telefono: '3181010101',
-    nombres: 'María',
-    apellidos: 'López',
-    direccion: 'Cra 45 #60-12',
-    usuario: 'mlopez',
-    correo: 'maria.lopez@fitogestor.com',
-    rol: 'Coordinador',
-    registroIca: 'ICA-2026-00456',
-    tarjetaProfesional: 'TP-88541',
-  },
-  {
-    id: 6,
-    identificacion: '1010101010',
-    telefono: '3176644332',
-    nombres: 'Andrés',
-    apellidos: 'Castro',
-    direccion: 'Diagonal 5 #22-09',
-    usuario: 'acastro',
-    correo: 'andres.castro@fitogestor.com',
-    rol: 'Asistente Técnico',
-    registroIca: 'ICA-2024-00044',
-    tarjetaProfesional: 'TP-77120',
-  },
-];
+import { api } from '../services/api';
 
 
 type UsersPageProps = {
@@ -96,7 +16,9 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
-  const [users, setUsers] = useState<EditableUser[]>(usersMock);
+  const [users, setUsers] = useState<EditableUser[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EditableUser | null>(null);
 
@@ -116,8 +38,49 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
     setIsEditUserOpen(true);
   };
 
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const [usersResponse, rolesResponse] = await Promise.all([api.getUsuarios(), api.getRoles()]);
+      const roleMap = new Map(rolesResponse.data.map((r) => [r.id, r.nombreRol]));
+
+      const mapped: EditableUser[] = usersResponse.data.map((u) => ({
+        id: Number(u.id),
+        identificacion: u.numeroIdentificacion || '',
+        telefono: u.telefono || '',
+        nombres: u.nombre || '',
+        apellidos: u.apellidos || '',
+        direccion: u.direccion || '',
+        usuario: u.ingresoUsuario || '',
+        correo: u.correoElectronico || '',
+        rol: (u.idRol && roleMap.get(u.idRol)) || u.Rol?.nombreRol || 'Sin rol',
+        registroIca: u.registroICA || '',
+        tarjetaProfesional: u.tarjetaProfesional || '',
+      }));
+      setUsers(mapped);
+    } catch (e: any) {
+      setError(e.message || 'No se pudieron cargar los usuarios');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
   const handleSaveUser = (payload: EditableUser) => {
     setUsers((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
+  };
+
+  const handleDeleteUser = async (id: number) => {
+    try {
+      await api.deleteUsuario(String(id));
+      await loadUsers();
+    } catch (e: any) {
+      setError(e.message || 'No se pudo eliminar el usuario');
+    }
   };
 
   return (
@@ -237,6 +200,12 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
               />
             </div>
 
+            {error ? (
+              <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+                {error}
+              </div>
+            ) : null}
+
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
                 <p>Identificación</p>
@@ -246,7 +215,9 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
                 <p className="text-right">Acciones</p>
               </div>
 
-              {filteredUsers.map((row, idx) => (
+              {loading ? (
+                <div className="px-5 py-6 text-sm text-slate-500">Cargando usuarios...</div>
+              ) : filteredUsers.map((row, idx) => (
                 <div
                   key={row.id}
                   className={`grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] items-center px-5 py-3 text-sm transition hover:bg-emerald-50/40 ${
@@ -269,6 +240,7 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
                     <button
                       type="button"
                       title="Eliminar usuario"
+                      onClick={() => handleDeleteUser(row.id)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     >
                       <Trash2 size={16} />
