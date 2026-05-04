@@ -115,7 +115,7 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
         direccion: payload.direccion,
         ingresoUsuario: payload.usuario,
         correoElectronico: payload.correo,
-        idRol: payload.rol || null,
+        idRol: payload.rol,
         registroICA: payload.registroIca || null,
         tarjetaProfesional: payload.tarjetaProfesional || null,
         ingresoContrasena: payload.identificacion || 'Temporal123*',

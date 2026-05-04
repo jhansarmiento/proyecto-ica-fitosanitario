@@ -41,6 +41,7 @@ export type UsuarioDTO = {
   registroICA: string | null;
   tarjetaProfesional: string | null;
   ingresoUsuario: string;
+  ingresoContrasena?: string;
   idRol: string | null;
   Rol?: RolDTO | null;
 };
