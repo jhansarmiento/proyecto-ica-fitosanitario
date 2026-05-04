@@ -2,7 +2,7 @@ import { Search, Sprout, Warehouse, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 type ProductionSiteEditable = {
-  id: number;
+  id: string | number;
   name: string;
   municipality: string;
   department: string;

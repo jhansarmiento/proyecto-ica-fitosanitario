@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 type NewUserModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  roles: { id: string; nombreRol: string }[];
+  onCreate: (payload: FormData) => Promise<void> | void;
 };
 
 type FormData = {
@@ -34,9 +36,10 @@ const initialForm: FormData = {
   tarjetaProfesional: '',
 };
 
-function NewUserModal({ isOpen, onClose }: NewUserModalProps) {
+function NewUserModal({ isOpen, onClose, roles, onCreate }: NewUserModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [form, setForm] = useState<FormData>(initialForm);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -54,12 +57,19 @@ function NewUserModal({ isOpen, onClose }: NewUserModalProps) {
       setForm((prev) => ({ ...prev, [key]: event.target.value }));
     };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep < 4) {
       setCurrentStep((prev) => prev + 1);
       return;
     }
-    onClose();
+    if (saving) return;
+    try {
+      setSaving(true);
+      await onCreate(form);
+      onClose();
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleBack = () => {
@@ -236,9 +246,11 @@ function NewUserModal({ isOpen, onClose }: NewUserModalProps) {
                   className="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
                 >
                   <option value="">Seleccione un rol...</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Asistente Tecnico">Asistente Tecnico</option>
-                  <option value="Productor">Productor</option>
+                  {roles.map((role) => (
+                    <option key={role.id} value={role.id}>
+                      {role.nombreRol}
+                    </option>
+                  ))}
                 </select>
               </label>
             </>
@@ -347,9 +359,10 @@ function NewUserModal({ isOpen, onClose }: NewUserModalProps) {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-xl bg-emerald-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                disabled={saving}
+                className="rounded-xl bg-emerald-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50"
               >
-                {currentStep === 4 ? 'Crear Usuario' : 'Siguiente'}
+                {currentStep === 4 ? (saving ? 'Creando...' : 'Crear Usuario') : 'Siguiente'}
               </button>
             </div>
           </div>

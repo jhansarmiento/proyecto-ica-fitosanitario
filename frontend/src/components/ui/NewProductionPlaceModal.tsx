@@ -1,13 +1,19 @@
 import { Search, Sprout, Warehouse, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { api } from '../../services/api';
 
 type NewProductionPlaceModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  onCreate: (payload: {
+    nombreLugarProduccion: string;
+    numeroRegistroICA: string;
+    idUsuarioProductor: string;
+  }) => Promise<void> | void;
 };
 
 type Predio = {
-  id: number;
+  id: string;
   nombre: string;
   codigo: string;
   municipio: string;
@@ -16,41 +22,106 @@ type Predio = {
 };
 
 type Species = {
-  id: number;
+  id: string;
   commonName: string;
   scientificName: string;
   category: string;
 };
 
-const prediosMock: Predio[] = [
-  { id: 1, nombre: 'Finca Santa Rosa', codigo: 'PRD-003', municipio: 'Acevedo', departamento: 'Huila', areaHa: 28 },
-  { id: 2, nombre: 'Lote El Mirador', codigo: 'PRD-017', municipio: 'Pitalito', departamento: 'Huila', areaHa: 13 },
-  { id: 3, nombre: 'Hacienda La Esperanza', codigo: 'PRD-022', municipio: 'Garzón', departamento: 'Huila', areaHa: 41 },
-  { id: 4, nombre: 'Parcela Campo Verde', codigo: 'PRD-031', municipio: 'La Plata', departamento: 'Huila', areaHa: 18 },
-];
-
-const speciesMock: Species[] = [
-  { id: 1, commonName: 'Pepino', scientificName: 'Cucumis sativus', category: 'Hortalizas' },
-  { id: 2, commonName: 'Calabaza', scientificName: 'Cucurbita maxima', category: 'Hortalizas' },
-  { id: 3, commonName: 'Papa', scientificName: 'Solanum tuberosum', category: 'Tubérculos' },
-  { id: 4, commonName: 'Fresa', scientificName: 'Fragaria × ananassa', category: 'Frutas' },
-  { id: 5, commonName: 'Aguacate', scientificName: 'Persea americana', category: 'Frutas' },
-  { id: 6, commonName: 'Tomate', scientificName: 'Solanum lycopersicum', category: 'Hortalizas' },
-];
+type ProducerOption = {
+  id: string;
+  label: string;
+};
 
 const steps = ['Selección de predios', 'Especies', 'Datos'];
 
-function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalProps) {
+function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPlaceModalProps) {
   const [step, setStep] = useState(1);
+  const [loadingData, setLoadingData] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  const [saving, setSaving] = useState(false);
 
   const [predioSearch, setPredioSearch] = useState('');
   const [speciesSearch, setSpeciesSearch] = useState('');
-  const [selectedPredios, setSelectedPredios] = useState<number[]>([]);
-  const [selectedSpecies, setSelectedSpecies] = useState<number[]>([]);
+  const [selectedPredios, setSelectedPredios] = useState<string[]>([]);
+  const [selectedSpecies, setSelectedSpecies] = useState<string[]>([]);
+
+  const [predios, setPredios] = useState<Predio[]>([]);
+  const [species, setSpecies] = useState<Species[]>([]);
+  const [producerOptions, setProducerOptions] = useState<ProducerOption[]>([]);
 
   const [nombreLugar, setNombreLugar] = useState('');
   const [registroIca, setRegistroIca] = useState('');
   const [capacidadProduccion, setCapacidadProduccion] = useState('');
+  const [idUsuarioProductor, setIdUsuarioProductor] = useState('');
+
+  useEffect(() => {
+    const loadData = async () => {
+      if (!isOpen) return;
+
+      try {
+        setLoadingData(true);
+        setLoadError('');
+
+        const [prediosRes, lotesRes, usuariosRes, rolesRes] = await Promise.all([
+          api.getPredios(),
+          api.getLotes(),
+          api.getUsuarios(),
+          api.getRoles(),
+        ]);
+
+        const mappedPredios: Predio[] = prediosRes.data.map((p) => ({
+          id: p.id,
+          nombre: p.nombrePredio || 'Predio sin nombre',
+          codigo: p.numeroPredial || 'N/D',
+          municipio: 'N/D',
+          departamento: 'N/D',
+          areaHa: Number(p.areaTotal || 0),
+        }));
+        setPredios(mappedPredios);
+
+        const roleNameById = new Map(rolesRes.data.map((r) => [r.id, r.nombreRol.toLowerCase()]));
+        const productores = usuariosRes.data
+          .filter((u) => {
+            const roleName = (u.idRol && roleNameById.get(u.idRol)) || u.Rol?.nombreRol?.toLowerCase() || '';
+            return roleName.includes('productor');
+          })
+          .map((u) => ({
+            id: u.id,
+            label: `${u.nombre} ${u.apellidos} (${u.numeroIdentificacion})`,
+          }));
+        setProducerOptions(productores);
+
+        const derivedSpeciesMap = new Map<string, Species>();
+        for (const l of lotesRes.data) {
+          const key = l.idVariedad || l.numeroLote || l.id;
+          if (!key) continue;
+          if (!derivedSpeciesMap.has(key)) {
+            derivedSpeciesMap.set(key, {
+              id: key,
+              commonName: l.numeroLote ? `Variedad / Lote ${l.numeroLote}` : 'Especie registrada',
+              scientificName: `Variedad ${l.idVariedad || 'N/D'}`,
+              category: 'Derivada de lotes',
+            });
+          }
+        }
+
+        const derived = Array.from(derivedSpeciesMap.values());
+        const fallbackSpecies: Species[] = [
+          { id: 'fallback-1', commonName: 'Especie General 1', scientificName: 'N/D', category: 'General' },
+          { id: 'fallback-2', commonName: 'Especie General 2', scientificName: 'N/D', category: 'General' },
+        ];
+
+        setSpecies(derived.length ? derived : fallbackSpecies);
+      } catch (e: any) {
+        setLoadError(e.message || 'No se pudieron cargar predios/especies/productores');
+      } finally {
+        setLoadingData(false);
+      }
+    };
+
+    loadData();
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -62,13 +133,16 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
       setNombreLugar('');
       setRegistroIca('');
       setCapacidadProduccion('');
+      setIdUsuarioProductor('');
+      setLoadError('');
+      setSaving(false);
     }
   }, [isOpen]);
 
   const filteredPredios = useMemo(() => {
     const q = predioSearch.trim().toLowerCase();
-    if (!q) return prediosMock;
-    return prediosMock.filter((p) => {
+    if (!q) return predios;
+    return predios.filter((p) => {
       return (
         p.nombre.toLowerCase().includes(q) ||
         p.codigo.toLowerCase().includes(q) ||
@@ -76,45 +150,48 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
         p.departamento.toLowerCase().includes(q)
       );
     });
-  }, [predioSearch]);
+  }, [predioSearch, predios]);
 
   const filteredSpecies = useMemo(() => {
     const q = speciesSearch.trim().toLowerCase();
-    if (!q) return speciesMock;
-    return speciesMock.filter((s) => {
+    if (!q) return species;
+    return species.filter((s) => {
       return (
         s.commonName.toLowerCase().includes(q) ||
         s.scientificName.toLowerCase().includes(q) ||
         s.category.toLowerCase().includes(q)
       );
     });
-  }, [speciesSearch]);
+  }, [speciesSearch, species]);
 
   const areaConsolidada = useMemo(() => {
-    return prediosMock
+    return predios
       .filter((p) => selectedPredios.includes(p.id))
       .reduce((acc, p) => acc + p.areaHa, 0);
-  }, [selectedPredios]);
+  }, [selectedPredios, predios]);
 
   const selectedSpeciesData = useMemo(
-    () => speciesMock.filter((s) => selectedSpecies.includes(s.id)),
-    [selectedSpecies],
+    () => species.filter((s) => selectedSpecies.includes(s.id)),
+    [selectedSpecies, species],
   );
 
   if (!isOpen) return null;
 
-  const togglePredio = (id: number) => {
+  const togglePredio = (id: string) => {
     setSelectedPredios((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
-  const toggleSpecies = (id: number) => {
+  const toggleSpecies = (id: string) => {
     setSelectedSpecies((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
   const canNextFromStep1 = selectedPredios.length > 0;
   const canNextFromStep2 = selectedSpecies.length > 0;
   const canCreate =
-    nombreLugar.trim().length > 0 && registroIca.trim().length > 0 && capacidadProduccion.trim().length > 0;
+    nombreLugar.trim().length > 0 &&
+    registroIca.trim().length > 0 &&
+    capacidadProduccion.trim().length > 0 &&
+    idUsuarioProductor.trim().length > 0;
 
   const goNext = () => {
     if (step === 1 && !canNextFromStep1) return;
@@ -126,9 +203,19 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
     if (step > 1) setStep((prev) => prev - 1);
   };
 
-  const handleCreate = () => {
-    if (!canCreate) return;
-    onClose();
+  const handleCreate = async () => {
+    if (!canCreate || saving) return;
+    try {
+      setSaving(true);
+      await onCreate({
+        nombreLugarProduccion: nombreLugar.trim(),
+        numeroRegistroICA: registroIca.trim(),
+        idUsuarioProductor: idUsuarioProductor.trim(),
+      });
+      onClose();
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -191,7 +278,19 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
         </div>
 
         <div className="px-5 py-5 sm:px-6">
-          {step === 1 ? (
+          {loadError ? (
+            <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">
+              {loadError}
+            </div>
+          ) : null}
+
+          {loadingData ? (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              Cargando datos de predios, especies y productores...
+            </div>
+          ) : null}
+
+          {!loadingData && step === 1 ? (
             <>
               <p className="mb-4 text-sm text-slate-600">
                 Seleccione los predios que conformarán este lugar de producción. El área total se calculará automáticamente.
@@ -243,14 +342,14 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
 
               <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
                 <p className="text-sm text-emerald-900">
-                  <span className="font-semibold">{selectedPredios.length}</span> predio(s) seleccionado(s) · Área consolidada:{' '}
+                  <span className="font-semibold">{selectedPredios.length}</span> predio(s) seleccionado(s) · Área consolidada{' '}
                   <span className="text-lg font-bold">{areaConsolidada.toFixed(1)} ha</span>
                 </p>
               </div>
             </>
           ) : null}
 
-          {step === 2 ? (
+          {!loadingData && step === 2 ? (
             <div className="grid gap-4 lg:grid-cols-[1fr_290px]">
               <div>
                 <h4 className="mb-2 text-2xl font-semibold text-slate-800">Seleccionar Especies Vegetales</h4>
@@ -335,7 +434,7 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
             </div>
           ) : null}
 
-          {step === 3 ? (
+          {!loadingData && step === 3 ? (
             <>
               <h4 className="mb-4 text-2xl font-semibold text-slate-800">Datos del Lugar de Producción</h4>
 
@@ -377,6 +476,22 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
                     placeholder="Ej: 120 toneladas / ciclo"
                   />
                 </label>
+
+                <label className="space-y-1.5 sm:col-span-2">
+                  <span className="text-sm font-medium text-slate-700">Productor responsable</span>
+                  <select
+                    value={idUsuarioProductor}
+                    onChange={(e) => setIdUsuarioProductor(e.target.value)}
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-700 outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+                  >
+                    <option value="">Seleccione un productor...</option>
+                    {producerOptions.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
 
               <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
@@ -412,7 +527,7 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
                 <button
                   type="button"
                   onClick={goNext}
-                  disabled={(step === 1 && !canNextFromStep1) || (step === 2 && !canNextFromStep2)}
+                  disabled={loadingData || (step === 1 && !canNextFromStep1) || (step === 2 && !canNextFromStep2)}
                   className="rounded-xl bg-emerald-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50"
                 >
                   Siguiente
@@ -421,10 +536,10 @@ function NewProductionPlaceModal({ isOpen, onClose }: NewProductionPlaceModalPro
                 <button
                   type="button"
                   onClick={handleCreate}
-                  disabled={!canCreate}
+                  disabled={loadingData || !canCreate || saving}
                   className="rounded-xl bg-emerald-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50"
                 >
-                  Crear lugar de producción
+                  {saving ? 'Creando...' : 'Crear lugar de producción'}
                 </button>
               )}
             </div>

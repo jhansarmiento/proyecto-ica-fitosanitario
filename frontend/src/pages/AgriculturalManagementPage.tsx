@@ -24,7 +24,7 @@ import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal'
 import { api } from '../services/api';
 
 export type ProductionSite = {
-  id: number;
+  id: string | number;
   name: string;
   municipality: string;
   department: string;
@@ -58,6 +58,7 @@ function AgriculturalManagementPage({
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const loadSites = async () => {
     try {
@@ -83,7 +84,7 @@ function AgriculturalManagementPage({
       }
 
       const mapped: ProductionSite[] = lugaresRes.data.map((l) => ({
-        id: Number(l.id),
+        id: l.id,
         name: l.nombreLugarProduccion,
         municipality: 'N/A',
         department: 'N/A',
@@ -244,6 +245,12 @@ function AgriculturalManagementPage({
               </div>
             ) : null}
 
+            {success ? (
+              <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+                {success}
+              </div>
+            ) : null}
+
             {loading ? (
               <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm">
                 Cargando lugares de producción...
@@ -345,6 +352,23 @@ function AgriculturalManagementPage({
       <NewProductionPlaceModal
         isOpen={isNewProductionOpen}
         onClose={() => setIsNewProductionOpen(false)}
+        onCreate={async ({ nombreLugarProduccion, numeroRegistroICA, idUsuarioProductor }) => {
+          try {
+            setError('');
+            await api.createLugarProduccion({
+              nombreLugarProduccion,
+              numeroRegistroICA,
+              estado: 'Activo',
+              idUsuarioProductor,
+            });
+            await loadSites();
+            setSuccess('Lugar de producción creado correctamente');
+            setIsNewProductionOpen(false);
+          } catch (e: any) {
+            setError(e.message || 'No se pudo crear el lugar de producción');
+            throw e;
+          }
+        }}
       />
 
       <EditProductionPlaceModal
@@ -356,6 +380,7 @@ function AgriculturalManagementPage({
         }}
         onSave={(updated) => {
           setSites((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+          setSuccess('Lugar de producción actualizado correctamente');
           setIsEditOpen(false);
           setSelectedSite(null);
         }}

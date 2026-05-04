@@ -2,7 +2,7 @@ import { ShieldCheck, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export type EditableRole = {
-  id: number;
+  id: string | number;
   rol: string;
   descripcion: string;
 };

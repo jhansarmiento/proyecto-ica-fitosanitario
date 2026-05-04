@@ -21,6 +21,8 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
   const [error, setError] = useState('');
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EditableUser | null>(null);
+  const [success, setSuccess] = useState('');
+  const [rolesOptions, setRolesOptions] = useState<{ id: string; nombreRol: string }[]>([]);
 
   const filteredUsers = users.filter((u) => {
     const q = search.toLowerCase().trim();
@@ -44,9 +46,10 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
       setError('');
       const [usersResponse, rolesResponse] = await Promise.all([api.getUsuarios(), api.getRoles()]);
       const roleMap = new Map(rolesResponse.data.map((r) => [r.id, r.nombreRol]));
+      setRolesOptions(rolesResponse.data.map((r) => ({ id: r.id, nombreRol: r.nombreRol })));
 
-      const mapped: EditableUser[] = usersResponse.data.map((u) => ({
-        id: Number(u.id),
+      const mapped: EditableUser[] = usersResponse.data.map((u, idx) => ({
+        id: ((u.id as unknown as string) || `tmp-${idx}`) as any,
         identificacion: u.numeroIdentificacion || '',
         telefono: u.telefono || '',
         nombres: u.nombre || '',
@@ -70,14 +73,66 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
     loadUsers();
   }, []);
 
-  const handleSaveUser = (payload: EditableUser) => {
-    setUsers((prev) => prev.map((item) => (item.id === payload.id ? payload : item)));
+  const handleSaveUser = async (payload: EditableUser) => {
+    try {
+      await api.updateUsuario(String(payload.id), {
+        numeroIdentificacion: payload.identificacion,
+        nombre: payload.nombres,
+        apellidos: payload.apellidos,
+        direccion: payload.direccion,
+        telefono: payload.telefono,
+        ingresoUsuario: payload.usuario,
+        correoElectronico: payload.correo,
+        registroICA: payload.registroIca,
+        tarjetaProfesional: payload.tarjetaProfesional,
+      });
+      await loadUsers();
+      setSuccess('Usuario actualizado correctamente');
+    } catch (e: any) {
+      setError(e.message || 'No se pudo actualizar el usuario');
+    }
   };
 
-  const handleDeleteUser = async (id: number) => {
+  const handleCreateUser = async (payload: {
+    identificacion: string;
+    telefono: string;
+    nombres: string;
+    apellidos: string;
+    direccion: string;
+    usuario: string;
+    correo: string;
+    rol: string;
+    registroIca: string;
+    tarjetaProfesional: string;
+  }) => {
+    try {
+      setError('');
+      await api.createUsuario({
+        numeroIdentificacion: payload.identificacion,
+        telefono: payload.telefono,
+        nombre: payload.nombres,
+        apellidos: payload.apellidos,
+        direccion: payload.direccion,
+        ingresoUsuario: payload.usuario,
+        correoElectronico: payload.correo,
+        idRol: payload.rol || null,
+        registroICA: payload.registroIca || null,
+        tarjetaProfesional: payload.tarjetaProfesional || null,
+        ingresoContrasena: payload.identificacion || 'Temporal123*',
+      });
+      await loadUsers();
+      setSuccess('Usuario creado correctamente');
+    } catch (e: any) {
+      setError(e.message || 'No se pudo crear el usuario');
+      throw e;
+    }
+  };
+
+  const handleDeleteUser = async (id: string | number) => {
     try {
       await api.deleteUsuario(String(id));
       await loadUsers();
+      setSuccess('Usuario eliminado correctamente');
     } catch (e: any) {
       setError(e.message || 'No se pudo eliminar el usuario');
     }
@@ -206,6 +261,12 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
               </div>
             ) : null}
 
+            {success ? (
+              <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+                {success}
+              </div>
+            ) : null}
+
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
                 <p>Identificación</p>
@@ -274,7 +335,12 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
         </div>
       </div>
 
-      <NewUserModal isOpen={isNewUserOpen} onClose={() => setIsNewUserOpen(false)} />
+      <NewUserModal
+        isOpen={isNewUserOpen}
+        onClose={() => setIsNewUserOpen(false)}
+        roles={rolesOptions}
+        onCreate={handleCreateUser}
+      />
       <EditUserModal
         isOpen={isEditUserOpen}
         user={selectedUser}

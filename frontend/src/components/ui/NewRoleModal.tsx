@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 type NewRoleModalProps = {
     isOpen: boolean;
     onClose: () => void;
+    onCreate: (payload: { rol: string; descripcion: string }) => Promise<void> | void;
 };
 
-function NewRoleModal({ isOpen, onClose }: NewRoleModalProps) {
+function NewRoleModal({ isOpen, onClose, onCreate }: NewRoleModalProps) {
     const [roleName, setRoleName] = useState("");
     const [description, setDescription] = useState("");
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         if (!isOpen) {
@@ -21,9 +23,18 @@ function NewRoleModal({ isOpen, onClose }: NewRoleModalProps) {
 
     const canSubmit = roleName.trim().length > 0;
 
-    const handleCreate = () => {
-        if (!canSubmit) return;
-        onClose();
+    const handleCreate = async () => {
+        if (!canSubmit || saving) return;
+        try {
+            setSaving(true);
+            await onCreate({
+                rol: roleName.trim(),
+                descripcion: description.trim(),
+            });
+            onClose();
+        } finally {
+            setSaving(false);
+        }
     };
 
     return (
@@ -96,10 +107,10 @@ function NewRoleModal({ isOpen, onClose }: NewRoleModalProps) {
                         <button
                             type="button"
                             onClick={handleCreate}
-                            disabled={!canSubmit}
+                            disabled={!canSubmit || saving}
                             className="rounded-xl bg-emerald-900 px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50"
                         >
-                            Crear rol
+                            {saving ? 'Creando...' : 'Crear rol'}
                         </button>
                     </div>
                 </div>

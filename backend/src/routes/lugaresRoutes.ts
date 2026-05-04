@@ -1,13 +1,22 @@
 import { Router } from 'express';
 import LugarProduccion from '../models/LugarProduccion';
 import Usuario from '../models/Usuario';
+import Predio from '../models/Predio';
+import Lote from '../models/Lote';
 
 const lugaresRoutes = Router();
 
 lugaresRoutes.get('/', async (_req, res) => {
   try {
     const lugares = await LugarProduccion.findAll({
-      include: [{ model: Usuario, as: 'productor', attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'] }],
+      include: [
+        {
+          model: Usuario,
+          as: 'productor',
+          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          required: false,
+        },
+      ],
       order: [['nombreLugarProduccion', 'ASC']],
     });
     return res.status(200).json({ data: lugares });
@@ -20,7 +29,14 @@ lugaresRoutes.get('/', async (_req, res) => {
 lugaresRoutes.get('/:id', async (req, res) => {
   try {
     const lugar = await LugarProduccion.findByPk(req.params.id, {
-      include: [{ model: Usuario, as: 'productor', attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'] }],
+      include: [
+        {
+          model: Usuario,
+          as: 'productor',
+          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          required: false,
+        },
+      ],
     });
 
     if (!lugar) return res.status(404).json({ message: 'Lugar de producción no encontrado' });
@@ -54,7 +70,14 @@ lugaresRoutes.post('/', async (req, res) => {
     });
 
     const lugar = await LugarProduccion.findByPk(created.getDataValue('id'), {
-      include: [{ model: Usuario, as: 'productor', attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'] }],
+      include: [
+        {
+          model: Usuario,
+          as: 'productor',
+          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          required: false,
+        },
+      ],
     });
 
     return res.status(201).json({ message: 'Lugar de producción creado', data: lugar });
@@ -87,7 +110,14 @@ lugaresRoutes.put('/:id', async (req, res) => {
     });
 
     const updated = await LugarProduccion.findByPk(lugar.getDataValue('id'), {
-      include: [{ model: Usuario, as: 'productor', attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'] }],
+      include: [
+        {
+          model: Usuario,
+          as: 'productor',
+          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          required: false,
+        },
+      ],
     });
 
     return res.status(200).json({ message: 'Lugar de producción actualizado', data: updated });
@@ -104,6 +134,15 @@ lugaresRoutes.delete('/:id', async (req, res) => {
   try {
     const lugar = await LugarProduccion.findByPk(req.params.id);
     if (!lugar) return res.status(404).json({ message: 'Lugar de producción no encontrado' });
+
+    const prediosCount = await Predio.count({ where: { idLugarProduccion: lugar.getDataValue('id') } });
+    const lotesCount = await Lote.count({ where: { idLugarProduccion: lugar.getDataValue('id') } });
+
+    if (prediosCount > 0 || lotesCount > 0) {
+      return res.status(409).json({
+        message: 'No se puede eliminar el lugar porque tiene predios o lotes asociados',
+      });
+    }
 
     await lugar.destroy();
     return res.status(200).json({ message: 'Lugar de producción eliminado' });

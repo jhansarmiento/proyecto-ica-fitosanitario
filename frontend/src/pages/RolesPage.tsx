@@ -33,6 +33,7 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
   const [error, setError] = useState('');
   const [isEditRoleOpen, setIsEditRoleOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<EditableRole | null>(null);
+  const [success, setSuccess] = useState('');
 
   const filteredRoles = roles.filter((r) => {
     const q = search.toLowerCase().trim();
@@ -51,7 +52,7 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
       setError('');
       const response = await api.getRoles();
       const mapped: EditableRole[] = response.data.map((r) => ({
-        id: Number(r.id),
+        id: r.id as any,
         rol: r.nombreRol,
         descripcion: r.descripcion || '',
       }));
@@ -74,15 +75,32 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
         descripcion: payload.descripcion,
       });
       await loadRoles();
+      setSuccess('Rol actualizado correctamente');
     } catch (e: any) {
       setError(e.message || 'No se pudo actualizar el rol');
     }
   };
 
-  const handleDeleteRole = async (id: number) => {
+  const handleCreateRole = async (payload: { rol: string; descripcion: string }) => {
+    try {
+      setError('');
+      await api.createRole({
+        nombreRol: payload.rol,
+        descripcion: payload.descripcion,
+      });
+      await loadRoles();
+      setSuccess('Rol creado correctamente');
+    } catch (e: any) {
+      setError(e.message || 'No se pudo crear el rol');
+      throw e;
+    }
+  };
+
+  const handleDeleteRole = async (id: string | number) => {
     try {
       await api.deleteRole(String(id));
       await loadRoles();
+      setSuccess('Rol eliminado correctamente');
     } catch (e: any) {
       setError(e.message || 'No se pudo eliminar el rol');
     }
@@ -204,6 +222,12 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
               </div>
             ) : null}
 
+            {success ? (
+              <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+                {success}
+              </div>
+            ) : null}
+
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="grid grid-cols-[1fr_2fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
                 <p>Rol</p>
@@ -267,7 +291,11 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
         </div>
       </div>
 
-      <NewRoleModal isOpen={isNewRoleOpen} onClose={() => setIsNewRoleOpen(false)} />
+      <NewRoleModal
+        isOpen={isNewRoleOpen}
+        onClose={() => setIsNewRoleOpen(false)}
+        onCreate={handleCreateRole}
+      />
       <EditRoleModal
         isOpen={isEditRoleOpen}
         role={selectedRole}

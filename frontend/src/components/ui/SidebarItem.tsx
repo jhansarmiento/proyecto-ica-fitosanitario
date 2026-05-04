@@ -14,8 +14,7 @@ function SidebarItem({
   hasChevron = false,
 }: SidebarItemProps) {
   return (
-    <button
-      type="button"
+    <div
       className={[
         "group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300",
         active
@@ -56,7 +55,7 @@ function SidebarItem({
           ⌄
         </span>
       )}
-    </button>
+    </div>
   );
 }
 export default SidebarItem;
