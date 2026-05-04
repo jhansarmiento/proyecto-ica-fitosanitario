@@ -6,11 +6,12 @@ import RolesPage from './pages/RolesPage';
 import AgriculturalManagementPage, { type ProductionSite } from './pages/AgriculturalManagementPage';
 import ProductionPlaceDetailPage from './pages/ProductionPlaceDetailPage';
 import ProductionLotsPage from './pages/ProductionLotsPage';
+import LoginPage from './pages/LoginPage';
 
-type View = 'home' | 'users' | 'roles' | 'agricultural' | 'production-detail' | 'production-lots';
+type View = 'login' | 'home' | 'users' | 'roles' | 'agricultural' | 'production-detail' | 'production-lots';
 
 function App() {
-  const [view, setView] = useState<View>('users');
+  const [view, setView] = useState<View>('login');
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -22,12 +23,15 @@ function App() {
 
   let page: React.ReactNode;
 
-  if (view === 'home') {
+  if (view === 'login') {
+    page = <LoginPage onLoginSuccess={() => setView('home')} />;
+  } else if (view === 'home') {
     page = (
       <HomePage
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onLogout={() => setView('login')}
       />
     );
   } else if (view === 'roles') {

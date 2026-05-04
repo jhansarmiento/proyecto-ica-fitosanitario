@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
 import './catalogIndex';
@@ -22,6 +23,12 @@ import Predio from './models/Predio';
 import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import catalogModels from './catalogIndex';
+import authRoutes from './routes/authRoutes';
+import rolesRoutes from './routes/rolesRoutes';
+import usuariosRoutes from './routes/usuariosRoutes';
+import lugaresRoutes from './routes/lugaresRoutes';
+import prediosRoutes from './routes/prediosRoutes';
+import lotesRoutes from './routes/lotesRoutes';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -50,7 +57,18 @@ export default models;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  }),
+);
 app.use(express.json());
+app.use('/api/auth', authRoutes);
+app.use('/api/roles', rolesRoutes);
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/lugares-produccion', lugaresRoutes);
+app.use('/api/predios', prediosRoutes);
+app.use('/api/lotes', lotesRoutes);
 
 const startServer = async () => {
   try {
@@ -63,11 +81,11 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Sincronizamos las tablas de la base de datos operacional
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     console.log('📊 Tablas de BD Operacional sincronizadas');
 
     // Sincronizamos las tablas del catálogo
-    await sequelizeCatalog.sync({ alter: true });
+    await sequelizeCatalog.sync({ force: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
 
     // Inyectar roles y usuarios

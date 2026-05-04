@@ -8,9 +8,10 @@ type HomePageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onLogout?: () => void;
 };
 
-function HomePage({ onGoUsers, onGoRoles, onGoAgricultural }: HomePageProps) {
+function HomePage({ onGoUsers, onGoRoles, onGoAgricultural, onLogout }: HomePageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -70,6 +71,7 @@ function HomePage({ onGoUsers, onGoRoles, onGoAgricultural }: HomePageProps) {
           </nav>
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

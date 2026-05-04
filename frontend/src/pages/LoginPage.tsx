@@ -5,10 +5,43 @@ import TextInput from '../components/ui/TextInput';
 import CheckboxField from '../components/ui/CheckboxField';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import ForgotPasswordModal from '../components/ui/ForgotPasswordModal';
-import { IconTrazabilidad, IconInspeccion, IconInforme } from "../components/ui/icons";
+import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
+import { api } from '../services/api';
 
-function LoginPage() {
+type LoginPageProps = {
+  onLoginSuccess?: () => void;
+};
+
+function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [isForgotOpen, setIsForgotOpen] = useState(false);
+  const [ingresoUsuario, setIngresoUsuario] = useState('');
+  const [ingresoContrasena, setIngresoContrasena] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage('');
+
+    if (!ingresoUsuario.trim() || !ingresoContrasena.trim()) {
+      setErrorMessage('Ingresa usuario y contraseña.');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      await api.login({
+        ingresoUsuario: ingresoUsuario.trim(),
+        ingresoContrasena: ingresoContrasena.trim(),
+      });
+      onLoginSuccess?.();
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'No fue posible iniciar sesión.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_20%_25%,#00b06a_0%,#00784b_30%,#014f35_55%,#02241a_78%,#050d0a_100%)] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_40%,rgba(16,185,129,0.18),transparent_45%)]" />
@@ -50,9 +83,21 @@ function LoginPage() {
             <h2 className="mb-2 text-center text-[2.2rem] font-bold leading-none sm:text-[2.6rem]">Iniciar Sesión</h2>
             <p className="mb-7 text-center text-[1.1rem] text-emerald-50/85">Ingresa a tu cuenta</p>
 
-            <form className="flex flex-col gap-4.5">
-              <TextInput label="Usuario" placeholder="Usuario" type="text" />
-              <TextInput label="Contraseña" placeholder="••••••••" type="password" />
+            <form className="flex flex-col gap-4.5" onSubmit={handleSubmit}>
+              <TextInput
+                label="Usuario"
+                placeholder="Usuario"
+                type="text"
+                value={ingresoUsuario}
+                onChange={(e) => setIngresoUsuario(e.target.value)}
+              />
+              <TextInput
+                label="Contraseña"
+                placeholder="••••••••"
+                type="password"
+                value={ingresoContrasena}
+                onChange={(e) => setIngresoContrasena(e.target.value)}
+              />
 
               <div className="my-0.5 flex flex-wrap items-center justify-between gap-2">
                 <CheckboxField id="remember" label="Recordarme" />
@@ -65,7 +110,15 @@ function LoginPage() {
                 </button>
               </div>
 
-              <PrimaryButton type="button">Iniciar Sesión</PrimaryButton>
+              {errorMessage ? (
+                <p className="rounded-lg border border-red-300/40 bg-red-500/15 px-3 py-2 text-sm text-red-100">
+                  {errorMessage}
+                </p>
+              ) : null}
+
+              <PrimaryButton type="submit" disabled={isLoading}>
+                {isLoading ? 'Validando...' : 'Iniciar Sesión'}
+              </PrimaryButton>
             </form>
 
             <div className="mt-6 border-t border-white/15 pt-5">
