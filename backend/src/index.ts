@@ -91,6 +91,7 @@ const startServer = async () => {
     // Inyectar roles y usuarios
     await seedRoles();
     await seedAdmins();
+    await seedGeoData();
     await seedProductores();
     await seedPropietariosYPredios();
 
