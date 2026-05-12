@@ -10,9 +10,10 @@ type UsersPageProps = {
   onGoHome?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onLogout?: () => void;
 };
 
-function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
+function UsersPage({ onGoHome, onGoRoles, onGoAgricultural, onLogout }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
@@ -204,6 +205,7 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural }: UsersPageProps) {
 
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

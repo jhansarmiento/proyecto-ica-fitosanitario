@@ -22,9 +22,10 @@ type RolesPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoAgricultural?: () => void;
+  onLogout?: () => void;
 };
 
-function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
+function RolesPage({ onGoHome, onGoUsers, onGoAgricultural, onLogout }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
@@ -165,6 +166,7 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural }: RolesPageProps) {
 
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

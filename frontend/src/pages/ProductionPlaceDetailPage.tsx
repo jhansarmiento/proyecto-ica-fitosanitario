@@ -31,6 +31,7 @@ type ProductionPlaceDetailPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoRoles?: () => void;
+  onLogout?: () => void;
 };
 
 const prediosAsociadosMock: PredioDetail[] = [
@@ -59,6 +60,7 @@ function ProductionPlaceDetailPage({
   onGoHome,
   onGoUsers,
   onGoRoles,
+  onLogout,
 }: ProductionPlaceDetailPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'resumen' | 'lotes'>('resumen');
@@ -129,6 +131,7 @@ function ProductionPlaceDetailPage({
 
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

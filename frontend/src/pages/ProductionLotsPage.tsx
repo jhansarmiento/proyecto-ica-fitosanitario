@@ -27,6 +27,7 @@ type ProductionLotsPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoRoles?: () => void;
+  onLogout?: () => void;
 };
 
 const lotesMock: LotDetail[] = [
@@ -48,7 +49,7 @@ const lotesMock: LotDetail[] = [
   },
 ];
 
-function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles }: ProductionLotsPageProps) {
+function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles, onLogout }: ProductionLotsPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [isNewLotOpen, setIsNewLotOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -157,6 +158,7 @@ function ProductionLotsPage({ site, onGoResumen, onGoHome, onGoUsers, onGoRoles 
 
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

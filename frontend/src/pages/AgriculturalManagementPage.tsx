@@ -41,6 +41,7 @@ type AgriculturalManagementPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoRoles?: () => void;
+  onLogout?: () => void;
   onOpenProductionDetail?: (site: ProductionSite) => void;
 };
 
@@ -48,6 +49,7 @@ function AgriculturalManagementPage({
   onGoHome,
   onGoUsers,
   onGoRoles,
+  onLogout,
   onOpenProductionDetail,
 }: AgriculturalManagementPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
@@ -183,6 +185,7 @@ function AgriculturalManagementPage({
 
           <button
             type="button"
+            onClick={onLogout}
             className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
           >
             <span>↪</span>

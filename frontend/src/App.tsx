@@ -11,9 +11,23 @@ import LoginPage from './pages/LoginPage';
 type View = 'login' | 'home' | 'users' | 'roles' | 'agricultural' | 'production-detail' | 'production-lots';
 
 function App() {
-  const [view, setView] = useState<View>('login');
+  const [view, setView] = useState<View>(() => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    return isAuthenticated ? 'home' : 'login';
+  });
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
   const [isVisible, setIsVisible] = useState(true);
+
+  const handleLoginSuccess = () => {
+    localStorage.setItem('isAuthenticated', 'true');
+    setView('home');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    setSelectedSite(null);
+    setView('login');
+  };
 
   useEffect(() => {
     setIsVisible(false);
@@ -24,14 +38,14 @@ function App() {
   let page: React.ReactNode;
 
   if (view === 'login') {
-    page = <LoginPage onLoginSuccess={() => setView('home')} />;
+    page = <LoginPage onLoginSuccess={handleLoginSuccess} />;
   } else if (view === 'home') {
     page = (
       <HomePage
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
-        onLogout={() => setView('login')}
+        onLogout={handleLogout}
       />
     );
   } else if (view === 'roles') {
@@ -40,6 +54,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoAgricultural={() => setView('agricultural')}
+        onLogout={handleLogout}
       />
     );
   } else if (view === 'agricultural') {
@@ -48,6 +63,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onLogout={handleLogout}
         onOpenProductionDetail={(site) => {
           setSelectedSite(site);
           setView('production-detail');
@@ -63,6 +79,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onLogout={handleLogout}
       />
     );
   } else if (view === 'production-lots') {
@@ -73,6 +90,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onLogout={handleLogout}
       />
     );
   } else {
@@ -81,6 +99,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onLogout={handleLogout}
       />
     );
   }
