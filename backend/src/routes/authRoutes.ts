@@ -20,7 +20,7 @@ authRoutes.post('/login', async (req, res) => {
 
     const user = await Usuario.scope('withPassword').findOne({
       where: { ingresoUsuario },
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+      include: [{ model: Rol, as: 'Rol', attributes: ['id', 'nombreRol'] }],
     });
 
     if (!user) {
@@ -41,7 +41,7 @@ authRoutes.post('/login', async (req, res) => {
         nombre: user.getDataValue('nombre'),
         apellidos: user.getDataValue('apellidos'),
         correoElectronico: user.getDataValue('correoElectronico'),
-        rol: (user as any).rol?.nombreRol ?? null,
+        rol: (user as any).Rol?.nombreRol ?? null,
       },
     });
   } catch (error) {

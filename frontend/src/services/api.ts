@@ -43,7 +43,7 @@ export type UsuarioDTO = {
   ingresoUsuario: string;
   ingresoContrasena?: string;
   idRol: string | null;
-  Rol?: RolDTO | null;
+  rol?: RolDTO | null;
 };
 
 export type LugarProduccionDTO = {

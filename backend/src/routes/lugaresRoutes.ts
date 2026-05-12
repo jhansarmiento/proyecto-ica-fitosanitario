@@ -135,8 +135,14 @@ lugaresRoutes.delete('/:id', async (req, res) => {
     const lugar = await LugarProduccion.findByPk(req.params.id);
     if (!lugar) return res.status(404).json({ message: 'Lugar de producción no encontrado' });
 
-    const prediosCount = await Predio.count({ where: { idLugarProduccion: lugar.getDataValue('id') } });
-    const lotesCount = await Lote.count({ where: { idLugarProduccion: lugar.getDataValue('id') } });
+    const predios = await Predio.findAll({
+      where: { idLugarProduccion: lugar.getDataValue('id') },
+      attributes: ['id'],
+    });
+    const prediosCount = predios.length;
+    const predioIds = predios.map((p) => p.getDataValue('id'));
+    const lotesCount =
+      predioIds.length > 0 ? await Lote.count({ where: { idPredio: predioIds } }) : 0;
 
     if (prediosCount > 0 || lotesCount > 0) {
       return res.status(409).json({
