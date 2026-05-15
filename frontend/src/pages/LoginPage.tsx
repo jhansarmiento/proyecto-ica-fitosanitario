@@ -7,9 +7,10 @@ import PrimaryButton from '../components/ui/PrimaryButton';
 import ForgotPasswordModal from '../components/ui/ForgotPasswordModal';
 import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
 import { api } from '../services/api';
+import type { SessionUser } from '../../App';
 
 type LoginPageProps = {
-  onLoginSuccess?: () => void;
+  onLoginSuccess?: (user: SessionUser) => void;
 };
 
 function LoginPage({ onLoginSuccess }: LoginPageProps) {
@@ -30,11 +31,15 @@ function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
     try {
       setIsLoading(true);
-      await api.login({
+      const response = await api.login({
         ingresoUsuario: ingresoUsuario.trim(),
         ingresoContrasena: ingresoContrasena.trim(),
       });
-      onLoginSuccess?.();
+      onLoginSuccess?.({
+        nombre: response.data.nombre,
+        apellidos: response.data.apellidos,
+        rol: response.data.rol ?? '',
+      });
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'No fue posible iniciar sesión.');
     } finally {

@@ -17,15 +17,17 @@ import SidebarItem from '../components/ui/SidebarItem';
 import NewRoleModal from '../components/ui/NewRoleModal';
 import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
 import { api } from '../services/api';
+import type { SessionUser } from '../App';
 
 type RolesPageProps = {
+  sessionUser?: SessionUser;
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoAgricultural?: () => void;
   onLogout?: () => void;
 };
 
-function RolesPage({ onGoHome, onGoUsers, onGoAgricultural, onLogout }: RolesPageProps) {
+function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogout }: RolesPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
@@ -186,10 +188,12 @@ function RolesPage({ onGoHome, onGoUsers, onGoAgricultural, onLogout }: RolesPag
                 <Bell size={18} />
               </button>
               <div className="text-right">
-                <p className="text-base font-bold leading-none">Pepito Perez</p>
-                <p className="text-xs text-emerald-200">Administrador</p>
+                <p className="text-base font-bold leading-none">{sessionUser ? `${sessionUser.nombre} ${sessionUser.apellidos}` : ''}</p>
+                <p className="text-xs text-emerald-200">{sessionUser?.rol ?? ''}</p>
               </div>
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">PP</div>
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">
+                {sessionUser ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase() : ''}
+              </div>
             </div>
           </header>
 

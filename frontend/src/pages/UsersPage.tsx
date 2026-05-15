@@ -4,16 +4,17 @@ import SidebarItem from '../components/ui/SidebarItem';
 import NewUserModal from '../components/ui/NewUserModal';
 import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
 import { api } from '../services/api';
-
+import type { SessionUser } from '../App';
 
 type UsersPageProps = {
+  sessionUser?: SessionUser;
   onGoHome?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
   onLogout?: () => void;
 };
 
-function UsersPage({ onGoHome, onGoRoles, onGoAgricultural, onLogout }: UsersPageProps) {
+function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogout }: UsersPageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(true);
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
@@ -225,10 +226,12 @@ function UsersPage({ onGoHome, onGoRoles, onGoAgricultural, onLogout }: UsersPag
                 <Bell size={18} />
               </button>
               <div className="text-right">
-                <p className="text-base font-bold leading-none">Pepito Perez</p>
-                <p className="text-xs text-emerald-200">Administrador</p>
+                <p className="text-base font-bold leading-none">{sessionUser ? `${sessionUser.nombre} ${sessionUser.apellidos}` : ''}</p>
+                <p className="text-xs text-emerald-200">{sessionUser?.rol ?? ''}</p>
               </div>
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">PP</div>
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">
+                {sessionUser ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase() : ''}
+              </div>
             </div>
           </header>
 

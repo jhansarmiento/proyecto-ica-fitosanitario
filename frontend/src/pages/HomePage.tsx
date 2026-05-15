@@ -3,15 +3,17 @@ import SidebarItem from '../components/ui/SidebarItem';
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
 import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown } from 'lucide-react';
+import type { SessionUser } from '../App';
 
 type HomePageProps = {
+  sessionUser?: SessionUser;
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
   onLogout?: () => void;
 };
 
-function HomePage({ onGoUsers, onGoRoles, onGoAgricultural, onLogout }: HomePageProps) {
+function HomePage({ sessionUser, onGoUsers, onGoRoles, onGoAgricultural, onLogout }: HomePageProps) {
   const [isUsersOpen, setIsUsersOpen] = useState(false);
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
@@ -97,10 +99,12 @@ function HomePage({ onGoUsers, onGoRoles, onGoAgricultural, onLogout }: HomePage
               <button className="grid h-10 w-10 place-items-center rounded-xl bg-emerald-900/40 text-emerald-300 transition-all duration-300 hover:bg-emerald-700/80 hover:text-white"><Bell size={18} />
               </button>
               <div className="text-right">
-                <p className="text-base font-bold leading-none">Pepito Perez</p>
-                <p className="text-xs text-emerald-200">Administrador</p>
+                <p className="text-base font-bold leading-none">{sessionUser ? `${sessionUser.nombre} ${sessionUser.apellidos}` : ''}</p>
+                <p className="text-xs text-emerald-200">{sessionUser?.rol ?? ''}</p>
               </div>
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">PP</div>
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald-700 text-sm font-bold">
+                {sessionUser ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase() : ''}
+              </div>
             </div>
           </header>
 
