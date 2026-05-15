@@ -80,6 +80,13 @@ export type EspecieVegetalDTO = {
   cicloCultivo: string;
 };
 
+export type AutorizacionEspecieDTO = {
+  id: string;
+  idLugarProduccion: string;
+  idEspecieVegetal: string;
+  capacidadProduccion: number;
+};
+
 export type LoteDTO = {
   id: string;
   numeroLote: string;
@@ -237,5 +244,9 @@ export const api = {
 
   getEspeciesVegetales() {
     return request<ApiEnvelope<EspecieVegetalDTO[]>>('/especies-vegetales');
+  },
+
+  getAutorizacionesEspecie() {
+    return request<ApiEnvelope<AutorizacionEspecieDTO[]>>('/autorizaciones-especie');
   },
 };

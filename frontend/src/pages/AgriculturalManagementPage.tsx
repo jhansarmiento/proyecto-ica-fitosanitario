@@ -69,18 +69,27 @@ function AgriculturalManagementPage({
     try {
       setLoading(true);
       setError('');
-      const [lugaresRes, prediosRes, lotesRes] = await Promise.all([
+
+      const [lugaresRes, prediosRes, lotesRes, autorizacionesRes] = await Promise.all([
         api.getLugaresProduccion(),
         api.getPredios(),
         api.getLotes(),
+        api.getAutorizacionesEspecie(),
       ]);
 
+      // Predios por lugar: conteo y área acumulada
       const prediosByLugar = new Map<string, number>();
+      const areaByLugar = new Map<string, number>();
       for (const p of prediosRes.data) {
         if (!p.idLugarProduccion) continue;
         prediosByLugar.set(p.idLugarProduccion, (prediosByLugar.get(p.idLugarProduccion) || 0) + 1);
+        areaByLugar.set(
+          p.idLugarProduccion,
+          (areaByLugar.get(p.idLugarProduccion) || 0) + Number(p.areaTotal || 0),
+        );
       }
 
+      // Lotes activos por lugar (via predio)
       const lotesByLugar = new Map<string, number>();
       for (const l of lotesRes.data) {
         const predio = prediosRes.data.find((p) => p.id === l.idPredio);
@@ -88,19 +97,29 @@ function AgriculturalManagementPage({
         lotesByLugar.set(predio.idLugarProduccion, (lotesByLugar.get(predio.idLugarProduccion) || 0) + 1);
       }
 
-      const mapped: ProductionSite[] = lugaresRes.data.map((l) => ({
-        id: l.id,
-        name: l.nombreLugarProduccion,
-        municipality: 'N/A',
-        department: 'N/A',
-        associatedPredios: prediosByLugar.get(l.id) || 0,
-        authorizedSpecies: 0,
-        activeLots: lotesByLugar.get(l.id) || 0,
-        area: 'N/D',
-        ica: l.numeroRegistroICA,
-        ownerName: l.productor ? `${l.productor.nombre} ${l.productor.apellidos}` : 'Sin productor',
-        status: l.estado === 'Activo' ? 'Activo' : 'Pendiente',
-      }));
+      // Especies autorizadas por lugar (autorizacion_especie)
+      const especiesByLugar = new Map<string, number>();
+      for (const a of autorizacionesRes.data) {
+        if (!a.idLugarProduccion) continue;
+        especiesByLugar.set(a.idLugarProduccion, (especiesByLugar.get(a.idLugarProduccion) || 0) + 1);
+      }
+
+      const mapped: ProductionSite[] = lugaresRes.data.map((l) => {
+        const areaHa = areaByLugar.get(l.id) || 0;
+        return {
+          id: l.id,
+          name: l.nombreLugarProduccion,
+          municipality: 'N/A',
+          department: 'N/A',
+          associatedPredios: prediosByLugar.get(l.id) || 0,
+          authorizedSpecies: especiesByLugar.get(l.id) || 0,
+          activeLots: lotesByLugar.get(l.id) || 0,
+          area: areaHa > 0 ? `${areaHa.toFixed(1)} ha` : 'N/D',
+          ica: l.numeroRegistroICA,
+          ownerName: l.productor ? `${l.productor.nombre} ${l.productor.apellidos}` : 'Sin productor',
+          status: l.estado === 'Activo' ? 'Activo' : 'Pendiente',
+        };
+      });
 
       setSites(mapped);
     } catch (e: any) {
