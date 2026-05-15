@@ -29,6 +29,7 @@ import usuariosRoutes from './routes/usuariosRoutes';
 import lugaresRoutes from './routes/lugaresRoutes';
 import prediosRoutes from './routes/prediosRoutes';
 import lotesRoutes from './routes/lotesRoutes';
+import especiesRoutes from './routes/especiesRoutes';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -69,6 +70,7 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/lugares-produccion', lugaresRoutes);
 app.use('/api/predios', prediosRoutes);
 app.use('/api/lotes', lotesRoutes);
+app.use('/api/especies-vegetales', especiesRoutes);
 
 const startServer = async () => {
   try {

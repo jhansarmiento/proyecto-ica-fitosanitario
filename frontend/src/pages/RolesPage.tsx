@@ -12,12 +12,69 @@ import {
   Pencil,
   Trash2,
   Plus,
+  AlertTriangle,
+  X,
 } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewRoleModal from '../components/ui/NewRoleModal';
 import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
 import { api } from '../services/api';
 import type { SessionUser } from '../App';
+
+// ── Modal de confirmación de eliminación de rol ───────────────────────────────
+type ConfirmDeleteRoleModalProps = {
+  isOpen: boolean;
+  roleName: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isDeleting: boolean;
+};
+
+function ConfirmDeleteRoleModal({ isOpen, roleName, onConfirm, onCancel, isDeleting }: ConfirmDeleteRoleModalProps) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 backdrop-blur-[1px]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
+        <div className="flex items-center gap-3 bg-red-600 px-5 py-4 text-white">
+          <div className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-red-500 ring-1 ring-white/20">
+            <AlertTriangle size={20} />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold leading-none">Eliminar rol</h3>
+            <p className="mt-0.5 text-sm text-red-100">Esta acción no se puede deshacer</p>
+          </div>
+          <button type="button" onClick={onCancel}
+            className="grid h-8 w-8 place-items-center rounded-lg text-red-100 transition hover:bg-white/10 hover:text-white">
+            <X size={18} />
+          </button>
+        </div>
+        <div className="px-6 py-5">
+          <p className="text-base text-slate-700">
+            ¿Estás seguro de que deseas eliminar el rol{' '}
+            <span className="font-bold text-slate-900">"{roleName}"</span>?
+          </p>
+          <p className="mt-2 text-sm text-slate-500">
+            Los usuarios con este rol quedarán sin rol asignado.
+          </p>
+          <div className="my-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <span className="font-semibold">⚠ Advertencia:</span> Esta operación es irreversible.
+          </div>
+          <div className="flex items-center justify-end gap-3">
+            <button type="button" onClick={onCancel} disabled={isDeleting}
+              className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50">
+              Cancelar
+            </button>
+            <button type="button" onClick={onConfirm} disabled={isDeleting}
+              className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60">
+              <Trash2 size={15} />
+              {isDeleting ? 'Eliminando...' : 'Sí, eliminar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 type RolesPageProps = {
   sessionUser?: SessionUser;
@@ -37,6 +94,8 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogou
   const [isEditRoleOpen, setIsEditRoleOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<EditableRole | null>(null);
   const [success, setSuccess] = useState('');
+  const [deleteTarget, setDeleteTarget] = useState<EditableRole | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const filteredRoles = roles.filter((r) => {
     const q = search.toLowerCase().trim();
@@ -72,16 +131,12 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogou
   }, []);
 
   const handleSaveRole = async (payload: EditableRole) => {
-    try {
-      await api.updateRole(String(payload.id), {
-        nombreRol: payload.rol,
-        descripcion: payload.descripcion,
-      });
-      await loadRoles();
-      setSuccess('Rol actualizado correctamente');
-    } catch (e: any) {
-      setError(e.message || 'No se pudo actualizar el rol');
-    }
+    await api.updateRole(String(payload.id), {
+      nombreRol: payload.rol,
+      descripcion: payload.descripcion,
+    });
+    await loadRoles();
+    setSuccess('Rol actualizado correctamente');
   };
 
   const handleCreateRole = async (payload: { rol: string; descripcion: string }) => {
@@ -99,13 +154,19 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogou
     }
   };
 
-  const handleDeleteRole = async (id: string | number) => {
+  const handleDeleteRole = async () => {
+    if (!deleteTarget) return;
     try {
-      await api.deleteRole(String(id));
+      setIsDeleting(true);
+      await api.deleteRole(String(deleteTarget.id));
       await loadRoles();
       setSuccess('Rol eliminado correctamente');
+      setDeleteTarget(null);
     } catch (e: any) {
       setError(e.message || 'No se pudo eliminar el rol');
+      setDeleteTarget(null);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -264,7 +325,7 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogou
                     <button
                       type="button"
                       title="Eliminar rol"
-                      onClick={() => handleDeleteRole(row.id)}
+                      onClick={() => setDeleteTarget(row)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     >
                       <Trash2 size={16} />
@@ -307,6 +368,13 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onLogou
         role={selectedRole}
         onClose={() => setIsEditRoleOpen(false)}
         onSave={handleSaveRole}
+      />
+      <ConfirmDeleteRoleModal
+        isOpen={deleteTarget !== null}
+        roleName={deleteTarget?.rol ?? ''}
+        onConfirm={handleDeleteRole}
+        onCancel={() => setDeleteTarget(null)}
+        isDeleting={isDeleting}
       />
     </main>
   );

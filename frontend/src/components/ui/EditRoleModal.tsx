@@ -11,32 +11,57 @@ type EditRoleModalProps = {
   isOpen: boolean;
   role: EditableRole | null;
   onClose: () => void;
-  onSave: (payload: EditableRole) => void;
+  onSave: (payload: EditableRole) => Promise<void> | void;
 };
 
 function EditRoleModal({ isOpen, role, onClose, onSave }: EditRoleModalProps) {
   const [roleName, setRoleName] = useState('');
   const [description, setDescription] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [roleError, setRoleError] = useState('');
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     if (!isOpen || !role) return;
     setRoleName(role.rol);
     setDescription(role.descripcion);
+    setRoleError('');
+    setSubmitError('');
   }, [isOpen, role]);
 
   if (!isOpen || !role) return null;
 
-  const canSubmit = roleName.trim().length > 0;
+  const handleSave = async () => {
+    if (!roleName.trim()) {
+      setRoleError('El nombre del rol es obligatorio.');
+      return;
+    }
+    setRoleError('');
 
-  const handleSave = () => {
-    if (!canSubmit) return;
-    onSave({
-      ...role,
-      rol: roleName.trim(),
-      descripcion: description.trim(),
-    });
-    onClose();
+    if (saving) return;
+    try {
+      setSaving(true);
+      setSubmitError('');
+      await onSave({ ...role, rol: roleName.trim(), descripcion: description.trim() });
+      onClose();
+    } catch (e: any) {
+      const msg: string = e?.message ?? '';
+      if (msg.toLowerCase().includes('duplicado') || msg.toLowerCase().includes('existe') || msg.toLowerCase().includes('unique')) {
+        setSubmitError('Ya existe un rol con ese nombre. Usa un nombre diferente.');
+      } else {
+        setSubmitError(msg || 'No fue posible actualizar el rol. Intenta de nuevo.');
+      }
+    } finally {
+      setSaving(false);
+    }
   };
+
+  const inputCls = (hasError: boolean) =>
+    `h-12 w-full rounded-xl border px-4 text-base outline-none transition focus:ring-4 ${
+      hasError
+        ? 'border-red-400 bg-red-50 focus:border-red-400 focus:ring-red-100'
+        : 'border-slate-300 focus:border-emerald-400 focus:ring-emerald-100'
+    }`;
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 py-8 backdrop-blur-[1px]">
@@ -52,13 +77,9 @@ function EditRoleModal({ isOpen, role, onClose, onSave }: EditRoleModalProps) {
                 <p className="mt-1 text-sm text-emerald-100">Actualiza la información del rol seleccionado</p>
               </div>
             </div>
-
-            <button
-              type="button"
-              onClick={onClose}
+            <button type="button" onClick={onClose}
               className="grid h-9 w-9 place-items-center rounded-lg text-emerald-100 transition hover:bg-white/10 hover:text-white"
-              aria-label="Cerrar modal"
-            >
+              aria-label="Cerrar modal">
               <X size={20} />
             </button>
           </div>
@@ -67,16 +88,23 @@ function EditRoleModal({ isOpen, role, onClose, onSave }: EditRoleModalProps) {
         <div className="px-6 py-6">
           <h4 className="mb-5 text-2xl font-semibold tracking-tight text-slate-900">Información del Rol</h4>
 
+          {submitError && (
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              ⚠ {submitError}
+            </div>
+          )}
+
           <div className="space-y-4">
             <label className="block space-y-1.5">
-              <span className="text-sm font-medium text-slate-700">Rol</span>
+              <span className="text-sm font-medium text-slate-700">Nombre del Rol <span className="text-red-500">*</span></span>
               <input
                 type="text"
                 value={roleName}
-                onChange={(e) => setRoleName(e.target.value)}
+                onChange={(e) => { setRoleName(e.target.value); setRoleError(''); }}
                 placeholder="Ej: Coordinador Regional"
-                className="h-12 w-full rounded-xl border border-slate-300 px-4 text-base outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+                className={inputCls(!!roleError)}
               />
+              {roleError && <p className="mt-1 text-xs text-red-600">⚠ {roleError}</p>}
             </label>
 
             <label className="block space-y-1.5">
@@ -91,21 +119,13 @@ function EditRoleModal({ isOpen, role, onClose, onSave }: EditRoleModalProps) {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-3">
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded-xl border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
+            <button type="button" onClick={onClose}
+              className="rounded-xl border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
               Cancelar
             </button>
-
-            <button
-              type="button"
-              onClick={handleSave}
-              disabled={!canSubmit}
-              className="rounded-xl bg-emerald-900 px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50"
-            >
-              Guardar cambios
+            <button type="button" onClick={handleSave} disabled={saving}
+              className="rounded-xl bg-emerald-900 px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-emerald-700/50">
+              {saving ? 'Guardando...' : 'Guardar cambios'}
             </button>
           </div>
         </div>

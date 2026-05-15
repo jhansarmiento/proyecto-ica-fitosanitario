@@ -1,4 +1,4 @@
-import { Search, Sprout, Warehouse, X } from 'lucide-react';
+import { Search, Warehouse, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../../services/api';
 
@@ -25,7 +25,7 @@ type Species = {
   id: string;
   commonName: string;
   scientificName: string;
-  category: string;
+  cicloCultivo: string;
 };
 
 type ProducerOption = {
@@ -63,11 +63,11 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
         setLoadingData(true);
         setLoadError('');
 
-        const [prediosRes, lotesRes, usuariosRes, rolesRes] = await Promise.all([
+        const [prediosRes, usuariosRes, rolesRes, especiesRes] = await Promise.all([
           api.getPredios(),
-          api.getLotes(),
           api.getUsuarios(),
           api.getRoles(),
+          api.getEspeciesVegetales(),
         ]);
 
         const mappedPredios: Predio[] = prediosRes.data.map((p) => ({
@@ -92,27 +92,13 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
           }));
         setProducerOptions(productores);
 
-        const derivedSpeciesMap = new Map<string, Species>();
-        for (const l of lotesRes.data) {
-          const key = l.idVariedad || l.numeroLote || l.id;
-          if (!key) continue;
-          if (!derivedSpeciesMap.has(key)) {
-            derivedSpeciesMap.set(key, {
-              id: key,
-              commonName: l.numeroLote ? `Variedad / Lote ${l.numeroLote}` : 'Especie registrada',
-              scientificName: `Variedad ${l.idVariedad || 'N/D'}`,
-              category: 'Derivada de lotes',
-            });
-          }
-        }
-
-        const derived = Array.from(derivedSpeciesMap.values());
-        const fallbackSpecies: Species[] = [
-          { id: 'fallback-1', commonName: 'Especie General 1', scientificName: 'N/D', category: 'General' },
-          { id: 'fallback-2', commonName: 'Especie General 2', scientificName: 'N/D', category: 'General' },
-        ];
-
-        setSpecies(derived.length ? derived : fallbackSpecies);
+        const mappedSpecies: Species[] = especiesRes.data.map((e) => ({
+          id: e.id,
+          commonName: e.nombreComun,
+          scientificName: e.nombreEspecie,
+          cicloCultivo: e.cicloCultivo,
+        }));
+        setSpecies(mappedSpecies);
       } catch (e: any) {
         setLoadError(e.message || 'No se pudieron cargar predios/especies/productores');
       } finally {
@@ -385,7 +371,7 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
                           <p className="text-2xl font-semibold text-slate-800">{sp.commonName}</p>
                           <p className="text-sm italic text-slate-600">{sp.scientificName}</p>
                           <span className="mt-1 inline-flex rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-700">
-                            {sp.category}
+                            Ciclo: {sp.cicloCultivo}
                           </span>
                         </div>
                         <input
@@ -420,7 +406,7 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
                       {selectedSpeciesData.length ? (
                         selectedSpeciesData.map((s) => (
                           <p key={s.id} className="flex items-center gap-2 text-sm text-emerald-900">
-                            <Sprout size={14} />
+                            <span className="text-emerald-600">✦</span>
                             {s.commonName}
                           </p>
                         ))

@@ -1,10 +1,76 @@
 import { useEffect, useState } from 'react';
-import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown, Search, Pencil, Trash2, Plus } from 'lucide-react';
+import { Home, Users, Layers, Folder, ShieldCheck, BarChart3, Bell, ChevronDown, Search, Pencil, Trash2, Plus, AlertTriangle, X } from 'lucide-react';
 import SidebarItem from '../components/ui/SidebarItem';
 import NewUserModal from '../components/ui/NewUserModal';
 import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
 import { api } from '../services/api';
 import type { SessionUser } from '../App';
+
+// ── Modal de confirmación de eliminación ─────────────────────────────────────
+type ConfirmDeleteModalProps = {
+  isOpen: boolean;
+  userName: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isDeleting: boolean;
+};
+
+function ConfirmDeleteModal({ isOpen, userName, onConfirm, onCancel, isDeleting }: ConfirmDeleteModalProps) {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 backdrop-blur-[1px]">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
+        <div className="flex items-center gap-3 bg-red-600 px-5 py-4 text-white">
+          <div className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-red-500 ring-1 ring-white/20">
+            <AlertTriangle size={20} />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold leading-none">Eliminar usuario</h3>
+            <p className="mt-0.5 text-sm text-red-100">Esta acción no se puede deshacer</p>
+          </div>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="grid h-8 w-8 place-items-center rounded-lg text-red-100 transition hover:bg-white/10 hover:text-white"
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className="px-6 py-5">
+          <p className="text-base text-slate-700">
+            ¿Estás seguro de que deseas eliminar al usuario{' '}
+            <span className="font-bold text-slate-900">"{userName}"</span>?
+          </p>
+          <p className="mt-2 text-sm text-slate-500">
+            Se eliminarán permanentemente todos los datos asociados a este usuario.
+          </p>
+          <div className="my-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <span className="font-semibold">⚠ Advertencia:</span> Esta operación es irreversible.
+          </div>
+          <div className="flex items-center justify-end gap-3">
+            <button
+              type="button"
+              onClick={onCancel}
+              disabled={isDeleting}
+              className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={onConfirm}
+              disabled={isDeleting}
+              className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <Trash2 size={15} />
+              {isDeleting ? 'Eliminando...' : 'Sí, eliminar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 type UsersPageProps = {
   sessionUser?: SessionUser;
@@ -25,6 +91,8 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
   const [selectedUser, setSelectedUser] = useState<EditableUser | null>(null);
   const [success, setSuccess] = useState('');
   const [rolesOptions, setRolesOptions] = useState<{ id: string; nombreRol: string }[]>([]);
+  const [deleteTarget, setDeleteTarget] = useState<EditableUser | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const filteredUsers = users.filter((u) => {
     const q = search.toLowerCase().trim();
@@ -76,23 +144,20 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
   }, []);
 
   const handleSaveUser = async (payload: EditableUser) => {
-    try {
-      await api.updateUsuario(String(payload.id), {
-        numeroIdentificacion: payload.identificacion,
-        nombre: payload.nombres,
-        apellidos: payload.apellidos,
-        direccion: payload.direccion,
-        telefono: payload.telefono,
-        ingresoUsuario: payload.usuario,
-        correoElectronico: payload.correo,
-        registroICA: payload.registroIca,
-        tarjetaProfesional: payload.tarjetaProfesional,
-      });
-      await loadUsers();
-      setSuccess('Usuario actualizado correctamente');
-    } catch (e: any) {
-      setError(e.message || 'No se pudo actualizar el usuario');
-    }
+    await api.updateUsuario(String(payload.id), {
+      numeroIdentificacion: payload.identificacion,
+      nombre: payload.nombres,
+      apellidos: payload.apellidos,
+      direccion: payload.direccion,
+      telefono: payload.telefono,
+      ingresoUsuario: payload.usuario,
+      correoElectronico: payload.correo,
+      idRol: payload.rol || undefined,
+      registroICA: payload.registroIca,
+      tarjetaProfesional: payload.tarjetaProfesional,
+    });
+    await loadUsers();
+    setSuccess('Usuario actualizado correctamente');
   };
 
   const handleCreateUser = async (payload: {
@@ -130,13 +195,19 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
     }
   };
 
-  const handleDeleteUser = async (id: string | number) => {
+  const handleDeleteUser = async () => {
+    if (!deleteTarget) return;
     try {
-      await api.deleteUsuario(String(id));
+      setIsDeleting(true);
+      await api.deleteUsuario(String(deleteTarget.id));
       await loadUsers();
       setSuccess('Usuario eliminado correctamente');
+      setDeleteTarget(null);
     } catch (e: any) {
       setError(e.message || 'No se pudo eliminar el usuario');
+      setDeleteTarget(null);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -306,7 +377,7 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
                     <button
                       type="button"
                       title="Eliminar usuario"
-                      onClick={() => handleDeleteUser(row.id)}
+                      onClick={() => setDeleteTarget(row)}
                       className="grid h-8 w-8 place-items-center rounded-lg text-rose-500 transition hover:bg-rose-50 hover:text-rose-600"
                     >
                       <Trash2 size={16} />
@@ -349,8 +420,16 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
       <EditUserModal
         isOpen={isEditUserOpen}
         user={selectedUser}
+        roles={rolesOptions}
         onClose={() => setIsEditUserOpen(false)}
         onSave={handleSaveUser}
+      />
+      <ConfirmDeleteModal
+        isOpen={deleteTarget !== null}
+        userName={deleteTarget ? `${deleteTarget.nombres} ${deleteTarget.apellidos}` : ''}
+        onConfirm={handleDeleteUser}
+        onCancel={() => setDeleteTarget(null)}
+        isDeleting={isDeleting}
       />
     </main>
   );

@@ -73,6 +73,13 @@ export type PredioDTO = {
   lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
 };
 
+export type EspecieVegetalDTO = {
+  id: string;
+  nombreEspecie: string;
+  nombreComun: string;
+  cicloCultivo: string;
+};
+
 export type LoteDTO = {
   id: string;
   numeroLote: string;
@@ -226,5 +233,9 @@ export const api = {
     return request<{ message: string }>(`/lotes/${id}`, {
       method: 'DELETE',
     });
+  },
+
+  getEspeciesVegetales() {
+    return request<ApiEnvelope<EspecieVegetalDTO[]>>('/especies-vegetales');
   },
 };
