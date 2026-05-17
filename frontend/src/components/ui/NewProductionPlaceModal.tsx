@@ -83,7 +83,7 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
         const roleNameById = new Map(rolesRes.data.map((r) => [r.id, r.nombreRol.toLowerCase()]));
         const productores = usuariosRes.data
           .filter((u) => {
-            const roleName = (u.idRol && roleNameById.get(u.idRol)) || u.Rol?.nombreRol?.toLowerCase() || '';
+            const roleName = (u.idRol && roleNameById.get(u.idRol)) || u.rol?.nombreRol?.toLowerCase() || '';
             return roleName.includes('productor');
           })
           .map((u) => ({
@@ -145,7 +145,7 @@ function NewProductionPlaceModal({ isOpen, onClose, onCreate }: NewProductionPla
       return (
         s.commonName.toLowerCase().includes(q) ||
         s.scientificName.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q)
+        s.cicloCultivo.toLowerCase().includes(q)
       );
     });
   }, [speciesSearch, species]);

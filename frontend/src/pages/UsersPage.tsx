@@ -127,7 +127,7 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onLogou
         direccion: u.direccion || '',
         usuario: u.ingresoUsuario || '',
         correo: u.correoElectronico || '',
-        rol: (u.idRol && roleMap.get(u.idRol)) || u.Rol?.nombreRol || 'Sin rol',
+        rol: (u.idRol && roleMap.get(u.idRol)) || u.rol?.nombreRol || 'Sin rol',
         registroIca: u.registroICA || '',
         tarjetaProfesional: u.tarjetaProfesional || '',
       }));

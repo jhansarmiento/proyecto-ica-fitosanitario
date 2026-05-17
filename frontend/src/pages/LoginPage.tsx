@@ -7,7 +7,7 @@ import PrimaryButton from '../components/ui/PrimaryButton';
 import ForgotPasswordModal from '../components/ui/ForgotPasswordModal';
 import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
 import { api } from '../services/api';
-import type { SessionUser } from '../../App';
+import type { SessionUser } from '../App';
 
 type LoginPageProps = {
   onLoginSuccess?: (user: SessionUser) => void;
