@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
 import UsersPage from './pages/UsersPage';
@@ -7,8 +7,17 @@ import AgriculturalManagementPage, { type ProductionSite } from './pages/Agricul
 import ProductionPlaceDetailPage from './pages/ProductionPlaceDetailPage';
 import ProductionLotsPage from './pages/ProductionLotsPage';
 import LoginPage from './pages/LoginPage';
+import AdminProductionApprovalPage from './pages/AdminProductionApprovalPage';
 
-type View = 'login' | 'home' | 'users' | 'roles' | 'agricultural' | 'production-detail' | 'production-lots';
+type View =
+  | 'login'
+  | 'home'
+  | 'users'
+  | 'roles'
+  | 'agricultural'
+  | 'production-detail'
+  | 'production-lots'
+  | 'approval-places';
 
 export type SessionUser = {
   nombre: string;
@@ -21,6 +30,7 @@ function App() {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     return isAuthenticated ? 'home' : 'login';
   });
+
   const [sessionUser, setSessionUser] = useState<SessionUser>(() => {
     try {
       const stored = localStorage.getItem('sessionUser');
@@ -29,8 +39,8 @@ function App() {
       return { nombre: '', apellidos: '', rol: '' };
     }
   });
+
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
 
   const handleLoginSuccess = (user: SessionUser) => {
     localStorage.setItem('isAuthenticated', 'true');
@@ -47,12 +57,6 @@ function App() {
     setView('login');
   };
 
-  useEffect(() => {
-    setIsVisible(false);
-    const timer = setTimeout(() => setIsVisible(true), 25);
-    return () => clearTimeout(timer);
-  }, [view]);
-
   let page: React.ReactNode;
 
   if (view === 'login') {
@@ -64,6 +68,18 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onLogout={handleLogout}
+      />
+    );
+  } else if (view === 'users') {
+    page = (
+      <UsersPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
     );
@@ -74,6 +90,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
     );
@@ -84,6 +101,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
         onOpenProductionDetail={(site) => {
           setSelectedSite(site);
@@ -101,6 +119,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
     );
@@ -113,14 +132,16 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
     );
   } else {
     page = (
-      <UsersPage
+      <AdminProductionApprovalPage
         sessionUser={sessionUser}
         onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
         onLogout={handleLogout}
@@ -128,11 +149,7 @@ function App() {
     );
   }
 
-  return (
-    <div className={`transition-opacity duration-100 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-      {page}
-    </div>
-  );
+  return <>{page}</>;
 }
 
 export default App;

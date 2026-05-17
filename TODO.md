@@ -1,7 +1,11 @@
-# TODO - Alineación Arquitectura por Capas
+# TODO - Migración a DashboardLayout unificado
 
-- [x] Crear `backend/src/types/usuario.types.ts` con tipos compartidos de payload.
-- [x] Crear `backend/src/schemas/usuario.schema.ts` con validación Zod para create/update.
-- [x] Crear `backend/src/controllers/usuariosController.ts` y mover lógica desde rutas.
-- [x] Refactorizar `backend/src/routes/usuariosRoutes.ts` para dejar solo endpoints + controller.
-- [ ] Verificar compilación TypeScript de backend.
+- [ ] Ajustar DashboardLayout al menú final solicitado (sin catálogos/mis lugares).
+- [ ] Migrar HomePage para usar DashboardLayout.
+- [ ] Migrar UsersPage para usar DashboardLayout.
+- [ ] Migrar RolesPage para usar DashboardLayout.
+- [ ] Migrar AgriculturalManagementPage para usar DashboardLayout.
+- [ ] Migrar ProductionPlaceDetailPage para usar DashboardLayout.
+- [ ] Migrar ProductionLotsPage para usar DashboardLayout.
+- [ ] Ajustar App.tsx para navegación unificada.
+- [ ] Ejecutar build frontend y validar compilación.
