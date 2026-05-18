@@ -2,22 +2,22 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class InspeccionFitosanitaria extends Model {
-    public id!: string;
-    public cantidadPlantas!: number;
-    public estadoFenologico!: string;
-    public fechaInspeccion!: Date;
+    public id_inspeccion_fitosanitaria!: string;
+    public cantidad_plantas!: number;
+    public estado_fenologico!: string;
+    public fecha_inspeccion!: Date;
     public observaciones!: string;
-    public idSolicitudInspeccion!: string; // Clave foránea para el Asistente Técnico (Usuario)
+    public id_solicitud_inspeccion!: string; // Clave foránea para el Asistente Técnico (Usuario)
 
     static associate(models: any) {
         // Una inspección fitosanitaria pertenece a una solicitud de inspección
         this.belongsTo(models.SolicitudInspeccion, {
-            foreignKey: 'idSolicitudInspeccion',
+            foreignKey: 'id_solicitud_inspeccion',
             as: 'solicitudInspeccion',
         })
         // Una inspección fitosanitaria puede tener muchos hallazgos de plagas
         this.hasMany(models.HallazgoPlaga, {
-            foreignKey: 'idInspeccionFitosanitaria',
+            foreignKey: 'id_inspeccion_fitosanitaria',
             as: 'hallazgosPlaga',
         })
     }
@@ -25,20 +25,20 @@ class InspeccionFitosanitaria extends Model {
 
 InspeccionFitosanitaria.init(
     {
-        id: {
+        id_inspeccion_fitosanitaria: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        cantidadPlantas: {
+        cantidad_plantas: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        estadoFenologico: {
+        estado_fenologico: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        fechaInspeccion: {
+        fecha_inspeccion: {
             type: DataTypes.DATE,
             allowNull: false,
         },
@@ -46,12 +46,12 @@ InspeccionFitosanitaria.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        idSolicitudInspeccion: {
+        id_solicitud_inspeccion: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'solicitud_inspeccion', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_solicitud_inspeccion', // Columna referenciada
             }
         },
     },   

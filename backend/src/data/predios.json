@@ -1,242 +1,242 @@
 [
     {
-        "numeroPredial": "68001-001",
-        "numeroRegistroICA": "ICA-1001",
-        "nombrePredio": "La Esperanza",
+        "numero_predial": "68001-001",
+        "numero_registro_ica": "ICA-1001",
+        "nombre_predio": "La Esperanza",
         "direccion": "Km 5 Vía al Mar",
-        "areaTotal": 12.4,
-        "nombreVeredaBusqueda": "El Solar"
+        "area_total": 12.4,
+        "nombre_vereda_busqueda": "El Solar"
     },
     {
-        "numeroPredial": "68001-002",
-        "numeroRegistroICA": "ICA-1002",
-        "nombrePredio": "Villa Rocío",
+        "numero_predial": "68001-002",
+        "numero_registro_ica": "ICA-1002",
+        "nombre_predio": "Villa Rocío",
         "direccion": "Sector La Cumbre",
-        "areaTotal": 8.2,
-        "nombreVeredaBusqueda": "La Malaña"
+        "area_total": 8.2,
+        "nombre_vereda_busqueda": "La Malaña"
     },
     {
-        "numeroPredial": "68001-003",
-        "numeroRegistroICA": "ICA-1003",
-        "nombrePredio": "El Paraíso",
+        "numero_predial": "68001-003",
+        "numero_registro_ica": "ICA-1003",
+        "nombre_predio": "El Paraíso",
         "direccion": "Lote 14",
-        "areaTotal": 15.0,
-        "nombreVeredaBusqueda": "Santa Rita"
+        "area_total": 15.0,
+        "nombre_vereda_busqueda": "Santa Rita"
     },
     {
-        "numeroPredial": "68276-004",
-        "numeroRegistroICA": "ICA-1004",
-        "nombrePredio": "Don Jhan",
+        "numero_predial": "68276-004",
+        "numero_registro_ica": "ICA-1004",
+        "nombre_predio": "Don Jhan",
         "direccion": "Vereda Alta",
-        "areaTotal": 5.7,
-        "nombreVeredaBusqueda": "Casiano"
+        "area_total": 5.7,
+        "nombre_vereda_busqueda": "Casiano"
     },
     {
-        "numeroPredial": "68276-005",
-        "numeroRegistroICA": "ICA-1005",
-        "nombrePredio": "La Montaña",
+        "numero_predial": "68276-005",
+        "numero_registro_ica": "ICA-1005",
+        "nombre_predio": "La Montaña",
         "direccion": "Entrada principal",
-        "areaTotal": 22.1,
-        "nombreVeredaBusqueda": "Helechales"
+        "area_total": 22.1,
+        "nombre_vereda_busqueda": "Helechales"
     },
     {
-        "numeroPredial": "68307-006",
-        "numeroRegistroICA": "ICA-1006",
-        "nombrePredio": "Los Olivos",
+        "numero_predial": "68307-006",
+        "numero_registro_ica": "ICA-1006",
+        "nombre_predio": "Los Olivos",
         "direccion": "Finca 3",
-        "areaTotal": 10.3,
-        "nombreVeredaBusqueda": "Acacias"
+        "area_total": 10.3,
+        "nombre_vereda_busqueda": "Acacias"
     },
     {
-        "numeroPredial": "68307-007",
-        "numeroRegistroICA": "ICA-1007",
-        "nombrePredio": "Vista Hermosa",
+        "numero_predial": "68307-007",
+        "numero_registro_ica": "ICA-1007",
+        "nombre_predio": "Vista Hermosa",
         "direccion": "Bajo Girón",
-        "areaTotal": 7.8,
-        "nombreVeredaBusqueda": "Bocas"
+        "area_total": 7.8,
+        "nombre_vereda_busqueda": "Bocas"
     },
     {
-        "numeroPredial": "68547-008",
-        "numeroRegistroICA": "ICA-1008",
-        "nombrePredio": "El Mirador",
+        "numero_predial": "68547-008",
+        "numero_registro_ica": "ICA-1008",
+        "nombre_predio": "El Mirador",
         "direccion": "Sector Norte",
-        "areaTotal": 30.5,
-        "nombreVeredaBusqueda": "Sevilla"
+        "area_total": 30.5,
+        "nombre_vereda_busqueda": "Sevilla"
     },
     {
-        "numeroPredial": "68547-009",
-        "numeroRegistroICA": "ICA-1009",
-        "nombrePredio": "La Bonanza",
+        "numero_predial": "68547-009",
+        "numero_registro_ica": "ICA-1009",
+        "nombre_predio": "La Bonanza",
         "direccion": "Lote 45",
-        "areaTotal": 4.2,
-        "nombreVeredaBusqueda": "Pajonal"
+        "area_total": 4.2,
+        "nombre_vereda_busqueda": "Pajonal"
     },
     {
-        "numeroPredial": "05001-010",
-        "numeroRegistroICA": "ICA-1010",
-        "nombrePredio": "San Antonio",
+        "numero_predial": "05001-010",
+        "numero_registro_ica": "ICA-1010",
+        "nombre_predio": "San Antonio",
         "direccion": "Cerca al Río",
-        "areaTotal": 18.6,
-        "nombreVeredaBusqueda": "Santa Elena"
+        "area_total": 18.6,
+        "nombre_vereda_busqueda": "Santa Elena"
     },
     {
-        "numeroPredial": "05001-011",
-        "numeroRegistroICA": "ICA-1011",
-        "nombrePredio": "La Pradera",
+        "numero_predial": "05001-011",
+        "numero_registro_ica": "ICA-1011",
+        "nombre_predio": "La Pradera",
         "direccion": "Camino Viejo",
-        "areaTotal": 9.4,
-        "nombreVeredaBusqueda": "Altavista"
+        "area_total": 9.4,
+        "nombre_vereda_busqueda": "Altavista"
     },
     {
-        "numeroPredial": "05266-012",
-        "numeroRegistroICA": "ICA-1012",
-        "nombrePredio": "Finca El Sol",
+        "numero_predial": "05266-012",
+        "numero_registro_ica": "ICA-1012",
+        "nombre_predio": "Finca El Sol",
         "direccion": "Vereda Las Palmas Km 2",
-        "areaTotal": 11.2,
-        "nombreVeredaBusqueda": "Las Palmas"
+        "area_total": 11.2,
+        "nombre_vereda_busqueda": "Las Palmas"
     },
     {
-        "numeroPredial": "05266-013",
-        "numeroRegistroICA": "ICA-1013",
-        "nombrePredio": "Los Cedros",
+        "numero_predial": "05266-013",
+        "numero_registro_ica": "ICA-1013",
+        "nombre_predio": "Los Cedros",
         "direccion": "Sector El Vallano",
-        "areaTotal": 6.9,
-        "nombreVeredaBusqueda": "El Vallano"
+        "area_total": 6.9,
+        "nombre_vereda_busqueda": "El Vallano"
     },
     {
-        "numeroPredial": "05615-014",
-        "numeroRegistroICA": "ICA-1014",
-        "nombrePredio": "AgroRionegro",
+        "numero_predial": "05615-014",
+        "numero_registro_ica": "ICA-1014",
+        "nombre_predio": "AgroRionegro",
         "direccion": "Lote B-12",
-        "areaTotal": 40.0,
-        "nombreVeredaBusqueda": "Llanogrande"
+        "area_total": 40.0,
+        "nombre_vereda_busqueda": "Llanogrande"
     },
     {
-        "numeroPredial": "25899-015",
-        "numeroRegistroICA": "ICA-1015",
-        "nombrePredio": "Cuna de Sal",
+        "numero_predial": "25899-015",
+        "numero_registro_ica": "ICA-1015",
+        "nombre_predio": "Cuna de Sal",
         "direccion": "Calle de la Mina",
-        "areaTotal": 3.5,
-        "nombreVeredaBusqueda": "El Abra"
+        "area_total": 3.5,
+        "nombre_vereda_busqueda": "El Abra"
     },
     {
-        "numeroPredial": "25899-016",
-        "numeroRegistroICA": "ICA-1016",
-        "nombrePredio": "La Cabaña",
+        "numero_predial": "25899-016",
+        "numero_registro_ica": "ICA-1016",
+        "nombre_predio": "La Cabaña",
         "direccion": "Cerca a la Represa",
-        "areaTotal": 14.7,
-        "nombreVeredaBusqueda": "Barandillas"
+        "area_total": 14.7,
+        "nombre_vereda_busqueda": "Barandillas"
     },
     {
-        "numeroPredial": "25269-017",
-        "numeroRegistroICA": "ICA-1017",
-        "nombrePredio": "Pueblo Viejo",
+        "numero_predial": "25269-017",
+        "numero_registro_ica": "ICA-1017",
+        "nombre_predio": "Pueblo Viejo",
         "direccion": "Calle 4 Norte",
-        "areaTotal": 8.8,
-        "nombreVeredaBusqueda": "Mancilla"
+        "area_total": 8.8,
+        "nombre_vereda_busqueda": "Mancilla"
     },
     {
-        "numeroPredial": "25175-018",
-        "numeroRegistroICA": "ICA-1018",
-        "nombrePredio": "El Recreo",
+        "numero_predial": "25175-018",
+        "numero_registro_ica": "ICA-1018",
+        "nombre_predio": "El Recreo",
         "direccion": "Avenida Chilacos",
-        "areaTotal": 5.1,
-        "nombreVeredaBusqueda": "Bojacá"
+        "area_total": 5.1,
+        "nombre_vereda_busqueda": "Bojacá"
     },
     {
-        "numeroPredial": "25175-019",
-        "numeroRegistroICA": "ICA-1019",
-        "nombrePredio": "La Huerta",
+        "numero_predial": "25175-019",
+        "numero_registro_ica": "ICA-1019",
+        "nombre_predio": "La Huerta",
         "direccion": "Camino de Piedra",
-        "areaTotal": 2.3,
-        "nombreVeredaBusqueda": "Tíquiza"
+        "area_total": 2.3,
+        "nombre_vereda_busqueda": "Tíquiza"
     },
     {
-        "numeroPredial": "76001-020",
-        "numeroRegistroICA": "ICA-1020",
-        "nombrePredio": "Valle Lindo",
+        "numero_predial": "76001-020",
+        "numero_registro_ica": "ICA-1020",
+        "nombre_predio": "Valle Lindo",
         "direccion": "Km 18 Vía al Mar",
-        "areaTotal": 55.0,
-        "nombreVeredaBusqueda": "Pance"
+        "area_total": 55.0,
+        "nombre_vereda_busqueda": "Pance"
     },
     {
-        "numeroPredial": "76001-021",
-        "numeroRegistroICA": "ICA-1021",
-        "nombrePredio": "Finca Pance",
+        "numero_predial": "76001-021",
+        "numero_registro_ica": "ICA-1021",
+        "nombre_predio": "Finca Pance",
         "direccion": "Sector Farallones",
-        "areaTotal": 25.4,
-        "nombreVeredaBusqueda": "La Leonera"
+        "area_total": 25.4,
+        "nombre_vereda_busqueda": "La Leonera"
     },
     {
-        "numeroPredial": "76520-022",
-        "numeroRegistroICA": "ICA-1022",
-        "nombrePredio": "El Rosal",
+        "numero_predial": "76520-022",
+        "numero_registro_ica": "ICA-1022",
+        "nombre_predio": "El Rosal",
         "direccion": "Lote central",
-        "areaTotal": 12.9,
-        "nombreVeredaBusqueda": "Rozo"
+        "area_total": 12.9,
+        "nombre_vereda_busqueda": "Rozo"
     },
     {
-        "numeroPredial": "76111-023",
-        "numeroRegistroICA": "ICA-1023",
-        "nombrePredio": "La Milagrosa",
+        "numero_predial": "76111-023",
+        "numero_registro_ica": "ICA-1023",
+        "nombre_predio": "La Milagrosa",
         "direccion": "Hacienda La Unión",
-        "areaTotal": 33.2,
-        "nombreVeredaBusqueda": "La Habana"
+        "area_total": 33.2,
+        "nombre_vereda_busqueda": "La Habana"
     },
     {
-        "numeroPredial": "76834-024",
-        "numeroRegistroICA": "ICA-1024",
-        "nombrePredio": "Tierra Fértil",
+        "numero_predial": "76834-024",
+        "numero_registro_ica": "ICA-1024",
+        "nombre_predio": "Tierra Fértil",
         "direccion": "Vía Monteloro",
-        "areaTotal": 19.1,
-        "nombreVeredaBusqueda": "La Marina"
+        "area_total": 19.1,
+        "nombre_vereda_busqueda": "La Marina"
     },
     {
-        "numeroPredial": "08001-025",
-        "numeroRegistroICA": "ICA-1025",
-        "nombrePredio": "El Galeón",
+        "numero_predial": "08001-025",
+        "numero_registro_ica": "ICA-1025",
+        "nombre_predio": "El Galeón",
         "direccion": "Sector Industrial Norte",
-        "areaTotal": 4.5,
-        "nombreVeredaBusqueda": "Juan Mina"
+        "area_total": 4.5,
+        "nombre_vereda_busqueda": "Juan Mina"
     },
     {
-        "numeroPredial": "08001-026",
-        "numeroRegistroICA": "ICA-1026",
-        "nombrePredio": "Brisas del Mar",
+        "numero_predial": "08001-026",
+        "numero_registro_ica": "ICA-1026",
+        "nombre_predio": "Brisas del Mar",
         "direccion": "Vía Puerto",
-        "areaTotal": 7.2,
-        "nombreVeredaBusqueda": "La Playa"
+        "area_total": 7.2,
+        "nombre_vereda_busqueda": "La Playa"
     },
     {
-        "numeroPredial": "08758-027",
-        "numeroRegistroICA": "ICA-1027",
-        "nombrePredio": "Isla de Paz",
+        "numero_predial": "08758-027",
+        "numero_registro_ica": "ICA-1027",
+        "nombre_predio": "Isla de Paz",
         "direccion": "Calle del Río",
-        "areaTotal": 10.8,
-        "nombreVeredaBusqueda": "Cabica"
+        "area_total": 10.8,
+        "nombre_vereda_busqueda": "Cabica"
     },
     {
-        "numeroPredial": "08433-028",
-        "numeroRegistroICA": "ICA-1028",
-        "nombrePredio": "El Porvenir",
+        "numero_predial": "08433-028",
+        "numero_registro_ica": "ICA-1028",
+        "nombre_predio": "El Porvenir",
         "direccion": "Sector Caimital",
-        "areaTotal": 15.6,
-        "nombreVeredaBusqueda": "El Espinal"
+        "area_total": 15.6,
+        "nombre_vereda_busqueda": "El Espinal"
     },
     {
-        "numeroPredial": "08573-029",
-        "numeroRegistroICA": "ICA-1029",
-        "nombrePredio": "Lagos Azules",
+        "numero_predial": "08573-029",
+        "numero_registro_ica": "ICA-1029",
+        "nombre_predio": "Lagos Azules",
         "direccion": "Vía Salgar",
-        "areaTotal": 5.4,
-        "nombreVeredaBusqueda": "Sabanilla"
+        "area_total": 5.4,
+        "nombre_vereda_busqueda": "Sabanilla"
     },
     {
-        "numeroPredial": "08078-030",
-        "numeroRegistroICA": "ICA-1030",
-        "nombrePredio": "Sibarco Real",
+        "numero_predial": "08078-030",
+        "numero_registro_ica": "ICA-1030",
+        "nombre_predio": "Sibarco Real",
         "direccion": "Calle Principal 2",
-        "areaTotal": 21.0,
-        "nombreVeredaBusqueda": "Sibarco"
+        "area_total": 21.0,
+        "nombre_vereda_busqueda": "Sibarco"
     }
 ]

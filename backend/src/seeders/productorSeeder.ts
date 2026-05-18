@@ -8,7 +8,7 @@ dotenv.config();
 export const seedProductores = async () => {
     try {
         // 1. Buscamos el rol PRODUCTOR
-        const rolProductor = await Rol.findOne({ where: { nombreRol: 'PRODUCTOR' } });
+        const rolProductor = await Rol.findOne({ where: { nombre_rol: 'PRODUCTOR' } });
         if (!rolProductor) throw new Error('❌ No se encontró el rol PRODUCTOR');
 
         const plainPassword = process.env.DEFAULT_PROD_PASSWORD || 'productor123';
@@ -17,43 +17,43 @@ export const seedProductores = async () => {
         // 2. Definimos los 3 productores (Asegúrate que los nombres coincidan con Usuario.ts)
         const productoresParaCrear = [
             {
-                ingresoUsuario: 'prod_valle_del_cauca',
-                numeroIdentificacion: '123456780',
+                ingreso_usuario: 'prod_valle_del_cauca',
+                numero_identificacion: '123456780',
                 nombre: 'Carlos',
                 apellidos: 'Restrepo',
-                correoElectronico: 'crestrepo@finca.com',
+                correo_electronico: 'crestrepo@finca.com',
                 direccion: 'Vereda La Suiza'
             },
             {
-                ingresoUsuario: 'prod_cundinamarca',
-                numeroIdentificacion: '123456781',
+                ingreso_usuario: 'prod_cundinamarca',
+                numero_identificacion: '123456781',
                 nombre: 'Elena',
                 apellidos: 'Gómez',
-                correoElectronico: 'egomez@agromundo.co',
+                correo_electronico: 'egomez@agromundo.co',
                 direccion: 'Finca El Paraíso'
             },
             {
-                ingresoUsuario: 'prod_atlantico',
-                numeroIdentificacion: '123456782',
+                ingreso_usuario: 'prod_atlantico',
+                numero_identificacion: '123456782',
                 nombre: 'Samuel',
                 apellidos: 'Paz',
-                correoElectronico: 'spaz@cultivos.com',
+                correo_electronico: 'spaz@cultivos.com',
                 direccion: 'Hacienda La Unión'
             },
             {
-                ingresoUsuario: 'prod_santander',
-                numeroIdentificacion: '123456783',
+                ingreso_usuario: 'prod_santander',
+                numero_identificacion: '123456783',
                 nombre: 'Gabriel',
                 apellidos: 'Fernandez',
-                correoElectronico: 'gfernandez@agromundo.co',
+                correo_electronico: 'gfernandez@agromundo.co',
                 direccion: 'Finca Hacienda El Edén'
             },
             {
-                ingresoUsuario: 'prod_antioquia',
-                numeroIdentificacion: '123456784',
+                ingreso_usuario: 'prod_antioquia',
+                numero_identificacion: '123456784',
                 nombre: 'Jesus',
                 apellidos: 'Garcia',
-                correoElectronico: 'jgarcia@agromundo.co',
+                correo_electronico: 'jgarcia@agromundo.co',
                 direccion: 'Finca El Parnaso'
             },
         ];
@@ -62,17 +62,17 @@ export const seedProductores = async () => {
 
         for (const prodData of productoresParaCrear) {
             const [user, created] = await Usuario.findOrCreate({
-                where: { ingresoUsuario: prodData.ingresoUsuario },
+                where: { ingreso_usuario: prodData.ingreso_usuario },
                 defaults: {
                     ...prodData,
-                    ingresoContrasena: passwordHash,
-                    idRol: rolProductor.id,
+                    ingreso_contrasena: passwordHash,
+                    id_rol: rolProductor.id_rol,
                     telefono: '3100000000'
                 }
             });
 
             if (created) {
-                console.log(`🚜 Productor [${prodData.ingresoUsuario}] creado con éxito.`);
+                console.log(`🚜 Productor [${prodData.ingreso_usuario}] creado con éxito.`);
             }
         }
         

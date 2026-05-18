@@ -2,23 +2,23 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class Lote extends Model {
-    public id!: string;
-    public numeroLote!: string;
-    public areaTotal!: number;
-    public fechaSiembra!: Date;
-    public fechaCosecha!: Date;
-    public idVariedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
-    public idPredio!: string; // Clave foránea para el Lugar de Producción
+    public id_lote!: string;
+    public numero_lote!: string;
+    public area_total!: number;
+    public fecha_siembra!: Date;
+    public fecha_cosecha!: Date;
+    public id_variedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
+    public id_predio!: string; // Clave foránea para el Lugar de Producción
 
     static associate(models: any) {
         // Un lote pertenece a un predio
         this.belongsTo(models.Predio, {
-            foreignKey: 'idPredio',
+            foreignKey: 'id_predio',
             as: 'predio',
         });
         // Un lote puede tener muchas solicitudes de inspección
         this.hasMany(models.SolicitudInspeccion, {
-            foreignKey: 'idLote',
+            foreignKey: 'id_lote',
             as: 'solicitudesInspeccion',
         });
     }
@@ -26,37 +26,37 @@ class Lote extends Model {
 
 Lote.init(
     {
-        id: {
+        id_lote: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        numeroLote: {
+        numero_lote: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        areaTotal: {
+        area_total: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        fechaSiembra: {
+        fecha_siembra: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        fechaCosecha: {
+        fecha_cosecha: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        idVariedad: {
-        type: DataTypes.UUID,
-        allowNull: false,
+        id_variedad: {
+            type: DataTypes.UUID,
+            allowNull: false,
         },
-        idPredio: {
+        id_predio: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'predio', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_predio', // Columna referenciada
             }
         },
     },   

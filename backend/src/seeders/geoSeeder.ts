@@ -16,7 +16,7 @@ export const seedGeoData = async () => {
         for(const dep of data) {
             // Insertamos el departamento
             const [departamento] = await catalogModels.Departamento.findOrCreate({
-                where: { id: dep.codigo_dep },
+                where: { id_departamento: dep.codigo_dep },
                 defaults: {
                     nombre: dep.departamento
                 },
@@ -26,10 +26,10 @@ export const seedGeoData = async () => {
             for(const mun of dep.municipios) {
                 // Insertamos el municipio, asociándolo al departamento
                 const [municipio] = await catalogModels.Municipio.findOrCreate({
-                    where: { id: mun.codigo_mun },
+                    where: { id_municipio: mun.codigo_mun },
                     defaults: {
                         nombre: mun.nombre,
-                        idDepartamento: departamento.get('id')
+                        id_departamento: departamento.get('id_departamento')
                     },
                     transaction: t
                 });
@@ -39,7 +39,7 @@ export const seedGeoData = async () => {
                     await catalogModels.Vereda.findOrCreate({
                         where: {
                             nombre: veredaNombre,
-                            idMunicipio: municipio.get('id')
+                            id_municipio: municipio.get('id_municipio')
                         },
                         transaction: t
                     });

@@ -2,30 +2,30 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class Predio extends Model {
-    public id!: string;
-    public numeroPredial!: string;
-    public numeroRegistroICA!: string;
-    public nombrePredio!: string;
+    public id_predio!: string;
+    public numero_predial!: string;
+    public numero_registro_ica!: string;
+    public nombre_predio!: string;
     public direccion!: string;
-    public areaTotal!: number;
-    public idVereda!: number; // Vereda traída desde la BD Catalógo
-    public idLugarProduccion?: string; // Clave foránea para el Productor (Usuario)
-    public idPropietario!: string; // Clave foránea para el Propietario (Usuario)
+    public area_total!: number;
+    public id_vereda!: number; // Vereda traída desde la BD Catalógo
+    public id_lugar_produccion?: string; // Clave foránea para el Productor (Usuario)
+    public id_propietario!: string; // Clave foránea para el Propietario (Usuario)
 
     static associate(models: any) {
         // Un Predio pertenece a un Propietario
         this.belongsTo(models.Propietario, {
-            foreignKey: 'idPropietario',
+            foreignKey: 'id_propietario',
             as: 'propietario',
         })
         // Un Predio pertenece a un Lugar de Producción
         this.belongsTo(models.LugarProduccion, {
-            foreignKey: 'idLugarProduccion',
+            foreignKey: 'id_lugar_produccion',
             as: 'lugarProduccion',
         })
         // Un predio puede tener muchos lotes
         this.hasMany(models.Lote, {
-            foreignKey: 'idPredio',
+            foreignKey: 'id_predio',
             as: 'lotes',
         })
     }
@@ -33,50 +33,50 @@ class Predio extends Model {
 
 Predio.init(
     {
-        id: {
+        id_predio: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        numeroPredial: {
+        numero_predial: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
-        numeroRegistroICA: {
+        numero_registro_ica: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,    
         },
-        nombrePredio: {
+        nombre_predio: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         direccion: {
             type: DataTypes.STRING,
         },
-        areaTotal: {
+        area_total: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        idVereda: {
+        id_vereda: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        idLugarProduccion: {
+        id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: true,
             references : {
                 model: 'lugar_produccion', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_lugar_produccion', // Columna referenciada
             }
         },
-        idPropietario: {
+        id_propietario: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'propietario', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_propietario', // Columna referenciada
             }
         },
     },

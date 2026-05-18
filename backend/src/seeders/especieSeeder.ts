@@ -17,11 +17,11 @@ export const seedEspeciesVegetales = async () => {
             // 1. Inyectar Especie Vegetal
             const [especie] = await catalogModels.EspecieVegetal.findOrCreate({
                 where: { 
-                    nombreEspecie: item.nombre_especie 
+                    nombre_especie: item.nombre_especie 
                 },
                 defaults: {
-                    nombreComun: item.nombre_comun,
-                    cicloCultivo: item.ciclo_cultivo
+                    nombre_comun: item.nombre_comun,
+                    ciclo_cultivo: item.ciclo_cultivo
                 },
                 transaction: t
             });
@@ -30,8 +30,8 @@ export const seedEspeciesVegetales = async () => {
             for (const nombreVar of item.variedades) {
                 await catalogModels.VariedadEspecie.findOrCreate({
                     where: { 
-                        nombreVariedad: nombreVar, 
-                        idEspecieVegetal: especie.get('id') 
+                        nombre_variedad: nombreVar, 
+                        id_especie_vegetal: especie.get('id_especie_vegetal') 
                     },
                     transaction: t
                 });
@@ -41,10 +41,10 @@ export const seedEspeciesVegetales = async () => {
             for (const p of item.plagas) {
                 const [plaga] = await catalogModels.Plaga.findOrCreate({
                     where: { 
-                        nombreCientificoPlaga: p.nombre_especie_plaga 
+                        nombre_cientifico_plaga: p.nombre_especie_plaga 
                     },
                     defaults: { 
-                        nombreComunPlaga: p.nombre_comun_plaga 
+                        nombre_comun_plaga: p.nombre_comun_plaga 
                     },
                     transaction: t
                 });
@@ -54,8 +54,8 @@ export const seedEspeciesVegetales = async () => {
                 // si las asociaciones están bien hechas, pero también puedes hacerlo manual:
                 await catalogModels.EspeciePlaga.findOrCreate({
                     where: { 
-                        idEspecieVegetal: especie.get('id'), 
-                        idPlaga: plaga.get('id') 
+                        id_especie_vegetal: especie.get('id_especie_vegetal'), 
+                        id_plaga: plaga.get('id_plaga') 
                     },
                     transaction: t
                 });

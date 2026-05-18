@@ -13,7 +13,7 @@ export const seedPropietariosYPredios = async () => {
         console.log('⏳ Inyectando propietarios...');
         for (const p of propData) {
             await models.Propietario.findOrCreate({
-                where: { numeroIdentificacion: p.numeroIdentificacion },
+                where: { numero_identificacion: p.numero_identificacion },
                 defaults: p
             });
         }
@@ -38,16 +38,16 @@ export const seedPropietariosYPredios = async () => {
             const veredaAleatoria = veredas[i % veredas.length];
 
             await models.Predio.findOrCreate({
-                where: { numeroPredial: data.numeroPredial },
+                where: { numero_predial: data.numero_predial },
                 defaults: {
-                    numeroPredial: data.numeroPredial,
-                    numeroRegistroICA: data.numeroRegistroICA,
-                    nombrePredio: data.nombrePredio,
+                    numero_predial: data.numero_predial,
+                    numero_registro_ica: data.numero_registro_ica,
+                    nombre_predio: data.nombre_predio,
                     direccion: data.direccion,
-                    areaTotal: data.areaTotal,
-                    idVereda: veredaAleatoria.id,
-                    idPropietario: propietarioAleatorio.id,
-                    idLugarProduccion: null // <--- IMPORTANTE: Queda vacío por ahora
+                    area_total: data.area_total,
+                    id_vereda: veredaAleatoria.id_vereda,
+                    id_propietario: propietarioAleatorio.id_propietario,
+                    id_lugar_produccion: null // <--- IMPORTANTE: Queda vacío por ahora
                 }
             });
         }

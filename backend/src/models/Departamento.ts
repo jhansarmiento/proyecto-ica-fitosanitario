@@ -2,13 +2,13 @@ import { Model, DataTypes } from 'sequelize';
 import sequelizeCatalog from '../config/database_catalog';
 
 class Departamento extends Model {
-  public id!: string;
+  public id_departamento!: string;
   public nombre!: string;
 
     static associate(models: any) {
         // Un departamento tiene muchos municipios
         this.hasMany(models.Municipio, {
-            foreignKey: 'idDepartamento',
+            foreignKey: 'id_departamento',
             as: 'municipios',
             onDelete: 'CASCADE',
         });
@@ -17,7 +17,7 @@ class Departamento extends Model {
 
 Departamento.init(
     {
-        id: {
+        id_departamento: {
             type: DataTypes.STRING,
             primaryKey: true,
         },

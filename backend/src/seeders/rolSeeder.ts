@@ -13,7 +13,7 @@ export const seedRoles = async () => {
         for (const r of roles) {
             const [rol] = await models.Rol.findOrCreate({
                 where: { 
-                    nombreRol: r.nombre_rol 
+                    nombre_rol: r.nombre_rol 
                 },
                 defaults: { 
                     descripcion: r.descripcion 

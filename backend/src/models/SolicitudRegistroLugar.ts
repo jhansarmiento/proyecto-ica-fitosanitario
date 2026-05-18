@@ -2,28 +2,28 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
 class SolicitudRegistroLugar extends Model {
-  public id!: string;
-  public fechaSolicitud!: Date;
+  public id_solicitud_registro_lugar!: string;
+  public fecha_solicitud!: Date;
   public estado!: string; // Pendiente, Aprobada, Rechazada
-  public observacionesAdministrador?: string; // Solo se llena si el estado es Rechazada
-  public idLugarProduccion!: string;
-  public idAdminAprobador!: string; // Clave foránea para el Administrador (Usuario)
-  public idAsistenteAsignado?: string; // Clave foránea para el Asistente Técnico (Usuario), solo se llena si el estado es Aprobada
+  public observaciones_administrador?: string; // Solo se llena si el estado es Rechazada
+  public id_lugar_produccion!: string;
+  public id_admin_aprobador!: string; // Clave foránea para el Administrador (Usuario)
+  public id_asistente_asignado?: string; // Clave foránea para el Asistente Técnico (Usuario), solo se llena si el estado es Aprobada
 
   static associate(models: any) {
     // Una Solicitud de Registro pertenece a un Lugar de Producción
     this.belongsTo(models.LugarProduccion, {
-      foreignKey: 'idLugarProduccion',
+      foreignKey: 'id_lugar_produccion',
       as: 'lugarProduccion',
     });
     // Una Solicitud de Registro es aprobada por un Usuario (Administrador)
     this.belongsTo(models.Usuario, {
-      foreignKey: 'idAdminAprobador',
+      foreignKey: 'id_admin_aprobador',
       as: 'administradorAprobador',
     })
     // Una Solicitud de Registro es asignada a un Usuario (Asistente Técnico)
     this.belongsTo(models.Usuario, {
-      foreignKey: 'idAsistenteAsignado',
+      foreignKey: 'id_asistente_asignado',
       as: 'asistenteAsignado'
     })
   }
@@ -31,12 +31,12 @@ class SolicitudRegistroLugar extends Model {
 
 SolicitudRegistroLugar.init(
   {
-    id: {
+    id_solicitud_registro_lugar: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    fechaSolicitud: {
+    fecha_solicitud: {
       type: DataTypes.DATE,
       allowNull: false,
     },
@@ -47,32 +47,32 @@ SolicitudRegistroLugar.init(
         isIn: [["Pendiente", "Aprobada", "Rechazada"]],
       },
     },
-    observacionesAdministrador: {
+    observaciones_administrador: {
       type: DataTypes.STRING,
       allowNull: true, // Solo se llena si el estado es Rechazada
     },
-    idLugarProduccion: {
+    id_lugar_produccion: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'lugar_produccion', // Nombre de la tabla referenciada
-        key: 'id', // Columna referenciada
+        key: 'id_lugar_produccion', // Columna referenciada
       },
     },
-    idAdminAprobador: {
+    id_admin_aprobador: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'usuario', // Nombre de la tabla referenciada
-        key: 'id', // Columna referenciada
+        key: 'id_usuario', // Columna referenciada
       },
     },
-    idAsistenteAsignado: {
+    id_asistente_asignado: {
       type: DataTypes.UUID,
       allowNull: true, // Solo se llena si el estado es Aprobada
       references: {
         model: 'usuario', // Nombre de la tabla referenciada
-        key: 'id', // Columna referenciada
+        key: 'id_usuario', // Columna referenciada
       },
     },
   },

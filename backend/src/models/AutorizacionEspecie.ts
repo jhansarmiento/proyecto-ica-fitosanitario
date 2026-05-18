@@ -2,15 +2,15 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class AutorizacionEspecie extends Model {
-  public id!: string;
-  public capacidadProduccion!: number;
-  public idLugarProduccion!: string; // FK Física (Misma DB)
-  public idEspecieVegetal!: string; // Dato traído desde la BD Catalógo (Relación Lógica, no FK física)
+  public id_autorizacion_especie!: string;
+  public capacidad_produccion!: number;
+  public id_lugar_produccion!: string; // FK Física (Misma DB)
+  public id_especie_vegetal!: string; // Dato traído desde la BD Catalógo (Relación Lógica, no FK física)
 
   static associate(models: any) {
     // Una Autorización de Especie pertenece a un Lugar de Producción
     this.belongsTo(models.LugarProduccion, {
-      foreignKey: 'idLugarProduccion',
+      foreignKey: 'id_lugar_produccion',
       as: 'lugarProduccion',
     });
     // NOTA: No definimos una asociación Sequelize directa con EspecieVegetal del catálogo, ya que es una relación lógica.
@@ -19,24 +19,24 @@ class AutorizacionEspecie extends Model {
 
 AutorizacionEspecie.init(
     {
-        id: {
+        id_autorizacion_especie: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        capacidadProduccion: {
+        capacidad_produccion: {
             type: DataTypes.FLOAT,
             allowNull: false,
         },
-        idLugarProduccion: {
+        id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'lugar_produccion', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_lugar_produccion', // Columna referenciada
             }
         },
-        idEspecieVegetal: {
+        id_especie_vegetal: {
             type: DataTypes.UUID,
             allowNull: false,
         },

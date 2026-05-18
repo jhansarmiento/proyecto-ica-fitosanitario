@@ -2,28 +2,28 @@ import { Model, DataTypes } from 'sequelize';
 import sequelizeCatalog from '../config/database_catalog';
 
 class EspeciePlaga extends Model {
-    public idEspecieVegetal!: string;
-    public idPlaga!: string;
+    public id_especie_vegetal!: string;
+    public id_plaga!: string;
 }
 
 EspeciePlaga.init(
     {
-        idEspecieVegetal: {
+        id_especie_vegetal: {
             type: DataTypes.UUID,
             allowNull: false,
             defaultValue: DataTypes.UUIDV4,
             references: {
                 model: 'especie_vegetal', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_especie_vegetal', // Columna referenciada
             }
         },
-        idPlaga: {
+        id_plaga: {
             type: DataTypes.UUID,
             allowNull: false,
             defaultValue: DataTypes.UUIDV4,
             references: {
                 model: 'plaga', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_plaga', // Columna referenciada
             }
         },
     },

@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class Rol extends Model {
-  public id!: string;
-  public nombreRol!: string;
+  public id_rol!: string;
+  public nombre_rol!: string;
   public descripcion!: string; 
 
   static associate(models: any) {
     // Un Rol puede tener muchos Usuarios
     this.hasMany(models.Usuario, {
-    foreignKey: 'idRol',
+    foreignKey: 'id_rol',
     as: 'usuarios',
     });
   }
@@ -17,12 +17,12 @@ class Rol extends Model {
 
 Rol.init(
   {
-    id: {
+    id_rol: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    nombreRol: {
+    nombre_rol: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

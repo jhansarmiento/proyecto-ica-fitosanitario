@@ -2,28 +2,28 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class SolicitudInspeccion extends Model {
-    public id!: string;
-    public fechaCreacion!: Date;
-    public fechaTentativaProductor!: Date; // Fecha tentativa propuesta por el Productor
-    public fechaProgramadaTecnico!: Date; // Cuando el tecnico confirma que irá
+    public id_solicitud_inspeccion!: string;
+    public fecha_creacion!: Date;
+    public fecha_tentativa_productor!: Date; // Fecha tentativa propuesta por el Productor
+    public fecha_programada_tecnico!: Date; // Cuando el tecnico confirma que irá
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
-    public idLote!: string; // Clave foránea para el Lote
-    public idAsistenteTecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
+    public id_lote!: string; // Clave foránea para el Lote
+    public id_asistente_tecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
 
     static associate(models: any) {
         // Una solicitud de inspección pertenece a un lote
         this.belongsTo(models.Lote, {
-            foreignKey: 'idLote',
+            foreignKey: 'id_lote',
             as: 'lote',
         });
         // Una solicitud de inspección tiene un asistente técnico asignado
         this.belongsTo(models.Usuario, {
-            foreignKey: 'idAsistenteTecnico',
+            foreignKey: 'id_asistente_tecnico',
             as: 'asistenteTecnico',
         })
         // Una solicitud de inspección tiene una inspección fitosanitaria asociada
         this.hasOne(models.InspeccionFitosanitaria, {
-            foreignKey: 'idSolicitudInspeccion',
+            foreignKey: 'id_solicitud_inspeccion',
             as: 'inspeccionFitosanitaria',
         });
     }
@@ -31,20 +31,20 @@ class SolicitudInspeccion extends Model {
 
 SolicitudInspeccion.init(
     {
-        id: {
+        id_solicitud_inspeccion: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        fechaCreacion: {
+        fecha_creacion: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
         },
-        fechaTentativaProductor: {
+        fecha_tentativa_productor: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        fechaProgramadaTecnico: {
+        fecha_programada_tecnico: {
             type: DataTypes.DATE,
             allowNull: true, // Se llena cuando el técnico confirma la fecha
         },
@@ -55,20 +55,20 @@ SolicitudInspeccion.init(
                 isIn: [['SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA']],
             },
         },
-        idLote: {
+        id_lote: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'lote', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_lote', // Columna referenciada
             }
         },
-        idAsistenteTecnico: {
+        id_asistente_tecnico: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
                 model: 'usuario', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_usuario', // Columna referenciada
             }
         },
     },

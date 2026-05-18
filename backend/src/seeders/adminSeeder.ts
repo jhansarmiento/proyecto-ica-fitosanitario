@@ -8,7 +8,7 @@ dotenv.config();
 export const seedAdmins = async () => {
     try {
         // 1. Corregimos el nombre del campo: de nombre_rol a nombreRol
-        const rolAdmin = await Rol.findOne({ where: { nombreRol: 'ADMIN' } });
+        const rolAdmin = await Rol.findOne({ where: { nombre_rol: 'ADMIN' } });
         if (!rolAdmin) throw new Error('❌ No se encontró el rol ADMIN en la DB');
 
         const plainPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'admin123';
@@ -17,45 +17,45 @@ export const seedAdmins = async () => {
         // 2. Ajustamos las llaves para que coincidan EXACTAMENTE con el modelo Usuario.ts
         const adminsParaCrear = [
             {
-                ingresoUsuario: 'admin_central',
-                numeroIdentificacion: '123456789',
+                ingreso_usuario: 'admin_central',
+                numero_identificacion: '123456789',
                 nombre: 'Admin', // En tu modelo es 'nombre' (singular)
                 apellidos: 'Principal',
-                correoElectronico: 'admin@ica.gov.co',
+                correo_electronico: 'admin@ica.gov.co',
             },
             {
-                ingresoUsuario: 'admin_santander', 
-                numeroIdentificacion: '987654321',
+                ingreso_usuario: 'admin_santander', 
+                numero_identificacion: '987654321',
                 nombre: 'Jhan',
                 apellidos: 'Sarmiento',
-                correoElectronico: 'jsarmiento@ica.gov.co',
+                correo_electronico: 'jsarmiento@ica.gov.co',
             },
             {
-                ingresoUsuario: 'admin_antioquia', 
-                numeroIdentificacion: '109283746',
+                ingreso_usuario: 'admin_antioquia', 
+                numero_identificacion: '109283746',
                 nombre: 'Ricardo',
                 apellidos: 'Vargas',
-                correoElectronico: 'rvargas@ica.gov.co',
+                correo_electronico: 'rvargas@ica.gov.co',
             },
         ];
 
         console.log('⏳ Inyectando administradores...');
 
         for (const adminData of adminsParaCrear) {
-            // Buscamos por ingresoUsuario (que es el nombre del atributo en el modelo)
+            // Buscamos por ingreso_usuario (que es el nombre del atributo en el modelo)
             const [user, created] = await Usuario.findOrCreate({
-                where: { ingresoUsuario: adminData.ingresoUsuario },
+                where: { ingreso_usuario: adminData.ingreso_usuario },
                 defaults: {
                     ...adminData,
-                    ingresoContrasena: passwordHash, // Nombre correcto del modelo
-                    idRol: rolAdmin.id,              // Nombre correcto del modelo
+                    ingreso_contrasena: passwordHash, // Nombre correcto del modelo
+                    id_rol: rolAdmin.id_rol,              // Nombre correcto del modelo
                     direccion: 'Sede Regional',
                     telefono: '601000001'
                 }
             });
 
             if (created) {
-                console.log(`👤 Usuario [${adminData.ingresoUsuario}] creado con éxito.`);
+                console.log(`👤 Usuario [${adminData.ingreso_usuario}] creado con éxito.`);
             }
         }
         

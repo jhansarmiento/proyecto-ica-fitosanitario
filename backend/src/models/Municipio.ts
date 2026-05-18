@@ -2,20 +2,20 @@ import { Model, DataTypes } from 'sequelize';
 import sequelizeCatalog from '../config/database_catalog';
 
 class Municipio extends Model {
-    public id!: string;
+    public id_municipio!: string;
     public nombre!: string;
-    public idDepartamento!: string; // Clave foránea para el Departamento (Catálogo)
+    public id_departamento!: string; // Clave foránea para el Departamento (Catálogo)
 
     static associate(models: any) {
         // Un municipio pertenece a un departamento
         this.belongsTo(models.Departamento, {
-            foreignKey: 'idDepartamento',
+            foreignKey: 'id_departamento',
             as: 'departamento',
             onDelete: 'CASCADE',
         });
         // Un municipio tiene muchas veredas
         this.hasMany(models.Vereda, {
-            foreignKey: 'idMunicipio',
+            foreignKey: 'id_municipio',
             as: 'veredas',
             onDelete: 'CASCADE',
         })
@@ -23,7 +23,7 @@ class Municipio extends Model {
 }
 
 Municipio.init({
-        id: {
+        id_municipio: {
             type: DataTypes.STRING,
             primaryKey: true,
         },
@@ -31,12 +31,12 @@ Municipio.init({
             type: DataTypes.STRING,
             allowNull: false,
         },
-        idDepartamento: {
+        id_departamento: {
             type: DataTypes.STRING,
             allowNull: false,
             references : {
                 model: 'departamento', // Nombre de la tabla referenciada
-                key: 'id', // Columna referenciada
+                key: 'id_departamento', // Columna referenciada
             }
         },
     }, 

@@ -2,17 +2,17 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
 
 class Propietario extends Model {
-    public id!: string;
-    public numeroIdentificacion!: string;
+    public id_propietario!: string;
+    public numero_identificacion!: string;
     public nombre!: string;
     public direccion!: string;
     public telefono!: string;
-    public correoElectronico!: string;
+    public correo_electronico!: string;
 
     static associate(models: any) {
         // Un Propietario puede tener muchos Predios
         this.hasMany(models.Predio, {
-            foreignKey: 'idPropietario',
+            foreignKey: 'id_propietario',
             as: 'predios'
         })
     }
@@ -20,12 +20,12 @@ class Propietario extends Model {
 
 Propietario.init(
     {
-        id: {
+        id_propietario: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
-        numeroIdentificacion: {
+        numero_identificacion: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -40,7 +40,7 @@ Propietario.init(
         telefono: {
             type: DataTypes.STRING,
         },
-        correoElectronico: {
+        correo_electronico: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
