@@ -1,11 +1,7 @@
-# TODO - Migración a DashboardLayout unificado
+# TODO - Ajustes inspecciones + navegación global
 
-- [ ] Ajustar DashboardLayout al menú final solicitado (sin catálogos/mis lugares).
-- [ ] Migrar HomePage para usar DashboardLayout.
-- [ ] Migrar UsersPage para usar DashboardLayout.
-- [ ] Migrar RolesPage para usar DashboardLayout.
-- [ ] Migrar AgriculturalManagementPage para usar DashboardLayout.
-- [ ] Migrar ProductionPlaceDetailPage para usar DashboardLayout.
-- [ ] Migrar ProductionLotsPage para usar DashboardLayout.
-- [ ] Ajustar App.tsx para navegación unificada.
-- [ ] Ejecutar build frontend y validar compilación.
+- [ ] Ajustar DashboardLayout para sidebar estable con scroll interno y botón cerrar sesión fijo al fondo.
+- [ ] Actualizar InspectionAgendaPage: mostrar solo fecha, hora, ubicación y cantidad de lotes; quitar inspector/asistente.
+- [ ] Revisar navegación de todas las páginas con DashboardLayout para soportar inspections-agenda e inspections-history.
+- [ ] Ajustar App.tsx para conectar navegación completa entre todas las páginas del menú.
+- [ ] Ejecutar build de frontend y validar compilación.

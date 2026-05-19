@@ -9,10 +9,21 @@ type HomePageProps = {
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
   onGoApprovalPlaces?: () => void;
+  onGoInspectionsAgenda?: () => void;
+  onGoInspectionsHistory?: () => void;
   onLogout?: () => void;
 };
 
-function HomePage({ sessionUser, onGoUsers, onGoRoles, onGoAgricultural, onGoApprovalPlaces, onLogout }: HomePageProps) {
+function HomePage({
+  sessionUser,
+  onGoUsers,
+  onGoRoles,
+  onGoAgricultural,
+  onGoApprovalPlaces,
+  onGoInspectionsAgenda,
+  onGoInspectionsHistory,
+  onLogout,
+}: HomePageProps) {
   return (
     <DashboardLayout
       title="Inicio"
@@ -24,6 +35,8 @@ function HomePage({ sessionUser, onGoUsers, onGoRoles, onGoAgricultural, onGoApp
         if (view === 'roles') onGoRoles?.();
         if (view === 'agricultural') onGoAgricultural?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
+        if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+        if (view === 'inspections-history') onGoInspectionsHistory?.();
       }}
       onLogout={onLogout}
     >

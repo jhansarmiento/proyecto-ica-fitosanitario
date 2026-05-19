@@ -37,30 +37,10 @@ type DashboardLayoutProps = {
 };
 
 const notificationsSeed: NotificationItem[] = [
-  {
-    id: 'N-1',
-    tipo: 'urgent',
-    mensaje: 'Alerta de plaga detectada en lote 2 de Predio Santa Isabel.',
-    horaRelativa: 'Hace 10 min',
-  },
-  {
-    id: 'N-2',
-    tipo: 'info',
-    mensaje: 'Nueva inspección programada en Predio El Porvenir.',
-    horaRelativa: 'Hace 25 min',
-  },
-  {
-    id: 'N-3',
-    tipo: 'info',
-    mensaje: 'Reporte ICA generado con éxito para INS-2026-0012.',
-    horaRelativa: 'Hace 1 h',
-  },
-  {
-    id: 'N-4',
-    tipo: 'urgent',
-    mensaje: 'Inspección vencida sin cierre en Hacienda La Aurora.',
-    horaRelativa: 'Hace 2 h',
-  },
+  { id: 'N-1', tipo: 'urgent', mensaje: 'Alerta de plaga detectada en lote 2 de Predio Santa Isabel.', horaRelativa: 'Hace 10 min' },
+  { id: 'N-2', tipo: 'info', mensaje: 'Nueva inspección programada en Predio El Porvenir.', horaRelativa: 'Hace 25 min' },
+  { id: 'N-3', tipo: 'info', mensaje: 'Reporte ICA generado con éxito para INS-2026-0012.', horaRelativa: 'Hace 1 h' },
+  { id: 'N-4', tipo: 'urgent', mensaje: 'Inspección vencida sin cierre en Hacienda La Aurora.', horaRelativa: 'Hace 2 h' },
 ];
 
 function DashboardLayout({
@@ -96,119 +76,122 @@ function DashboardLayout({
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
       <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[280px_1fr]">
-        <aside className="relative flex flex-col overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white">
+        <aside className="sticky top-0 h-screen overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white">
           <div className="pointer-events-none absolute -right-16 top-10 h-48 w-48 rounded-full bg-emerald-400/10 blur-3xl" />
-          <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-            <div className="h-12 w-12 rounded-xl bg-white/95 shadow-md" />
-            <div>
-              <p className="text-2xl font-bold leading-none">FitoGestor</p>
-              <p className="mt-1 text-sm text-emerald-100/90">Sistema Fitosanitario</p>
+
+          <div className="relative z-10 flex h-full flex-col">
+            <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
+              <div className="h-12 w-12 rounded-xl bg-white/95 shadow-md" />
+              <div>
+                <p className="text-2xl font-bold leading-none">FitoGestor</p>
+                <p className="mt-1 text-sm text-emerald-100/90">Sistema Fitosanitario</p>
+              </div>
             </div>
-          </div>
 
-          <nav className="flex flex-1 flex-col gap-1.5">
-            <button type="button" onClick={() => onNavigate?.('home')} className="w-full">
-              <SidebarItem label="Inicio" active={activeView === 'home'} icon={<Home size={20} />} />
-            </button>
+            <nav className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1">
+              <button type="button" onClick={() => onNavigate?.('home')} className="w-full">
+                <SidebarItem label="Inicio" active={activeView === 'home'} icon={<Home size={20} />} />
+              </button>
 
-            <button
-              type="button"
-              onClick={() => setIsUsersOpen((prev) => !prev)}
-              className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
-                activeView === 'users' || activeView === 'roles'
-                  ? 'bg-white/10 text-white'
-                  : 'text-emerald-50/90 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <Users size={20} className="text-emerald-200" />
-              <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestión de Usuarios</span>
-              <ChevronDown size={16} className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`} />
-            </button>
+              <button
+                type="button"
+                onClick={() => setIsUsersOpen((prev) => !prev)}
+                className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
+                  activeView === 'users' || activeView === 'roles'
+                    ? 'bg-white/10 text-white'
+                    : 'text-emerald-50/90 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                <Users size={20} className="text-emerald-200" />
+                <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Gestión de Usuarios</span>
+                <ChevronDown size={16} className={`transition-transform duration-300 ${isUsersOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-            {isUsersOpen ? (
-              <div className="ml-3 mt-1 space-y-1">
-                {menuSections.users.map((item) => (
+              {isUsersOpen ? (
+                <div className="ml-3 mt-1 space-y-1">
+                  {menuSections.users.map((item) => (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() => onNavigate?.(item.key)}
+                      className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
+                        activeView === item.key
+                          ? 'bg-white text-emerald-900 font-semibold shadow-sm'
+                          : 'text-emerald-100 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+
+              <button type="button" onClick={() => onNavigate?.('agricultural')} className="w-full">
+                <SidebarItem label="Gestión Agrícola" active={activeView === 'agricultural'} icon={<Layers size={20} />} />
+              </button>
+
+              {menuSections.requests.map((item) => (
+                <button key={item.key} type="button" onClick={() => onNavigate?.(item.key)} className="w-full">
+                  <SidebarItem label={item.label} active={activeView === item.key} icon={item.icon} />
+                </button>
+              ))}
+
+              <button
+                type="button"
+                onClick={() => setIsInspectionsOpen((prev) => !prev)}
+                className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
+                  activeView === 'inspections-agenda' || activeView === 'inspections-history'
+                    ? 'bg-white/10 text-white'
+                    : 'text-emerald-50/90 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                <ClipboardList size={20} className="text-emerald-200" />
+                <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Inspecciones</span>
+                <ChevronDown size={16} className={`transition-transform duration-300 ${isInspectionsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isInspectionsOpen ? (
+                <div className="ml-3 mt-1 space-y-1">
                   <button
-                    key={item.key}
                     type="button"
-                    onClick={() => onNavigate?.(item.key)}
+                    onClick={() => onNavigate?.('inspections-agenda')}
                     className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                      activeView === item.key
+                      activeView === 'inspections-agenda'
                         ? 'bg-white text-emerald-900 font-semibold shadow-sm'
                         : 'text-emerald-100 hover:bg-white/10 hover:text-white'
                     }`}
                   >
-                    {item.icon}
-                    {item.label}
+                    <ClipboardList size={18} />
+                    Realizar Inspección
                   </button>
-                ))}
-              </div>
-            ) : null}
+                  <button
+                    type="button"
+                    onClick={() => onNavigate?.('inspections-history')}
+                    className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
+                      activeView === 'inspections-history'
+                        ? 'bg-white text-emerald-900 font-semibold shadow-sm'
+                        : 'text-emerald-100 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    <ClipboardList size={18} />
+                    Historial de Inspecciones
+                  </button>
+                </div>
+              ) : null}
 
-            <button type="button" onClick={() => onNavigate?.('agricultural')} className="w-full">
-              <SidebarItem label="Gestión Agrícola" active={activeView === 'agricultural'} icon={<Layers size={20} />} />
-            </button>
-
-            {menuSections.requests.map((item) => (
-              <button key={item.key} type="button" onClick={() => onNavigate?.(item.key)} className="w-full">
-                <SidebarItem label={item.label} active={activeView === item.key} icon={item.icon} />
-              </button>
-            ))}
+              <SidebarItem label="Reportes" icon={<Folder size={20} />} />
+            </nav>
 
             <button
               type="button"
-              onClick={() => setIsInspectionsOpen((prev) => !prev)}
-              className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
-                activeView === 'inspections-agenda' || activeView === 'inspections-history'
-                  ? 'bg-white/10 text-white'
-                  : 'text-emerald-50/90 hover:bg-white/10 hover:text-white'
-              }`}
+              onClick={onLogout}
+              className="mt-4 shrink-0 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
             >
-              <ClipboardList size={20} className="text-emerald-200" />
-              <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">Inspecciones</span>
-              <ChevronDown size={16} className={`transition-transform duration-300 ${isInspectionsOpen ? 'rotate-180' : ''}`} />
+              <span>↪</span>
+              Cerrar Sesión
             </button>
-
-            {isInspectionsOpen ? (
-              <div className="ml-3 mt-1 space-y-1">
-                <button
-                  type="button"
-                  onClick={() => onNavigate?.('inspections-agenda')}
-                  className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                    activeView === 'inspections-agenda'
-                      ? 'bg-white text-emerald-900 font-semibold shadow-sm'
-                      : 'text-emerald-100 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <ClipboardList size={18} />
-                  Realizar Inspección
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onNavigate?.('inspections-history')}
-                  className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                    activeView === 'inspections-history'
-                      ? 'bg-white text-emerald-900 font-semibold shadow-sm'
-                      : 'text-emerald-100 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  <ClipboardList size={18} />
-                  Historial de Inspecciones
-                </button>
-              </div>
-            ) : null}
-
-            <SidebarItem label="Reportes" icon={<Folder size={20} />} />
-          </nav>
-
-          <button
-            type="button"
-            onClick={onLogout}
-            className="mt-4 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
-          >
-            <span>↪</span>
-            Cerrar Sesión
-          </button>
+          </div>
         </aside>
 
         <div className="flex min-w-0 flex-col">
@@ -283,7 +266,7 @@ function DashboardLayout({
             </div>
           </header>
 
-          <section className="flex-1 p-4 sm:p-6">{children}</section>
+          <section className="flex-1 overflow-x-hidden p-4 sm:p-6">{children}</section>
         </div>
       </div>
     </main>

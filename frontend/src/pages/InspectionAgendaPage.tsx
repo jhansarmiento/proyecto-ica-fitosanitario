@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { CalendarDays, ClipboardCheck, Clock3, Filter, MapPin, Search, ShieldAlert, Sprout } from 'lucide-react';
+import { CalendarDays, Clock3, Filter, MapPin, Search, Sprout } from 'lucide-react';
 import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../App';
 
@@ -9,11 +9,10 @@ type InspectionAgendaItem = {
   id: string;
   predioNombre: string;
   codigoDaneIca: string;
-  cultivo: string;
   fechaProgramada: string;
   horaProgramada: string;
-  inspectorAsignado: string;
-  municipio: string;
+  ubicacion: string;
+  cantidadLotes: number;
   estado: InspectionStatus;
 };
 
@@ -31,46 +30,42 @@ type InspectionAgendaPageProps = {
 const agendaSeed: InspectionAgendaItem[] = [
   {
     id: 'AG-001',
-    predioNombre: 'Finca El Porvenir',
+    predioNombre: 'Zona Productiva Norte',
     codigoDaneIca: 'ICA-68001-2391',
-    cultivo: 'Cítricos',
     fechaProgramada: '2026-05-20',
     horaProgramada: '08:30',
-    inspectorAsignado: 'Ing. Laura Rivas',
-    municipio: 'Bucaramanga',
+    ubicacion: 'Girón, Santander',
+    cantidadLotes: 3,
     estado: 'Pendiente',
   },
   {
     id: 'AG-002',
-    predioNombre: 'Predio Santa Isabel',
+    predioNombre: 'Finca El Porvenir',
     codigoDaneIca: 'ICA-68077-1022',
-    cultivo: 'Palma',
     fechaProgramada: '2026-05-20',
     horaProgramada: '10:00',
-    inspectorAsignado: 'Téc. Carlos Mena',
-    municipio: 'Girón',
+    ubicacion: 'Bucaramanga',
+    cantidadLotes: 6,
     estado: 'En Progreso',
   },
   {
     id: 'AG-003',
     predioNombre: 'Hacienda La Aurora',
     codigoDaneIca: 'ICA-68167-8821',
-    cultivo: 'Banano',
     fechaProgramada: '2026-05-21',
     horaProgramada: '07:45',
-    inspectorAsignado: 'Ing. Diana Castro',
-    municipio: 'Piedecuesta',
+    ubicacion: 'Piedecuesta',
+    cantidadLotes: 4,
     estado: 'Pendiente',
   },
   {
     id: 'AG-004',
     predioNombre: 'Lote Altos del Río',
     codigoDaneIca: 'ICA-68001-7712',
-    cultivo: 'Cacao',
     fechaProgramada: '2026-05-19',
     horaProgramada: '15:20',
-    inspectorAsignado: 'Téc. Andrés León',
-    municipio: 'Floridablanca',
+    ubicacion: 'Floridablanca',
+    cantidadLotes: 2,
     estado: 'Ejecutada',
   },
 ];
@@ -101,7 +96,7 @@ export default function InspectionAgendaPage({
       const byDate = dateFilter ? item.fechaProgramada === dateFilter : true;
       const query = locationFilter.toLowerCase().trim();
       const byLocation = query
-        ? item.municipio.toLowerCase().includes(query) || item.predioNombre.toLowerCase().includes(query)
+        ? item.ubicacion.toLowerCase().includes(query) || item.predioNombre.toLowerCase().includes(query)
         : true;
       return byStatus && byDate && byLocation;
     });
@@ -133,7 +128,7 @@ export default function InspectionAgendaPage({
               <Search className="pointer-events-none absolute left-3 top-2.5 text-slate-400" size={18} />
               <input
                 type="text"
-                placeholder="Municipio o Predio"
+                placeholder="Buscar lugar de producción..."
                 value={locationFilter}
                 onChange={(e) => setLocationFilter(e.target.value)}
                 className="w-full rounded-xl border border-slate-300 py-2 pl-10 pr-3 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
@@ -175,14 +170,7 @@ export default function InspectionAgendaPage({
                 </button>
               </div>
 
-              <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-                <div className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2">
-                  <Sprout size={16} className="text-emerald-700" />
-                  <div>
-                    <p className="text-[11px] uppercase text-slate-500">Cultivo</p>
-                    <p className="text-sm font-semibold text-slate-800">{item.cultivo}</p>
-                  </div>
-                </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 <div className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2">
                   <CalendarDays size={16} className="text-blue-700" />
                   <div>
@@ -200,15 +188,15 @@ export default function InspectionAgendaPage({
                 <div className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2">
                   <MapPin size={16} className="text-rose-700" />
                   <div>
-                    <p className="text-[11px] uppercase text-slate-500">Municipio</p>
-                    <p className="text-sm font-semibold text-slate-800">{item.municipio}</p>
+                    <p className="text-[11px] uppercase text-slate-500">Ubicación</p>
+                    <p className="text-sm font-semibold text-slate-800">{item.ubicacion}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2">
-                  <ClipboardCheck size={16} className="text-emerald-700" />
+                  <Sprout size={16} className="text-emerald-700" />
                   <div>
-                    <p className="text-[11px] uppercase text-slate-500">Inspector</p>
-                    <p className="text-sm font-semibold text-slate-800">{item.inspectorAsignado}</p>
+                    <p className="text-[11px] uppercase text-slate-500">Cantidad lotes</p>
+                    <p className="text-sm font-semibold text-slate-800">{item.cantidadLotes} Lotes</p>
                   </div>
                 </div>
               </div>
@@ -223,12 +211,6 @@ export default function InspectionAgendaPage({
           ) : null}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
-            <ShieldAlert size={16} className="text-rose-600" />
-            <span>Tip: Usa “Iniciar Inspección” para abrir flujo de ejecución en campo.</span>
-          </div>
-        </section>
       </section>
     </DashboardLayout>
   );
