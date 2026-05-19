@@ -74,7 +74,6 @@ export default function InspectionHistoryPage({
       activeView="inspections-history"
       onNavigate={handleNavigate}
       onLogout={onLogout}
-      breadcrumbs={['Inicio', 'Inspecciones', 'Historial de Inspecciones']}
     >
       <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="border-b border-slate-100 px-5 py-4">
@@ -90,7 +89,6 @@ export default function InspectionHistoryPage({
                 <th className="px-4 py-3 font-semibold">Finca / Predio</th>
                 <th className="px-4 py-3 font-semibold">Cultivo</th>
                 <th className="px-4 py-3 font-semibold">Resultado</th>
-                <th className="px-4 py-3 font-semibold text-right">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -107,13 +105,7 @@ export default function InspectionHistoryPage({
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end">
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-300 px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
-                      >
-                        <FileText size={14} />
-                        Ver reporte
-                      </button>
+
                     </div>
                   </td>
                 </tr>

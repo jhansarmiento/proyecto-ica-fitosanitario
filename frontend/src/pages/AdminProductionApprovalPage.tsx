@@ -96,7 +96,6 @@ function AdminProductionApprovalPage({
       subtitle="Gestión de solicitudes para administrador ICA"
       activeView="approval-places"
       sessionUser={sessionUser}
-      breadcrumbs={['Inicio', 'Solicitudes', 'Aprobación de Lugares']}
       onNavigate={handleNavigate}
       onLogout={onLogout}
     >

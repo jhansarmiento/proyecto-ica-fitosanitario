@@ -119,7 +119,6 @@ export default function InspectionAgendaPage({
       activeView="inspections-agenda"
       onNavigate={handleNavigate}
       onLogout={onLogout}
-      breadcrumbs={['Inicio', 'Inspecciones', 'Realizar Inspección']}
     >
       <section className="space-y-6">
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
