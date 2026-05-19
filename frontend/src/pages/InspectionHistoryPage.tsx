@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../App';
 
