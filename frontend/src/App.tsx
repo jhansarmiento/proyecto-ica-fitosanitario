@@ -8,6 +8,8 @@ import ProductionPlaceDetailPage from './pages/ProductionPlaceDetailPage';
 import ProductionLotsPage from './pages/ProductionLotsPage';
 import LoginPage from './pages/LoginPage';
 import AdminProductionApprovalPage from './pages/AdminProductionApprovalPage';
+import InspectionAgendaPage from './pages/InspectionAgendaPage';
+import InspectionHistoryPage from './pages/InspectionHistoryPage';
 
 type View =
   | 'login'
@@ -17,7 +19,9 @@ type View =
   | 'agricultural'
   | 'production-detail'
   | 'production-lots'
-  | 'approval-places';
+  | 'approval-places'
+  | 'inspections-agenda'
+  | 'inspections-history';
 
 export type SessionUser = {
   nombre: string;
@@ -136,6 +140,32 @@ function App() {
         onLogout={handleLogout}
       />
     );
+  } else if (view === 'inspections-agenda') {
+    page = (
+      <InspectionAgendaPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionHistory={() => setView('inspections-history')}
+        onLogout={handleLogout}
+      />
+    );
+  } else if (view === 'inspections-history') {
+    page = (
+      <InspectionHistoryPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onLogout={handleLogout}
+      />
+    );
   } else {
     page = (
       <AdminProductionApprovalPage
@@ -144,6 +174,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onLogout={handleLogout}
       />
     );

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import DashboardLayout from '../components/layout/DashboardLayout';
+import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../App';
 import { approvalRequestsSeed } from '../data/dashboard.data';
 import type { ProductionApprovalItem } from '../types/dashboard.types';
@@ -14,8 +14,7 @@ type AdminProductionApprovalPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
-  onGoProducerPlaces?: () => void;
-  onGoCatalogs?: () => void;
+  onGoInspectionsAgenda?: () => void;
   onLogout?: () => void;
 };
 
@@ -27,8 +26,7 @@ function AdminProductionApprovalPage({
   onGoUsers,
   onGoRoles,
   onGoAgricultural,
-  onGoProducerPlaces,
-  onGoCatalogs,
+  onGoInspectionsAgenda,
   onLogout,
 }: AdminProductionApprovalPageProps) {
   const [query, setQuery] = useState('');
@@ -56,13 +54,12 @@ function AdminProductionApprovalPage({
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const handleNavigate = (view: 'home' | 'users' | 'roles' | 'agricultural' | 'approval-places' | 'producer-places' | 'catalogs') => {
+  const handleNavigate = (view: DashboardViewKey) => {
     if (view === 'home') onGoHome?.();
     if (view === 'users') onGoUsers?.();
     if (view === 'roles') onGoRoles?.();
     if (view === 'agricultural') onGoAgricultural?.();
-    if (view === 'producer-places') onGoProducerPlaces?.();
-    if (view === 'catalogs') onGoCatalogs?.();
+    if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
   };
 
   const handleApprove = async () => {
