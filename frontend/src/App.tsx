@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import AdminProductionApprovalPage from './pages/AdminProductionApprovalPage';
 import InspectionAgendaPage from './pages/InspectionAgendaPage';
 import InspectionHistoryPage from './pages/InspectionHistoryPage';
+import InspectionProcessPage from './pages/InspectionProcessPage';
 
 type View =
   | 'login'
@@ -21,7 +22,8 @@ type View =
   | 'production-lots'
   | 'approval-places'
   | 'inspections-agenda'
-  | 'inspections-history';
+  | 'inspections-history'
+  | 'inspection-process';
 
 export type SessionUser = {
   nombre: string;
@@ -154,6 +156,7 @@ function App() {
         onGoAgricultural={() => setView('agricultural')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionHistory={() => setView('inspections-history')}
+        onStartInspectionProcess={() => setView('inspection-process')}
         onLogout={handleLogout}
       />
     );
@@ -168,6 +171,22 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onLogout={handleLogout}
+      />
+    );
+  } else if (view === 'inspection-process') {
+    page = (
+      <InspectionProcessPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
+        onLogout={handleLogout}
+        onBack={() => setView('inspections-agenda')}
+        onFinish={() => setView('inspections-history')}
       />
     );
   } else {

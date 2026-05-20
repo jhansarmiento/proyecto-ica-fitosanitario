@@ -24,6 +24,7 @@ type InspectionAgendaPageProps = {
   onGoAgricultural?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionHistory?: () => void;
+  onStartInspectionProcess?: () => void;
   onLogout?: () => void;
 };
 
@@ -84,6 +85,7 @@ export default function InspectionAgendaPage({
   onGoAgricultural,
   onGoApprovalPlaces,
   onGoInspectionHistory,
+  onStartInspectionProcess,
   onLogout,
 }: InspectionAgendaPageProps) {
   const [statusFilter, setStatusFilter] = useState<'Todos' | InspectionStatus>('Todos');
@@ -164,7 +166,11 @@ export default function InspectionAgendaPage({
                   <p className="text-sm text-slate-500">Código DANE/ICA: {item.codigoDaneIca}</p>
                 </div>
 
-                <button type="button" className="inline-flex items-center justify-center rounded-xl bg-emerald-800 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900">
+                <button
+                  type="button"
+                  onClick={onStartInspectionProcess}
+                  className="inline-flex items-center justify-center rounded-xl bg-emerald-800 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900"
+                >
                   Iniciar Inspección
                 </button>
               </div>

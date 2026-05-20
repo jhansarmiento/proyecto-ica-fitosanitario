@@ -19,15 +19,15 @@ authRoutes.post('/login', async (req, res) => {
     }
 
     const user = await Usuario.scope('withPassword').findOne({
-      where: { ingresoUsuario },
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+      where: { ingreso_usuario: ingresoUsuario },
+      include: [{ model: Rol, as: 'rol', attributes: ['id_rol', 'nombre_rol'] }],
     });
 
     if (!user) {
       return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
     }
 
-    const passwordOk = await bcrypt.compare(ingresoContrasena, user.getDataValue('ingresoContrasena'));
+    const passwordOk = await bcrypt.compare(ingresoContrasena, user.getDataValue('ingreso_contrasena'));
 
     if (!passwordOk) {
       return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
@@ -36,12 +36,12 @@ authRoutes.post('/login', async (req, res) => {
     return res.status(200).json({
       message: 'Inicio de sesión exitoso',
       data: {
-        id: user.getDataValue('id'),
-        ingresoUsuario: user.getDataValue('ingresoUsuario'),
+        id: user.getDataValue('id_usuario'),
+        ingresoUsuario: user.getDataValue('ingreso_usuario'),
         nombre: user.getDataValue('nombre'),
         apellidos: user.getDataValue('apellidos'),
-        correoElectronico: user.getDataValue('correoElectronico'),
-        rol: (user as any).rol?.nombreRol ?? null,
+        correoElectronico: user.getDataValue('correo_electronico'),
+        rol: (user as any).rol?.getDataValue('nombre_rol') ?? null,
       },
     });
   } catch (error) {
