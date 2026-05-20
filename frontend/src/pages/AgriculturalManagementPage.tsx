@@ -25,6 +25,7 @@ type AgriculturalManagementPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoRoles?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
@@ -37,6 +38,7 @@ function AgriculturalManagementPage({
   onGoHome,
   onGoUsers,
   onGoRoles,
+  onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
@@ -134,6 +136,7 @@ function AgriculturalManagementPage({
         if (view === 'home') onGoHome?.();
         if (view === 'users') onGoUsers?.();
         if (view === 'roles') onGoRoles?.();
+        if (view === 'catalog') onGoCatalog?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
         if (view === 'inspections-history') onGoInspectionsHistory?.();

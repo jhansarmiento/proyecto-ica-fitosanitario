@@ -8,6 +8,7 @@ type HomePageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
@@ -19,6 +20,7 @@ function HomePage({
   onGoUsers,
   onGoRoles,
   onGoAgricultural,
+  onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
@@ -34,6 +36,7 @@ function HomePage({
         if (view === 'users') onGoUsers?.();
         if (view === 'roles') onGoRoles?.();
         if (view === 'agricultural') onGoAgricultural?.();
+        if (view === 'catalog') onGoCatalog?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
         if (view === 'inspections-history') onGoInspectionsHistory?.();

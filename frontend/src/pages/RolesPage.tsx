@@ -73,11 +73,20 @@ type RolesPageProps = {
   onGoHome?: () => void;
   onGoUsers?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onLogout?: () => void;
 };
 
-function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onGoApprovalPlaces, onLogout }: RolesPageProps) {
+function RolesPage({
+  sessionUser,
+  onGoHome,
+  onGoUsers,
+  onGoAgricultural,
+  onGoCatalog,
+  onGoApprovalPlaces,
+  onLogout,
+}: RolesPageProps) {
   const [search, setSearch] = useState('');
   const [isNewRoleOpen, setIsNewRoleOpen] = useState(false);
   const [roles, setRoles] = useState<EditableRole[]>([]);
@@ -171,6 +180,7 @@ function RolesPage({ sessionUser, onGoHome, onGoUsers, onGoAgricultural, onGoApp
         if (view === 'home') onGoHome?.();
         if (view === 'users') onGoUsers?.();
         if (view === 'agricultural') onGoAgricultural?.();
+        if (view === 'catalog') onGoCatalog?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
       }}
       onLogout={onLogout}

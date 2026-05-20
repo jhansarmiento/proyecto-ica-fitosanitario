@@ -74,11 +74,20 @@ type UsersPageProps = {
   onGoHome?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onLogout?: () => void;
 };
 
-function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onGoApprovalPlaces, onLogout }: UsersPageProps) {
+function UsersPage({
+  sessionUser,
+  onGoHome,
+  onGoRoles,
+  onGoAgricultural,
+  onGoCatalog,
+  onGoApprovalPlaces,
+  onLogout,
+}: UsersPageProps) {
   const [search, setSearch] = useState('');
   const [isNewUserOpen, setIsNewUserOpen] = useState(false);
   const [users, setUsers] = useState<EditableUser[]>([]);
@@ -212,6 +221,7 @@ function UsersPage({ sessionUser, onGoHome, onGoRoles, onGoAgricultural, onGoApp
         if (view === 'home') onGoHome?.();
         if (view === 'roles') onGoRoles?.();
         if (view === 'agricultural') onGoAgricultural?.();
+        if (view === 'catalog') onGoCatalog?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
       }}
       onLogout={onLogout}

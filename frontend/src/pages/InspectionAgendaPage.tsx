@@ -22,6 +22,7 @@ type InspectionAgendaPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionHistory?: () => void;
   onStartInspectionProcess?: () => void;
@@ -83,6 +84,7 @@ export default function InspectionAgendaPage({
   onGoUsers,
   onGoRoles,
   onGoAgricultural,
+  onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionHistory,
   onStartInspectionProcess,
@@ -109,6 +111,7 @@ export default function InspectionAgendaPage({
     if (view === 'users') onGoUsers?.();
     if (view === 'roles') onGoRoles?.();
     if (view === 'agricultural') onGoAgricultural?.();
+    if (view === 'catalog') onGoCatalog?.();
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-history') onGoInspectionHistory?.();
   };

@@ -33,6 +33,7 @@ type InspectionHistoryPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onLogout?: () => void;
@@ -126,6 +127,7 @@ export default function InspectionHistoryPage({
   onGoUsers,
   onGoRoles,
   onGoAgricultural,
+  onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onLogout,
@@ -192,9 +194,10 @@ export default function InspectionHistoryPage({
   const handleNavigate = (view: DashboardViewKey) => {
     if (view === 'home') onGoHome?.();
     if (view === 'users') onGoUsers?.();
-    if (view === 'roles') onGoRoles?.();
-    if (view === 'agricultural') onGoAgricultural?.();
-    if (view === 'approval-places') onGoApprovalPlaces?.();
+        if (view === 'roles') onGoRoles?.();
+        if (view === 'agricultural') onGoAgricultural?.();
+        if (view === 'catalog') onGoCatalog?.();
+        if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
   };
 

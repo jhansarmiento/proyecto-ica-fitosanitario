@@ -15,6 +15,7 @@ export type DashboardViewKey =
   | 'users'
   | 'roles'
   | 'agricultural'
+  | 'catalog'
   | 'approval-places'
   | 'inspections-agenda'
   | 'inspections-history';
@@ -129,6 +130,10 @@ function DashboardLayout({
 
               <button type="button" onClick={() => onNavigate?.('agricultural')} className="w-full">
                 <SidebarItem label="Gestión Agrícola" active={activeView === 'agricultural'} icon={<Layers size={20} />} />
+              </button>
+
+              <button type="button" onClick={() => onNavigate?.('catalog')} className="w-full">
+                <SidebarItem label="Catálogo" active={activeView === 'catalog'} icon={<Layers size={20} />} />
               </button>
 
               {menuSections.requests.map((item) => (

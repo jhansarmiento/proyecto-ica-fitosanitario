@@ -11,6 +11,7 @@ import AdminProductionApprovalPage from './pages/AdminProductionApprovalPage';
 import InspectionAgendaPage from './pages/InspectionAgendaPage';
 import InspectionHistoryPage from './pages/InspectionHistoryPage';
 import InspectionProcessPage from './pages/InspectionProcessPage';
+import CatalogManagementPage from './pages/CatalogManagementPage';
 
 type View =
   | 'login'
@@ -18,6 +19,7 @@ type View =
   | 'users'
   | 'roles'
   | 'agricultural'
+  | 'catalog'
   | 'production-detail'
   | 'production-lots'
   | 'approval-places'
@@ -74,6 +76,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
@@ -87,6 +90,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
@@ -98,6 +102,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onLogout={handleLogout}
       />
@@ -109,6 +114,7 @@ function App() {
         onGoHome={() => setView('home')}
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
@@ -146,6 +152,20 @@ function App() {
         onLogout={handleLogout}
       />
     );
+  } else if (view === 'catalog') {
+    page = (
+      <CatalogManagementPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
+        onLogout={handleLogout}
+      />
+    );
   } else if (view === 'inspections-agenda') {
     page = (
       <InspectionAgendaPage
@@ -154,6 +174,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionHistory={() => setView('inspections-history')}
         onStartInspectionProcess={() => setView('inspection-process')}
@@ -168,6 +189,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onLogout={handleLogout}
@@ -181,6 +203,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
