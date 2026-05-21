@@ -163,10 +163,9 @@ export default function InspectionProcessPage({
   return (
     <DashboardLayout
       title="Realizar Inspección"
-      subtitle="Proceso guiado para ejecutar la inspección fitosanitaria"
+      subtitle="Proceso para ejecutar la inspección fitosanitaria"
       sessionUser={sessionUser}
       activeView="inspections-agenda"
-      breadcrumbs={['Inspecciones', 'Zona Productiva Norte', `Paso ${step} de 4`]}
       onNavigate={handleNavigate}
       onLogout={onLogout}
     >
@@ -185,36 +184,128 @@ export default function InspectionProcessPage({
 
         {step === 1 ? (
           <section className="space-y-4">
-            <article className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <header className="border-b border-slate-100 px-5 py-4">
-                <h2 className="text-2xl font-bold text-slate-900">Información del Lugar</h2>
-              </header>
-              <div className="grid gap-6 px-5 py-5 sm:grid-cols-2 xl:grid-cols-3">
-                <div>
-                  <p className="text-sm text-slate-500">Registro ICA</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">ICA-LP-2024-001</p>
+            <article className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
+
+              {/* HEADER */}
+              <div className="border-b border-slate-100 bg-gradient-to-r from-[#015c4b] to-[#0b6b57] px-8 py-7">
+
+                <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+
+                  <div>
+
+                    <span className="inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-50">
+                      Lugar de Producción
+                    </span>
+
+                    <h2 className="mt-4 text-4xl font-black tracking-tight text-white">
+                      Información General
+                    </h2>
+
+                    <p className="mt-2 text-base text-white/70">
+                      Información registrada para la inspección fitosanitaria
+                    </p>
+
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/10 px-5 py-3 backdrop-blur-sm">
+
+                    <p className="text-xs uppercase tracking-wide text-white/50">
+                      Estado
+                    </p>
+
+                    <p className="mt-1 font-semibold text-white">
+                      Inspección programada
+                    </p>
+
+                  </div>
+
                 </div>
-                <div>
-                  <p className="text-sm text-slate-500">Coordenadas</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">6.2476, -75.5658</p>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-500">Fecha</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">2026-05-20</p>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-500">Vereda</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">La Cabaña</p>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-500">Municipio</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">Medellín</p>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-500">Departamento</p>
-                  <p className="mt-1 text-3xl font-bold text-slate-900">Antioquia</p>
-                </div>
+
               </div>
+
+              {/* CONTENT */}
+              <div className="grid gap-5 p-8 sm:grid-cols-2 xl:grid-cols-3">
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Registro ICA
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    ICA-LP-2024-001
+                  </h3>
+
+                </div>
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Coordenadas
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    6.2476, -75.5658
+                  </h3>
+
+                </div>
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Fecha inspección
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    2026-05-20
+                  </h3>
+
+                </div>
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Vereda
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    La Cabaña
+                  </h3>
+
+                </div>
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Municipio
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    Medellín
+                  </h3>
+
+                </div>
+
+                {/* ITEM */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-white">
+
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Departamento
+                  </p>
+
+                  <h3 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+                    Antioquia
+                  </h3>
+
+                </div>
+
+              </div>
+
             </article>
 
             <div className="flex items-center justify-between">
@@ -272,9 +363,8 @@ export default function InspectionProcessPage({
                         <td className="px-4 py-3">{lot.areaHa}</td>
                         <td className="px-4 py-3">
                           <span
-                            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                              lot.estado === 'Inspeccionado' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                            }`}
+                            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${lot.estado === 'Inspeccionado' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                              }`}
                           >
                             {lot.estado}
                           </span>

@@ -413,7 +413,7 @@ export default function InspectionHistoryPage({
             <div className="flex items-start justify-between rounded-t-2xl bg-emerald-900 px-5 py-4 text-white">
               <div>
                 <h3 className="text-2xl font-bold">Nueva Solicitud</h3>
-                <p className="text-sm text-emerald-100">Paso {requestStep} de 2</p>
+                <p className="text-sm text-emerald-100">Paso {requestStep} de 2 - Solicitud Inspección</p>
               </div>
               <button type="button" onClick={closeRequestModal} className="rounded-lg p-1 hover:bg-white/10">
                 <X size={22} />

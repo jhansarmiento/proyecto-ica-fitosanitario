@@ -102,7 +102,7 @@ export default function CatalogManagementPage({
 
           <div className="px-5 py-4">
             <div className="mb-4 w-full max-w-3xl rounded-xl border border-white/70 bg-white/75 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,.95),0_10px_25px_rgba(15,23,42,.06)] backdrop-blur">
-              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5"><Search size={16} className="text-slate-400" /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder={tab === 'species' ? 'Buscar por especie o variedad...' : 'Buscar por plaga, especie afectada o control...'} className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" /></div>
+              <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5"><Search size={16} className="text-slate-400" /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder={tab === 'species' ? 'Buscar por especie o variedad...' : 'Buscar por plaga ...'} className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" /></div>
             </div>
 
             {/* {tab === 'species' ? (
@@ -365,10 +365,6 @@ export default function CatalogManagementPage({
               <div className="relative z-[1] mt-8 max-w-2xl">
                 <h3 className="text-5xl font-extrabold leading-[.95] tracking-tight">{sp.nombreComun}</h3>
                 <p className="mt-1 text-2xl italic text-slate-100">{sp.nombreCientifico}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-white/35 bg-white/14 px-2.5 py-1 text-[11px] font-semibold">Ciclo: {sp.ciclo}</span>
-                  <span className="rounded-full border border-white/35 bg-white/14 px-2.5 py-1 text-[11px] font-semibold">Tipo: {sp.tipoCultivo}</span>
-                </div>
               </div>
             </div>
             <div className="grid gap-4 bg-gradient-to-b from-white to-slate-50 p-5 lg:grid-cols-12">
@@ -421,10 +417,7 @@ export default function CatalogManagementPage({
               <div className="relative z-[1] mt-8 max-w-2xl">
                 <h3 className="text-5xl font-extrabold leading-[.95] tracking-tight">{pt.nombreComun}</h3>
                 <p className="mt-1 text-2xl italic text-slate-100">{pt.nombreCientifico}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-white/35 bg-white/14 px-2.5 py-1 text-[11px] font-semibold">Tipo: {pt.tipo}</span>
-                  <span className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${sev(pt.severidad)}`}>Severidad: {pt.severidad}</span>
-                </div>
+
               </div>
             </div>
             <div className="grid gap-4 bg-gradient-to-b from-white to-slate-50 p-5 lg:grid-cols-12">
