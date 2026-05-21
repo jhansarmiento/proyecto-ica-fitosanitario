@@ -14,6 +14,7 @@ type AdminProductionApprovalPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoAgricultural?: () => void;
+  onGoCatalog?: () => void;
   onGoInspectionsAgenda?: () => void;
   onLogout?: () => void;
 };
@@ -26,6 +27,7 @@ function AdminProductionApprovalPage({
   onGoUsers,
   onGoRoles,
   onGoAgricultural,
+  onGoCatalog,
   onGoInspectionsAgenda,
   onLogout,
 }: AdminProductionApprovalPageProps) {
@@ -60,6 +62,7 @@ function AdminProductionApprovalPage({
     if (view === 'roles') onGoRoles?.();
     if (view === 'agricultural') onGoAgricultural?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+    if (view === 'catalog') onGoCatalog?.();
   };
 
   const handleApprove = async () => {
@@ -209,8 +212,8 @@ function AdminProductionApprovalPage({
               <p><span className="font-semibold text-slate-700">Número ICA:</span> {selected.numeroICA}</p>
               <p><span className="font-semibold text-slate-700">Estado:</span> <StatusBadge status={selected.estado} /></p>
               <p><span className="font-semibold text-slate-700">Especies:</span> {selected.especies.join(', ')}</p>
-              <p><span className="font-semibold text-slate-700">Variedades:</span> {selected.variedades.join(', ')}</p>
-              <p><span className="font-semibold text-slate-700">Lotes:</span> {selected.lotes.join(', ')}</p>
+              {/* <p><span className="font-semibold text-slate-700">Variedades:</span> {selected.variedades.join(', ')}</p> */}
+              {/* <p><span className="font-semibold text-slate-700">Lotes:</span> {selected.lotes.join(', ')}</p> */}
               <p><span className="font-semibold text-slate-700">Observaciones:</span> {selected.observaciones || 'Sin observaciones'}</p>
             </div>
 

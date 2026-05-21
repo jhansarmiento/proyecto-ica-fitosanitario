@@ -220,6 +220,7 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onLogout={handleLogout}
       />
