@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Sprout } from 'lucide-react';
 import FeatureItem from '../components/ui/FeatureItem';
 import StatItem from '../components/ui/StatItem';
 import TextInput from '../components/ui/TextInput';
@@ -11,9 +12,10 @@ import type { SessionUser } from '../App';
 
 type LoginPageProps = {
   onLoginSuccess?: (user: SessionUser) => void;
+  onGoRegister?: () => void;
 };
 
-function LoginPage({ onLoginSuccess }: LoginPageProps) {
+function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
   const [isForgotOpen, setIsForgotOpen] = useState(false);
   const [ingresoUsuario, setIngresoUsuario] = useState('');
   const [ingresoContrasena, setIngresoContrasena] = useState('');
@@ -126,8 +128,23 @@ function LoginPage({ onLoginSuccess }: LoginPageProps) {
               </PrimaryButton>
             </form>
 
-            <div className="mt-6 border-t border-white/15 pt-5">
-              <p className="text-center text-[1rem] text-emerald-50/90">¿Necesitas ayuda? Contacta soporte</p>
+            <div className="mt-6 border-t border-white/15 pt-5 flex flex-col gap-4">
+              {/* Registro de productor */}
+              <div className="flex flex-col items-center gap-3">
+                <p className="text-[0.95rem] text-emerald-50/75">¿No tienes cuenta?</p>
+                <button
+                  type="button"
+                  onClick={onGoRegister}
+                  className="group flex w-full items-center justify-center gap-2.5 rounded-xl border border-emerald-400/40 bg-transparent px-5 py-3 text-[0.97rem] font-semibold text-emerald-200 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-emerald-300/70 hover:bg-emerald-400/10 hover:text-white hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] active:scale-[0.98]"
+                >
+                  <Sprout
+                    size={18}
+                    className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                  />
+                  Registrarse como Productor
+                </button>
+              </div>
+              <p className="text-center text-[0.9rem] text-emerald-50/60">¿Necesitas ayuda? Contacta soporte</p>
             </div>
           </div>
         </section>

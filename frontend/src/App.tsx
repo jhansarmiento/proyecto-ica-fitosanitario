@@ -7,6 +7,7 @@ import AgriculturalManagementPage, { type ProductionSite } from './pages/Agricul
 import ProductionPlaceDetailPage from './pages/ProductionPlaceDetailPage';
 import ProductionLotsPage from './pages/ProductionLotsPage';
 import LoginPage from './pages/LoginPage';
+import RegisterProductorPage from './pages/RegisterProductorPage';
 import AdminProductionApprovalPage from './pages/AdminProductionApprovalPage';
 import InspectionAgendaPage from './pages/InspectionAgendaPage';
 import InspectionHistoryPage from './pages/InspectionHistoryPage';
@@ -15,6 +16,7 @@ import CatalogManagementPage from './pages/CatalogManagementPage';
 
 type View =
   | 'login'
+  | 'register'
   | 'home'
   | 'users'
   | 'roles'
@@ -67,8 +69,15 @@ function App() {
 
   let page: React.ReactNode;
 
-  if (view === 'login') {
-    page = <LoginPage onLoginSuccess={handleLoginSuccess} />;
+  if (view === 'register') {
+    page = (
+      <RegisterProductorPage
+        onGoLogin={() => setView('login')}
+        onRegisterSuccess={() => setView('login')}
+      />
+    );
+  } else if (view === 'login') {
+    page = <LoginPage onLoginSuccess={handleLoginSuccess} onGoRegister={() => setView('register')} />;
   } else if (view === 'home') {
     page = (
       <HomePage
