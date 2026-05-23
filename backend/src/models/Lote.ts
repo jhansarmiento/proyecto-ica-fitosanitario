@@ -8,7 +8,7 @@ class Lote extends Model {
     public fecha_siembra!: Date;
     public fecha_cosecha!: Date;
     public id_variedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
-    public id_predio!: string; // Clave foránea para el Lugar de Producción
+    public id_lugar_produccion!: string; // Clave foránea para el Lugar de Producción
 
     static associate(models: any) {
         // Un lote pertenece a un predio

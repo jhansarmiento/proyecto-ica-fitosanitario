@@ -521,7 +521,7 @@ export default function InspectionHistoryPage({
                     </div>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <label className="mb-1 block text-sm font-semibold text-slate-700">Observaciones adicionales</label>
                     <textarea
                       value={requestForm.observaciones}
@@ -530,7 +530,7 @@ export default function InspectionHistoryPage({
                       placeholder="Observaciones para la inspección"
                       className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
                     />
-                  </div>
+                  </div> */}
 
                   <label className="inline-flex items-center gap-2 text-sm text-slate-700">
                     <input

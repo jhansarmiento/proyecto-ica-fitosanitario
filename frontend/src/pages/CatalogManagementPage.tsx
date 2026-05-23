@@ -15,31 +15,28 @@ type Props = {
   onLogout?: () => void;
 };
 
-type Severity = 'Baja' | 'Media' | 'Alta';
-type PestRef = { id: string; nombre: string; nombreCientifico: string; severidad: Severity };
+
+type PestRef = { id: string; nombre: string; nombreCientifico: string;  };
 type SpeciesItem = {
-  id: string; nombreComun: string; nombreCientifico: string; tipoCultivo: string;
+  id: string; nombreComun: string; nombreCientifico: string; 
   ciclo: 'Corto' | 'Medio' | 'Largo'; variedades: string[]; plagas: PestRef[]; imagen: string;
 };
 type PestItem = {
   id: string; nombreComun: string; nombreCientifico: string; tipo: 'Insecto' | 'Hongo' | 'Bacteria';
-  severidad: Severity; especiesAfectadas: string[]; metodosControl: string[]; descripcion: string; imagen: string;
+  especiesAfectadas: string[]; metodosControl: string[]; descripcion: string; imagen: string;
 };
 
 const speciesSeed: SpeciesItem[] = [
-  { id: 'SP-001', nombreComun: 'Aguacate', nombreCientifico: 'Persea americana', tipoCultivo: 'Frutal', ciclo: 'Largo', variedades: ['Hass', 'Lorena', 'Papelillo'], imagen: 'https://images.unsplash.com/photo-1601039641847-7857b994d704?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-001', nombre: 'Mosca de la fruta', nombreCientifico: 'Anastrepha spp.', severidad: 'Alta' }, { id: 'P-002', nombre: 'Trips', nombreCientifico: 'Frankliniella occidentalis', severidad: 'Media' }] },
-  { id: 'SP-002', nombreComun: 'Café', nombreCientifico: 'Coffea arabica', tipoCultivo: 'Permanente', ciclo: 'Largo', variedades: ['Castillo', 'Caturra', 'Colombia'], imagen: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-003', nombre: 'Broca del café', nombreCientifico: 'Hypothenemus hampei', severidad: 'Alta' }, { id: 'P-004', nombre: 'Roya', nombreCientifico: 'Hemileia vastatrix', severidad: 'Alta' }] },
-  { id: 'SP-003', nombreComun: 'Plátano', nombreCientifico: 'Musa paradisiaca', tipoCultivo: 'Transitorio', ciclo: 'Medio', variedades: ['Hartón', 'Dominico', 'FHIA-21'], imagen: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-005', nombre: 'Sigatoka negra', nombreCientifico: 'Mycosphaerella fijiensis', severidad: 'Alta' }] },
+  { id: 'SP-001', nombreComun: 'Aguacate', nombreCientifico: 'Persea americana', ciclo: 'Largo', variedades: ['Hass', 'Lorena', 'Papelillo'], imagen: 'https://images.unsplash.com/photo-1601039641847-7857b994d704?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-001', nombre: 'Mosca de la fruta', nombreCientifico: 'Anastrepha spp.'}, { id: 'P-002', nombre: 'Trips', nombreCientifico: 'Frankliniella occidentalis'}] },
+  { id: 'SP-002', nombreComun: 'Café', nombreCientifico: 'Coffea arabica', ciclo: 'Largo', variedades: ['Castillo', 'Caturra', 'Colombia'], imagen: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-003', nombre: 'Broca del café', nombreCientifico: 'Hypothenemus hampei' }, { id: 'P-004', nombre: 'Roya', nombreCientifico: 'Hemileia vastatrix' }] },
+  { id: 'SP-003', nombreComun: 'Plátano', nombreCientifico: 'Musa paradisiaca', ciclo: 'Medio', variedades: ['Hartón', 'Dominico', 'FHIA-21'], imagen: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id: 'P-005', nombre: 'Sigatoka negra', nombreCientifico: 'Mycosphaerella fijiensis' }] },
 ];
 
 const pestsSeed: PestItem[] = [
-  { id: 'P-001', nombreComun: 'Mosca de la fruta', nombreCientifico: 'Anastrepha spp.', tipo: 'Insecto', severidad: 'Alta', especiesAfectadas: ['Aguacate', 'Mango', 'Guayaba'], metodosControl: ['Monitoreo con trampas', 'Manejo integrado', 'Control cultural'], descripcion: 'Plaga de alto impacto económico en frutos en desarrollo.', imagen: 'https://unsplash.com/es/fotos/un-insecto-en-una-hoja-X9wvzGcVs54' },
-  { id: 'P-002', nombreComun: 'Trips', nombreCientifico: 'Frankliniella occidentalis', tipo: 'Insecto', severidad: 'Media', especiesAfectadas: ['Aguacate', 'Pimentón', 'Tomate'], metodosControl: ['Manejo de malezas', 'Control biológico', 'Rotación de ingredientes activos'], descripcion: 'Insecto chupador que ocasiona deformaciones y debilitamiento.', imagen: 'https://images.unsplash.com/photo-1583496661160-fb5886a13d77?auto=format&fit=crop&w=1600&q=80' },
-  { id: 'P-004', nombreComun: 'Roya', nombreCientifico: 'Hemileia vastatrix', tipo: 'Hongo', severidad: 'Alta', especiesAfectadas: ['Café'], metodosControl: ['Variedades tolerantes', 'Podas sanitarias', 'Aplicación preventiva dirigida'], descripcion: 'Enfermedad fúngica foliar de alto impacto productivo.', imagen: 'https://images.unsplash.com/photo-1566404883711-0d8032d13228?auto=format&fit=crop&w=1600&q=80' },
+  { id: 'P-001', nombreComun: 'Mosca de la fruta', nombreCientifico: 'Anastrepha spp.', tipo: 'Insecto', especiesAfectadas: ['Aguacate', 'Mango', 'Guayaba'], metodosControl: ['Monitoreo con trampas', 'Manejo integrado', 'Control cultural'], descripcion: 'Plaga de alto impacto económico en frutos en desarrollo.', imagen: 'https://unsplash.com/es/fotos/un-insecto-en-una-hoja-X9wvzGcVs54' },
+  { id: 'P-002', nombreComun: 'Trips', nombreCientifico: 'Frankliniella occidentalis', tipo: 'Insecto', especiesAfectadas: ['Aguacate', 'Pimentón', 'Tomate'], metodosControl: ['Manejo de malezas', 'Control biológico', 'Rotación de ingredientes activos'], descripcion: 'Insecto chupador que ocasiona deformaciones y debilitamiento.', imagen: 'https://images.unsplash.com/photo-1583496661160-fb5886a13d77?auto=format&fit=crop&w=1600&q=80' },
+  { id: 'P-004', nombreComun: 'Roya', nombreCientifico: 'Hemileia vastatrix', tipo: 'Hongo', especiesAfectadas: ['Café'], metodosControl: ['Variedades tolerantes', 'Podas sanitarias', 'Aplicación preventiva dirigida'], descripcion: 'Enfermedad fúngica foliar de alto impacto productivo.', imagen: 'https://images.unsplash.com/photo-1566404883711-0d8032d13228?auto=format&fit=crop&w=1600&q=80' },
 ];
-
-const sev = (s: Severity) =>
-  s === 'Alta' ? 'bg-rose-100 text-rose-700 border-rose-200' : s === 'Media' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'bg-emerald-100 text-emerald-700 border-emerald-200';
 
 const Kpi = ({ t, v, s, i }: { t: string; v: number; s: string; i: React.ReactNode }) => (
   <article className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/75 p-4 shadow-[0_10px_30px_rgba(2,6,23,.08)] backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(16,185,129,.18)]">
@@ -394,7 +391,6 @@ export default function CatalogManagementPage({
                           <div>
                             <p className="text-sm font-semibold text-slate-900">{p.nombre}</p>
                             <p className="text-xs italic text-slate-500">{p.nombreCientifico}</p>
-                            <span className={`mt-1.5 inline-flex rounded-full border px-2 py-0.5 text-[11px] font-semibold ${sev(p.severidad)}`}>Severidad {p.severidad}</span>
                           </div>
                           <button onClick={() => { const f = pestsSeed.find((x) => x.id === p.id); if (f) setPt(f); }} className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">Ver detalle <ArrowUpRight size={12} /></button>
                         </div>
@@ -422,8 +418,7 @@ export default function CatalogManagementPage({
             </div>
             <div className="grid gap-4 bg-gradient-to-b from-white to-slate-50 p-5 lg:grid-cols-12">
               <div className="space-y-3 lg:col-span-8">
-                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Descripción técnica</p><p className="mt-2 text-sm leading-relaxed text-slate-700">{pt.descripcion}</p></article>
-                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Métodos de control</p><div className="mt-3 flex flex-wrap gap-2">{pt.metodosControl.map((m) => <span key={m} className="rounded-md border border-emerald-100 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">{m}</span>)}</div></article>
+                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Nombre Cientifico</p><div className="mt-3 flex flex-wrap gap-2">{pt.nombreCientifico}</div></article>
                 <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Especies afectadas</p><div className="mt-3 flex flex-wrap gap-2">{pt.especiesAfectadas.map((s) => <span key={s} className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700">{s}</span>)}</div></article>
               </div>
               {/* <div className="space-y-3 lg:col-span-4">
