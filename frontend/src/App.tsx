@@ -102,6 +102,8 @@ function App() {
         onGoAgricultural={() => setView('agricultural')}
         onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
         onLogout={handleLogout}
       />
     );
@@ -114,6 +116,8 @@ function App() {
         onGoAgricultural={() => setView('agricultural')}
         onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
         onLogout={handleLogout}
       />
     );
@@ -231,7 +235,9 @@ function App() {
         onGoRoles={() => setView('roles')}
         onGoAgricultural={() => setView('agricultural')}
         onGoCatalog={() => setView('catalog')}
+        onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
         onLogout={handleLogout}
       />
     );

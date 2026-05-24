@@ -76,6 +76,8 @@ type UsersPageProps = {
   onGoAgricultural?: () => void;
   onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
+  onGoInspectionsAgenda?: () => void;
+  onGoInspectionsHistory?: () => void;
   onLogout?: () => void;
 };
 
@@ -223,6 +225,8 @@ function UsersPage({
         if (view === 'agricultural') onGoAgricultural?.();
         if (view === 'catalog') onGoCatalog?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
+        if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+        if (view === 'inspections-history') onGoInspectionsHistory?.();
       }}
       onLogout={onLogout}
     >

@@ -114,6 +114,7 @@ export default function InspectionAgendaPage({
     if (view === 'catalog') onGoCatalog?.();
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-history') onGoInspectionHistory?.();
+    if (view === 'inspections-agenda') return;
   };
 
   return (
