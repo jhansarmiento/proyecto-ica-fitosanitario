@@ -553,7 +553,7 @@ function ModalDetalleAdmin({
 
 type SolicitudFormState = {
   idLugarProduccion: string;
-  idLote: string;
+  idLotes: string[];
   fechaTentativa: string;
 };
 
@@ -567,7 +567,7 @@ function ModalSolicitarInspeccion({
 }: {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: CreateSolicitudDTO) => Promise<void>;
+  onSubmit: (data: CreateSolicitudDTO[]) => Promise<void>;
   lugares: LugarProduccionDTO[];
   lotes: LoteDTO[];
   isSubmitting: boolean;
@@ -575,7 +575,7 @@ function ModalSolicitarInspeccion({
   const [step, setStep] = useState<1 | 2>(1);
   const [form, setForm] = useState<SolicitudFormState>({
     idLugarProduccion: '',
-    idLote: '',
+    idLotes: [],
     fechaTentativa: '',
   });
 
@@ -595,20 +595,39 @@ function ModalSolicitarInspeccion({
     ? `${tecnicoAsignado.nombre} ${tecnicoAsignado.apellidos}`
     : null;
 
-  const canGoStep2 = form.idLugarProduccion && form.idLote && form.fechaTentativa && tecnicoId;
+  const canGoStep2 = form.idLugarProduccion && form.idLotes.length > 0 && form.fechaTentativa && tecnicoId;
+
+  const toggleLote = (id: string) => {
+    setForm((f) => ({
+      ...f,
+      idLotes: f.idLotes.includes(id)
+        ? f.idLotes.filter((l) => l !== id)
+        : [...f.idLotes, id],
+    }));
+  };
+
+  const toggleTodos = () => {
+    setForm((f) => ({
+      ...f,
+      idLotes: f.idLotes.length === lotesDelLugar.length
+        ? []
+        : lotesDelLugar.map((l) => l.id),
+    }));
+  };
 
   const handleClose = () => {
     setStep(1);
-    setForm({ idLugarProduccion: '', idLote: '', fechaTentativa: '' });
+    setForm({ idLugarProduccion: '', idLotes: [], fechaTentativa: '' });
     onClose();
   };
 
   const handleSubmit = async () => {
-    await onSubmit({
-      idLote: form.idLote,
+    const solicitudes: CreateSolicitudDTO[] = form.idLotes.map((idLote) => ({
+      idLote,
       idAsistenteTecnico: tecnicoId,
       fechaTentativaProductor: form.fechaTentativa,
-    });
+    }));
+    await onSubmit(solicitudes);
     handleClose();
   };
 
@@ -659,7 +678,7 @@ function ModalSolicitarInspeccion({
               <label className="mb-1 block text-xs font-semibold text-slate-600">Lugar de Producción *</label>
               <select
                 value={form.idLugarProduccion}
-                onChange={(e) => setForm((f) => ({ ...f, idLugarProduccion: e.target.value, idLote: '' }))}
+                onChange={(e) => setForm((f) => ({ ...f, idLugarProduccion: e.target.value, idLotes: [] }))}
                 className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
               >
                 <option value="">Selecciona un lugar...</option>
@@ -672,20 +691,70 @@ function ModalSolicitarInspeccion({
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-600">Lote *</label>
-              <select
-                value={form.idLote}
-                onChange={(e) => setForm((f) => ({ ...f, idLote: e.target.value }))}
-                disabled={!form.idLugarProduccion}
-                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100 disabled:opacity-50"
-              >
-                <option value="">Selecciona un lote...</option>
-                {lotesDelLugar.map((l) => (
-                  <option key={l.id} value={l.id}>
-                    Lote {l.numeroLote} — {l.areaTotal} ha
-                  </option>
-                ))}
-              </select>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="text-xs font-semibold text-slate-600">
+                  Lotes * <span className="font-normal text-slate-400">(selecciona uno o más)</span>
+                </label>
+                {form.idLugarProduccion && lotesDelLugar.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={toggleTodos}
+                    className="text-[11px] font-semibold text-emerald-600 hover:text-emerald-800"
+                  >
+                    {form.idLotes.length === lotesDelLugar.length ? 'Deseleccionar todos' : 'Seleccionar todos'}
+                  </button>
+                )}
+              </div>
+
+              {!form.idLugarProduccion ? (
+                <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-400">
+                  Selecciona primero un lugar de producción
+                </div>
+              ) : lotesDelLugar.length === 0 ? (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-3 text-sm text-amber-700">
+                  Este lugar no tiene lotes registrados
+                </div>
+              ) : (
+                <div className="max-h-44 space-y-1.5 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2">
+                  {lotesDelLugar.map((l) => {
+                    const checked = form.idLotes.includes(l.id);
+                    return (
+                      <label
+                        key={l.id}
+                        className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 transition-colors ${
+                          checked
+                            ? 'bg-emerald-50 border border-emerald-200'
+                            : 'border border-transparent hover:bg-slate-50'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => toggleLote(l.id)}
+                          className="h-4 w-4 rounded accent-emerald-600"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className={`text-sm font-semibold ${checked ? 'text-emerald-800' : 'text-slate-800'}`}>
+                            Lote {l.numeroLote}
+                          </p>
+                          <p className="text-xs text-slate-500">{l.areaTotal} ha</p>
+                        </div>
+                        {checked && (
+                          <span className="shrink-0 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white">
+                            ✓
+                          </span>
+                        )}
+                      </label>
+                    );
+                  })}
+                </div>
+              )}
+
+              {form.idLotes.length > 0 && (
+                <p className="mt-1 text-[11px] font-medium text-emerald-700">
+                  {form.idLotes.length} lote{form.idLotes.length > 1 ? 's' : ''} seleccionado{form.idLotes.length > 1 ? 's' : ''}
+                </p>
+              )}
             </div>
 
             <div>
@@ -753,8 +822,13 @@ function ModalSolicitarInspeccion({
                   value={lugares.find((l) => l.id === form.idLugarProduccion)?.nombreLugarProduccion ?? '—'}
                 />
                 <SummaryRow
-                  label="Lote"
-                  value={`Lote ${lotes.find((l) => l.id === form.idLote)?.numeroLote ?? '—'}`}
+                  label={`Lote${form.idLotes.length > 1 ? 's' : ''} (${form.idLotes.length})`}
+                  value={form.idLotes
+                    .map((id) => {
+                      const l = lotes.find((x) => x.id === id);
+                      return l ? `Lote ${l.numeroLote}` : id;
+                    })
+                    .join(', ')}
                 />
                 <SummaryRow
                   label="Técnico Inspector"
@@ -1018,11 +1092,17 @@ export default function InspectionHistoryPage({
     }
   };
 
-  const handleCreateSolicitud = async (data: CreateSolicitudDTO) => {
+  const handleCreateSolicitud = async (solicitudes: CreateSolicitudDTO[]) => {
     setIsSubmitting(true);
     try {
-      await api.createSolicitud(data);
-      showToast('success', 'Solicitud de inspección creada exitosamente.');
+      await Promise.all(solicitudes.map((s) => api.createSolicitud(s)));
+      const n = solicitudes.length;
+      showToast(
+        'success',
+        n === 1
+          ? 'Solicitud de inspección creada exitosamente.'
+          : `${n} solicitudes de inspección creadas exitosamente.`,
+      );
       await fetchSolicitudes();
     } catch (err) {
       showToast('error', err instanceof Error ? err.message : 'Error al crear la solicitud.');
