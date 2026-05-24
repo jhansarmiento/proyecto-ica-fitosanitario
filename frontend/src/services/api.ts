@@ -58,6 +58,15 @@ export type LugarProduccionDTO = {
     apellidos: string;
     ingresoUsuario: string;
   } | null;
+  solicitudRegistroLugar?: {
+    asistenteAsignado?: {
+      id: string;
+      nombre: string;
+      apellidos: string;
+      correoElectronico: string;
+      telefono: string;
+    } | null;
+  } | null;
 };
 
 export type PredioDTO = {
@@ -249,4 +258,83 @@ export const api = {
   getAutorizacionesEspecie() {
     return request<ApiEnvelope<AutorizacionEspecieDTO[]>>('/autorizaciones-especie');
   },
+
+  // ── Solicitudes de Inspección ──────────────────────────────────────────────
+  getSolicitudesInspeccion(params: { userId: string; rol: string }) {
+    const qs = new URLSearchParams({ userId: params.userId, rol: params.rol }).toString();
+    return request<ApiEnvelope<SolicitudInspeccionDTO[]>>(`/solicitudes-inspeccion?${qs}`);
+  },
+  getSolicitudById(id: string) {
+    return request<ApiEnvelope<SolicitudInspeccionDTO>>(`/solicitudes-inspeccion/${id}`);
+  },
+  createSolicitud(body: CreateSolicitudDTO) {
+    return request<ApiEnvelope<SolicitudInspeccionDTO>>('/solicitudes-inspeccion', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+  updateEstadoSolicitud(id: string, body: UpdateEstadoSolicitudDTO) {
+    return request<ApiEnvelope<SolicitudInspeccionDTO>>(`/solicitudes-inspeccion/${id}/estado`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+};
+
+// ── DTOs de Inspecciones ────────────────────────────────────────────────────
+
+export type EstadoSolicitud = 'SOLICITADA' | 'PROGRAMADA' | 'REALIZADA' | 'CANCELADA' | 'NO_PROGRAMADA';
+
+export type SolicitudInspeccionDTO = {
+  id: string;
+  fechaCreacion: string;
+  fechaTentativaProductor: string;
+  fechaProgramadaTecnico: string | null;
+  estado: EstadoSolicitud;
+  observaciones: string | null;
+  lote: {
+    id: string;
+    numeroLote: string;
+    areaTotal: number;
+    idVariedad: string;
+    predio: {
+      id: string;
+      nombrePredio: string;
+      numeroPredial: string;
+      numeroRegistroICA: string;
+      direccion: string;
+      lugarProduccion: {
+        id: string;
+        nombreLugarProduccion: string;
+        numeroRegistroICA: string;
+        productor: {
+          id: string;
+          nombre: string;
+          apellidos: string;
+          correoElectronico: string;
+          telefono: string;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+  asistenteTecnico: {
+    id: string;
+    nombre: string;
+    apellidos: string;
+    correoElectronico: string;
+    telefono: string;
+    tarjetaProfesional: string | null;
+  } | null;
+};
+
+export type CreateSolicitudDTO = {
+  idLote: string;
+  idAsistenteTecnico: string;
+  fechaTentativaProductor: string;
+};
+
+export type UpdateEstadoSolicitudDTO = {
+  accion: 'ACEPTAR' | 'RECHAZAR';
+  fechaProgramada?: string;
+  observaciones?: string;
 };

@@ -36,7 +36,6 @@ type PestItem = {
   nombre: string;
   nombreCientifico: string;
   imagen: string;
-  severidad: 'Baja' | 'Media' | 'Alta';
 };
 
 const initialLots: LotItem[] = [
@@ -68,7 +67,7 @@ const initialLots: LotItem[] = [
     plantas: 450,
     areaHa: 8.5,
     estado: 'Pendiente',
-    imagen: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80',
+    imagen: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80'
   },
 ];
 
@@ -77,15 +76,13 @@ const pests: PestItem[] = [
     id: 'P-1',
     nombre: 'Broca del Café',
     nombreCientifico: 'Hypothenemus hampei',
-    imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80',
-    severidad: 'Alta',
+    imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80'
   },
   {
     id: 'P-2',
     nombre: 'Roya del Café',
     nombreCientifico: 'Hemileia vastatrix',
-    imagen: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=600&q=80',
-    severidad: 'Media',
+    imagen: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=600&q=80'
   },
 ];
 
@@ -282,20 +279,23 @@ export default function InspectionProcessPage({
 
         <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-            Municipio
+            Municipio / Departamento
           </p>
           <h3 className="mt-2 text-xl font-black text-slate-900">
-            Medellín
+            Medellín / Antioquia
           </h3>
         </div>
 
         <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
           <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-            Departamento
+            Productor
           </p>
           <h3 className="mt-2 text-xl font-black text-slate-900">
-            Antioquia
+            Carlos Restrepo
           </h3>
+          <p className="mt-1 text-sm font-medium text-slate-500">
+            310 000 0000
+          </p>
         </div>
 
       </div>
@@ -690,30 +690,12 @@ export default function InspectionProcessPage({
               {pest.nombre}
             </p>
 
-            <span
-              className={`
-                rounded-full px-2.5 py-1 text-[11px] font-semibold
-                ${
-                  pest.severidad === 'Alta'
-                    ? 'bg-red-100 text-red-700'
-                    : pest.severidad === 'Media'
-                    ? 'bg-amber-100 text-amber-700'
-                    : 'bg-emerald-100 text-emerald-700'
-                }
-              `}
-            >
-              {pest.severidad}
-            </span>
-
           </div>
 
           <p className="text-sm italic text-slate-500">
             {pest.nombreCientifico}
           </p>
 
-          <p className="mt-1 text-xs text-slate-400">
-            Incidencia registrada en inspección
-          </p>
 
         </div>
 

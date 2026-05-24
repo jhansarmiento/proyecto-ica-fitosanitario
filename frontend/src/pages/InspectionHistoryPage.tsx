@@ -1,31 +1,35 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  AlertCircle,
   CalendarDays,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
-  Clock3,
   ClipboardList,
+  Clock3,
   Filter,
+  Loader2,
+  MapPin,
+  Phone,
+  Plus,
   Search,
-  ShieldCheck,
+  User,
   X,
   XCircle,
 } from 'lucide-react';
 import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
+import SkeletonBlock from '../components/ui/SkeletonBlock';
 import type { SessionUser } from '../App';
+import {
+  api,
+  type CreateSolicitudDTO,
+  type EstadoSolicitud,
+  type LoteDTO,
+  type LugarProduccionDTO,
+  type SolicitudInspeccionDTO,
+} from '../services/api';
 
-type InspectionResult = 'Aprobado' | 'Con Hallazgos' | 'Rechazado';
-type InspectionRecordType = 'Ejecutada' | 'Solicitada';
-
-type InspectionHistoryItem = {
-  idInspeccion: string;
-  fechaEjecucion: string;
-  predio: string;
-  cultivo: string;
-  resultado: InspectionResult;
-  tipo: InspectionRecordType;
-};
+// ─── Props ───────────────────────────────────────────────────────────────────
 
 type InspectionHistoryPageProps = {
   sessionUser?: SessionUser;
@@ -39,87 +43,831 @@ type InspectionHistoryPageProps = {
   onLogout?: () => void;
 };
 
-type RequestStep = 1 | 2;
+// ─── Helpers de estado ───────────────────────────────────────────────────────
 
-type RequestFormState = {
-  lugarProduccion: string;
-  fechaProgramada: string;
-  horaProgramada: string;
-  tecnico: string;
-  observaciones: string;
-  confirmar: boolean;
+const ESTADO_LABEL: Record<EstadoSolicitud, string> = {
+  SOLICITADA: 'Solicitada',
+  PROGRAMADA: 'Programada',
+  REALIZADA: 'Realizada',
+  CANCELADA: 'Cancelada',
+  NO_PROGRAMADA: 'No Programada',
 };
 
-const historySeed: InspectionHistoryItem[] = [
-  {
-    idInspeccion: 'INS-2026-0012',
-    fechaEjecucion: '2026-05-16 09:20',
-    predio: 'Finca Los Naranjos',
-    cultivo: 'Cítricos',
-    resultado: 'Aprobado',
-    tipo: 'Ejecutada',
-  },
-  {
-    idInspeccion: 'INS-2026-0011',
-    fechaEjecucion: '2026-05-15 14:10',
-    predio: 'Predio Palmas del Sol',
-    cultivo: 'Palma',
-    resultado: 'Con Hallazgos',
-    tipo: 'Ejecutada',
-  },
-  {
-    idInspeccion: 'INS-2026-0010',
-    fechaEjecucion: '2026-05-14 08:55',
-    predio: 'Hacienda El Cedro',
-    cultivo: 'Cacao',
-    resultado: 'Rechazado',
-    tipo: 'Ejecutada',
-  },
-  {
-    idInspeccion: 'INS-2026-0009',
-    fechaEjecucion: '2026-05-13 11:40',
-    predio: 'Finca Bella Vista',
-    cultivo: 'Banano',
-    resultado: 'Aprobado',
-    tipo: 'Ejecutada',
-  },
-  {
-    idInspeccion: 'INS-2026-0008',
-    fechaEjecucion: '2026-05-12 16:00',
-    predio: 'Parcela San Jorge',
-    cultivo: 'Arroz',
-    resultado: 'Con Hallazgos',
-    tipo: 'Ejecutada',
-  },
-  {
-    idInspeccion: 'INS-2026-0007',
-    fechaEjecucion: '2026-05-11 10:30',
-    predio: 'Predio El Molino',
-    cultivo: 'Café',
-    resultado: 'Aprobado',
-    tipo: 'Ejecutada',
-  },
+const ESTADO_BADGE: Record<EstadoSolicitud, string> = {
+  SOLICITADA: 'bg-blue-100 text-blue-700 border-blue-200',
+  PROGRAMADA: 'bg-amber-100 text-amber-700 border-amber-200',
+  REALIZADA: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+  CANCELADA: 'bg-rose-100 text-rose-700 border-rose-200',
+  NO_PROGRAMADA: 'bg-slate-100 text-slate-600 border-slate-200',
+};
+
+const ESTADO_DOT: Record<EstadoSolicitud, string> = {
+  SOLICITADA: 'bg-blue-500',
+  PROGRAMADA: 'bg-amber-500',
+  REALIZADA: 'bg-emerald-500',
+  CANCELADA: 'bg-rose-500',
+  NO_PROGRAMADA: 'bg-slate-400',
+};
+
+function EstadoBadge({ estado }: { estado: EstadoSolicitud }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold ${ESTADO_BADGE[estado] ?? 'bg-slate-100 text-slate-600 border-slate-200'}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${ESTADO_DOT[estado] ?? 'bg-slate-400'}`} />
+      {ESTADO_LABEL[estado] ?? estado}
+    </span>
+  );
+}
+
+// ─── Timeline ────────────────────────────────────────────────────────────────
+
+const TIMELINE_STEPS: { estado: EstadoSolicitud; label: string; desc: string }[] = [
+  { estado: 'SOLICITADA', label: 'Solicitud creada', desc: 'El productor registró la solicitud' },
+  { estado: 'PROGRAMADA', label: 'Programada', desc: 'El técnico confirmó la fecha de visita' },
+  { estado: 'REALIZADA', label: 'Realizada', desc: 'Inspección ejecutada exitosamente' },
 ];
 
-const resultClasses: Record<InspectionResult, string> = {
-  Aprobado: 'bg-emerald-100 text-emerald-700',
-  'Con Hallazgos': 'bg-amber-100 text-amber-700',
-  Rechazado: 'bg-rose-100 text-rose-700',
+const ESTADO_ORDER: Record<EstadoSolicitud, number> = {
+  SOLICITADA: 0,
+  PROGRAMADA: 1,
+  REALIZADA: 2,
+  CANCELADA: -1,
+  NO_PROGRAMADA: -1,
 };
 
-const initialRequestForm: RequestFormState = {
-  lugarProduccion: '',
-  fechaProgramada: '',
-  horaProgramada: '',
-  tecnico: '',
-  observaciones: '',
-  confirmar: false,
-};
+function Timeline({ solicitud }: { solicitud: SolicitudInspeccionDTO }) {
+  const currentOrder = ESTADO_ORDER[solicitud.estado];
+  const isCancelled = solicitud.estado === 'CANCELADA' || solicitud.estado === 'NO_PROGRAMADA';
 
-function buildInspectionId(currentSize: number) {
-  const nextNumber = currentSize + 1;
-  return `INS-2026-${String(nextNumber).padStart(4, '0')}`;
+  return (
+    <div className="space-y-0">
+      {TIMELINE_STEPS.map((step, idx) => {
+        const stepOrder = ESTADO_ORDER[step.estado];
+        const isDone = !isCancelled && currentOrder >= stepOrder;
+        const isActive = !isCancelled && currentOrder === stepOrder;
+        const isLast = idx === TIMELINE_STEPS.length - 1;
+
+        return (
+          <div key={step.estado} className="flex gap-3">
+            <div className="flex flex-col items-center">
+              <div
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                  isDone
+                    ? 'border-emerald-500 bg-emerald-500 text-white'
+                    : isActive
+                      ? 'border-blue-500 bg-blue-50 text-blue-600'
+                      : 'border-slate-200 bg-white text-slate-400'
+                }`}
+              >
+                {isDone ? (
+                  <CheckCircle2 size={14} />
+                ) : (
+                  <span className="text-[10px] font-bold">{idx + 1}</span>
+                )}
+              </div>
+              {!isLast && (
+                <div className={`mt-1 w-0.5 flex-1 ${isDone ? 'bg-emerald-400' : 'bg-slate-200'}`} style={{ minHeight: 28 }} />
+              )}
+            </div>
+            <div className="pb-5 pt-1">
+              <p className={`text-sm font-semibold ${isDone ? 'text-slate-800' : 'text-slate-400'}`}>{step.label}</p>
+              <p className={`text-xs ${isDone ? 'text-slate-500' : 'text-slate-300'}`}>{step.desc}</p>
+              {step.estado === 'SOLICITADA' && solicitud.fechaCreacion && (
+                <p className="mt-0.5 text-[11px] text-slate-400">
+                  {formatDateTime(solicitud.fechaCreacion)}
+                </p>
+              )}
+              {step.estado === 'PROGRAMADA' && solicitud.fechaProgramadaTecnico && (
+                <p className="mt-0.5 text-[11px] text-slate-400">
+                  {formatDateTime(solicitud.fechaProgramadaTecnico)}
+                </p>
+              )}
+            </div>
+          </div>
+        );
+      })}
+
+      {isCancelled && (
+        <div className="flex gap-3">
+          <div className="flex flex-col items-center">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-rose-400 bg-rose-50 text-rose-500">
+              <XCircle size={14} />
+            </div>
+          </div>
+          <div className="pt-1">
+            <p className="text-sm font-semibold text-rose-600">{ESTADO_LABEL[solicitud.estado]}</p>
+            {solicitud.observaciones && (
+              <p className="text-xs text-slate-500">{solicitud.observaciones}</p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
+
+// ─── Formatters ──────────────────────────────────────────────────────────────
+
+function formatDate(iso: string | null | undefined): string {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleDateString('es-CO', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  } catch {
+    return iso;
+  }
+}
+
+function formatDateTime(iso: string | null | undefined): string {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString('es-CO', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  } catch {
+    return iso;
+  }
+}
+
+// ─── Toast ───────────────────────────────────────────────────────────────────
+
+type ToastState = { type: 'success' | 'error' | 'info'; message: string } | null;
+
+const TOAST_STYLES = {
+  success: 'border-emerald-200 bg-emerald-50 text-emerald-800',
+  error: 'border-rose-200 bg-rose-50 text-rose-800',
+  info: 'border-blue-200 bg-blue-50 text-blue-800',
+};
+
+function Toast({ toast, onClose }: { toast: ToastState; onClose: () => void }) {
+  if (!toast) return null;
+  return (
+    <div
+      className={`fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-5 py-3.5 shadow-xl text-sm font-medium animate-in slide-in-from-bottom-4 ${TOAST_STYLES[toast.type]}`}
+    >
+      {toast.type === 'success' && <CheckCircle2 size={18} />}
+      {toast.type === 'error' && <AlertCircle size={18} />}
+      {toast.type === 'info' && <Clock3 size={18} />}
+      <span>{toast.message}</span>
+      <button type="button" onClick={onClose} className="ml-2 opacity-60 hover:opacity-100">
+        <X size={16} />
+      </button>
+    </div>
+  );
+}
+
+// ─── Modal base ──────────────────────────────────────────────────────────────
+
+function Modal({
+  open,
+  onClose,
+  children,
+  size = 'lg',
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  size?: 'md' | 'lg' | 'xl';
+}) {
+  if (!open) return null;
+  const widths = { md: 'max-w-lg', lg: 'max-w-2xl', xl: 'max-w-4xl' };
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div
+        className={`relative w-full ${widths[size]} max-h-[90vh] overflow-y-auto rounded-3xl bg-white shadow-2xl`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─── Skeleton de tabla ───────────────────────────────────────────────────────
+
+function TableSkeleton({ cols }: { cols: number }) {
+  return (
+    <>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <tr key={i} className="border-b border-slate-100">
+          {Array.from({ length: cols }).map((_, j) => (
+            <td key={j} className="px-4 py-3">
+              <SkeletonBlock className="h-4 w-full" />
+            </td>
+          ))}
+        </tr>
+      ))}
+    </>
+  );
+}
+
+// ─── Modal Detalle — PRODUCTOR ────────────────────────────────────────────────
+
+function ModalDetalleProductor({
+  solicitud,
+  onClose,
+}: {
+  solicitud: SolicitudInspeccionDTO;
+  onClose: () => void;
+}) {
+  const lugar = solicitud.lote?.predio?.lugarProduccion;
+  const predio = solicitud.lote?.predio;
+  const tecnico = solicitud.asistenteTecnico;
+
+  return (
+    <Modal open onClose={onClose} size="lg">
+      {/* Header */}
+      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-gradient-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-200">Detalle de Solicitud</p>
+          <h2 className="mt-1 text-xl font-bold leading-tight">
+            {lugar?.nombreLugarProduccion ?? '—'}
+          </h2>
+          <p className="mt-1 text-sm text-emerald-100">
+            Lote {solicitud.lote?.numeroLote ?? '—'} · {predio?.nombrePredio ?? '—'}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <EstadoBadge estado={solicitud.estado} />
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-5 p-6">
+        {/* Info cards */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <InfoCard label="Lugar de Producción" value={lugar?.nombreLugarProduccion} icon={<MapPin size={15} />} />
+          <InfoCard label="Número ICA" value={lugar?.numeroRegistroICA} icon={<ClipboardList size={15} />} />
+          <InfoCard label="Lote" value={solicitud.lote?.numeroLote} icon={<Layers size={15} />} />
+          <InfoCard label="Predio" value={predio?.nombrePredio} icon={<MapPin size={15} />} />
+          <InfoCard label="Fecha Solicitud" value={formatDate(solicitud.fechaCreacion)} icon={<CalendarDays size={15} />} />
+          <InfoCard
+            label="Fecha Tentativa Propuesta"
+            value={formatDateTime(solicitud.fechaTentativaProductor)}
+            icon={<Clock3 size={15} />}
+          />
+          {solicitud.fechaProgramadaTecnico && (
+            <InfoCard
+              label="Fecha Programada por Técnico"
+              value={formatDateTime(solicitud.fechaProgramadaTecnico)}
+              icon={<CalendarDays size={15} />}
+              highlight
+            />
+          )}
+          <InfoCard
+            label="Técnico Asignado"
+            value={tecnico ? `${tecnico.nombre} ${tecnico.apellidos}` : '—'}
+            icon={<User size={15} />}
+          />
+        </div>
+
+        {/* Observaciones */}
+        {solicitud.observaciones && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-amber-700">Observaciones</p>
+            <p className="text-sm text-amber-900">{solicitud.observaciones}</p>
+          </div>
+        )}
+
+        {/* Timeline */}
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-slate-500">Historial del Proceso</p>
+          <Timeline solicitud={solicitud} />
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+// ─── Modal Detalle — ASISTENTE / ADMIN ───────────────────────────────────────
+
+function ModalDetalleAdmin({
+  solicitud,
+  onClose,
+  onAccept,
+  onReject,
+  isUpdating,
+}: {
+  solicitud: SolicitudInspeccionDTO;
+  onClose: () => void;
+  onAccept: (id: string, fecha: string) => Promise<void>;
+  onReject: (id: string, obs: string) => Promise<void>;
+  isUpdating: boolean;
+}) {
+  const lugar = solicitud.lote?.predio?.lugarProduccion;
+  const predio = solicitud.lote?.predio;
+  const productor = lugar?.productor;
+
+  const [accion, setAccion] = useState<'none' | 'aceptar' | 'rechazar'>('none');
+  const [fechaPropuesta, setFechaPropuesta] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+
+  const canAccept = solicitud.estado === 'SOLICITADA';
+
+  return (
+    <Modal open onClose={onClose} size="xl">
+      {/* Header */}
+      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-gradient-to-r from-slate-900 to-slate-700 px-6 py-5 text-white">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">Gestión de Solicitud</p>
+          <h2 className="mt-1 text-xl font-bold leading-tight">
+            {lugar?.nombreLugarProduccion ?? '—'}
+          </h2>
+          <p className="mt-1 text-sm text-slate-300">
+            Lote {solicitud.lote?.numeroLote ?? '—'} · {predio?.nombrePredio ?? '—'}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <EstadoBadge estado={solicitud.estado} />
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="space-y-5 p-6">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Productor */}
+          <div className="col-span-full rounded-2xl border border-blue-100 bg-blue-50 p-4">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-blue-600">Datos del Productor</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <InfoCard label="Productor" value={productor ? `${productor.nombre} ${productor.apellidos}` : '—'} icon={<User size={15} />} />
+              <InfoCard label="Teléfono" value={productor?.telefono} icon={<Phone size={15} />} />
+              <InfoCard label="Correo" value={productor?.correoElectronico} icon={<User size={15} />} />
+            </div>
+          </div>
+
+          {/* Lugar */}
+          <InfoCard label="Lugar de Producción" value={lugar?.nombreLugarProduccion} icon={<MapPin size={15} />} />
+          <InfoCard label="Número ICA Lugar" value={lugar?.numeroRegistroICA} icon={<ClipboardList size={15} />} />
+          <InfoCard label="Lote" value={solicitud.lote?.numeroLote} icon={<Layers size={15} />} />
+          <InfoCard label="Predio" value={predio?.nombrePredio} icon={<MapPin size={15} />} />
+          <InfoCard label="Número ICA Predio" value={predio?.numeroRegistroICA} icon={<ClipboardList size={15} />} />
+          <InfoCard label="Dirección Predio" value={predio?.direccion} icon={<MapPin size={15} />} />
+          <InfoCard label="Fecha Solicitud" value={formatDate(solicitud.fechaCreacion)} icon={<CalendarDays size={15} />} />
+          <InfoCard
+            label="Fecha Propuesta por Productor"
+            value={formatDateTime(solicitud.fechaTentativaProductor)}
+            icon={<Clock3 size={15} />}
+            highlight
+          />
+          {solicitud.fechaProgramadaTecnico && (
+            <InfoCard
+              label="Fecha Programada"
+              value={formatDateTime(solicitud.fechaProgramadaTecnico)}
+              icon={<CalendarDays size={15} />}
+            />
+          )}
+        </div>
+
+        {/* Observaciones */}
+        {solicitud.observaciones && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-amber-700">Observaciones</p>
+            <p className="text-sm text-amber-900">{solicitud.observaciones}</p>
+          </div>
+        )}
+
+        {/* Timeline */}
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-wide text-slate-500">Historial del Proceso</p>
+          <Timeline solicitud={solicitud} />
+        </div>
+
+        {/* Acciones */}
+        {canAccept && accion === 'none' && (
+          <div className="flex flex-wrap gap-3 border-t border-slate-100 pt-4">
+            <button
+              type="button"
+              onClick={() => setAccion('aceptar')}
+              className="flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
+            >
+              <CheckCircle2 size={16} />
+              Aceptar Solicitud
+            </button>
+            <button
+              type="button"
+              onClick={() => setAccion('rechazar')}
+              className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-5 py-2.5 text-sm font-semibold text-rose-700 transition hover:bg-rose-100 active:scale-95"
+            >
+              <XCircle size={16} />
+              Rechazar y Proponer Nueva Fecha
+            </button>
+          </div>
+        )}
+
+        {/* Panel Aceptar */}
+        {accion === 'aceptar' && (
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 space-y-3">
+            <p className="text-sm font-semibold text-emerald-800">Confirmar fecha de inspección</p>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-slate-600">Fecha y hora programada</label>
+              <input
+                type="datetime-local"
+                value={fechaPropuesta}
+                onChange={(e) => setFechaPropuesta(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                disabled={!fechaPropuesta || isUpdating}
+                onClick={() => onAccept(solicitud.id, fechaPropuesta)}
+                className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 hover:bg-emerald-700 active:scale-95"
+              >
+                {isUpdating ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                Confirmar
+              </button>
+              <button
+                type="button"
+                onClick={() => setAccion('none')}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Panel Rechazar */}
+        {accion === 'rechazar' && (
+          <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 space-y-3">
+            <p className="text-sm font-semibold text-rose-800">Rechazar solicitud</p>
+            <div>
+              <label className="mb-1 block text-xs font-medium text-slate-600">Motivo / Observaciones</label>
+              <textarea
+                rows={3}
+                value={observaciones}
+                onChange={(e) => setObservaciones(e.target.value)}
+                placeholder="Explica el motivo del rechazo o propón una nueva fecha..."
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-100 resize-none"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                disabled={!observaciones.trim() || isUpdating}
+                onClick={() => onReject(solicitud.id, observaciones)}
+                className="flex items-center gap-2 rounded-xl bg-rose-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 hover:bg-rose-700 active:scale-95"
+              >
+                {isUpdating ? <Loader2 size={14} className="animate-spin" /> : <XCircle size={14} />}
+                Confirmar Rechazo
+              </button>
+              <button
+                type="button"
+                onClick={() => setAccion('none')}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </Modal>
+  );
+}
+
+// ─── Modal Solicitar Inspección (PRODUCTOR) ───────────────────────────────────
+
+type SolicitudFormState = {
+  idLugarProduccion: string;
+  idLote: string;
+  fechaTentativa: string;
+};
+
+function ModalSolicitarInspeccion({
+  open,
+  onClose,
+  onSubmit,
+  lugares,
+  lotes,
+  isSubmitting,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: CreateSolicitudDTO) => Promise<void>;
+  lugares: LugarProduccionDTO[];
+  lotes: LoteDTO[];
+  isSubmitting: boolean;
+}) {
+  const [step, setStep] = useState<1 | 2>(1);
+  const [form, setForm] = useState<SolicitudFormState>({
+    idLugarProduccion: '',
+    idLote: '',
+    fechaTentativa: '',
+  });
+
+  const lotesDelLugar = useMemo(
+    () => lotes.filter((l) => l.predio?.id === form.idLugarProduccion || form.idLugarProduccion === ''),
+    [lotes, form.idLugarProduccion],
+  );
+
+  // Técnico asignado al lugar seleccionado — se deriva automáticamente
+  const lugarSeleccionado = useMemo(
+    () => lugares.find((l) => l.id === form.idLugarProduccion) ?? null,
+    [lugares, form.idLugarProduccion],
+  );
+  const tecnicoAsignado = lugarSeleccionado?.solicitudRegistroLugar?.asistenteAsignado ?? null;
+  const tecnicoId = tecnicoAsignado?.id ?? '';
+  const tecnicoNombre = tecnicoAsignado
+    ? `${tecnicoAsignado.nombre} ${tecnicoAsignado.apellidos}`
+    : null;
+
+  const canGoStep2 = form.idLugarProduccion && form.idLote && form.fechaTentativa && tecnicoId;
+
+  const handleClose = () => {
+    setStep(1);
+    setForm({ idLugarProduccion: '', idLote: '', fechaTentativa: '' });
+    onClose();
+  };
+
+  const handleSubmit = async () => {
+    await onSubmit({
+      idLote: form.idLote,
+      idAsistenteTecnico: tecnicoId,
+      fechaTentativaProductor: form.fechaTentativa,
+    });
+    handleClose();
+  };
+
+  return (
+    <Modal open={open} onClose={handleClose} size="md">
+      {/* Header */}
+      <div className="flex items-center justify-between rounded-t-3xl bg-gradient-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-200">
+            Paso {step} de 2
+          </p>
+          <h2 className="mt-1 text-lg font-bold">
+            {step === 1 ? 'Nueva Solicitud de Inspección' : 'Confirmar Solicitud'}
+          </h2>
+        </div>
+        <button
+          type="button"
+          onClick={handleClose}
+          className="grid h-8 w-8 place-items-center rounded-full bg-white/10 hover:bg-white/20"
+        >
+          <X size={16} />
+        </button>
+      </div>
+
+      {/* Stepper */}
+      <div className="flex items-center gap-2 border-b border-slate-100 px-6 py-3">
+        {[1, 2].map((s) => (
+          <div key={s} className="flex items-center gap-2">
+            <div
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${
+                step >= s ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500'
+              }`}
+            >
+              {s}
+            </div>
+            <span className={`text-xs font-medium ${step >= s ? 'text-emerald-700' : 'text-slate-400'}`}>
+              {s === 1 ? 'Datos' : 'Confirmación'}
+            </span>
+            {s < 2 && <div className={`h-px w-8 ${step > s ? 'bg-emerald-400' : 'bg-slate-200'}`} />}
+          </div>
+        ))}
+      </div>
+
+      <div className="p-6 space-y-4">
+        {step === 1 ? (
+          <>
+            <div>
+              <label className="mb-1 block text-xs font-semibold text-slate-600">Lugar de Producción *</label>
+              <select
+                value={form.idLugarProduccion}
+                onChange={(e) => setForm((f) => ({ ...f, idLugarProduccion: e.target.value, idLote: '' }))}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              >
+                <option value="">Selecciona un lugar...</option>
+                {lugares.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.nombreLugarProduccion} — {l.numeroRegistroICA}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-semibold text-slate-600">Lote *</label>
+              <select
+                value={form.idLote}
+                onChange={(e) => setForm((f) => ({ ...f, idLote: e.target.value }))}
+                disabled={!form.idLugarProduccion}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100 disabled:opacity-50"
+              >
+                <option value="">Selecciona un lote...</option>
+                {lotesDelLugar.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    Lote {l.numeroLote} — {l.areaTotal} ha
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-semibold text-slate-600">Técnico Inspector Asignado</label>
+              <div
+                className={`flex items-center gap-2 w-full rounded-xl border px-3 py-2.5 text-sm ${
+                  !form.idLugarProduccion
+                    ? 'border-slate-200 bg-slate-50 text-slate-400'
+                    : tecnicoNombre
+                      ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
+                      : 'border-amber-200 bg-amber-50 text-amber-700'
+                }`}
+              >
+                <User size={14} className="shrink-0 opacity-60" />
+                <span>
+                  {!form.idLugarProduccion
+                    ? 'Selecciona primero un lugar de producción'
+                    : tecnicoNombre
+                      ? tecnicoNombre
+                      : 'Sin técnico asignado a este lugar'}
+                </span>
+              </div>
+              {form.idLugarProduccion && !tecnicoNombre && (
+                <p className="mt-1 text-[11px] text-amber-600">
+                  Este lugar no tiene un técnico asignado. Contacta al administrador.
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="mb-1 block text-xs font-semibold text-slate-600">Fecha y Hora Tentativa *</label>
+              <input
+                type="datetime-local"
+                value={form.fechaTentativa}
+                onChange={(e) => setForm((f) => ({ ...f, fechaTentativa: e.target.value }))}
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={handleClose}
+                className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                disabled={!canGoStep2}
+                onClick={() => setStep(2)}
+                className="rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white disabled:opacity-50 hover:bg-emerald-700 active:scale-95"
+              >
+                Continuar →
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Resumen de la Solicitud</p>
+              <div className="space-y-2">
+                <SummaryRow
+                  label="Lugar de Producción"
+                  value={lugares.find((l) => l.id === form.idLugarProduccion)?.nombreLugarProduccion ?? '—'}
+                />
+                <SummaryRow
+                  label="Lote"
+                  value={`Lote ${lotes.find((l) => l.id === form.idLote)?.numeroLote ?? '—'}`}
+                />
+                <SummaryRow
+                  label="Técnico Inspector"
+                  value={tecnicoNombre ?? '—'}
+                />
+                <SummaryRow
+                  label="Fecha Tentativa"
+                  value={form.fechaTentativa ? formatDateTime(form.fechaTentativa) : '—'}
+                />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-blue-100 bg-blue-50 p-3 text-xs text-blue-700">
+              Al confirmar, la solicitud quedará en estado <strong>Solicitada</strong> y el técnico asignado podrá aceptarla o proponer una nueva fecha.
+            </div>
+
+            <div className="flex justify-between gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="flex items-center gap-1 rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+              >
+                <ChevronLeft size={14} /> Atrás
+              </button>
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={handleSubmit}
+                className="flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2 text-sm font-semibold text-white disabled:opacity-50 hover:bg-emerald-700 active:scale-95"
+              >
+                {isSubmitting ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
+                Enviar Solicitud
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </Modal>
+  );
+}
+
+// ─── Componentes auxiliares ───────────────────────────────────────────────────
+
+function Layers({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </svg>
+  );
+}
+
+function InfoCard({
+  label,
+  value,
+  icon,
+  highlight = false,
+}: {
+  label: string;
+  value?: string | null;
+  icon?: React.ReactNode;
+  highlight?: boolean;
+}) {
+  return (
+    <div className={`rounded-xl border p-3 ${highlight ? 'border-emerald-200 bg-emerald-50' : 'border-slate-200 bg-white'}`}>
+      <div className={`mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide ${highlight ? 'text-emerald-600' : 'text-slate-400'}`}>
+        {icon}
+        {label}
+      </div>
+      <p className={`text-sm font-medium ${highlight ? 'text-emerald-800' : 'text-slate-800'}`}>{value ?? '—'}</p>
+    </div>
+  );
+}
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-start justify-between gap-4 text-sm">
+      <span className="text-slate-500 shrink-0">{label}</span>
+      <span className="font-medium text-slate-800 text-right">{value}</span>
+    </div>
+  );
+}
+
+// ─── KPI Card ─────────────────────────────────────────────────────────────────
+
+function KpiCard({
+  label,
+  value,
+  color,
+  icon,
+}: {
+  label: string;
+  value: number;
+  color: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+          <p className="mt-1 text-3xl font-bold text-slate-900">{value}</p>
+        </div>
+        <div className={`rounded-xl p-2 ${color}`}>{icon}</div>
+      </div>
+    </article>
+  );
+}
+
+// ─── Página principal ─────────────────────────────────────────────────────────
+
+const PAGE_SIZE = 8;
 
 export default function InspectionHistoryPage({
   sessionUser,
@@ -132,466 +880,497 @@ export default function InspectionHistoryPage({
   onGoInspectionsAgenda,
   onLogout,
 }: InspectionHistoryPageProps) {
-  const [rows, setRows] = useState<InspectionHistoryItem[]>(historySeed);
-  const [page, setPage] = useState(1);
+  const rol = sessionUser?.rol ?? '';
+  const userId = sessionUser?.id ?? '';
+  const isProductor = rol === 'PRODUCTOR';
+  const isAdminOrTecnico = rol === 'ADMIN' || rol === 'ASISTENTE_TECNICO';
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+  const [solicitudes, setSolicitudes] = useState<SolicitudInspeccionDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Para el modal de solicitar (PRODUCTOR)
+  const [lugares, setLugares] = useState<LugarProduccionDTO[]>([]);
+  const [lotes, setLotes] = useState<LoteDTO[]>([]);
+
+  // ── UI ────────────────────────────────────────────────────────────────────
   const [search, setSearch] = useState('');
-  const [resultFilter, setResultFilter] = useState<'Todos' | InspectionResult>('Todos');
+  const [estadoFilter, setEstadoFilter] = useState<'Todos' | EstadoSolicitud>('Todos');
   const [dateFilter, setDateFilter] = useState('');
-  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
-  const [requestStep, setRequestStep] = useState<RequestStep>(1);
-  const [requestForm, setRequestForm] = useState<RequestFormState>(initialRequestForm);
-  const [requestFeedback, setRequestFeedback] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
-  const pageSize = 6;
+  const [selectedSolicitud, setSelectedSolicitud] = useState<SolicitudInspeccionDTO | null>(null);
+  const [isSolicitarOpen, setIsSolicitarOpen] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<ToastState>(null);
 
-  const filteredRows = useMemo(() => {
-    const query = search.toLowerCase().trim();
+  // ── Fetch ─────────────────────────────────────────────────────────────────
+  const fetchSolicitudes = useCallback(async () => {
+    if (!userId || !rol) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.getSolicitudesInspeccion({ userId, rol });
+      setSolicitudes(res.data ?? []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al cargar las solicitudes.');
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, rol]);
 
-    return rows.filter((row) => {
-      const bySearch = query
-        ? row.idInspeccion.toLowerCase().includes(query) ||
-          row.predio.toLowerCase().includes(query) ||
-          row.cultivo.toLowerCase().includes(query)
+  const fetchFormData = useCallback(async () => {
+    if (!isProductor) return;
+    try {
+      const [lugaresRes, lotesRes] = await Promise.all([
+        api.getLugaresProduccion(),
+        api.getLotes(),
+      ]);
+      // Filtrar lugares del productor actual
+      const misLugares = (lugaresRes.data ?? []).filter((l) => l.idUsuarioProductor === userId);
+      setLugares(misLugares);
+      setLotes(lotesRes.data ?? []);
+    } catch {
+      // No bloquear la página si falla la carga de datos del formulario
+    }
+  }, [isProductor, userId]);
+
+  useEffect(() => {
+    fetchSolicitudes();
+  }, [fetchSolicitudes]);
+
+  useEffect(() => {
+    fetchFormData();
+  }, [fetchFormData]);
+
+  // ── Filtros ───────────────────────────────────────────────────────────────
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return solicitudes.filter((s) => {
+      const lugar = s.lote?.predio?.lugarProduccion?.nombreLugarProduccion ?? '';
+      const lote = s.lote?.numeroLote ?? '';
+      const productor = s.lote?.predio?.lugarProduccion?.productor;
+      const productorNombre = productor ? `${productor.nombre} ${productor.apellidos}` : '';
+      const tecnico = s.asistenteTecnico ? `${s.asistenteTecnico.nombre} ${s.asistenteTecnico.apellidos}` : '';
+
+      const bySearch = q
+        ? lugar.toLowerCase().includes(q) ||
+          lote.toLowerCase().includes(q) ||
+          productorNombre.toLowerCase().includes(q) ||
+          tecnico.toLowerCase().includes(q)
         : true;
 
-      const byResult = resultFilter === 'Todos' ? true : row.resultado === resultFilter;
-      const byDate = dateFilter ? row.fechaEjecucion.startsWith(dateFilter) : true;
+      const byEstado = estadoFilter === 'Todos' ? true : s.estado === estadoFilter;
+      const byDate = dateFilter ? s.fechaCreacion?.startsWith(dateFilter) : true;
 
-      return bySearch && byResult && byDate;
+      return bySearch && byEstado && byDate;
     });
-  }, [rows, search, resultFilter, dateFilter]);
+  }, [solicitudes, search, estadoFilter, dateFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const paged = useMemo(
+    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    [filtered, page],
+  );
 
-  const pagedRows = useMemo(() => {
-    return filteredRows.slice((page - 1) * pageSize, page * pageSize);
-  }, [filteredRows, page]);
+  // ── KPIs ──────────────────────────────────────────────────────────────────
+  const kpis = useMemo(() => ({
+    total: solicitudes.length,
+    solicitadas: solicitudes.filter((s) => s.estado === 'SOLICITADA').length,
+    programadas: solicitudes.filter((s) => s.estado === 'PROGRAMADA').length,
+    realizadas: solicitudes.filter((s) => s.estado === 'REALIZADA').length,
+    canceladas: solicitudes.filter((s) => s.estado === 'CANCELADA').length,
+  }), [solicitudes]);
 
-  const kpis = useMemo(() => {
-    const total = rows.length;
-    const aprobadas = rows.filter((r) => r.resultado === 'Aprobado').length;
-    const conHallazgos = rows.filter((r) => r.resultado === 'Con Hallazgos').length;
-    const rechazadas = rows.filter((r) => r.resultado === 'Rechazado').length;
-    return { total, aprobadas, conHallazgos, rechazadas };
-  }, [rows]);
-
-  const resetRequestModal = () => {
-    setRequestStep(1);
-    setRequestForm(initialRequestForm);
-    setRequestFeedback(null);
+  // ── Acciones ──────────────────────────────────────────────────────────────
+  const showToast = (type: 'success' | 'error' | 'info', message: string) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 4000);
   };
 
-  const openRequestModal = () => {
-    resetRequestModal();
-    setIsRequestModalOpen(true);
+  const handleAccept = async (id: string, fecha: string) => {
+    setIsUpdating(true);
+    try {
+      await api.updateEstadoSolicitud(id, { accion: 'ACEPTAR', fechaProgramada: fecha });
+      showToast('success', 'Solicitud aceptada y programada correctamente.');
+      setSelectedSolicitud(null);
+      await fetchSolicitudes();
+    } catch (err) {
+      showToast('error', err instanceof Error ? err.message : 'Error al aceptar la solicitud.');
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
-  const closeRequestModal = () => {
-    setIsRequestModalOpen(false);
-    resetRequestModal();
+  const handleReject = async (id: string, obs: string) => {
+    setIsUpdating(true);
+    try {
+      await api.updateEstadoSolicitud(id, { accion: 'RECHAZAR', observaciones: obs });
+      showToast('info', 'Solicitud rechazada. El productor será notificado.');
+      setSelectedSolicitud(null);
+      await fetchSolicitudes();
+    } catch (err) {
+      showToast('error', err instanceof Error ? err.message : 'Error al rechazar la solicitud.');
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const handleCreateSolicitud = async (data: CreateSolicitudDTO) => {
+    setIsSubmitting(true);
+    try {
+      await api.createSolicitud(data);
+      showToast('success', 'Solicitud de inspección creada exitosamente.');
+      await fetchSolicitudes();
+    } catch (err) {
+      showToast('error', err instanceof Error ? err.message : 'Error al crear la solicitud.');
+      throw err;
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleNavigate = (view: DashboardViewKey) => {
     if (view === 'home') onGoHome?.();
     if (view === 'users') onGoUsers?.();
-        if (view === 'roles') onGoRoles?.();
-        if (view === 'agricultural') onGoAgricultural?.();
-        if (view === 'catalog') onGoCatalog?.();
-        if (view === 'approval-places') onGoApprovalPlaces?.();
+    if (view === 'roles') onGoRoles?.();
+    if (view === 'agricultural') onGoAgricultural?.();
+    if (view === 'catalog') onGoCatalog?.();
+    if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
   };
 
-  const canGoToStep2 =
-    requestForm.lugarProduccion.trim() &&
-    requestForm.fechaProgramada &&
-    requestForm.horaProgramada &&
-    requestForm.tecnico.trim();
-
-  const submitRequest = () => {
-    if (!requestForm.confirmar) return;
-
-    const newRecord: InspectionHistoryItem = {
-      idInspeccion: buildInspectionId(rows.length),
-      fechaEjecucion: `${requestForm.fechaProgramada} ${requestForm.horaProgramada}`,
-      predio: requestForm.lugarProduccion,
-      cultivo: 'Por definir',
-      resultado: 'Con Hallazgos',
-      tipo: 'Solicitada',
-    };
-
-    setRows((prev) => [newRecord, ...prev]);
-    setPage(1);
-    setRequestFeedback('Solicitud creada exitosamente. Se agregó al historial para seguimiento.');
-    setTimeout(() => {
-      closeRequestModal();
-    }, 1000);
-  };
-
+  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <DashboardLayout
       title="Historial de Inspecciones"
-      subtitle="Consulta inspecciones ejecutadas y realiza nuevas solicitudes"
+      subtitle={
+        isProductor
+          ? 'Consulta y gestiona tus solicitudes de inspección'
+          : 'Gestión y seguimiento de solicitudes de inspección fitosanitaria'
+      }
       sessionUser={sessionUser}
       activeView="inspections-history"
       onNavigate={handleNavigate}
       onLogout={onLogout}
     >
       <section className="space-y-6">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Total Registros</p>
-                <p className="mt-1 text-3xl font-bold text-slate-900">{kpis.total}</p>
-              </div>
-              <ClipboardList className="text-emerald-700" size={24} />
-            </div>
-          </article>
-
-          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Aprobadas</p>
-                <p className="mt-1 text-3xl font-bold text-slate-900">{kpis.aprobadas}</p>
-              </div>
-              <CheckCircle2 className="text-emerald-600" size={24} />
-            </div>
-          </article>
-
-          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Con Hallazgos</p>
-                <p className="mt-1 text-3xl font-bold text-slate-900">{kpis.conHallazgos}</p>
-              </div>
-              <ShieldCheck className="text-amber-600" size={24} />
-            </div>
-          </article>
-
-          <article className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Rechazadas</p>
-                <p className="mt-1 text-3xl font-bold text-slate-900">{kpis.rechazadas}</p>
-              </div>
-              <XCircle className="text-rose-600" size={24} />
-            </div>
-          </article>
+        {/* KPIs */}
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <KpiCard
+            label="Total Solicitudes"
+            value={kpis.total}
+            color="bg-slate-100 text-slate-600"
+            icon={<ClipboardList size={22} />}
+          />
+          <KpiCard
+            label="Solicitadas"
+            value={kpis.solicitadas}
+            color="bg-blue-100 text-blue-600"
+            icon={<Clock3 size={22} />}
+          />
+          <KpiCard
+            label="Programadas"
+            value={kpis.programadas}
+            color="bg-amber-100 text-amber-600"
+            icon={<CalendarDays size={22} />}
+          />
+          <KpiCard
+            label="Realizadas"
+            value={kpis.realizadas}
+            color="bg-emerald-100 text-emerald-600"
+            icon={<CheckCircle2 size={22} />}
+          />
         </div>
 
-        <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <div className="flex flex-col gap-4 border-b border-slate-100 px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="text-lg font-bold text-slate-900">Histórico de inspecciones</h2>
-            <button
-              type="button"
-              onClick={openRequestModal}
-              className="inline-flex items-center justify-center rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900"
-            >
-              Solicitar Inspección
-            </button>
-          </div>
-
-          <div className="grid gap-3 border-b border-slate-100 px-4 py-4 md:grid-cols-4">
-            <div className="relative md:col-span-2">
-              <Search className="pointer-events-none absolute left-3 top-2.5 text-slate-400" size={18} />
+        {/* Barra de herramientas */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Búsqueda */}
+            <div className="relative">
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
+                placeholder="Buscar lugar, lote, productor..."
                 value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  setPage(1);
-                }}
-                placeholder="Buscar por ID, predio o cultivo..."
-                className="w-full rounded-xl border border-slate-300 py-2 pl-10 pr-3 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+                onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+                className="h-9 w-64 rounded-xl border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
               />
             </div>
 
-            <select
-              value={resultFilter}
-              onChange={(e) => {
-                setResultFilter(e.target.value as 'Todos' | InspectionResult);
-                setPage(1);
-              }}
-              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-            >
-              <option value="Todos">Resultado: Todos</option>
-              <option value="Aprobado">Aprobado</option>
-              <option value="Con Hallazgos">Con Hallazgos</option>
-              <option value="Rechazado">Rechazado</option>
-            </select>
+            {/* Filtro estado */}
+            <div className="relative">
+              <Filter size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <select
+                value={estadoFilter}
+                onChange={(e) => { setEstadoFilter(e.target.value as typeof estadoFilter); setPage(1); }}
+                className="h-9 rounded-xl border border-slate-200 bg-white pl-8 pr-3 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              >
+                <option value="Todos">Todos los estados</option>
+                <option value="SOLICITADA">Solicitada</option>
+                <option value="PROGRAMADA">Programada</option>
+                <option value="REALIZADA">Realizada</option>
+                <option value="CANCELADA">Cancelada</option>
+                <option value="NO_PROGRAMADA">No Programada</option>
+              </select>
+            </div>
 
+            {/* Filtro fecha */}
             <input
               type="date"
               value={dateFilter}
-              onChange={(e) => {
-                setDateFilter(e.target.value);
-                setPage(1);
-              }}
-              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+              onChange={(e) => { setDateFilter(e.target.value); setPage(1); }}
+              className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
             />
+
+            {dateFilter && (
+              <button
+                type="button"
+                onClick={() => setDateFilter('')}
+                className="flex h-9 items-center gap-1 rounded-xl border border-slate-200 bg-white px-3 text-xs text-slate-500 hover:bg-slate-50"
+              >
+                <X size={12} /> Limpiar fecha
+              </button>
+            )}
           </div>
 
+          {/* Botón solicitar (solo PRODUCTOR) */}
+          {isProductor && (
+            <button
+              type="button"
+              onClick={() => setIsSolicitarOpen(true)}
+              className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
+            >
+              <Plus size={16} />
+              Solicitar Inspección
+            </button>
+          )}
+        </div>
+
+        {/* Tabla */}
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead className="bg-slate-50 text-left text-slate-600">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">ID Inspección</th>
-                  <th className="px-4 py-3 font-semibold">Fecha de Ejecución</th>
-                  <th className="px-4 py-3 font-semibold">Finca / Predio</th>
-                  <th className="px-4 py-3 font-semibold">Cultivo</th>
-                  <th className="px-4 py-3 font-semibold">Resultado</th>
-                  <th className="px-4 py-3 font-semibold">Tipo</th>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-100 bg-slate-50">
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Fecha Solicitud
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Lugar Producción
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Lote
+                  </th>
+                  {isAdminOrTecnico && (
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Productor
+                    </th>
+                  )}
+                  {isProductor && (
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Técnico Asignado
+                    </th>
+                  )}
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Fecha/Hora Inspección
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Estado
+                  </th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Detalle
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                {pagedRows.map((row) => (
-                  <tr key={row.idInspeccion} className="border-t border-slate-100 transition hover:bg-slate-50/60">
-                    <td className="px-4 py-3 font-semibold text-slate-800">{row.idInspeccion}</td>
-                    <td className="px-4 py-3 text-slate-600">{row.fechaEjecucion}</td>
-                    <td className="px-4 py-3 text-slate-700">{row.predio}</td>
-                    <td className="px-4 py-3 text-slate-700">{row.cultivo}</td>
-                    <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${resultClasses[row.resultado]}`}>
-                        {row.resultado}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                          row.tipo === 'Solicitada' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'
-                        }`}
-                      >
-                        {row.tipo}
-                      </span>
+              <tbody className="divide-y divide-slate-100">
+                {loading ? (
+                  <TableSkeleton cols={isProductor ? 7 : 7} />
+                ) : error ? (
+                  <tr>
+                    <td colSpan={8} className="px-4 py-16 text-center">
+                      <div className="flex flex-col items-center gap-3">
+                        <AlertCircle size={40} className="text-rose-400" />
+                        <p className="font-semibold text-slate-700">Error al cargar datos</p>
+                        <p className="text-sm text-slate-500">{error}</p>
+                        <button
+                          type="button"
+                          onClick={fetchSolicitudes}
+                          className="mt-1 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+                        >
+                          Reintentar
+                        </button>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                ) : paged.length === 0 ? (
+                  <tr>
+                    <td colSpan={8} className="px-4 py-16 text-center">
+                      <div className="flex flex-col items-center gap-3">
+                        <ClipboardList size={40} className="text-slate-300" />
+                        <p className="font-semibold text-slate-600">
+                          {solicitudes.length === 0
+                            ? 'No hay solicitudes de inspección registradas'
+                            : 'No se encontraron resultados con los filtros aplicados'}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                          {isProductor
+                            ? 'Crea tu primera solicitud usando el botón "Solicitar Inspección"'
+                            : 'Ajusta los filtros o espera nuevas solicitudes'}
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  paged.map((s) => {
+                    const lugar = s.lote?.predio?.lugarProduccion;
+                    const productor = lugar?.productor;
+                    const tecnico = s.asistenteTecnico;
+                    return (
+                      <tr
+                        key={s.id}
+                        className="group transition-colors hover:bg-slate-50"
+                      >
+                        <td className="px-4 py-3 text-slate-600">
+                          {formatDate(s.fechaCreacion)}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="font-medium text-slate-800">
+                            {lugar?.nombreLugarProduccion ?? '—'}
+                          </span>
+                          {lugar?.numeroRegistroICA && (
+                            <p className="text-[11px] text-slate-400">{lugar.numeroRegistroICA}</p>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-slate-600">
+                          {s.lote?.numeroLote ? `Lote ${s.lote.numeroLote}` : '—'}
+                        </td>
+                        {isAdminOrTecnico && (
+                          <td className="px-4 py-3 text-slate-700">
+                            {productor ? `${productor.nombre} ${productor.apellidos}` : '—'}
+                          </td>
+                        )}
+                        {isProductor && (
+                          <td className="px-4 py-3 text-slate-700">
+                            {tecnico ? `${tecnico.nombre} ${tecnico.apellidos}` : '—'}
+                          </td>
+                        )}
+                        <td className="px-4 py-3 text-slate-600">
+                          {s.fechaProgramadaTecnico
+                            ? formatDateTime(s.fechaProgramadaTecnico)
+                            : s.fechaTentativaProductor
+                              ? <span className="text-slate-400 italic">{formatDateTime(s.fechaTentativaProductor)} (tentativa)</span>
+                              : '—'}
+                        </td>
+                        <td className="px-4 py-3">
+                          <EstadoBadge estado={s.estado} />
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedSolicitud(s)}
+                            className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700 active:scale-95"
+                          >
+                            Ver detalle
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
+          </div>
 
-            {pagedRows.length === 0 ? (
-              <div className="p-8 text-center">
-                <Filter className="mx-auto text-slate-400" size={20} />
-                <p className="mt-2 text-sm font-semibold text-slate-700">No hay resultados con los filtros actuales.</p>
+          {/* Paginación */}
+          {!loading && !error && filtered.length > PAGE_SIZE && (
+            <div className="flex items-center justify-between border-t border-slate-100 px-4 py-3">
+              <p className="text-xs text-slate-500">
+                Mostrando {(page - 1) * PAGE_SIZE + 1}–{Math.min(page * PAGE_SIZE, filtered.length)} de {filtered.length} registros
+              </p>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  disabled={page === 1}
+                  onClick={() => setPage((p) => p - 1)}
+                  className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 hover:bg-slate-50"
+                >
+                  <ChevronLeft size={15} />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+                  .reduce<(number | '...')[]>((acc, p, idx, arr) => {
+                    if (idx > 0 && typeof arr[idx - 1] === 'number' && (p as number) - (arr[idx - 1] as number) > 1) {
+                      acc.push('...');
+                    }
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, idx) =>
+                    p === '...' ? (
+                      <span key={`ellipsis-${idx}`} className="px-1 text-slate-400">…</span>
+                    ) : (
+                      <button
+                        key={p}
+                        type="button"
+                        onClick={() => setPage(p as number)}
+                        className={`h-8 w-8 rounded-lg border text-xs font-semibold transition ${
+                          page === p
+                            ? 'border-emerald-500 bg-emerald-600 text-white'
+                            : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ),
+                  )}
+                <button
+                  type="button"
+                  disabled={page === totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                  className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 hover:bg-slate-50"
+                >
+                  <ChevronRight size={15} />
+                </button>
               </div>
-            ) : null}
-          </div>
-
-          <div className="flex items-center justify-between border-t border-slate-100 px-4 py-3">
-            <p className="text-xs text-slate-500">
-              Mostrando {filteredRows.length === 0 ? 0 : (page - 1) * pageSize + 1} -{' '}
-              {Math.min(page * pageSize, filteredRows.length)} de {filteredRows.length}
-            </p>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-                className="rounded-lg border border-slate-300 p-1.5 text-slate-600 disabled:opacity-50"
-                disabled={page === 1}
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <span className="text-sm font-semibold text-slate-700">
-                {page}/{totalPages}
-              </span>
-              <button
-                type="button"
-                onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-                className="rounded-lg border border-slate-300 p-1.5 text-slate-600 disabled:opacity-50"
-                disabled={page === totalPages}
-              >
-                <ChevronRight size={16} />
-              </button>
             </div>
-          </div>
-        </section>
+          )}
+        </div>
       </section>
 
-      {isRequestModalOpen ? (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 p-4">
-          <div className="w-full max-w-3xl rounded-2xl bg-white shadow-2xl">
-            <div className="flex items-start justify-between rounded-t-2xl bg-emerald-900 px-5 py-4 text-white">
-              <div>
-                <h3 className="text-2xl font-bold">Nueva Solicitud</h3>
-                <p className="text-sm text-emerald-100">Paso {requestStep} de 2 - Solicitud Inspección</p>
-              </div>
-              <button type="button" onClick={closeRequestModal} className="rounded-lg p-1 hover:bg-white/10">
-                <X size={22} />
-              </button>
-            </div>
+      {/* Modal detalle PRODUCTOR */}
+      {selectedSolicitud && isProductor && (
+        <ModalDetalleProductor
+          solicitud={selectedSolicitud}
+          onClose={() => setSelectedSolicitud(null)}
+        />
+      )}
 
-            <div className="px-5 pt-4">
-              <div className="flex items-center gap-3 text-xs font-semibold">
-                <span
-                  className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${
-                    requestStep >= 1 ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-600'
-                  }`}
-                >
-                  1
-                </span>
-                <span className={requestStep >= 1 ? 'text-emerald-700' : 'text-slate-500'}>Programación</span>
-                <span className="h-px flex-1 bg-slate-200" />
-                <span
-                  className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${
-                    requestStep >= 2 ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-600'
-                  }`}
-                >
-                  2
-                </span>
-                <span className={requestStep >= 2 ? 'text-emerald-700' : 'text-slate-500'}>Confirmación</span>
-              </div>
-            </div>
+      {/* Modal detalle ADMIN / ASISTENTE */}
+      {selectedSolicitud && isAdminOrTecnico && (
+        <ModalDetalleAdmin
+          solicitud={selectedSolicitud}
+          onClose={() => setSelectedSolicitud(null)}
+          onAccept={handleAccept}
+          onReject={handleReject}
+          isUpdating={isUpdating}
+        />
+      )}
 
-            <div className="space-y-4 px-5 py-5">
-              {requestStep === 1 ? (
-                <>
-                  <div>
-                    <label className="mb-1 block text-sm font-semibold text-slate-700">Lugar de Producción</label>
-                    <input
-                      type="text"
-                      value={requestForm.lugarProduccion}
-                      onChange={(e) => setRequestForm((prev) => ({ ...prev, lugarProduccion: e.target.value }))}
-                      placeholder="Ej: Finca Los Naranjos"
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-                    />
-                  </div>
+      {/* Modal solicitar inspección */}
+      <ModalSolicitarInspeccion
+        open={isSolicitarOpen}
+        onClose={() => setIsSolicitarOpen(false)}
+        onSubmit={handleCreateSolicitud}
+        lugares={lugares}
+        lotes={lotes}
+        isSubmitting={isSubmitting}
+      />
 
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div>
-                      <label className="mb-1 block text-sm font-semibold text-slate-700">Fecha Programada</label>
-                      <div className="relative">
-                        <CalendarDays className="pointer-events-none absolute left-3 top-2.5 text-slate-400" size={18} />
-                        <input
-                          type="date"
-                          value={requestForm.fechaProgramada}
-                          onChange={(e) => setRequestForm((prev) => ({ ...prev, fechaProgramada: e.target.value }))}
-                          className="w-full rounded-xl border border-slate-300 py-2.5 pl-10 pr-3 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="mb-1 block text-sm font-semibold text-slate-700">Hora Programada</label>
-                      <div className="relative">
-                        <Clock3 className="pointer-events-none absolute left-3 top-2.5 text-slate-400" size={18} />
-                        <input
-                          type="time"
-                          value={requestForm.horaProgramada}
-                          onChange={(e) => setRequestForm((prev) => ({ ...prev, horaProgramada: e.target.value }))}
-                          className="w-full rounded-xl border border-slate-300 py-2.5 pl-10 pr-3 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="mb-1 block text-sm font-semibold text-slate-700">Técnico Inspector</label>
-                    <input
-                      type="text"
-                      value={requestForm.tecnico}
-                      onChange={(e) => setRequestForm((prev) => ({ ...prev, tecnico: e.target.value }))}
-                      placeholder="Ej: Julio Barrera"
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
-                    <p className="text-sm font-semibold text-emerald-800">Solicitud lista para confirmar</p>
-                    <p className="text-sm text-emerald-700">Verifica la información antes de enviarla.</p>
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-xs uppercase text-slate-500">Lugar de Producción</p>
-                      <p className="text-sm font-semibold text-slate-800">{requestForm.lugarProduccion}</p>
-                    </div>
-                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-xs uppercase text-slate-500">Técnico</p>
-                      <p className="text-sm font-semibold text-slate-800">{requestForm.tecnico}</p>
-                    </div>
-                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-xs uppercase text-slate-500">Fecha</p>
-                      <p className="text-sm font-semibold text-slate-800">{requestForm.fechaProgramada}</p>
-                    </div>
-                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
-                      <p className="text-xs uppercase text-slate-500">Hora</p>
-                      <p className="text-sm font-semibold text-slate-800">{requestForm.horaProgramada}</p>
-                    </div>
-                  </div>
-
-                  {/* <div>
-                    <label className="mb-1 block text-sm font-semibold text-slate-700">Observaciones adicionales</label>
-                    <textarea
-                      value={requestForm.observaciones}
-                      onChange={(e) => setRequestForm((prev) => ({ ...prev, observaciones: e.target.value }))}
-                      rows={3}
-                      placeholder="Observaciones para la inspección"
-                      className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
-                    />
-                  </div> */}
-
-                  <label className="inline-flex items-center gap-2 text-sm text-slate-700">
-                    <input
-                      type="checkbox"
-                      checked={requestForm.confirmar}
-                      onChange={(e) => setRequestForm((prev) => ({ ...prev, confirmar: e.target.checked }))}
-                    />
-                    Confirmo que los datos son correctos y autorizo la solicitud
-                  </label>
-                </>
-              )}
-
-              {requestFeedback ? (
-                <p className="rounded-lg bg-emerald-100 px-3 py-2 text-sm font-semibold text-emerald-800">{requestFeedback}</p>
-              ) : null}
-            </div>
-
-            <div className="flex items-center justify-between border-t border-slate-100 px-5 py-4">
-              <button
-                type="button"
-                onClick={closeRequestModal}
-                className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-              >
-                Cancelar
-              </button>
-
-              <div className="flex items-center gap-2">
-                {requestStep === 2 ? (
-                  <button
-                    type="button"
-                    onClick={() => setRequestStep(1)}
-                    className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-                  >
-                    Anterior
-                  </button>
-                ) : null}
-
-                {requestStep === 1 ? (
-                  <button
-                    type="button"
-                    onClick={() => setRequestStep(2)}
-                    disabled={!canGoToStep2}
-                    className="rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    Siguiente
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={submitRequest}
-                    disabled={!requestForm.confirmar}
-                    className="rounded-xl bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-900 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    Enviar Solicitud
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* Toast */}
+      <Toast toast={toast} onClose={() => setToast(null)} />
     </DashboardLayout>
   );
 }

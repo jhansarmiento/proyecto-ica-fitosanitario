@@ -30,6 +30,7 @@ type View =
   | 'inspection-process';
 
 export type SessionUser = {
+  id: string;
   nombre: string;
   apellidos: string;
   rol: string;
@@ -44,9 +45,9 @@ function App() {
   const [sessionUser, setSessionUser] = useState<SessionUser>(() => {
     try {
       const stored = localStorage.getItem('sessionUser');
-      return stored ? JSON.parse(stored) : { nombre: '', apellidos: '', rol: '' };
+      return stored ? JSON.parse(stored) : { id: '', nombre: '', apellidos: '', rol: '' };
     } catch {
-      return { nombre: '', apellidos: '', rol: '' };
+      return { id: '', nombre: '', apellidos: '', rol: '' };
     }
   });
 
@@ -62,7 +63,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('sessionUser');
-    setSessionUser({ nombre: '', apellidos: '', rol: '' });
+    setSessionUser({ id: '', nombre: '', apellidos: '', rol: '' });
     setSelectedSite(null);
     setView('login');
   };

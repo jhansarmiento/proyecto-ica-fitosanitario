@@ -38,6 +38,7 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
         ingresoContrasena: ingresoContrasena.trim(),
       });
       onLoginSuccess?.({
+        id: response.data.id,
         nombre: response.data.nombre,
         apellidos: response.data.apellidos,
         rol: response.data.rol ?? '',

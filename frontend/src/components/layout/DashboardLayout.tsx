@@ -168,7 +168,7 @@ function DashboardLayout({
                     }`}
                   >
                     <ClipboardList size={18} />
-                    Realizar Inspección
+                    Agenda de Inspecciones
                   </button>
                   <button
                     type="button"
