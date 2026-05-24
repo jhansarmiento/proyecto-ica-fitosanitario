@@ -16,6 +16,9 @@ type ProductionLotsPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoApprovalPlaces?: () => void;
+  onGoCatalog?: () => void;
+  onGoInspectionsAgenda?: () => void;
+  onGoInspectionsHistory?: () => void;
   onLogout?: () => void;
 };
 
@@ -24,7 +27,7 @@ const lotesMock: LotDetail[] = [
   { id: 2, code: 'LOT-002', especie: 'Aguacate', variedad: 'Hass', areaHa: 12.4, fechaSiembra: '2024-03-15' },
 ];
 
-function ProductionLotsPage({ sessionUser, site, onGoResumen, onGoHome, onGoUsers, onGoRoles, onGoApprovalPlaces, onLogout }: ProductionLotsPageProps) {
+function ProductionLotsPage({ sessionUser, site, onGoResumen, onGoHome, onGoUsers, onGoRoles, onGoApprovalPlaces, onGoCatalog, onGoInspectionsAgenda, onGoInspectionsHistory, onLogout }: ProductionLotsPageProps) {
   const [isNewLotOpen, setIsNewLotOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [lotes, setLotes] = useState<LotDetail[]>(lotesMock);
@@ -81,6 +84,9 @@ function ProductionLotsPage({ sessionUser, site, onGoResumen, onGoHome, onGoUser
         if (view === 'roles') onGoRoles?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'agricultural') onGoResumen?.();
+        if (view === 'catalog') onGoCatalog?.();
+        if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+        if (view === 'inspections-history') onGoInspectionsHistory?.();
       }}
       onLogout={onLogout}
     >

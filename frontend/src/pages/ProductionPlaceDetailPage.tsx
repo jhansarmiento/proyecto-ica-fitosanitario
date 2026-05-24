@@ -22,6 +22,9 @@ type ProductionPlaceDetailPageProps = {
   onGoUsers?: () => void;
   onGoRoles?: () => void;
   onGoApprovalPlaces?: () => void;
+  onGoCatalog?: () => void;
+  onGoInspectionsAgenda?: () => void;
+  onGoInspectionsHistory?: () => void;
   onLogout?: () => void;
 };
 
@@ -39,6 +42,9 @@ const ProductionPlaceDetailPage = ({
   onGoUsers,
   onGoRoles,
   onGoApprovalPlaces,
+  onGoCatalog,
+  onGoInspectionsAgenda,
+  onGoInspectionsHistory,
   onLogout,
 }: ProductionPlaceDetailPageProps) => {
   const [activeTab, setActiveTab] = useState<'resumen' | 'lotes'>('resumen');
@@ -56,6 +62,9 @@ const ProductionPlaceDetailPage = ({
         if (view === 'roles') onGoRoles?.();
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'agricultural') onBackToAgricultural?.();
+        if (view === 'catalog') onGoCatalog?.();
+        if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+        if (view === 'inspections-history') onGoInspectionsHistory?.();
       }}
       onLogout={onLogout}
     >

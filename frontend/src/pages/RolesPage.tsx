@@ -87,6 +87,8 @@ function RolesPage({
   onGoAgricultural,
   onGoCatalog,
   onGoApprovalPlaces,
+  onGoInspectionsAgenda,
+  onGoInspectionsHistory,
   onLogout,
 }: RolesPageProps) {
   const [search, setSearch] = useState('');
@@ -194,7 +196,7 @@ function RolesPage({
         <button
           type="button"
           onClick={() => setIsNewRoleOpen(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-800 hover:shadow-md"
+          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
         >
           <Plus size={18} />
           Nuevo Rol

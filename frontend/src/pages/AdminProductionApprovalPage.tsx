@@ -30,7 +30,9 @@ function AdminProductionApprovalPage({
   onGoRoles,
   onGoAgricultural,
   onGoCatalog,
+  onGoApprovalPlaces,
   onGoInspectionsAgenda,
+  onGoInspectionsHistory,
   onLogout,
 }: AdminProductionApprovalPageProps) {
   const [query, setQuery] = useState('');

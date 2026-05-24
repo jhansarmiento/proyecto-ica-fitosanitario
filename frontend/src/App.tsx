@@ -150,6 +150,9 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoApprovalPlaces={() => setView('approval-places')}
+        onGoCatalog={() => setView('catalog')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
         onLogout={handleLogout}
       />
     );
@@ -163,6 +166,9 @@ function App() {
         onGoUsers={() => setView('users')}
         onGoRoles={() => setView('roles')}
         onGoApprovalPlaces={() => setView('approval-places')}
+        onGoCatalog={() => setView('catalog')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
         onLogout={handleLogout}
       />
     );
