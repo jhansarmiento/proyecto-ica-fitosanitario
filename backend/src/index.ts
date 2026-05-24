@@ -9,6 +9,7 @@ import { seedRoles } from './seeders/rolSeeder'; // Función para inyectar roles
 import { seedAdmins } from './seeders/adminSeeder'; // Función para inyectar usuarios administradores
 import { seedProductores } from './seeders/productorSeeder'; // Función para inyectar usuarios productores
 import { seedPropietariosYPredios } from './seeders/predioSeeder'; // Función para inyectar propietarios y predios
+import { seedAsistentes } from './seeders/asistenteSeeder';
 
 // Modelos de BD Operacional
 import Usuario from './models/Usuario';
@@ -93,8 +94,9 @@ const startServer = async () => {
     // Inyectar roles y usuarios
     await seedRoles();
     await seedAdmins();
-    await seedGeoData();
+    await seedAsistentes();
     await seedProductores();
+    await seedGeoData();
     await seedPropietariosYPredios();
 
     // Solo inyectamos datos geográficos si no hay departamentos en la base de datos
