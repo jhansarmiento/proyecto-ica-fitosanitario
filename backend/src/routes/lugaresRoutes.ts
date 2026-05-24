@@ -13,11 +13,11 @@ lugaresRoutes.get('/', async (_req, res) => {
         {
           model: Usuario,
           as: 'productor',
-          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          attributes: ['id_usuario', 'nombre', 'apellidos', 'ingreso_usuario'],
           required: false,
         },
       ],
-      order: [['nombreLugarProduccion', 'ASC']],
+      order: [['nombre_lugar_produccion', 'ASC']],
     });
     return res.status(200).json({ data: lugares });
   } catch (error) {
@@ -33,7 +33,7 @@ lugaresRoutes.get('/:id', async (req, res) => {
         {
           model: Usuario,
           as: 'productor',
-          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          attributes: ['id_usuario', 'nombre', 'apellidos', 'ingreso_usuario'],
           required: false,
         },
       ],
@@ -49,24 +49,24 @@ lugaresRoutes.get('/:id', async (req, res) => {
 
 lugaresRoutes.post('/', async (req, res) => {
   try {
-    const { nombreLugarProduccion, numeroRegistroICA, estado, idUsuarioProductor } = req.body as {
-      nombreLugarProduccion?: string;
-      numeroRegistroICA?: string;
+    const { nombre_lugar_produccion, numero_registro_ica, estado, id_usuario } = req.body as {
+      nombre_lugar_produccion?: string;
+      numero_registro_ica?: string;
       estado?: string;
-      idUsuarioProductor?: string;
+      id_usuario?: string;
     };
 
-    if (!nombreLugarProduccion || !numeroRegistroICA || !estado || !idUsuarioProductor) {
+    if (!nombre_lugar_produccion || !numero_registro_ica || !estado || !id_usuario) {
       return res.status(400).json({
-        message: 'nombreLugarProduccion, numeroRegistroICA, estado e idUsuarioProductor son obligatorios',
+        message: 'nombre_lugar_produccion, numero_registro_ica, estado e id_usuario son obligatorios',
       });
     }
 
     const created = await LugarProduccion.create({
-      nombreLugarProduccion,
-      numeroRegistroICA,
+      nombre_lugar_produccion,
+      numero_registro_ica,
       estado,
-      idUsuarioProductor,
+      id_usuario,
     });
 
     const lugar = await LugarProduccion.findByPk(created.getDataValue('id'), {
@@ -74,7 +74,7 @@ lugaresRoutes.post('/', async (req, res) => {
         {
           model: Usuario,
           as: 'productor',
-          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          attributes: ['id_usuario', 'nombre', 'apellidos', 'ingreso_usuario'],
           required: false,
         },
       ],
@@ -95,18 +95,18 @@ lugaresRoutes.put('/:id', async (req, res) => {
     const lugar = await LugarProduccion.findByPk(req.params.id);
     if (!lugar) return res.status(404).json({ message: 'Lugar de producción no encontrado' });
 
-    const { nombreLugarProduccion, numeroRegistroICA, estado, idUsuarioProductor } = req.body as {
-      nombreLugarProduccion?: string;
-      numeroRegistroICA?: string;
+    const { nombre_lugar_produccion, numero_registro_ica, estado, id_usuario } = req.body as {
+      nombre_lugar_produccion?: string;
+      numero_registro_ica?: string;
       estado?: string;
-      idUsuarioProductor?: string;
+      id_usuario?: string;
     };
 
     await lugar.update({
-      nombreLugarProduccion: nombreLugarProduccion ?? lugar.getDataValue('nombreLugarProduccion'),
-      numeroRegistroICA: numeroRegistroICA ?? lugar.getDataValue('numeroRegistroICA'),
+      nombre_lugar_produccion: nombre_lugar_produccion ?? lugar.getDataValue('nombre_lugar_produccion'),
+      numero_registro_ica: numero_registro_ica ?? lugar.getDataValue('numero_registro_ica'),
       estado: estado ?? lugar.getDataValue('estado'),
-      idUsuarioProductor: idUsuarioProductor ?? lugar.getDataValue('idUsuarioProductor'),
+      id_usuario: id_usuario ?? lugar.getDataValue('id_usuario'),
     });
 
     const updated = await LugarProduccion.findByPk(lugar.getDataValue('id'), {
@@ -114,7 +114,7 @@ lugaresRoutes.put('/:id', async (req, res) => {
         {
           model: Usuario,
           as: 'productor',
-          attributes: ['id', 'nombre', 'apellidos', 'ingresoUsuario'],
+          attributes: ['id_usuario', 'nombre', 'apellidos', 'ingreso_usuario'],
           required: false,
         },
       ],

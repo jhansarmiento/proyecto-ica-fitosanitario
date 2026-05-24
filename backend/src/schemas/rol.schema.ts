@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 export const createRolSchema = z.object({
-  nombreRol: z.string().min(1, 'nombreRol es obligatorio'),
+  nombre_rol: z.string().min(1, 'nombre_rol es obligatorio'),
   descripcion: z.string().min(1, 'descripcion es obligatoria'),
 });
 
 export const updateRolSchema = z
   .object({
-    nombreRol: z.string().min(1).optional(),
+    nombre_rol: z.string().min(1).optional(),
     descripcion: z.string().min(1).optional(),
   })
   .refine((data) => Object.keys(data).length > 0, {

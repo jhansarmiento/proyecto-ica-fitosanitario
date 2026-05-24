@@ -52,7 +52,7 @@ SolicitudInspeccion.init(
             type: DataTypes.STRING,
             defaultValue: 'SOLICITADA',
             validate: {
-                isIn: [['SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA']],
+                isIn: [['SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA', 'NO PROGRAMADA']],
             },
         },
         id_lote: {

@@ -20,17 +20,16 @@ import AutorizacionEspecie from './models/AutorizacionEspecie';
 import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
-import SolicitudRegistroLugar from './models/SolicitudRegistroLugar';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import catalogModels from './catalogIndex';
-import authRoutes from './routes/authRoutes';
-import rolesRoutes from './routes/rolesRoutes';
-import usuariosRoutes from './routes/usuariosRoutes';
-import lugaresRoutes from './routes/lugaresRoutes';
-import prediosRoutes from './routes/prediosRoutes';
-import lotesRoutes from './routes/lotesRoutes';
-import especiesRoutes from './routes/especiesRoutes';
-import autorizacionesRoutes from './routes/autorizacionesRoutes';
+// import authRoutes from './routes/authRoutes';
+// import rolesRoutes from './routes/rolesRoutes';
+// import usuariosRoutes from './routes/usuariosRoutes';
+// import lugaresRoutes from './routes/lugaresRoutes';
+// import prediosRoutes from './routes/prediosRoutes';
+// import lotesRoutes from './routes/lotesRoutes';
+// import especiesRoutes from './routes/especiesRoutes';
+// import autorizacionesRoutes from './routes/autorizacionesRoutes';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -43,7 +42,6 @@ const models: any = {
     Rol,
     Propietario,
     Predio,
-    SolicitudRegistroLugar,
     SolicitudInspeccion
 }
 
@@ -65,14 +63,14 @@ app.use(
   }),
 );
 app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api/roles', rolesRoutes);
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/lugares-produccion', lugaresRoutes);
-app.use('/api/predios', prediosRoutes);
-app.use('/api/lotes', lotesRoutes);
-app.use('/api/especies-vegetales', especiesRoutes);
-app.use('/api/autorizaciones-especie', autorizacionesRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/roles', rolesRoutes);
+// app.use('/api/usuarios', usuariosRoutes);
+// app.use('/api/lugares-produccion', lugaresRoutes);
+// app.use('/api/predios', prediosRoutes);
+// app.use('/api/lotes', lotesRoutes);
+// app.use('/api/especies-vegetales', especiesRoutes);
+// app.use('/api/autorizaciones-especie', autorizacionesRoutes);
 
 const startServer = async () => {
   try {

@@ -25,18 +25,18 @@ class Usuario extends Model {
       foreignKey: 'id_usuario_productor',
       as: 'lugarProduccion',
     });
-    // Un Usuario (Administrador) puede aprobar muchas Solicitudes de Registro
-    this.hasMany(models.SolicitudRegistroLugar, {
+    // Un Usuario (Administrador) puede aprobar muchas Solicitudes de Registro de Lugar de Producción
+    this.hasMany(models.LugarProduccion, {
       foreignKey: 'id_admin_aprobador',
       as: 'solicitudesAprobadas',
     });
-    // Un Usuario (Asistente) puede ser asignado a muchas Solicitudes de Registro
-    this.hasMany(models.SolicitudRegistroLugar, {
+    // Un Usuario (Asistente) puede ser asignado a muchas Solicitudes de Registro de Lugar de Producción
+    this.hasMany(models.LugarProduccion, {
       foreignKey: 'id_asistente_asignado',
       as: 'asignacionesTecnicas',
     });
-    // Un Usuario (Asistente) puede tener una Solicitud de Inspección asignada
-    this.hasOne(models.SolicitudInspeccion, {
+    // Un Usuario (Asistente) puede tener muchas Solicitudes de Inspección
+    this.hasMany(models.SolicitudInspeccion, {
       foreignKey: 'id_asistente_tecnico',
       as: 'solicitudInspeccion',
     });

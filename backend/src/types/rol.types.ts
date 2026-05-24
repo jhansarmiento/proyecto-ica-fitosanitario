@@ -1,9 +1,9 @@
 export interface CreateRolInput {
-  nombreRol: string;
+  nombre_rol: string;
   descripcion: string;
 }
 
 export interface UpdateRolInput {
-  nombreRol?: string;
+  nombre_rol?: string;
   descripcion?: string;
 }
