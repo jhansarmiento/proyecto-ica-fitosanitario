@@ -7,6 +7,7 @@ class Lote extends Model {
     public area_total!: number;
     public fecha_siembra!: Date;
     public fecha_cosecha!: Date;
+    public estado!: string;
     public id_variedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
     public id_lugar_produccion!: string; // Clave foránea para el Lugar de Producción
 
@@ -47,16 +48,24 @@ Lote.init(
             type: DataTypes.DATE,
             allowNull: false,
         },
+        estado: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'ACTIVO',
+            validate: {
+                isIn: [['PROGRAMADO', 'ACTIVO', 'FINALIZADO']],
+            },
+        },
         id_variedad: {
             type: DataTypes.UUID,
             allowNull: false,
         },
-        id_predio: {
+        id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: false,
             references : {
-                model: 'predio', // Nombre de la tabla referenciada
-                key: 'id_predio', // Columna referenciada
+                model: 'lugar_produccion', // Nombre de la tabla referenciada
+                key: 'id_lugar_produccion', // Columna referenciada
             }
         },
     },   
