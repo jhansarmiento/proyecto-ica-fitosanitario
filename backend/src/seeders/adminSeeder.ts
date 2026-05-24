@@ -19,8 +19,8 @@ export const seedAdmins = async () => {
             {
                 ingreso_usuario: 'admin_central',
                 numero_identificacion: '123456789',
-                nombre: 'Admin', // En tu modelo es 'nombre' (singular)
-                apellidos: 'Principal',
+                nombre: 'Administrador', // En el modelo es 'nombre' (singular)
+                apellidos: 'Central',
                 correo_electronico: 'admin@ica.gov.co',
             },
             {

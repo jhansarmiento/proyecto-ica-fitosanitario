@@ -1,3 +1,8 @@
+import type {  
+  UsuarioDTO, 
+  RolDTO 
+} from '../types/auth.types';
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 type ApiEnvelope<T> = {
@@ -5,45 +10,17 @@ type ApiEnvelope<T> = {
   data: T;
 };
 
-export type LoginRequest = {
-  ingresoUsuario: string;
-  ingresoContrasena: string;
-};
-
-export type LoginResponse = {
-  message: string;
-  data: {
-    id: string;
-    ingresoUsuario: string;
-    nombre: string;
-    apellidos: string;
-    correoElectronico: string;
-    rol: string | null;
-  };
-};
-
-export type RolDTO = {
+export type PredioDTO = {
   id: string;
-  nombreRol: string;
-  descripcion: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
-
-export type UsuarioDTO = {
-  id: string;
-  numeroIdentificacion: string;
-  nombre: string;
-  apellidos: string;
-  correoElectronico: string;
-  telefono: string;
+  numeroPredial: string;
+  numeroRegistroICA: string;
+  nombrePredio: string;
   direccion: string;
-  registroICA: string | null;
-  tarjetaProfesional: string | null;
-  ingresoUsuario: string;
-  ingresoContrasena?: string;
-  idRol: string | null;
-  rol?: RolDTO | null;
+  areaTotal: number;
+  idVereda: string;
+  idLugarProduccion: string | null;
+  idPropietario: string;
+  lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
 };
 
 export type LugarProduccionDTO = {
@@ -69,18 +46,18 @@ export type LugarProduccionDTO = {
   } | null;
 };
 
-export type PredioDTO = {
+
+export type LoteDTO = {
   id: string;
-  numeroPredial: string;
-  numeroRegistroICA: string;
-  nombrePredio: string;
-  direccion: string;
+  numeroLote: string;
   areaTotal: number;
-  idVereda: string;
-  idLugarProduccion: string | null;
-  idPropietario: string;
-  lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
+  fechaSiembra: string;
+  fechaCosecha: string;
+  idVariedad: string;
+  idPredio: string;
+  predio?: { id: string; nombrePredio: string; numeroPredial: string } | null;
 };
+
 
 export type EspecieVegetalDTO = {
   id: string;
@@ -96,16 +73,7 @@ export type AutorizacionEspecieDTO = {
   capacidadProduccion: number;
 };
 
-export type LoteDTO = {
-  id: string;
-  numeroLote: string;
-  areaTotal: number;
-  fechaSiembra: string;
-  fechaCosecha: string;
-  idVariedad: string;
-  idPredio: string;
-  predio?: { id: string; nombrePredio: string; numeroPredial: string } | null;
-};
+
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
@@ -133,22 +101,34 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  login(body: LoginRequest) {
-    return request<LoginResponse>('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-  },
+  // login(body: LoginRequest) {
+  //   return request<LoginResponse>('auth/login', {
+  //     method: 'POST',
+  //     body: JSON.stringify(body),
+  //   });
+  // },
 
-  getRoles() {
-    return request<ApiEnvelope<RolDTO[]>>('/roles');
-  },
-  createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
-    return request<ApiEnvelope<RolDTO>>('/roles', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-  },
+  // getRoles() {
+  //   return request<ApiEnvelope<RolDTO[]>>('/roles');
+  // },
+  // createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
+  //   return request<ApiEnvelope<RolDTO>>('/roles', {
+  //     method: 'POST',
+  //     body: JSON.stringify(body),
+  //   });
+  // },
+
+  //getUsuarios() {
+  //   return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
+  // },
+
+  // createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
+  //   return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
+  //     method: 'POST',
+  //     body: JSON.stringify(body),
+  //   });
+  // },
+
   updateRole(id: string, body: Partial<Pick<RolDTO, 'nombreRol' | 'descripcion'>>) {
     return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
       method: 'PUT',
@@ -158,21 +138,14 @@ export const api = {
       }),
     });
   },
+
   deleteRole(id: string) {
     return request<{ message: string }>(`/roles/${id}`, {
       method: 'DELETE',
     });
   },
 
-  getUsuarios() {
-    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
-  },
-  createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
-    return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
-      method: 'POST',
-      body: JSON.stringify(body),
-    });
-  },
+  // 
   updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
     return request<ApiEnvelope<UsuarioDTO>>(`/usuarios/${id}`, {
       method: 'PUT',

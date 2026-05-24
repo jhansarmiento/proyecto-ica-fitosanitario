@@ -34,6 +34,8 @@ export interface LoginInput {
 export interface JWTPayload {
   id: number;
   rol: string;
+  nombre: string;
+  apellidos: string;
 }
 
 // Respuesta que devuelve el endpoint de login
@@ -41,7 +43,10 @@ export interface LoginResponse {
   message: string;
   token: string;
   usuario: {
+    id_usuario: string;
     nombre: string;
+    apellidos: string;
+    correo_electronico: string;
     rol: string;
   };
 }

@@ -1,14 +1,18 @@
-import { useState } from 'react';
-import { Sprout } from 'lucide-react';
-import FeatureItem from '../components/ui/FeatureItem';
-import StatItem from '../components/ui/StatItem';
-import TextInput from '../components/ui/TextInput';
-import CheckboxField from '../components/ui/CheckboxField';
-import PrimaryButton from '../components/ui/PrimaryButton';
-import ForgotPasswordModal from '../components/ui/ForgotPasswordModal';
-import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
-import { api } from '../services/api';
-import type { SessionUser } from '../App';
+import { useState } from "react";
+import { Sprout } from "lucide-react";
+import FeatureItem from "../components/ui/FeatureItem";
+import StatItem from "../components/ui/StatItem";
+import TextInput from "../components/ui/TextInput";
+import CheckboxField from "../components/ui/CheckboxField";
+import PrimaryButton from "../components/ui/PrimaryButton";
+import ForgotPasswordModal from "../components/ui/ForgotPasswordModal";
+import {
+  IconTrazabilidad,
+  IconInspeccion,
+  IconInforme,
+} from "../components/ui/icons";
+import { authService } from '../services/auth.service'
+import type { SessionUser } from "../App";
 
 type LoginPageProps = {
   onLoginSuccess?: (user: SessionUser) => void;
@@ -17,34 +21,52 @@ type LoginPageProps = {
 
 function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
   const [isForgotOpen, setIsForgotOpen] = useState(false);
-  const [ingresoUsuario, setIngresoUsuario] = useState('');
-  const [ingresoContrasena, setIngresoContrasena] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [ingresoUsuario, setIngresoUsuario] = useState("");
+  const [ingresoContrasena, setIngresoContrasena] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
 
     if (!ingresoUsuario.trim() || !ingresoContrasena.trim()) {
-      setErrorMessage('Ingresa usuario y contraseña.');
+      setErrorMessage("Ingresa usuario y contraseña.");
       return;
     }
 
     try {
       setIsLoading(true);
-      const response = await api.login({
-        ingresoUsuario: ingresoUsuario.trim(),
-        ingresoContrasena: ingresoContrasena.trim(),
+
+      // 1. Enviamos los datos adaptados al formato snake_case del Backend
+      const response = await authService.login({
+        ingreso_usuario: ingresoUsuario.trim(), 
+        ingreso_contrasena: ingresoContrasena.trim(),
       });
+
+      // 2. Extraemos el token y el objeto usuario de la respuesta estructurada del backend
+      const { token, usuario } = response;
+
+      // 3. Almacenamos el token JWT en el navegador para autenticar futuras consultas
+      localStorage.setItem("token", token);
+      localStorage.setItem('user', JSON.stringify({
+        id: usuario.id_usuario,
+        nombre: usuario.nombre,
+        apellidos: usuario.apellidos,
+        rol: usuario.rol
+      }));
+
+      // 4. Enviamos al estado global del Frontend lo que espera recibir
       onLoginSuccess?.({
-        id: response.data.id,
-        nombre: response.data.nombre,
-        apellidos: response.data.apellidos,
-        rol: response.data.rol ?? '',
+        id: "", // Si tu App.tsx exige id, por ahora lo pasamos vacío o podemos añadirlo al backend luego
+        nombre: usuario.nombre, // Nuestro backend devuelve el nombre unificado
+        apellidos: usuario.apellidos || '', // Nuestro backend devuelve el nombre unificado
+        rol: usuario.rol ??'',
       });
-    } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : 'No fue posible iniciar sesión.');
+    } catch (error: any) {
+      // Capturamos el mensaje de error real enviado por el Backend (ej: "Contraseña incorrecta")
+      const apiMessage = error.response?.data?.message;
+      setErrorMessage(apiMessage || "No fue posible iniciar sesión.");
     } finally {
       setIsLoading(false);
     }
@@ -58,7 +80,9 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
         <section className="flex flex-col justify-center gap-8 lg:pr-6">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-[14px] bg-white/95 shadow-md" />
-            <span className="text-[2.9rem] font-bold tracking-tight">FitoGestor</span>
+            <span className="text-[2.9rem] font-bold tracking-tight">
+              FitoGestor
+            </span>
           </div>
 
           <div className="space-y-3">
@@ -68,15 +92,25 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
             </h1>
 
             <p className="max-w-[610px] text-[1.05rem] font-semibold leading-[1.35] text-emerald-50 sm:text-[1.2rem] lg:text-[1.35rem]">
-              Plataforma integral para la gestión en inspecciones de productos agrícolas colombianos con
-              los más altos estándares internacionales.
+              Plataforma integral para la gestión en inspecciones de productos
+              agrícolas colombianos con los más altos estándares
+              internacionales.
             </p>
           </div>
 
           <div className="mt-2 flex flex-col gap-3.5">
-            <FeatureItem text="Trazabilidad Completa" icon={<IconTrazabilidad />}/>
-            <FeatureItem text="Inspecciones Digitalizadas" icon={<IconInspeccion />}/>
-            <FeatureItem text="Informes Especializados" icon={<IconInforme />}/>
+            <FeatureItem
+              text="Trazabilidad Completa"
+              icon={<IconTrazabilidad />}
+            />
+            <FeatureItem
+              text="Inspecciones Digitalizadas"
+              icon={<IconInspeccion />}
+            />
+            <FeatureItem
+              text="Informes Especializados"
+              icon={<IconInforme />}
+            />
           </div>
 
           <div className="mt-4 flex flex-wrap gap-20 border-t border-white/20 pt-5">
@@ -88,8 +122,12 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
 
         <section className="flex items-center justify-center">
           <div className="w-full max-w-[560px] rounded-[30px] border border-white/15 bg-white/10 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
-            <h2 className="mb-2 text-center text-[2.2rem] font-bold leading-none sm:text-[2.6rem]">Iniciar Sesión</h2>
-            <p className="mb-7 text-center text-[1.1rem] text-emerald-50/85">Ingresa a tu cuenta</p>
+            <h2 className="mb-2 text-center text-[2.2rem] font-bold leading-none sm:text-[2.6rem]">
+              Iniciar Sesión
+            </h2>
+            <p className="mb-7 text-center text-[1.1rem] text-emerald-50/85">
+              Ingresa a tu cuenta
+            </p>
 
             <form className="flex flex-col gap-4.5" onSubmit={handleSubmit}>
               <TextInput
@@ -125,14 +163,16 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
               ) : null}
 
               <PrimaryButton type="submit" disabled={isLoading}>
-                {isLoading ? 'Validando...' : 'Iniciar Sesión'}
+                {isLoading ? "Validando..." : "Iniciar Sesión"}
               </PrimaryButton>
             </form>
 
             <div className="mt-6 border-t border-white/15 pt-5 flex flex-col gap-4">
               {/* Registro de productor */}
               <div className="flex flex-col items-center gap-3">
-                <p className="text-[0.95rem] text-emerald-50/75">¿No tienes cuenta?</p>
+                <p className="text-[0.95rem] text-emerald-50/75">
+                  ¿No tienes cuenta?
+                </p>
                 <button
                   type="button"
                   onClick={onGoRegister}
@@ -145,7 +185,9 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
                   Registrarse como Productor
                 </button>
               </div>
-              <p className="text-center text-[0.9rem] text-emerald-50/60">¿Necesitas ayuda? Contacta soporte</p>
+              <p className="text-center text-[0.9rem] text-emerald-50/60">
+                ¿Necesitas ayuda? Contacta soporte
+              </p>
             </div>
           </div>
         </section>
@@ -155,7 +197,10 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
         © 2026 Instituto Colombiano Agropecuario (ICA)
       </p>
 
-      <ForgotPasswordModal isOpen={isForgotOpen} onClose={() => setIsForgotOpen(false)} />
+      <ForgotPasswordModal
+        isOpen={isForgotOpen}
+        onClose={() => setIsForgotOpen(false)}
+      />
     </main>
   );
 }

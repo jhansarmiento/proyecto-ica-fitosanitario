@@ -38,7 +38,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         // 3. Estructuramos el Payload del JWT usando la interfaz
         const payload: JWTPayload = { 
             id: usuario.id_usuario, 
-            rol: usuario.rol.nombre_rol 
+            rol: usuario.rol.nombre_rol, 
+            nombre: usuario.nombre,
+            apellidos: usuario.apellidos
         };
 
         // 4. Generar el Token (Firma digital)
@@ -53,12 +55,15 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             message: 'Login exitoso',
             token,
             usuario: {
-                nombre: usuario.nombres,
+                id_usuario: usuario.id_usuario,
+                nombre: usuario.nombre,
+                apellidos: usuario.apellidos,
+                correo_electronico: usuario.correo_electronico,
                 rol: usuario.rol.nombre_rol
             }
         };
 
-        res.json(respuesta);
+        res.json(respuesta)
 
     } catch (error) {
         console.error(error);
