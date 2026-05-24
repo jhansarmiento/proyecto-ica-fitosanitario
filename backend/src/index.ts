@@ -22,7 +22,7 @@ import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import catalogModels from './catalogIndex';
-// import authRoutes from './routes/authRoutes';
+import authRoutes from './routes/auth.routes';
 // import rolesRoutes from './routes/rolesRoutes';
 // import usuariosRoutes from './routes/usuariosRoutes';
 // import lugaresRoutes from './routes/lugaresRoutes';
@@ -63,7 +63,7 @@ app.use(
   }),
 );
 app.use(express.json());
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/api/roles', rolesRoutes);
 // app.use('/api/usuarios', usuariosRoutes);
 // app.use('/api/lugares-produccion', lugaresRoutes);
