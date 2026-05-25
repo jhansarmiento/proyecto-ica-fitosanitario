@@ -1,18 +1,5 @@
 import { useMemo, useState } from 'react';
-import {
-  Bug,
-  ClipboardList,
-  Download,
-  FileSpreadsheet,
-  FileText,
-  Filter,
-  Leaf,
-  MapPin,
-  Search,
-  TrendingUp,
-  X,
-  XCircle,
-} from 'lucide-react';
+import { Download, FileSpreadsheet, FileText, Filter, Search, X, XCircle } from 'lucide-react';
 import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../App';
 
@@ -111,17 +98,6 @@ export default function ReportsPage({
     };
     map[view]?.();
   };
-
-  // ── KPIs ──
-  const kpis = useMemo(() => {
-    const realizadas = MOCK_INSPECCIONES.filter((i) => i.estado === 'REALIZADA');
-    const lotesAfectados = new Set(MOCK_INSPECCIONES.filter((i) => i.porcentajeInfestacion > 0).map((i) => i.lote)).size;
-    const plagas = new Set(MOCK_INSPECCIONES.map((i) => i.plagaDetectada)).size;
-    const promedio = realizadas.length > 0
-      ? Math.round(realizadas.reduce((acc, i) => acc + i.porcentajeInfestacion, 0) / realizadas.length)
-      : 0;
-    return { total: MOCK_INSPECCIONES.length, lotesAfectados, plagas, promedio };
-  }, []);
 
   // ── Filtrado ──
   const filtered = useMemo(() => {

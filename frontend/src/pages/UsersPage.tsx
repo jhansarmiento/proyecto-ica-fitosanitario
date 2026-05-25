@@ -3,8 +3,63 @@ import { Search, Pencil, Trash2, Plus, AlertTriangle, X } from 'lucide-react';
 import NewUserModal from '../components/ui/NewUserModal';
 import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
-import { api } from '../services/api';
+import { rolesApi } from '../services/roles.api';
+import { usuariosApi } from '../services/usuarios.api';
 import type { SessionUser } from '../App';
+
+/**
+ * Campos visibles actualmente en la tabla de usuarios.
+ * Se mantiene como función para trazabilidad y reutilización.
+ */
+function getVisibleTableFields(): Array<keyof Pick<EditableUser, 'identificacion' | 'nombres' | 'apellidos' | 'rol'>> {
+  return ['identificacion', 'nombres', 'apellidos', 'rol'];
+}
+
+/**
+ * Procedimiento de mapeo: transforma el DTO de backend al formato de fila UI.
+ */
+function mapUsuarioToRow(
+  u: any,
+  idx: number,
+  roleMap: Map<string, string>,
+): EditableUser {
+  const numeroIdentificacion =
+    u.numeroIdentificacion ??
+    u.numero_identificacion ??
+    u.numeroIdentificacionUsuario ??
+    '';
+
+  const idRol = u.idRol ?? u.id_rol ?? u.rol?.id_rol ?? u.rol?.idRol ?? '';
+
+  return {
+    id: ((u.id as unknown as string) || u.id_usuario || `tmp-${idx}`) as any,
+    identificacion: String(numeroIdentificacion),
+    telefono: u.telefono || '',
+    nombres: u.nombre || '',
+    apellidos: u.apellidos || '',
+    direccion: u.direccion || '',
+    usuario: u.ingresoUsuario || u.ingreso_usuario || '',
+    correo: u.correoElectronico || u.correo_electronico || '',
+    rol: (idRol && roleMap.get(String(idRol))) || u.rol?.nombreRol || u.rol?.nombre_rol || 'Sin rol',
+    registroIca: u.registroICA || '',
+    tarjetaProfesional: u.tarjetaProfesional || u.tarjeta_profesional || '',
+  };
+}
+
+/**
+ * Procedimiento de filtrado de usuarios por texto libre.
+ */
+function filterUsers(rows: EditableUser[], searchText: string): EditableUser[] {
+  const q = searchText.toLowerCase().trim();
+  if (!q) return rows;
+
+  return rows.filter((u) =>
+    u.identificacion.toLowerCase().includes(q) ||
+    u.nombres.toLowerCase().includes(q) ||
+    u.apellidos.toLowerCase().includes(q) ||
+    u.rol.toLowerCase().includes(q),
+  );
+}
 
 type ConfirmDeleteModalProps = {
   isOpen: boolean;
@@ -106,38 +161,27 @@ function UsersPage({
   const [deleteTarget, setDeleteTarget] = useState<EditableUser | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const filteredUsers = users.filter((u) => {
-    const q = search.toLowerCase().trim();
-    if (!q) return true;
-    return (
-      u.identificacion.toLowerCase().includes(q) ||
-      u.nombres.toLowerCase().includes(q) ||
-      u.apellidos.toLowerCase().includes(q) ||
-      u.rol.toLowerCase().includes(q)
-    );
-  });
+  const filteredUsers = filterUsers(users, search);
 
   const loadUsers = async () => {
     try {
       setLoading(true);
       setError('');
-      const [usersResponse, rolesResponse] = await Promise.all([api.getUsuarios(), api.getRoles()]);
-      const roleMap = new Map(rolesResponse.data.map((r) => [r.id, r.nombreRol]));
-      setRolesOptions(rolesResponse.data.map((r) => ({ id: r.id, nombreRol: r.nombreRol })));
-
-      const mapped: EditableUser[] = usersResponse.data.map((u, idx) => ({
-        id: ((u.id as unknown as string) || `tmp-${idx}`) as any,
-        identificacion: u.numeroIdentificacion || '',
-        telefono: u.telefono || '',
-        nombres: u.nombre || '',
-        apellidos: u.apellidos || '',
-        direccion: u.direccion || '',
-        usuario: u.ingresoUsuario || '',
-        correo: u.correoElectronico || '',
-        rol: (u.idRol && roleMap.get(u.idRol)) || u.rol?.nombreRol || 'Sin rol',
-        registroIca: u.registroICA || '',
-        tarjetaProfesional: u.tarjetaProfesional || '',
+      const [usersResponse, rolesResponse] = await Promise.all([usuariosApi.getUsuarios(), rolesApi.getRoles()]);
+      const normalizedRoles = rolesResponse.data.map((r: any) => ({
+        id: String(r.id ?? r.id_rol ?? ''),
+        nombreRol: String(r.nombreRol ?? r.nombre_rol ?? ''),
       }));
+
+      const allowedRoles = normalizedRoles.filter((r) => {
+        const nombre = r.nombreRol.toLowerCase();
+        return nombre.includes('asistente') || nombre.includes('administrador') || nombre.includes('admin');
+      });
+
+      const roleMap = new Map(normalizedRoles.map((r) => [r.id, r.nombreRol]));
+      setRolesOptions(allowedRoles);
+
+      const mapped: EditableUser[] = usersResponse.data.map((u, idx) => mapUsuarioToRow(u, idx, roleMap));
       setUsers(mapped);
     } catch (e: any) {
       setError(e.message || 'No se pudieron cargar los usuarios');
@@ -151,7 +195,7 @@ function UsersPage({
   }, []);
 
   const handleSaveUser = async (payload: EditableUser) => {
-    await api.updateUsuario(String(payload.id), {
+    await usuariosApi.updateUsuario(String(payload.id), {
       numeroIdentificacion: payload.identificacion,
       nombre: payload.nombres,
       apellidos: payload.apellidos,
@@ -181,7 +225,7 @@ function UsersPage({
   }) => {
     try {
       setError('');
-      await api.createUsuario({
+      await usuariosApi.createUsuario({
         numeroIdentificacion: payload.identificacion,
         telefono: payload.telefono,
         nombre: payload.nombres,
@@ -206,7 +250,7 @@ function UsersPage({
     if (!deleteTarget) return;
     try {
       setIsDeleting(true);
-      await api.deleteUsuario(String(deleteTarget.id));
+      await usuariosApi.deleteUsuario(String(deleteTarget.id));
       await loadUsers();
       setSuccess('Usuario eliminado correctamente');
       setDeleteTarget(null);
@@ -263,7 +307,11 @@ function UsersPage({
 
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="grid grid-cols-[1.3fr_1fr_1fr_1fr_0.8fr] border-b border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-600">
-          <p>Identificación</p><p>Nombres</p><p>Apellidos</p><p>Rol</p><p className="text-right">Acciones</p>
+          {getVisibleTableFields().includes('identificacion') ? <p>Identificación</p> : null}
+          {getVisibleTableFields().includes('nombres') ? <p>Nombres</p> : null}
+          {getVisibleTableFields().includes('apellidos') ? <p>Apellidos</p> : null}
+          {getVisibleTableFields().includes('rol') ? <p>Rol</p> : null}
+          <p className="text-right">Acciones</p>
         </div>
 
         {loading ? (

@@ -14,7 +14,7 @@ export interface Usuario {
   registro_ica: string;
   tarjeta_profesional: string;
   rol_id: string;
-  
+
   // Relación con Rol
   rol?: Rol;
 }
@@ -24,6 +24,34 @@ export interface Rol {
   id_rol: string;
   nombre_rol: string;
   descripcion?: string;
+}
+
+// Tipo para crear usuario (controller + schema)
+export interface CreateUsuarioInput {
+  numeroIdentificacion: string;
+  nombre: string;
+  apellidos: string;
+  direccion?: string;
+  telefono?: string;
+  correoElectronico: string;
+  ingresoUsuario: string;
+  ingresoContrasena: string;
+  tarjetaProfesional?: string | null;
+  idRol: string;
+}
+
+// Tipo para actualizar usuario (controller + schema)
+export interface UpdateUsuarioInput {
+  numeroIdentificacion?: string;
+  nombre?: string;
+  apellidos?: string;
+  direccion?: string;
+  telefono?: string;
+  correoElectronico?: string;
+  ingresoUsuario?: string;
+  ingresoContrasena?: string;
+  tarjetaProfesional?: string | null;
+  idRol?: string;
 }
 
 // Tipo para el cuerpo de la petición de Login
@@ -54,5 +82,5 @@ export interface LoginResponse {
 }
 
 export interface AuthenticatedRequest extends Request {
-    usuario?: JWTPayload;
+  usuario?: JWTPayload;
 }

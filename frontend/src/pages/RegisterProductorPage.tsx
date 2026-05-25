@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
 import FeatureItem from '../components/ui/FeatureItem';
+import { request } from '../services/http.client';
 
 type RegisterProductorPageProps = {
   onGoLogin: () => void;
@@ -322,11 +323,8 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
     try {
       setIsSubmitting(true);
       setSubmitError('');
-      // Llamada real al backend
-      const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
-      const res = await fetch(`${API_BASE}/usuarios`, {
+      await request<{ message: string }>('/auth/register-productor', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           numeroIdentificacion: form.numeroIdentificacion.trim(),
           nombre: form.nombres.trim(),
@@ -336,14 +334,8 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
           correoElectronico: form.correoElectronico.trim(),
           ingresoUsuario: form.ingresoUsuario.trim(),
           ingresoContrasena: form.ingresoContrasena,
-          // idRol se asignará en el backend como PRODUCTOR por defecto
-          // Si el backend requiere idRol, se puede omitir y manejar en el backend
         }),
       });
-      const payload = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(payload?.message || 'No se pudo crear la cuenta.');
-      }
       setSubmitSuccess(true);
       setTimeout(() => {
         onRegisterSuccess?.();

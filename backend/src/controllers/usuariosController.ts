@@ -4,11 +4,16 @@ import Usuario from '../models/Usuario';
 import Rol from '../models/Rol';
 import { createUsuarioSchema, updateUsuarioSchema } from '../schemas/usuario.schema';
 import { CreateUsuarioInput, UpdateUsuarioInput } from '../types/usuario.types';
+import {
+  createUsuarioByProcedure,
+  deleteUsuarioByProcedure,
+  updateUsuarioByProcedure,
+} from '../services/usuarioProcedureService';
 
 export const listUsuarios = async (_req: Request, res: Response) => {
   try {
     const usuarios = await Usuario.findAll({
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+      include: [{ model: Rol, as: 'rol', attributes: ['id_rol', 'nombreRol'] }],
       order: [['nombre', 'ASC']],
     });
 
@@ -23,7 +28,7 @@ export const getUsuarioById = async (req: Request, res: Response) => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
     const usuario = await Usuario.findByPk(id, {
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+      include: [{ model: Rol, as: 'rol', attributes: ['id_rol', 'nombreRol'] }],
     });
 
     if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -47,21 +52,22 @@ export const createUsuario = async (req: Request, res: Response) => {
     const body: CreateUsuarioInput = parsed.data;
     const hashed = await bcrypt.hash(body.ingresoContrasena, 10);
 
-    const created = await Usuario.create({
-      numeroIdentificacion: body.numeroIdentificacion,
+    await createUsuarioByProcedure({
+      numero_identificacion: body.numeroIdentificacion,
       nombre: body.nombre,
       apellidos: body.apellidos,
-      direccion: body.direccion ?? '',
-      telefono: body.telefono ?? '',
-      correoElectronico: body.correoElectronico,
-      ingresoUsuario: body.ingresoUsuario,
-      ingresoContrasena: hashed,
-      tarjetaProfesional: body.tarjetaProfesional ?? null,
-      idRol: body.idRol,
+      direccion: body.direccion ?? undefined,
+      telefono: body.telefono ?? undefined,
+      correo_electronico: body.correoElectronico,
+      ingreso_usuario: body.ingresoUsuario,
+      ingreso_contrasena: hashed,
+      tarjeta_profesional: body.tarjetaProfesional ?? null,
+      id_rol: body.idRol,
     });
 
-    const usuario = await Usuario.findByPk(created.getDataValue('id'), {
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+    const usuario = await Usuario.findOne({
+      where: { ingreso_usuario: body.ingresoUsuario },
+      include: [{ model: Rol, as: 'rol', attributes: ['id_rol', 'nombreRol'] }],
     });
 
     return res.status(201).json({ message: 'Usuario creado', data: usuario });
@@ -93,29 +99,27 @@ export const updateUsuario = async (req: Request, res: Response) => {
 
     const body: UpdateUsuarioInput = parsed.data;
 
-    let hashed = usuario.getDataValue('ingresoContrasena');
+    let hashed: string | undefined = undefined;
     if (body.ingresoContrasena) {
       hashed = await bcrypt.hash(body.ingresoContrasena, 10);
     }
 
-    await usuario.update({
-      numeroIdentificacion: body.numeroIdentificacion ?? usuario.getDataValue('numeroIdentificacion'),
-      nombre: body.nombre ?? usuario.getDataValue('nombre'),
-      apellidos: body.apellidos ?? usuario.getDataValue('apellidos'),
-      direccion: body.direccion ?? usuario.getDataValue('direccion'),
-      telefono: body.telefono ?? usuario.getDataValue('telefono'),
-      correoElectronico: body.correoElectronico ?? usuario.getDataValue('correoElectronico'),
-      ingresoUsuario: body.ingresoUsuario ?? usuario.getDataValue('ingresoUsuario'),
-      ingresoContrasena: hashed,
-      tarjetaProfesional:
-        body.tarjetaProfesional !== undefined
-          ? body.tarjetaProfesional
-          : usuario.getDataValue('tarjetaProfesional'),
-      idRol: body.idRol ?? usuario.getDataValue('idRol'),
+    await updateUsuarioByProcedure({
+      id_usuario: id,
+      numero_identificacion: body.numeroIdentificacion,
+      nombre: body.nombre,
+      apellidos: body.apellidos,
+      direccion: body.direccion,
+      telefono: body.telefono,
+      correo_electronico: body.correoElectronico,
+      ingreso_usuario: body.ingresoUsuario,
+      ingreso_contrasena: hashed,
+      tarjeta_profesional: body.tarjetaProfesional,
+      id_rol: body.idRol,
     });
 
-    const updated = await Usuario.findByPk(usuario.getDataValue('id'), {
-      include: [{ model: Rol, as: 'rol', attributes: ['id', 'nombreRol'] }],
+    const updated = await Usuario.findByPk(id, {
+      include: [{ model: Rol, as: 'rol', attributes: ['id_rol', 'nombreRol'] }],
     });
 
     return res.status(200).json({ message: 'Usuario actualizado', data: updated });
@@ -137,7 +141,7 @@ export const deleteUsuario = async (req: Request, res: Response) => {
     const usuario = await Usuario.findByPk(id);
     if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
 
-    await usuario.destroy();
+    await deleteUsuarioByProcedure(id);
     return res.status(200).json({ message: 'Usuario eliminado' });
   } catch (error) {
     console.error('Error eliminando usuario:', error);

@@ -3,7 +3,7 @@ import { Search, Plus, MapPin, Database, Leaf, Layers3, Eye, Pencil, FileText } 
 import NewProductionPlaceModal from '../components/ui/NewProductionPlaceModal';
 import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
-import { api } from '../services/api';
+import { request, type ApiEnvelope } from '../services/http.client';
 import type { SessionUser } from '../App';
 
 export type ProductionSite = {
@@ -62,10 +62,10 @@ function AgriculturalManagementPage({
       setError('');
 
       const [lugaresRes, prediosRes, lotesRes, autorizacionesRes] = await Promise.all([
-        api.getLugaresProduccion(),
-        api.getPredios(),
-        api.getLotes(),
-        api.getAutorizacionesEspecie(),
+        request<ApiEnvelope<any[]>>('/lugares-produccion'),
+        request<ApiEnvelope<any[]>>('/predios'),
+        request<ApiEnvelope<any[]>>('/lotes'),
+        request<ApiEnvelope<any[]>>('/autorizaciones-especie'),
       ]);
 
       const prediosByLugar = new Map<string, number>();
@@ -264,11 +264,14 @@ function AgriculturalManagementPage({
         onCreate={async ({ nombreLugarProduccion, numeroRegistroICA, idUsuarioProductor }) => {
           try {
             setError('');
-            await api.createLugarProduccion({
-              nombreLugarProduccion,
-              numeroRegistroICA,
-              estado: 'Activo',
-              idUsuarioProductor,
+            await request<ApiEnvelope<any>>('/lugares-produccion', {
+              method: 'POST',
+              body: JSON.stringify({
+                nombreLugarProduccion,
+                numeroRegistroICA,
+                estado: 'Activo',
+                idUsuarioProductor,
+              }),
             });
             await loadSites();
             setSuccess('Lugar de producción creado correctamente');

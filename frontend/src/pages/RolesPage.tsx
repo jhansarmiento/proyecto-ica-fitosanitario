@@ -3,7 +3,7 @@ import { Search, Pencil, Trash2, Plus, AlertTriangle, X } from 'lucide-react';
 import NewRoleModal from '../components/ui/NewRoleModal';
 import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
-import { api } from '../services/api';
+import { rolesApi } from '../services/roles.api';
 import type { SessionUser } from '../App';
 
 type ConfirmDeleteRoleModalProps = {
@@ -119,7 +119,7 @@ function RolesPage({
     try {
       setLoading(true);
       setError('');
-      const response = await api.getRoles();
+      const response = await rolesApi.getRoles();
       const mapped: EditableRole[] = response.data.map((r) => ({
         id: r.id as any,
         rol: r.nombreRol,
@@ -138,7 +138,7 @@ function RolesPage({
   }, []);
 
   const handleSaveRole = async (payload: EditableRole) => {
-    await api.updateRole(String(payload.id), {
+    await rolesApi.updateRole(String(payload.id), {
       nombreRol: payload.rol,
       descripcion: payload.descripcion,
     });
@@ -149,7 +149,7 @@ function RolesPage({
   const handleCreateRole = async (payload: { rol: string; descripcion: string }) => {
     try {
       setError('');
-      await api.createRole({
+      await rolesApi.createRole({
         nombreRol: payload.rol,
         descripcion: payload.descripcion,
       });
@@ -165,7 +165,7 @@ function RolesPage({
     if (!deleteTarget) return;
     try {
       setIsDeleting(true);
-      await api.deleteRole(String(deleteTarget.id));
+      await rolesApi.deleteRole(String(deleteTarget.id));
       await loadRoles();
       setSuccess('Rol eliminado correctamente');
       setDeleteTarget(null);

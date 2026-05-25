@@ -27,10 +27,10 @@ import authRoutes from './routes/auth.routes';
 import lugarProduccionRoutes from './routes/lugarProduccion.routes';
 import prediosRoutes from './routes/prediosRoutes';
 import lotesRoutes from './routes/lotesRoutes';
-// import rolesRoutes from './routes/rolesRoutes';
-// import usuariosRoutes from './routes/usuariosRoutes';
-// import especiesRoutes from './routes/especiesRoutes';
-// import autorizacionesRoutes from './routes/autorizacionesRoutes';
+import rolesRoutes from './routes/rolesRoutes';
+import usuariosRoutes from './routes/usuariosRoutes';
+import especiesRoutes from './routes/especiesRoutes';
+import autorizacionesRoutes from './routes/autorizacionesRoutes';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -64,14 +64,19 @@ app.use(
   }),
 );
 app.use(express.json());
+
+app.get('/api/health', (_req, res) => {
+  res.status(200).json({ ok: true, message: 'Backend activo' });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/lugares-produccion', lugarProduccionRoutes);
 app.use('/api/predios', prediosRoutes);
 app.use('/api/lotes', lotesRoutes);
-// app.use('/api/roles', rolesRoutes);
-// app.use('/api/usuarios', usuariosRoutes);
-// app.use('/api/especies-vegetales', especiesRoutes);
-// app.use('/api/autorizaciones-especie', autorizacionesRoutes);
+app.use('/api/roles', rolesRoutes);
+app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/especies-vegetales', especiesRoutes);
+app.use('/api/autorizaciones-especie', autorizacionesRoutes);
 
 const startServer = async () => {
   try {
