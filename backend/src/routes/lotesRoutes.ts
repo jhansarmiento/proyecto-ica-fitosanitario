@@ -7,7 +7,7 @@ const lotesRoutes = Router();
 lotesRoutes.get('/', async (_req, res) => {
   try {
     const lotes = await Lote.findAll({
-      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial'] }],
+      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial', 'numero_identificacion_productor'] }],
       order: [['numeroLote', 'ASC']],
     });
     return res.status(200).json({ data: lotes });
@@ -65,7 +65,7 @@ lotesRoutes.post('/', async (req, res) => {
     });
 
     const lote = await Lote.findByPk(created.getDataValue('id'), {
-      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial'] }],
+      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial', 'numero_identificacion_productor'] }],
     });
 
     return res.status(201).json({ message: 'Lote creado', data: lote });
@@ -99,7 +99,7 @@ lotesRoutes.put('/:id', async (req, res) => {
     });
 
     const updated = await Lote.findByPk(lote.getDataValue('id'), {
-      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial'] }],
+      include: [{ model: Predio, as: 'predio', attributes: ['id', 'nombrePredio', 'numeroPredial', 'numero_identificacion_productor'] }],
     });
 
     return res.status(200).json({ message: 'Lote actualizado', data: updated });

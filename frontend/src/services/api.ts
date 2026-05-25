@@ -18,6 +18,7 @@ export type PredioDTO = {
   direccion: string;
   areaTotal: number;
   idVereda: string;
+  numeroIdentificacionProductor?: string | null;
   idLugarProduccion: string | null;
   idPropietario: string;
   lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
@@ -59,11 +60,28 @@ export type LoteDTO = {
 };
 
 
+/**
+ * DTO crudo desde backend para especies vegetales.
+ * Convención backend: snake_case.
+ */
+export type EspecieVegetalApiDTO = {
+  id: string;
+  nombre_especie: string;
+  nombre_comun: string;
+  ciclo_cultivo: string;
+  imagen_especie_vegetal?: string | null;
+};
+
+/**
+ * DTO de dominio frontend para especies vegetales.
+ * Convención frontend: camelCase.
+ */
 export type EspecieVegetalDTO = {
   id: string;
   nombreEspecie: string;
   nombreComun: string;
   cicloCultivo: string;
+  imagenEspecieVegetal?: string | null;
 };
 
 export type AutorizacionEspecieDTO = {
@@ -224,8 +242,19 @@ export const api = {
     });
   },
 
-  getEspeciesVegetales() {
-    return request<ApiEnvelope<EspecieVegetalDTO[]>>('/especies-vegetales');
+  async getEspeciesVegetales() {
+    const response = await request<ApiEnvelope<EspecieVegetalApiDTO[]>>('/especies-vegetales');
+
+    return {
+      ...response,
+      data: response.data.map((item) => ({
+        id: item.id,
+        nombreEspecie: item.nombre_especie,
+        nombreComun: item.nombre_comun,
+        cicloCultivo: item.ciclo_cultivo,
+        imagenEspecieVegetal: item.imagen_especie_vegetal ?? null,
+      })),
+    } as ApiEnvelope<EspecieVegetalDTO[]>;
   },
 
   getAutorizacionesEspecie() {

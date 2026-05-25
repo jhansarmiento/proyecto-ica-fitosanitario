@@ -41,10 +41,10 @@ export const seedEspeciesVegetales = async () => {
             for (const p of item.plagas) {
                 const [plaga] = await catalogModels.Plaga.findOrCreate({
                     where: { 
-                        nombre_cientifico_plaga: p.nombre_especie_plaga 
+                        nombre_cientifico: p.nombre_especie_plaga 
                     },
                     defaults: { 
-                        nombre_comun_plaga: p.nombre_comun_plaga 
+                        nombre_comun: p.nombre_comun_plaga 
                     },
                     transaction: t
                 });

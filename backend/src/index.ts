@@ -25,10 +25,10 @@ import SolicitudInspeccion from './models/SolicitudInspeccion';
 import catalogModels from './catalogIndex';
 import authRoutes from './routes/auth.routes';
 import lugarProduccionRoutes from './routes/lugarProduccion.routes';
+import prediosRoutes from './routes/prediosRoutes';
+import lotesRoutes from './routes/lotesRoutes';
 // import rolesRoutes from './routes/rolesRoutes';
 // import usuariosRoutes from './routes/usuariosRoutes';
-// import prediosRoutes from './routes/prediosRoutes';
-// import lotesRoutes from './routes/lotesRoutes';
 // import especiesRoutes from './routes/especiesRoutes';
 // import autorizacionesRoutes from './routes/autorizacionesRoutes';
 
@@ -66,10 +66,10 @@ app.use(
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/lugares-produccion', lugarProduccionRoutes);
+app.use('/api/predios', prediosRoutes);
+app.use('/api/lotes', lotesRoutes);
 // app.use('/api/roles', rolesRoutes);
 // app.use('/api/usuarios', usuariosRoutes);
-// app.use('/api/predios', prediosRoutes);
-// app.use('/api/lotes', lotesRoutes);
 // app.use('/api/especies-vegetales', especiesRoutes);
 // app.use('/api/autorizaciones-especie', autorizacionesRoutes);
 

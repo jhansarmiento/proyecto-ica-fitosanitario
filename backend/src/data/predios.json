@@ -5,7 +5,8 @@
         "nombre_predio": "La Esperanza",
         "direccion": "Km 5 Vía al Mar",
         "area_total": 12.4,
-        "nombre_vereda_busqueda": "El Solar"
+        "nombre_vereda_busqueda": "El Solar",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68001-002",
@@ -13,7 +14,8 @@
         "nombre_predio": "Villa Rocío",
         "direccion": "Sector La Cumbre",
         "area_total": 8.2,
-        "nombre_vereda_busqueda": "La Malaña"
+        "nombre_vereda_busqueda": "La Malaña",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68001-003",
@@ -21,7 +23,8 @@
         "nombre_predio": "El Paraíso",
         "direccion": "Lote 14",
         "area_total": 15.0,
-        "nombre_vereda_busqueda": "Santa Rita"
+        "nombre_vereda_busqueda": "Santa Rita",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68276-004",
@@ -29,7 +32,8 @@
         "nombre_predio": "Don Jhan",
         "direccion": "Vereda Alta",
         "area_total": 5.7,
-        "nombre_vereda_busqueda": "Casiano"
+        "nombre_vereda_busqueda": "Casiano",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68276-005",
@@ -37,7 +41,8 @@
         "nombre_predio": "La Montaña",
         "direccion": "Entrada principal",
         "area_total": 22.1,
-        "nombre_vereda_busqueda": "Helechales"
+        "nombre_vereda_busqueda": "Helechales",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68307-006",
@@ -45,7 +50,8 @@
         "nombre_predio": "Los Olivos",
         "direccion": "Finca 3",
         "area_total": 10.3,
-        "nombre_vereda_busqueda": "Acacias"
+        "nombre_vereda_busqueda": "Acacias",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68307-007",
@@ -53,7 +59,8 @@
         "nombre_predio": "Vista Hermosa",
         "direccion": "Bajo Girón",
         "area_total": 7.8,
-        "nombre_vereda_busqueda": "Bocas"
+        "nombre_vereda_busqueda": "Bocas",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68547-008",
@@ -61,7 +68,8 @@
         "nombre_predio": "El Mirador",
         "direccion": "Sector Norte",
         "area_total": 30.5,
-        "nombre_vereda_busqueda": "Sevilla"
+        "nombre_vereda_busqueda": "Sevilla",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "68547-009",
@@ -69,7 +77,8 @@
         "nombre_predio": "La Bonanza",
         "direccion": "Lote 45",
         "area_total": 4.2,
-        "nombre_vereda_busqueda": "Pajonal"
+        "nombre_vereda_busqueda": "Pajonal",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "05001-010",
@@ -77,7 +86,8 @@
         "nombre_predio": "San Antonio",
         "direccion": "Cerca al Río",
         "area_total": 18.6,
-        "nombre_vereda_busqueda": "Santa Elena"
+        "nombre_vereda_busqueda": "Santa Elena",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "05001-011",
@@ -85,7 +95,8 @@
         "nombre_predio": "La Pradera",
         "direccion": "Camino Viejo",
         "area_total": 9.4,
-        "nombre_vereda_busqueda": "Altavista"
+        "nombre_vereda_busqueda": "Altavista",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "05266-012",
@@ -93,7 +104,8 @@
         "nombre_predio": "Finca El Sol",
         "direccion": "Vereda Las Palmas Km 2",
         "area_total": 11.2,
-        "nombre_vereda_busqueda": "Las Palmas"
+        "nombre_vereda_busqueda": "Las Palmas",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "05266-013",
@@ -101,7 +113,8 @@
         "nombre_predio": "Los Cedros",
         "direccion": "Sector El Vallano",
         "area_total": 6.9,
-        "nombre_vereda_busqueda": "El Vallano"
+        "nombre_vereda_busqueda": "El Vallano",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "05615-014",
@@ -109,7 +122,8 @@
         "nombre_predio": "AgroRionegro",
         "direccion": "Lote B-12",
         "area_total": 40.0,
-        "nombre_vereda_busqueda": "Llanogrande"
+        "nombre_vereda_busqueda": "Llanogrande",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "25899-015",
@@ -117,7 +131,8 @@
         "nombre_predio": "Cuna de Sal",
         "direccion": "Calle de la Mina",
         "area_total": 3.5,
-        "nombre_vereda_busqueda": "El Abra"
+        "nombre_vereda_busqueda": "El Abra",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "25899-016",
@@ -125,7 +140,8 @@
         "nombre_predio": "La Cabaña",
         "direccion": "Cerca a la Represa",
         "area_total": 14.7,
-        "nombre_vereda_busqueda": "Barandillas"
+        "nombre_vereda_busqueda": "Barandillas",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "25269-017",
@@ -133,7 +149,8 @@
         "nombre_predio": "Pueblo Viejo",
         "direccion": "Calle 4 Norte",
         "area_total": 8.8,
-        "nombre_vereda_busqueda": "Mancilla"
+        "nombre_vereda_busqueda": "Mancilla",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "25175-018",
@@ -141,7 +158,8 @@
         "nombre_predio": "El Recreo",
         "direccion": "Avenida Chilacos",
         "area_total": 5.1,
-        "nombre_vereda_busqueda": "Bojacá"
+        "nombre_vereda_busqueda": "Bojacá",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "25175-019",
@@ -149,7 +167,8 @@
         "nombre_predio": "La Huerta",
         "direccion": "Camino de Piedra",
         "area_total": 2.3,
-        "nombre_vereda_busqueda": "Tíquiza"
+        "nombre_vereda_busqueda": "Tíquiza",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "76001-020",
@@ -157,7 +176,8 @@
         "nombre_predio": "Valle Lindo",
         "direccion": "Km 18 Vía al Mar",
         "area_total": 55.0,
-        "nombre_vereda_busqueda": "Pance"
+        "nombre_vereda_busqueda": "Pance",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "76001-021",
@@ -165,7 +185,8 @@
         "nombre_predio": "Finca Pance",
         "direccion": "Sector Farallones",
         "area_total": 25.4,
-        "nombre_vereda_busqueda": "La Leonera"
+        "nombre_vereda_busqueda": "La Leonera",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "76520-022",
@@ -173,7 +194,8 @@
         "nombre_predio": "El Rosal",
         "direccion": "Lote central",
         "area_total": 12.9,
-        "nombre_vereda_busqueda": "Rozo"
+        "nombre_vereda_busqueda": "Rozo",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "76111-023",
@@ -181,7 +203,8 @@
         "nombre_predio": "La Milagrosa",
         "direccion": "Hacienda La Unión",
         "area_total": 33.2,
-        "nombre_vereda_busqueda": "La Habana"
+        "nombre_vereda_busqueda": "La Habana",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "76834-024",
@@ -189,7 +212,8 @@
         "nombre_predio": "Tierra Fértil",
         "direccion": "Vía Monteloro",
         "area_total": 19.1,
-        "nombre_vereda_busqueda": "La Marina"
+        "nombre_vereda_busqueda": "La Marina",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08001-025",
@@ -197,7 +221,8 @@
         "nombre_predio": "El Galeón",
         "direccion": "Sector Industrial Norte",
         "area_total": 4.5,
-        "nombre_vereda_busqueda": "Juan Mina"
+        "nombre_vereda_busqueda": "Juan Mina",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08001-026",
@@ -205,7 +230,8 @@
         "nombre_predio": "Brisas del Mar",
         "direccion": "Vía Puerto",
         "area_total": 7.2,
-        "nombre_vereda_busqueda": "La Playa"
+        "nombre_vereda_busqueda": "La Playa",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08758-027",
@@ -213,7 +239,8 @@
         "nombre_predio": "Isla de Paz",
         "direccion": "Calle del Río",
         "area_total": 10.8,
-        "nombre_vereda_busqueda": "Cabica"
+        "nombre_vereda_busqueda": "Cabica",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08433-028",
@@ -221,7 +248,8 @@
         "nombre_predio": "El Porvenir",
         "direccion": "Sector Caimital",
         "area_total": 15.6,
-        "nombre_vereda_busqueda": "El Espinal"
+        "nombre_vereda_busqueda": "El Espinal",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08573-029",
@@ -229,7 +257,8 @@
         "nombre_predio": "Lagos Azules",
         "direccion": "Vía Salgar",
         "area_total": 5.4,
-        "nombre_vereda_busqueda": "Sabanilla"
+        "nombre_vereda_busqueda": "Sabanilla",
+        "numero_identificacion_productor": null
     },
     {
         "numero_predial": "08078-030",
@@ -237,6 +266,7 @@
         "nombre_predio": "Sibarco Real",
         "direccion": "Calle Principal 2",
         "area_total": 21.0,
-        "nombre_vereda_busqueda": "Sibarco"
+        "nombre_vereda_busqueda": "Sibarco",
+        "numero_identificacion_productor": null
     }
 ]

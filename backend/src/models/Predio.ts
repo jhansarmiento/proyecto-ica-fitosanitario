@@ -9,8 +9,9 @@ class Predio extends Model {
     public direccion!: string;
     public area_total!: number;
     public id_vereda!: number; // Vereda traída desde la BD Catalógo
-    public id_lugar_produccion?: string; // Clave foránea para el Productor (Usuario)
+    public id_lugar_produccion?: string; // Clave foránea para el Lugar de Producción
     public id_propietario!: string; // Clave foránea para el Propietario (Usuario)
+    public numero_identificacion_productor?: string;
 
     static associate(models: any) {
         // Un Predio pertenece a un Propietario
@@ -62,6 +63,10 @@ Predio.init(
         id_vereda: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        numero_identificacion_productor: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         id_lugar_produccion: {
             type: DataTypes.UUID,

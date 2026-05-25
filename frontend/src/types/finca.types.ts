@@ -9,6 +9,7 @@ export type PredioDTO = {
   direccion: string;
   areaTotal: number;
   idVereda: string;
+  numeroIdentificacionProductor?: string | null;
   idLugarProduccion: string | null;
   idPropietario: string;
   lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
@@ -46,5 +47,10 @@ export type LoteDTO = {
   fechaCosecha: string;
   idVariedad: string;
   idPredio: string;
-  predio?: { id: string; nombrePredio: string; numeroPredial: string } | null;
+  predio?: {
+    id: string;
+    nombrePredio: string;
+    numeroPredial: string;
+    numeroIdentificacionProductor?: string | null;
+  } | null;
 };

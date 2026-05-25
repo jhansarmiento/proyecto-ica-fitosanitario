@@ -3,8 +3,10 @@ import sequelizeCatalog from '../config/database_catalog';
 
 class Plaga extends Model {
     public id_plaga!: string;
-    public nombre_cientifico_plaga!: string;
-    public nombre_comun_plaga!: string;
+    public nombre_cientifico!: string;
+    public nombre_comun!: string;
+    public tipo_plaga?: string;
+    public imagen_plaga?: string;
 
     static associate(models: any) {
         // Una plaga puede afectar a muchas especies vegetales (relación muchos a muchos)
@@ -24,13 +26,21 @@ Plaga.init(
             defaultValue: DataTypes.UUIDV4, 
             primaryKey: true 
         },
-        nombre_cientifico_plaga: { 
+        nombre_cientifico: { 
             type: DataTypes.STRING, 
             allowNull: false 
         },
-        nombre_comun_plaga: { 
+        nombre_comun: { 
             type: DataTypes.STRING, 
             allowNull: false 
+        },
+        tipo_plaga: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        imagen_plaga: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
     }, 
     { 

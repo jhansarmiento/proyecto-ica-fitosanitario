@@ -1,18 +1,12 @@
 import { Router } from 'express';
-import EspecieVegetal from '../models/EspecieVegetal';
+import { listarEspeciesVegetales } from '../controllers/especiesVegetales.controller';
 
 const especiesRoutes = Router();
 
-especiesRoutes.get('/', async (_req, res) => {
-  try {
-    const especies = await EspecieVegetal.findAll({
-      order: [['nombreComun', 'ASC']],
-    });
-    return res.status(200).json({ data: especies });
-  } catch (error) {
-    console.error('Error listando especies vegetales:', error);
-    return res.status(500).json({ message: 'Error interno del servidor' });
-  }
-});
+/**
+ * GET /api/especies-vegetales
+ * Retorna especies vegetales mapeadas a contrato camelCase para frontend.
+ */
+especiesRoutes.get('/', listarEspeciesVegetales);
 
 export default especiesRoutes;

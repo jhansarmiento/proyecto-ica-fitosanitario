@@ -46,14 +46,15 @@ export const seedPropietariosYPredios = async () => {
                     direccion: data.direccion,
                     area_total: data.area_total,
                     id_vereda: veredaAleatoria.id_vereda,
+                    numero_identificacion_productor: data.numero_identificacion_productor ?? null,
                     id_propietario: propietarioAleatorio.id_propietario,
                     id_lugar_produccion: null // <--- IMPORTANTE: Queda vacío por ahora
                 }
             });
         }
 
-        console.log('✅ Propietarios y Predios inyectados con éxito.');
+        console.log('Propietarios y Predios inyectados con éxito.');
     } catch (error) {
-        console.error('❌ Error en el seeder de predios:', error);
+        console.error('Error en el seeder de predios:', error);
     }
 };

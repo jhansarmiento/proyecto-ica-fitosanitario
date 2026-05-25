@@ -1,6 +1,7 @@
 export type Predio = {
   id: string;
   numeroPredial: string;
+  numeroIdentificacionProductor?: string | null;
   nombrePredio: string;
   departamento: string;
   municipio: string;
