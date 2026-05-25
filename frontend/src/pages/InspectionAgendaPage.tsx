@@ -25,6 +25,7 @@ type InspectionAgendaPageProps = {
   onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionHistory?: () => void;
+  onGoReports?: () => void;
   onStartInspectionProcess?: () => void;
   onLogout?: () => void;
 };
@@ -87,6 +88,7 @@ export default function InspectionAgendaPage({
   onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionHistory,
+  onGoReports,
   onStartInspectionProcess,
   onLogout,
 }: InspectionAgendaPageProps) {
@@ -115,6 +117,7 @@ export default function InspectionAgendaPage({
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-history') onGoInspectionHistory?.();
     if (view === 'inspections-agenda') return;
+    if (view === 'reports') onGoReports?.();
   };
 
   return (

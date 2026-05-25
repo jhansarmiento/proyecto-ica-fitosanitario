@@ -18,6 +18,7 @@ type AdminProductionApprovalPageProps = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
 };
 
@@ -33,6 +34,7 @@ function AdminProductionApprovalPage({
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
+  onGoReports,
   onLogout,
 }: AdminProductionApprovalPageProps) {
   const [query, setQuery] = useState('');
@@ -69,6 +71,7 @@ function AdminProductionApprovalPage({
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
     if (view === 'inspections-history') onGoInspectionsHistory?.();
+    if (view === 'reports') onGoReports?.();
   };
 
   const handleApprove = async () => {

@@ -13,6 +13,7 @@ type InspectionProcessPageProps = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
   onBack?: () => void;
   onFinish?: () => void;
@@ -109,6 +110,7 @@ export default function InspectionProcessPage({
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
+  onGoReports,
   onLogout,
   onBack,
   onFinish,
@@ -173,6 +175,7 @@ export default function InspectionProcessPage({
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
     if (view === 'inspections-history') onGoInspectionsHistory?.();
+    if (view === 'reports') onGoReports?.();
   };
 
   return (

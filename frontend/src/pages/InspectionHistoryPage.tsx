@@ -40,6 +40,7 @@ type InspectionHistoryPageProps = {
   onGoCatalog?: () => void;
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
 };
 
@@ -952,6 +953,7 @@ export default function InspectionHistoryPage({
   onGoCatalog,
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
+  onGoReports,
   onLogout,
 }: InspectionHistoryPageProps) {
   const rol = sessionUser?.rol ?? '';
@@ -1120,6 +1122,7 @@ export default function InspectionHistoryPage({
     if (view === 'catalog') onGoCatalog?.();
     if (view === 'approval-places') onGoApprovalPlaces?.();
     if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
+    if (view === 'reports') onGoReports?.();
   };
 
   // ── Render ────────────────────────────────────────────────────────────────

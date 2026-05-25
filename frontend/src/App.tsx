@@ -13,6 +13,7 @@ import InspectionAgendaPage from './pages/InspectionAgendaPage';
 import InspectionHistoryPage from './pages/InspectionHistoryPage';
 import InspectionProcessPage from './pages/InspectionProcessPage';
 import CatalogManagementPage from './pages/CatalogManagementPage';
+import ReportsPage from './pages/ReportsPage';
 
 type View =
   | 'login'
@@ -27,7 +28,8 @@ type View =
   | 'approval-places'
   | 'inspections-agenda'
   | 'inspections-history'
-  | 'inspection-process';
+  | 'inspection-process'
+  | 'reports';
 
 export type SessionUser = {
   id: string;
@@ -90,6 +92,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -104,6 +107,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -118,6 +122,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -132,6 +137,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
         onOpenProductionDetail={(site) => {
           setSelectedSite(site);
@@ -153,6 +159,7 @@ function App() {
         onGoCatalog={() => setView('catalog')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -169,6 +176,7 @@ function App() {
         onGoCatalog={() => setView('catalog')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -183,6 +191,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -197,6 +206,7 @@ function App() {
         onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onStartInspectionProcess={() => setView('inspection-process')}
         onLogout={handleLogout}
       />
@@ -212,6 +222,7 @@ function App() {
         onGoCatalog={() => setView('catalog')}
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );
@@ -227,9 +238,25 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
         onBack={() => setView('inspections-agenda')}
         onFinish={() => setView('inspections-history')}
+      />
+    );
+  } else if (view === 'reports') {
+    page = (
+      <ReportsPage
+        sessionUser={sessionUser}
+        onGoHome={() => setView('home')}
+        onGoUsers={() => setView('users')}
+        onGoRoles={() => setView('roles')}
+        onGoAgricultural={() => setView('agricultural')}
+        onGoCatalog={() => setView('catalog')}
+        onGoApprovalPlaces={() => setView('approval-places')}
+        onGoInspectionsAgenda={() => setView('inspections-agenda')}
+        onGoInspectionsHistory={() => setView('inspections-history')}
+        onLogout={handleLogout}
       />
     );
   } else {
@@ -244,6 +271,7 @@ function App() {
         onGoApprovalPlaces={() => setView('approval-places')}
         onGoInspectionsAgenda={() => setView('inspections-agenda')}
         onGoInspectionsHistory={() => setView('inspections-history')}
+        onGoReports={() => setView('reports')}
         onLogout={handleLogout}
       />
     );

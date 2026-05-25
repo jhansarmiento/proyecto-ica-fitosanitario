@@ -29,6 +29,7 @@ type AgriculturalManagementPageProps = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
   onOpenProductionDetail?: (site: ProductionSite) => void;
 };
@@ -42,6 +43,7 @@ function AgriculturalManagementPage({
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
+  onGoReports,
   onLogout,
   onOpenProductionDetail,
 }: AgriculturalManagementPageProps) {
@@ -140,6 +142,7 @@ function AgriculturalManagementPage({
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
         if (view === 'inspections-history') onGoInspectionsHistory?.();
+        if (view === 'reports') onGoReports?.();
       }}
       onLogout={onLogout}
     >

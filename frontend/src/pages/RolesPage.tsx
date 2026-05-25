@@ -77,6 +77,7 @@ type RolesPageProps = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
 };
 
@@ -89,6 +90,7 @@ function RolesPage({
   onGoApprovalPlaces,
   onGoInspectionsAgenda,
   onGoInspectionsHistory,
+  onGoReports,
   onLogout,
 }: RolesPageProps) {
   const [search, setSearch] = useState('');
@@ -188,6 +190,7 @@ function RolesPage({
         if (view === 'approval-places') onGoApprovalPlaces?.();
         if (view === 'inspections-agenda') onGoInspectionsAgenda?.();
         if (view === 'inspections-history') onGoInspectionsHistory?.();
+        if (view === 'reports') onGoReports?.();
       }}
       onLogout={onLogout}
     >

@@ -31,7 +31,8 @@ export type DashboardViewKey =
   | "catalog"
   | "approval-places"
   | "inspections-agenda"
-  | "inspections-history";
+  | "inspections-history"
+  | "reports";
 
 type DashboardLayoutProps = {
   title: string;
@@ -277,8 +278,18 @@ function SidebarContent({
           </div>
         )}
 
-        {/* Reportes (sin acción por ahora) */}
-        <SidebarItem label="Reportes" icon={<Folder size={20} />} />
+        {/* Reportes */}
+        <button
+          type="button"
+          onClick={() => navigate("reports")}
+          className="w-full"
+        >
+          <SidebarItem
+            label="Reportes"
+            active={activeView === "reports"}
+            icon={<Folder size={20} />}
+          />
+        </button>
       </nav>
 
       {/* Cerrar sesión */}

@@ -12,6 +12,7 @@ type Props = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
+  onGoReports?: () => void;
   onLogout?: () => void;
 };
 
@@ -56,7 +57,7 @@ const InfoWidget = ({ label, value }: { label: string; value: string }) => (
 );
 
 export default function CatalogManagementPage({
-  sessionUser, onGoHome, onGoUsers, onGoRoles, onGoAgricultural, onGoApprovalPlaces, onGoInspectionsAgenda, onGoInspectionsHistory, onLogout,
+  sessionUser, onGoHome, onGoUsers, onGoRoles, onGoAgricultural, onGoApprovalPlaces, onGoInspectionsAgenda, onGoInspectionsHistory, onGoReports, onLogout,
 }: Props) {
   const [tab, setTab] = useState<'species' | 'pests'>('species');
   const [q, setQ] = useState('');
@@ -72,7 +73,7 @@ export default function CatalogManagementPage({
     return () => window.removeEventListener('keydown', h);
   }, []);
 
-  const nav = (v: DashboardViewKey) => { if (v === 'home') onGoHome?.(); if (v === 'users') onGoUsers?.(); if (v === 'roles') onGoRoles?.(); if (v === 'agricultural') onGoAgricultural?.(); if (v === 'approval-places') onGoApprovalPlaces?.(); if (v === 'inspections-agenda') onGoInspectionsAgenda?.(); if (v === 'inspections-history') onGoInspectionsHistory?.(); };
+  const nav = (v: DashboardViewKey) => { if (v === 'home') onGoHome?.(); if (v === 'users') onGoUsers?.(); if (v === 'roles') onGoRoles?.(); if (v === 'agricultural') onGoAgricultural?.(); if (v === 'approval-places') onGoApprovalPlaces?.(); if (v === 'inspections-agenda') onGoInspectionsAgenda?.(); if (v === 'inspections-history') onGoInspectionsHistory?.(); if (v === 'reports') onGoReports?.(); };
 
   return (
     <DashboardLayout title="Catálogos" subtitle={tab === 'species' ? 'Catálogo técnico de especies y variedades' : 'Centro fitosanitario de plagas, severidad y control'} sessionUser={sessionUser} activeView="catalog" onNavigate={nav} onLogout={onLogout}>
