@@ -24,9 +24,9 @@ import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import catalogModels from './catalogIndex';
 import authRoutes from './routes/auth.routes';
+import lugarProduccionRoutes from './routes/lugarProduccion.routes';
 // import rolesRoutes from './routes/rolesRoutes';
 // import usuariosRoutes from './routes/usuariosRoutes';
-// import lugaresRoutes from './routes/lugaresRoutes';
 // import prediosRoutes from './routes/prediosRoutes';
 // import lotesRoutes from './routes/lotesRoutes';
 // import especiesRoutes from './routes/especiesRoutes';
@@ -65,9 +65,9 @@ app.use(
 );
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/lugares-produccion', lugarProduccionRoutes);
 // app.use('/api/roles', rolesRoutes);
 // app.use('/api/usuarios', usuariosRoutes);
-// app.use('/api/lugares-produccion', lugaresRoutes);
 // app.use('/api/predios', prediosRoutes);
 // app.use('/api/lotes', lotesRoutes);
 // app.use('/api/especies-vegetales', especiesRoutes);
@@ -84,11 +84,11 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Sincronizamos las tablas de la base de datos operacional
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     console.log('📊 Tablas de BD Operacional sincronizadas');
 
     // Sincronizamos las tablas del catálogo
-    await sequelizeCatalog.sync({ force: true });
+    await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
 
     // Inyectar roles y usuarios

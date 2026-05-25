@@ -6,18 +6,19 @@ class LugarProduccion extends Model {
     public nombre_lugar_produccion!: string;
     public numero_registro_ica!: string;
     public fecha_solicitud!: Date;
-    public fecha_aprobacion!: Date;
+    public fecha_aprobacion?: Date; // opcional al inicio
     public estado!: string;
     public observaciones_administrador?: string;
-    public id_admin_aprobador!: string;
-    public id_asistente_asignado?: string;
+    public id_admin_aprobador?: string; // opcional al inicio
+    public id_asistente_asignado?: string; // opcional al inicio
     public id_usuario_productor!: string; // Clave foránea para el Productor (Usuario)
 
     // Métodos de asociación
     static associate(models: any) {
         // Un Lugar de Producción pertenece a un Usuario (Productor)
         this.belongsTo(models.Usuario, {
-            foreignKey: 'id_usuario',
+            foreignKey: 'id_usuario_productor',
+            targetKey: 'id_usuario',
             as: 'productor',
         });
         // Un Lugar de Producción puede tener muchos Predios
@@ -32,13 +33,15 @@ class LugarProduccion extends Model {
         });
         // Una Solicitud de Registro es aprobada por un Usuario (Administrador)
         this.belongsTo(models.Usuario, {
-        foreignKey: 'id_admin_aprobador',
-        as: 'administradorAprobador',
+            foreignKey: 'id_admin_aprobador',
+            targetKey: 'id_usuario',
+            as: 'administradorAprobador',
         });
         // Una Solicitud de Registro es asignada a un Usuario (Asistente Técnico)
         this.belongsTo(models.Usuario, {
-        foreignKey: 'id_asistente_asignado',
-        as: 'asistenteAsignado'
+            foreignKey: 'id_asistente_asignado',
+            targetKey: 'id_usuario',
+            as: 'asistenteAsignado'
         });
         // Un Lugar de Producción puede asociar muchas especies para producción (Autorización de Especies)
         this.hasMany(models.AutorizacionEspecie, {
@@ -67,14 +70,19 @@ LugarProduccion.init(
         fecha_solicitud: {
             type: DataTypes.DATE,
             allowNull: false,
+            defaultValue: DataTypes.NOW // Se asigna con la fecha actual automaticamente
         },
         fecha_aprobacion: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true, // opcional al inicio
         },
         estado: {
             type: DataTypes.STRING,
             allowNull: false,
+            defaultValue: 'PENDIENTE', // Nace como solicitud pendiente
+            validate: {
+                isIn: [['PENDIENTE', 'APROBADO', 'RECHAZADO']],
+            },
         },
         observaciones_administrador: {
             type: DataTypes.TEXT,
@@ -82,7 +90,7 @@ LugarProduccion.init(
         },
         id_admin_aprobador: {
             type: DataTypes.UUID,
-            allowNull: false,
+            allowNull: true,
             references : {
                 model: 'usuario', // Nombre de la tabla referenciada
                 key: 'id_usuario', // Columna referenciada

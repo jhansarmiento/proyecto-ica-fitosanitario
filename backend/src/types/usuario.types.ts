@@ -1,6 +1,8 @@
+import { Request } from 'express';
+
 // Tipo para el modelo Usuario completo (lo que devuelve Sequelize)
 export interface Usuario {
-  id_usuario: number;
+  id_usuario: string;
   numero_identificacion: string;
   nombres: string;
   apellidos: string;
@@ -11,7 +13,7 @@ export interface Usuario {
   ingreso_contrasena: string;
   registro_ica: string;
   tarjeta_profesional: string;
-  rol_id: number;
+  rol_id: string;
   
   // Relación con Rol
   rol?: Rol;
@@ -19,7 +21,7 @@ export interface Usuario {
 
 // Tipo del Rol (mínimo lo que necesitas)
 export interface Rol {
-  id_rol: number;
+  id_rol: string;
   nombre_rol: string;
   descripcion?: string;
 }
@@ -32,7 +34,7 @@ export interface LoginInput {
 
 // Payload que irá dentro del JWT
 export interface JWTPayload {
-  id: number;
+  id: string;
   rol: string;
   nombre: string;
   apellidos: string;
@@ -49,4 +51,8 @@ export interface LoginResponse {
     correo_electronico: string;
     rol: string;
   };
+}
+
+export interface AuthenticatedRequest extends Request {
+    usuario?: JWTPayload;
 }
