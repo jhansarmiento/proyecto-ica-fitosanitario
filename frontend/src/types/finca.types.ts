@@ -1,56 +1,53 @@
 // predios, lugares de produccion y lotes
 
 // ── PREDIOS ──
-export type PredioDTO = {
-  id: string;
-  numeroPredial: string;
-  numeroRegistroICA: string;
-  nombrePredio: string;
-  direccion: string;
-  areaTotal: number;
-  idVereda: string;
-  numeroIdentificacionProductor?: string | null;
-  idLugarProduccion: string | null;
-  idPropietario: string;
-  lugarProduccion?: { id: string; nombreLugarProduccion: string } | null;
-};
+export interface PredioDTO {
+  id_predio: string;
+  nombre_predio: string;
+  numero_predial: string;
+  area_total: number;
+  id_vereda: string;
+  id_lugar_produccion: string | null;
+  id_propietario: string;
+}
 
 // ── LUGARES DE PRODUCCION ──
-export type LugarProduccionDTO = {
-  id: string;
-  nombreLugarProduccion: string;
-  numeroRegistroICA: string;
-  estado: string;
-  idUsuarioProductor: string;
-  productor?: {
-    id: string;
-    nombre: string;
-    apellidos: string;
-    ingresoUsuario: string;
-  } | null;
-  solicitudRegistroLugar?: {
-    asistenteAsignado?: {
-      id: string;
-      nombre: string;
-      apellidos: string;
-      correoElectronico: string;
-      telefono: string;
-    } | null;
-  } | null;
-};
+export interface LugarProduccionInput {
+  nombre_lugar_produccion: string;
+  numero_registro_ica: string;
+  predios_ids: string[];
+  especies: {
+    id_especie_vegetal: string;
+    capacidad_produccion: number;
+  }[];
+}
 
-export type LoteDTO = {
+// ── ESPECIES VEGETALES ──
+export interface EspecieVegetalDTO {
+  id_especie_vegetal: string;
+  nombre_especie: string;
+  nombre_comun: string;
+  ciclo_cultivo: string;
+}
+
+// Interfaces locales para el estado UI del componente
+export interface PredioUI {
   id: string;
-  numeroLote: string;
-  areaTotal: number;
-  fechaSiembra: string;
-  fechaCosecha: string;
-  idVariedad: string;
-  idPredio: string;
-  predio?: {
-    id: string;
-    nombrePredio: string;
-    numeroPredial: string;
-    numeroIdentificacionProductor?: string | null;
-  } | null;
-};
+  nombre: string;
+  codigo: string;
+  municipio: string;
+  departamento: string;
+  area_total: number;
+}
+
+export interface EspecieUI {
+  id_especie_vegetal: string;
+  nombre_comun: string;
+  nombre_cientifico: string;
+  ciclo_cultivo: string;
+}
+
+export interface ProducerOption {
+  id: string;
+  label: string;
+}
