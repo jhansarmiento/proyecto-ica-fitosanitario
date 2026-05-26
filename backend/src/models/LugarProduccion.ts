@@ -4,7 +4,7 @@ import sequelize from '../config/database';
 class LugarProduccion extends Model {
     public id_lugar_produccion!: string;
     public nombre_lugar_produccion!: string;
-    public numero_registro_ica!: string;
+    public numero_registro_ica?: string;
     public fecha_solicitud!: Date;
     public fecha_aprobacion?: Date; // opcional al inicio
     public estado!: string;
@@ -64,7 +64,7 @@ LugarProduccion.init(
         },
         numero_registro_ica: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true,
         },
         fecha_solicitud: {
