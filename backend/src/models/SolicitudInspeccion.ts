@@ -5,11 +5,10 @@ class SolicitudInspeccion extends Model {
     public id_solicitud_inspeccion!: string;
     public fecha_creacion!: Date;
     public fecha_tentativa_productor!: Date; // Fecha tentativa propuesta por el Productor
-    public fecha_programada_tecnico!: Date; // Cuando el tecnico confirma que irá
+    public fecha_programada_tecnico?: Date; // Cuando el tecnico confirma que irá
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
     public observaciones?: string;
     public id_lote!: string;
-    public id_lugar_produccion!: string; // Clave foránea para el Lugar de Producción
     public id_asistente_tecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
 
     static associate(models: any) {
