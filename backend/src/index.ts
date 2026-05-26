@@ -30,7 +30,6 @@ import especieRoutes from './routes/especie.routes';
 import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 // import rolesRoutes from './routes/rolesRoutes';
 // import usuariosRoutes from './routes/usuariosRoutes';
-// rutas
 
 
 const models: any = {
@@ -72,21 +71,17 @@ app.get('/api/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/lugares-produccion', lugarProduccionRoutes);
-<<<<<<< Updated upstream
-app.use('/api/predios', prediosRoutes);
-app.use('/api/lotes', lotesRoutes);
-app.use('/api/roles', rolesRoutes);
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/especies-vegetales', especiesRoutes);
-app.use('/api/autorizaciones-especie', autorizacionesRoutes);
-=======
+app.use('/api/predios', predioRoutes);
+app.use('/api/especies-vegetales', especieRoutes);
+app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 app.use('/api/predios', predioRoutes);
 app.use('/api/lotes', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 app.use('/api/especies-vegetales', especieRoutes);
+//app.use('/api/roles', rolesRoutes);
+// app.use('/api/usuarios', usuariosRoutes);
 // app.use('/api/roles', rolesRoutes);
 // app.use('/api/usuarios', usuariosRoutes);
->>>>>>> Stashed changes
 
 const startServer = async () => {
   try {
