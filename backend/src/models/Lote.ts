@@ -8,20 +8,21 @@ class Lote extends Model {
     public fecha_siembra!: Date;
     public fecha_cosecha!: Date;
     public estado!: string;
+    public cantidad_plantas!: number;
     public id_variedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
-    public id_lugar_produccion!: string; // Clave foránea para el Lugar de Producción
+    public id_predio!: string; // Clave foránea para el Predio (BD Cataálogo)
 
     static associate(models: any) {
-        // Un lote pertenece a un predio
-        this.belongsTo(models.Predio, {
-            foreignKey: 'id_predio',
-            as: 'predio',
-        });
         // Un lote puede tener muchas solicitudes de inspección
         this.hasMany(models.SolicitudInspeccion, {
             foreignKey: 'id_lote',
             as: 'solicitudesInspeccion',
         });
+        // Un lote pertenece a un predio
+        this.belongsTo(models.Predio, {
+            foreignKey: 'id_predio',
+            as: 'predio',
+        })
     }
 }
 
@@ -56,16 +57,20 @@ Lote.init(
                 isIn: [['PROGRAMADO', 'ACTIVO', 'FINALIZADO']],
             },
         },
+        cantidad_plantas: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         id_variedad: {
             type: DataTypes.UUID,
             allowNull: false,
         },
-        id_lugar_produccion: {
+        id_predio: {
             type: DataTypes.UUID,
             allowNull: false,
-            references : {
-                model: 'lugar_produccion', // Nombre de la tabla referenciada
-                key: 'id_lugar_produccion', // Columna referenciada
+            references: {
+                model: 'predio', // Nombre de la tabla referenciada
+                key: 'id_predio', // Columna referenciada
             }
         },
     },   
