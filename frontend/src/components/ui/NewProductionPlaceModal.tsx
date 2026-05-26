@@ -55,8 +55,9 @@ function NewProductionPlaceModal({
           id: p.id_predio,
           nombre: p.nombre_predio || "Predio sin nombre",
           codigo: p.numero_predial || "N/D",
-          municipio: "N/D",
-          departamento: "N/D",
+          vereda: p.vereda || "N/D",
+          municipio: p.municipio || "N/D",
+          departamento: p.departamento || "N/D",
           area_total: Number(p.area_total || 0),
         }));
         setPredios(mappedPredios);
@@ -146,7 +147,6 @@ function NewProductionPlaceModal({
   // Validación corregida: Ya no exige idUsuarioProductor en el cliente
   const canCreate =
     nombreLugar.trim().length > 0 &&
-    registroIca.trim().length > 0 &&
     capacidadProduccion.trim().length > 0;
 
   const goNext = () => {
@@ -293,7 +293,8 @@ function NewProductionPlaceModal({
                             {predio.nombre}
                           </p>
                           <p className="text-sm text-slate-500">
-                            {predio.codigo}
+                            {predio.codigo} · Vda. {predio.vereda},{" "}
+                            {predio.municipio} ({predio.departamento})
                           </p>
                         </div>
                       </div>
@@ -335,7 +336,9 @@ function NewProductionPlaceModal({
 
                 <div className="max-h-[320px] space-y-3 overflow-y-auto pr-1">
                   {filteredSpecies.map((sp) => {
-                    const checked = selectedSpecies.includes(sp.id_especie_vegetal);
+                    const checked = selectedSpecies.includes(
+                      sp.id_especie_vegetal,
+                    );
                     return (
                       <label
                         key={sp.id_especie_vegetal}
@@ -411,19 +414,6 @@ function NewProductionPlaceModal({
                     onChange={(e) => setNombreLugar(e.target.value)}
                     className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none"
                     placeholder="Ej: Lugar Productivo Norte"
-                  />
-                </label>
-
-                <label className="space-y-1.5">
-                  <span className="text-sm font-medium text-slate-700">
-                    Número Registro ICA sugerido
-                  </span>
-                  <input
-                    type="text"
-                    value={registroIca}
-                    onChange={(e) => setRegistroIca(e.target.value)}
-                    className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none"
-                    placeholder="Ej: ICA-2026-0781"
                   />
                 </label>
 

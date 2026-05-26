@@ -1,3 +1,36 @@
+// src/types/dashboard.types.ts
+import type { ReactNode } from 'react';
+import type { SessionUser } from '../App';
+
+export type NotificationItem = {
+  id: string;
+  tipo: 'urgent' | 'info';
+  mensaje: string;
+  horaRelativa: string;
+};
+
+export type DashboardViewKey =
+  | 'home'
+  | 'users'
+  | 'roles'
+  | 'agricultural'
+  | 'catalog'
+  | 'approval-places'
+  | 'inspections-agenda'
+  | 'inspections-history'
+  | 'reports';
+
+  export interface DashboardLayoutProps {
+  title: string;
+  subtitle?: string;
+  sessionUser?: SessionUser;
+  activeView: DashboardViewKey;
+  breadcrumbs?: string[];
+  onNavigate?: (view: DashboardViewKey) => void;
+  onLogout?: () => void;
+  children: ReactNode;
+}
+
 export type RequestStatus = 'Pendiente' | 'En revisión' | 'Aprobado' | 'Rechazado';
 
 export type ProductionApprovalItem = {

@@ -35,6 +35,7 @@ export interface PredioUI {
   id: string;
   nombre: string;
   codigo: string;
+  vereda: string;
   municipio: string;
   departamento: string;
   area_total: number;

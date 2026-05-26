@@ -8,7 +8,7 @@ class Predio extends Model {
     public nombre_predio!: string;
     public direccion!: string;
     public area_total!: number;
-    public id_vereda!: number; // Vereda traída desde la BD Catalógo
+    public id_vereda!: string; // Vereda traída desde la BD Catalógo
     public id_lugar_produccion?: string; // Clave foránea para el Lugar de Producción
     public id_propietario!: string; // Clave foránea para el Propietario (Usuario)
     public numero_identificacion_productor?: string;

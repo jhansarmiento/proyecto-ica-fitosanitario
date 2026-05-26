@@ -1,14 +1,15 @@
+// src/controllers/lugarProduccion.controller.ts
 import { Response } from 'express';
 import sequelize from '../config/database';
 import models from '../index';
-import { AuthenticatedRequest } from '../types/usuario.types'; // Asumiendo que extendiste Request con el usuario del JWT
+import { AuthenticatedRequest } from '../types/usuario.types';
 
+// ─── 1. ENDPOINT PARA CREAR LUGAR DE PRODUCCIÓN (POST) ────────────────────────
 export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     // Iniciamos una transacción atómica de Sequelize
     const t = await sequelize.transaction();
 
     try {
-        // Obtenemos los datos del cuerpo de la solicitud
         const { nombre_lugar_produccion, numero_registro_ica, predios_ids, especies } = req.body;
         const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
 
@@ -18,10 +19,14 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
             return;
         }
 
-        // 1. Crear el Lugar de Producción en estado PENDIENTE
+        // Generamos un Radicado Único Temporal (Ej: RAD-83726-2026)
+        const anioActual = new Date().getFullYear();
+        const numeroRadicadoProvisional = `RAD-${Math.floor(10000 + Math.random() * 90000)}-${anioActual}`;
+
+        // 1. Crear el Lugar de Producción con su radicado provisional y estado pendiente
         const nuevoLugar = await models.LugarProduccion.create({
             nombre_lugar_produccion,
-            numero_registro_ica,
+            numero_registro_ica: numeroRadicadoProvisional, // Se guarda el radicado automáticamente
             id_usuario_productor,
             estado: 'PENDIENTE',
             fecha_solicitud: new Date()
@@ -59,6 +64,26 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
         // Si algo falla en cualquier punto, devolvemos la BD al estado original de forma segura
         await t.rollback();
         console.error('❌ Error transaccional al crear lugar de producción:', error);
-        res.status(500).json({ message: 'Error interno del servidor al procesar la solicitud.' });
+        res.status(500).json({ message: 'Error interno al procesar la creación del lugar de producción.' });
+    }
+};
+
+// ─── 2. ENDPOINT PARA LISTAR LUGARES DEL PRODUCTOR (GET) ──────────────────────
+export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
+
+        const lugares = await models.LugarProduccion.findAll({
+            where: { id_usuario_productor },
+            include: [
+                { association: 'predio' }, // Trae los predios vinculados
+                { association: 'autorizacionEspecie' } // Trae las especies lógicas autorizadas
+            ]
+        });
+
+        res.json({ data: lugares });
+    } catch (error) {
+        console.error('❌ Error al listar lugares de producción:', error);
+        res.status(500).json({ message: 'Error interno al cargar tus lugares de producción.' });
     }
 };
