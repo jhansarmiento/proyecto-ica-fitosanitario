@@ -7,6 +7,8 @@ class Predio extends Model {
     public numero_registro_ica!: string;
     public nombre_predio!: string;
     public direccion!: string;
+    public latitud?: number;
+    public longitud?: number;
     public area_total!: number;
     public id_vereda!: string; // Vereda traída desde la BD Catalógo
     public id_lugar_produccion?: string; // Clave foránea para el Lugar de Producción
@@ -55,6 +57,14 @@ Predio.init(
         },
         direccion: {
             type: DataTypes.STRING,
+        },
+        latitud: {
+            type: DataTypes.FLOAT, // Usamos FLOAT para coordenadas
+            allowNull: true,
+        },
+        longitud: {
+            type: DataTypes.FLOAT,
+            allowNull: true,
         },
         area_total: {
             type: DataTypes.FLOAT,
