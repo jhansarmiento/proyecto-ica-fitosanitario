@@ -1,118 +1,421 @@
 [
   {
+    "id": "SP-001",
     "nombre_especie": "Persea americana",
     "nombre_comun": "Aguacate",
-    "ciclo_cultivo": "Perenne",
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1601039641847-7857b994d704?auto=format&fit=crop&w=1600&q=80",
     "variedades": ["Hass", "Lorena", "Choquette", "Fuerte", "Reed"],
     "plagas": [
-      { "nombre_especie_plaga": "Heilipus lauri", "nombre_comun_plaga": "Barrenador de la semilla" },
-      { "nombre_especie_plaga": "Stenoma catenifer", "nombre_comun_plaga": "Pasador del fruto" },
-      { "nombre_especie_plaga": "Monalonion velezangeli", "nombre_comun_plaga": "Chinche del aguacate" },
-      { "nombre_especie_plaga": "Oligonychus punicae", "nombre_comun_plaga": "Ácaro cristalino" }
+      {
+        "id_plaga": "P-001",
+        "nombre_especie_plaga": "Heilipus lauri",
+        "nombre_comun_plaga": "Barrenador de la semilla",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-002",
+        "nombre_especie_plaga": "Stenoma catenifer",
+        "nombre_comun_plaga": "Pasador del fruto",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
+    "id": "SP-002",
     "nombre_especie": "Mangifera indica",
     "nombre_comun": "Mango",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Keitt", "Tommy Atkins", "Kent", "Yulima", "Hilacha"],
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Keitt", "Tommy Atkins", "Kent", "Yulima"],
     "plagas": [
-      { "nombre_especie_plaga": "Anastrepha obliqua", "nombre_comun_plaga": "Mosca de las Antillas" },
-      { "nombre_especie_plaga": "Ceratitis capitata", "nombre_comun_plaga": "Mosca del Mediterráneo" },
-      { "nombre_especie_plaga": "Aulacaspis tubercularis", "nombre_comun_plaga": "Escama blanca del mango" },
-      { "nombre_especie_plaga": "Selenothrips rubrocinctus", "nombre_comun_plaga": "Trips de la banda roja" }
+      {
+        "id_plaga": "P-003",
+        "nombre_especie_plaga": "Anastrepha obliqua",
+        "nombre_comun_plaga": "Mosca de las Antillas",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-004",
+        "nombre_especie_plaga": "Ceratitis capitata",
+        "nombre_comun_plaga": "Mosca del Mediterráneo",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
+    "id": "SP-003",
     "nombre_especie": "Physalis peruviana",
     "nombre_comun": "Uchuva",
-    "ciclo_cultivo": "Transitorio/Perenne",
+    "ciclo_cultivo": "Medio",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=1600&q=80",
     "variedades": ["Ecotipo Colombia", "Ecotipo Kenia", "Ecotipo Sudáfrica"],
     "plagas": [
-      { "nombre_especie_plaga": "Heliothis subflexa", "nombre_comun_plaga": "Gusano de la uchuva" },
-      { "nombre_especie_plaga": "Aculops sp.", "nombre_comun_plaga": "Ácaro tostador" },
-      { "nombre_especie_plaga": "Trialeurodes vaporariorum", "nombre_comun_plaga": "Mosca blanca" },
-      { "nombre_especie_plaga": "Phoma physalidis", "nombre_comun_plaga": "Mancha de hongo" }
+      {
+        "id_plaga": "P-005",
+        "nombre_especie_plaga": "Heliothis subflexa",
+        "nombre_comun_plaga": "Gusano de la uchuva",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-006",
+        "nombre_especie_plaga": "Trialeurodes vaporariorum",
+        "nombre_comun_plaga": "Mosca blanca",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
+    "id": "SP-004",
     "nombre_especie": "Citrus latifolia",
     "nombre_comun": "Limón Tahití",
-    "ciclo_cultivo": "Perenne",
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=1600&q=80",
     "variedades": ["Bearss", "Persian", "Tahiti"],
     "plagas": [
-      { "nombre_especie_plaga": "Diaphorina citri", "nombre_comun_plaga": "Psílido de los cítricos" },
-      { "nombre_especie_plaga": "Phyllocnistis citrella", "nombre_comun_plaga": "Minador de la hoja" },
-      { "nombre_especie_plaga": "Brevipalpus phoenicis", "nombre_comun_plaga": "Ácaro de la leprosis" },
-      { "nombre_especie_plaga": "Toxoptera citricida", "nombre_comun_plaga": "Pulgón negro" }
+      {
+        "id_plaga": "P-007",
+        "nombre_especie_plaga": "Diaphorina citri",
+        "nombre_comun_plaga": "Psílido de los cítricos",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-008",
+        "nombre_especie_plaga": "Phyllocnistis citrella",
+        "nombre_comun_plaga": "Minador de la hoja",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
+    "id": "SP-005",
     "nombre_especie": "Passiflora edulis f. edulis",
     "nombre_comun": "Gulupa",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Selección Colombia", "Púrpura", "Hawái"],
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Púrpura", "Selección Colombia", "Hawái"],
     "plagas": [
-      { "nombre_especie_plaga": "Dasiops inedulis", "nombre_comun_plaga": "Mosca de la flor" },
-      { "nombre_especie_plaga": "Tetranychus urticae", "nombre_comun_plaga": "Ácaro de dos manchas" },
-      { "nombre_especie_plaga": "Agraulis vanillae", "nombre_comun_plaga": "Gusano de las pasifloras" }
+      {
+        "id_plaga": "P-009",
+        "nombre_especie_plaga": "Dasiops inedulis",
+        "nombre_comun_plaga": "Mosca de la flor",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-010",
+        "nombre_especie_plaga": "Tetranychus urticae",
+        "nombre_comun_plaga": "Ácaro de dos manchas",
+        "tipo_plaga": "Ácaro"
+      }
     ]
   },
   {
+    "id": "SP-006",
     "nombre_especie": "Ananas comosus",
     "nombre_comun": "Piña",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["MD2 Golden", "Perolera", "Manzana", "Champaka"],
+    "ciclo_cultivo": "Medio",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1589820296156-2454bb8a6ad1?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["MD2 Golden", "Perolera", "Manzana"],
     "plagas": [
-      { "nombre_especie_plaga": "Thecla basilides", "nombre_comun_plaga": "Tecla de la piña" },
-      { "nombre_especie_plaga": "Dysmicoccus brevipes", "nombre_comun_plaga": "Cochinilla harinosa" },
-      { "nombre_especie_plaga": "Strymon megarus", "nombre_comun_plaga": "Barrenador del fruto" },
-      { "nombre_especie_plaga": "Fusarium oxysporum", "nombre_comun_plaga": "Fusariosis" }
+      {
+        "id_plaga": "P-011",
+        "nombre_especie_plaga": "Thecla basilides",
+        "nombre_comun_plaga": "Tecla de la piña",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-012",
+        "nombre_especie_plaga": "Dysmicoccus brevipes",
+        "nombre_comun_plaga": "Cochinilla harinosa",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
-    "nombre_especie": "Selenicereus megalanthus",
-    "nombre_comun": "Pitahaya Amarilla",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Palora", "Colombiana", "Israelí"],
-    "plagas": [
-      { "nombre_especie_plaga": "Dasiops saltans", "nombre_comun_plaga": "Mosca del botón floral" },
-      { "nombre_especie_plaga": "Leptoglossus zonatus", "nombre_comun_plaga": "Chinche patona" },
-      { "nombre_especie_plaga": "Cactophagus spinolae", "nombre_comun_plaga": "Picudo de la cactácea" }
-    ]
-  },
-  {
+    "id": "SP-007",
     "nombre_especie": "Musa x paradisiaca",
     "nombre_comun": "Banano",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Cavendish", "Valery", "Gran Enano", "Williams"],
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Cavendish", "Williams", "Valery"],
     "plagas": [
-      { "nombre_especie_plaga": "Mycosphaerella fijiensis", "nombre_comun_plaga": "Sigatoka negra" },
-      { "nombre_especie_plaga": "Cosmopolites sordidus", "nombre_comun_plaga": "Picudo negro" },
-      { "nombre_especie_plaga": "Opsiphanes tamarindi", "nombre_comun_plaga": "Gusano cabrito" },
-      { "nombre_especie_plaga": "Pseudococcus elisae", "nombre_comun_plaga": "Cochinilla del banano" }
+      {
+        "id_plaga": "P-013",
+        "nombre_especie_plaga": "Mycosphaerella fijiensis",
+        "nombre_comun_plaga": "Sigatoka negra",
+        "tipo_plaga": "Hongo"
+      },
+      {
+        "id_plaga": "P-014",
+        "nombre_especie_plaga": "Cosmopolites sordidus",
+        "nombre_comun_plaga": "Picudo negro",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
+    "id": "SP-008",
     "nombre_especie": "Passiflora ligularis",
     "nombre_comun": "Granadilla",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Selección Colombia", "Urrao", "Huila"],
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Urrao", "Huila", "Selección Colombia"],
     "plagas": [
-      { "nombre_especie_plaga": "Dasiops spp.", "nombre_comun_plaga": "Mosca de la fruta" },
-      { "nombre_especie_plaga": "Corythucha gossypii", "nombre_comun_plaga": "Chinche de encaje" },
-      { "nombre_especie_plaga": "Zapriothrica salebrosa", "nombre_comun_plaga": "Mosca de la flor" }
+      {
+        "id_plaga": "P-015",
+        "nombre_especie_plaga": "Dasiops spp.",
+        "nombre_comun_plaga": "Mosca de la fruta",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-016",
+        "nombre_especie_plaga": "Corythucha gossypii",
+        "nombre_comun_plaga": "Chinche de encaje",
+        "tipo_plaga": "Insecto"
+      }
     ]
   },
   {
-    "nombre_especie": "Passiflora edulis f. flavicarpa",
-    "nombre_comun": "Maracuyá",
-    "ciclo_cultivo": "Perenne",
-    "variedades": ["Hawaiana", "Selección Colombia", "Amarilla Gruesa"],
+    "id": "SP-009",
+    "nombre_especie": "Coffea arabica",
+    "nombre_comun": "Café",
+    "ciclo_cultivo": "Largo",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Castillo", "Caturra", "Colombia", "Borbón"],
     "plagas": [
-      { "nombre_especie_plaga": "Dasiops caestus", "nombre_comun_plaga": "Mosca del botón" },
-      { "nombre_especie_plaga": "Xanthomonas axonopodis", "nombre_comun_plaga": "Mancha bacteriana" },
-      { "nombre_especie_plaga": "Colletotrichum gloeosporioides", "nombre_comun_plaga": "Antracnosis" }
+      {
+        "id_plaga": "P-017",
+        "nombre_especie_plaga": "Hypothenemus hampei",
+        "nombre_comun_plaga": "Broca del café",
+        "tipo_plaga": "Insecto"
+      },
+      {
+        "id_plaga": "P-018",
+        "nombre_especie_plaga": "Hemileia vastatrix",
+        "nombre_comun_plaga": "Roya del café",
+        "tipo_plaga": "Hongo"
+      }
+    ]
+  },
+  {
+    "id": "SP-010",
+    "nombre_especie": "Solanum lycopersicum",
+    "nombre_comun": "Tomate",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Cherry", "Roma", "Chonto"],
+    "plagas": [
+      {
+        "id_plaga": "P-019",
+        "nombre_especie_plaga": "Bemisia tabaci",
+        "nombre_comun_plaga": "Mosca blanca",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-020",
+        "nombre_especie_plaga": "Alternaria solani",
+        "nombre_comun_plaga": "Tizón temprano",
+        "tipo_plaga": "Hongo",
+        "imagen_plaga": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-011",
+    "nombre_especie": "Solanum tuberosum",
+    "nombre_comun": "Papa",
+    "ciclo_cultivo": "Medio",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Criolla", "Pastusa", "Diacol Capiro"],
+    "plagas": [
+      {
+        "id_plaga": "P-021",
+        "nombre_especie_plaga": "Tecia solanivora",
+        "nombre_comun_plaga": "Polilla guatemalteca",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-022",
+        "nombre_especie_plaga": "Phytophthora infestans",
+        "nombre_comun_plaga": "Tizón tardío",
+        "tipo_plaga": "Hongo",
+        "imagen_plaga": "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-012",
+    "nombre_especie": "Zea mays",
+    "nombre_comun": "Maíz",
+    "ciclo_cultivo": "Medio",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1601593768799-76b3d4f4dc64?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Blanco", "Amarillo", "Dulce"],
+    "plagas": [
+      {
+        "id_plaga": "P-023",
+        "nombre_especie_plaga": "Spodoptera frugiperda",
+        "nombre_comun_plaga": "Gusano cogollero",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-024",
+        "nombre_especie_plaga": "Ustilago maydis",
+        "nombre_comun_plaga": "Carbón del maíz",
+        "tipo_plaga": "Hongo",
+        "imagen_plaga": "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-013",
+    "nombre_especie": "Oryza sativa",
+    "nombre_comun": "Arroz",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Fedearroz 60", "Fedearroz 2000", "Oryzica 1"],
+    "plagas": [
+      {
+        "id_plaga": "P-025",
+        "nombre_especie_plaga": "Tagosodes orizicolus",
+        "nombre_comun_plaga": "Sogata del arroz",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-026",
+        "nombre_especie_plaga": "Xanthomonas oryzae",
+        "nombre_comun_plaga": "Añublo bacterial",
+        "tipo_plaga": "Bacteria",
+        "imagen_plaga": "https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-014",
+    "nombre_especie": "Capsicum annuum",
+    "nombre_comun": "Pimentón",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Rojo", "Verde", "Amarillo"],
+    "plagas": [
+      {
+        "id_plaga": "P-027",
+        "nombre_especie_plaga": "Myzus persicae",
+        "nombre_comun_plaga": "Pulgón verde",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-028",
+        "nombre_especie_plaga": "Frankliniella occidentalis",
+        "nombre_comun_plaga": "Trips",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1583496661160-fb5886a13d77?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-015",
+    "nombre_especie": "Fragaria × ananassa",
+    "nombre_comun": "Fresa",
+    "ciclo_cultivo": "Medio",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Albión", "Monterey", "Camarosa"],
+    "plagas": [
+      {
+        "id_plaga": "P-029",
+        "nombre_especie_plaga": "Botrytis cinerea",
+        "nombre_comun_plaga": "Botritis",
+        "tipo_plaga": "Hongo",
+        "imagen_plaga": "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=1600&q=80"
+      },
+      {
+        "id_plaga": "P-030",
+        "nombre_especie_plaga": "Tetranychus urticae",
+        "nombre_comun_plaga": "Araña roja",
+        "tipo_plaga": "Ácaro",
+        "imagen_plaga": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-016",
+    "nombre_especie": "Lactuca sativa",
+    "nombre_comun": "Lechuga",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Romana", "Batavia", "Crespa"],
+    "plagas": [
+      {
+        "id_plaga": "P-031",
+        "nombre_especie_plaga": "Deroceras reticulatum",
+        "nombre_comun_plaga": "Babosa",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1622205313162-be1d5712a43f?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-017",
+    "nombre_especie": "Daucus carota",
+    "nombre_comun": "Zanahoria",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Nantes", "Imperator", "Chantenay"],
+    "plagas": [
+      {
+        "id_plaga": "P-032",
+        "nombre_especie_plaga": "Psila rosae",
+        "nombre_comun_plaga": "Mosca de la zanahoria",
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://images.unsplash.com/photo-1447175008436-054170c2e979?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-018",
+    "nombre_especie": "Cucumis sativus",
+    "nombre_comun": "Pepino",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1604977046806-87e9fb0f1658?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Marketmore", "Pepinillo", "Cohombro"],
+    "plagas": [
+      {
+        "id_plaga": "P-033",
+        "nombre_especie_plaga": "Tetranychus urticae",
+        "nombre_comun_plaga": "Araña roja",
+        "tipo_plaga": "Ácaro",
+        "imagen_plaga": "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1600&q=80"
+      }
+    ]
+  },
+
+  {
+    "id": "SP-019",
+    "nombre_especie": "Citrullus lanatus",
+    "nombre_comun": "Sandía",
+    "ciclo_cultivo": "Corto",
+    "imagen_especie_vegetal": "https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=1600&q=80",
+    "variedades": ["Crimson Sweet", "Sugar Baby", "Charleston Gray"],
+    "plagas": [
+      {
+        "id_plaga": "P-034",
+        "nombre_especie_plaga": "Podosphaera xanthii",
+        "nombre_comun_plaga": "Oídio",
+        "tipo_plaga": "Hongo",
+        "imagen_plaga": "https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=1600&q=80"
+      }
     ]
   }
 ]

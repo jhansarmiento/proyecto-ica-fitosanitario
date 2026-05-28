@@ -21,7 +21,8 @@ export const seedEspeciesVegetales = async () => {
                 },
                 defaults: {
                     nombre_comun: item.nombre_comun,
-                    ciclo_cultivo: item.ciclo_cultivo
+                    ciclo_cultivo: item.ciclo_cultivo,
+                    imagen_especie_vegetal: item.imagen_especie_vegetal ?? null,
                 },
                 transaction: t
             });
@@ -44,7 +45,9 @@ export const seedEspeciesVegetales = async () => {
                         nombre_cientifico: p.nombre_especie_plaga 
                     },
                     defaults: { 
-                        nombre_comun: p.nombre_comun_plaga 
+                        nombre_comun: p.nombre_comun_plaga,
+                        tipo_plaga: p.tipo_plaga ?? null,
+                        imagen_plaga: p.imagen_plaga ?? null,
                     },
                     transaction: t
                 });

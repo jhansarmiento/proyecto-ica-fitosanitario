@@ -35,7 +35,7 @@ export const seedAdmins = async () => {
                 numero_identificacion: '109283746',
                 nombre: 'Ricardo',
                 apellidos: 'Vargas',
-                correo_electronico: 'rvargas@ica.gov.co',
+                correo_electronico: 'vargas0799@gmail.com',
             },
         ];
 

@@ -22,6 +22,7 @@ import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
+import PasswordResetToken from './models/PasswordResetToken';
 import catalogModels from './catalogIndex';
 import authRoutes from './routes/auth.routes';
 import lugarProduccionRoutes from './routes/lugarProduccion.routes';
@@ -31,6 +32,7 @@ import rolesRoutes from './routes/rolesRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import especiesRoutes from './routes/especiesRoutes';
 import autorizacionesRoutes from './routes/autorizacionesRoutes';
+import catalogoRoutes from './routes/catalogo.routes';
 
 const models: any = {
     // Modelos de BD Operacional
@@ -43,7 +45,8 @@ const models: any = {
     Rol,
     Propietario,
     Predio,
-    SolicitudInspeccion
+    SolicitudInspeccion,
+    PasswordResetToken,
 }
 
 Object.values(models).forEach((model: any) => {
@@ -77,6 +80,14 @@ app.use('/api/roles', rolesRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/especies-vegetales', especiesRoutes);
 app.use('/api/autorizaciones-especie', autorizacionesRoutes);
+
+/**
+ * Módulo de catálogo para consumo del frontend de gestión de catálogos.
+ * Endpoints:
+ * - GET /api/catalogo/especies
+ * - GET /api/catalogo/plagas
+ */
+app.use('/api/catalogo', catalogoRoutes);
 
 const startServer = async () => {
   try {

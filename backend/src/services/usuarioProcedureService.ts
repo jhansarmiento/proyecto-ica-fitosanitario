@@ -4,64 +4,74 @@ import sequelize from '../config/database';
 /**
  * Tipos de datos usados por los procedimientos almacenados de usuario.
  */
-
+/**
+ * Datos de entrada para crear un usuario mediante un procedimiento almacenado.
+ *
+ * @typedef {Object} CreateUsuarioProcedureInput
+ * @property {string} numero_identificacion Documento de identificación del usuario.
+ * @property {string} nombre Nombre del usuario.
+ * @property {string} apellidos Apellidos del usuario.
+ * @property {string} [direccion] Dirección del usuario.
+ * @property {string} [telefono] Teléfono de contacto.
+ * @property {string} correo_electronico Correo electrónico del usuario.
+ * @property {string} ingreso_usuario Nombre de usuario para acceso.
+ * @property {string} ingreso_contrasena Contraseña para acceso.
+ * @property {string|null} [tarjeta_profesional] Tarjeta profesional si aplica.
+ * @property {string} id_rol Identificador del rol asignado.
+ */
 type CreateUsuarioProcedureInput = {
-  /** Número de identificación del usuario. */
   numero_identificacion: string;
-  /** Nombre del usuario. */
   nombre: string;
-  /** Apellidos del usuario. */
   apellidos: string;
-  /** Dirección opcional del usuario. */
   direccion?: string;
-  /** Teléfono opcional del usuario. */
   telefono?: string;
-  /** Correo electrónico obligatorio del usuario. */
   correo_electronico: string;
-  /** Nombre de usuario para el ingreso. */
   ingreso_usuario: string;
-  /** Contraseña para el ingreso. */
   ingreso_contrasena: string;
-  /** Tarjeta profesional, puede ser nula si no aplica. */
   tarjeta_profesional?: string | null;
-  /** Identificador del rol asignado al usuario. */
   id_rol: string;
 };
 
+/**
+ * Datos de entrada para actualizar un usuario mediante un procedimiento almacenado.
+ *
+ * @typedef {Object} UpdateUsuarioProcedureInput
+ * @property {string} id_usuario Identificador del usuario a actualizar.
+ * @property {string} [numero_identificacion] Documento de identificación.
+ * @property {string} [nombre] Nombre del usuario.
+ * @property {string} [apellidos] Apellidos del usuario.
+ * @property {string} [direccion] Dirección del usuario.
+ * @property {string} [telefono] Teléfono de contacto.
+ * @property {string} [correo_electronico] Correo electrónico del usuario.
+ * @property {string} [ingreso_usuario] Nombre de usuario para acceso.
+ * @property {string} [ingreso_contrasena] Contraseña para acceso.
+ * @property {string|null} [tarjeta_profesional] Tarjeta profesional si aplica.
+ * @property {string} [id_rol] Identificador del rol asignado.
+ */
 type UpdateUsuarioProcedureInput = {
-  /** Identificador único del usuario a actualizar. */
   id_usuario: string;
-  /** Número de identificación del usuario. */
   numero_identificacion?: string;
-  /** Nombre del usuario. */
   nombre?: string;
-  /** Apellidos del usuario. */
   apellidos?: string;
-  /** Dirección del usuario. */
   direccion?: string;
-  /** Teléfono del usuario. */
   telefono?: string;
-  /** Correo electrónico del usuario. */
   correo_electronico?: string;
-  /** Nombre de usuario para login. */
   ingreso_usuario?: string;
-  /** Contraseña para login. */
   ingreso_contrasena?: string;
-  /** Tarjeta profesional, puede ser nula si no aplica. */
   tarjeta_profesional?: string | null;
-  /** Identificador del rol asignado al usuario. */
   id_rol?: string;
 };
 
 /**
- * Crea un nuevo usuario usando el procedimiento almacenado `sp_crear_usuario`.
+ * Crea un usuario en la base de datos mediante el procedimiento almacenado
+ * `sp_crear_usuario`.
  *
- * @param input - Datos del nuevo usuario.
+ * @param {CreateUsuarioProcedureInput} input Datos del usuario a crear.
+ * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
  */
 export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInput): Promise<void> {
-  await sequelize.query(
-    `
-    CALL sp_crear_usuario(
+  const rows = await sequelize.query(
+    `CALL sp_crear_usuario(
       :numero_identificacion,
       :nombre,
       :apellidos,
@@ -72,35 +82,31 @@ export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInpu
       :ingreso_contrasena,
       :tarjeta_profesional,
       :id_rol
-    );
-    `,
+    );`,
     {
       replacements: {
-        numero_identificacion: input.numero_identificacion,
-        nombre: input.nombre,
-        apellidos: input.apellidos,
+        ...input,
         direccion: input.direccion ?? null,
         telefono: input.telefono ?? null,
-        correo_electronico: input.correo_electronico,
-        ingreso_usuario: input.ingreso_usuario,
-        ingreso_contrasena: input.ingreso_contrasena,
         tarjeta_profesional: input.tarjeta_profesional ?? null,
-        id_rol: input.id_rol,
       },
       type: QueryTypes.RAW,
     },
   );
+
+  void rows;
 }
 
 /**
- * Actualiza los datos de un usuario existente usando `sp_actualizar_usuario`.
+ * Actualiza un usuario existente mediante el procedimiento almacenado
+ * `sp_actualizar_usuario`.
  *
- * @param input - Datos del usuario a actualizar.
+ * @param {UpdateUsuarioProcedureInput} input Campos del usuario a actualizar.
+ * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
  */
 export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInput): Promise<void> {
-  await sequelize.query(
-    `
-    CALL sp_actualizar_usuario(
+  const rows = await sequelize.query(
+    `CALL sp_actualizar_usuario(
       :id_usuario,
       :numero_identificacion,
       :nombre,
@@ -112,11 +118,10 @@ export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInpu
       :ingreso_contrasena,
       :tarjeta_profesional,
       :id_rol
-    );
-    `,
+    );`,
     {
       replacements: {
-        id_usuario: input.id_usuario,
+        ...input,
         numero_identificacion: input.numero_identificacion ?? null,
         nombre: input.nombre ?? null,
         apellidos: input.apellidos ?? null,
@@ -131,21 +136,21 @@ export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInpu
       type: QueryTypes.RAW,
     },
   );
+
+  void rows;
 }
 
 /**
- * Elimina un usuario existente usando `sp_eliminar_usuario`.
+ * Elimina un usuario mediante el procedimiento almacenado `sp_eliminar_usuario`.
  *
- * @param idUsuario - Identificador del usuario a eliminar.
+ * @param {string} idUsuario Identificador del usuario a eliminar.
+ * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
  */
 export async function deleteUsuarioByProcedure(idUsuario: string): Promise<void> {
-  await sequelize.query(
-    `
-    CALL sp_eliminar_usuario(:id_usuario);
-    `,
-    {
-      replacements: { id_usuario: idUsuario },
-      type: QueryTypes.RAW,
-    },
-  );
+  const rows = await sequelize.query(`CALL sp_eliminar_usuario(:id_usuario);`, {
+    replacements: { id_usuario: idUsuario },
+    type: QueryTypes.RAW,
+  });
+
+  void rows;
 }

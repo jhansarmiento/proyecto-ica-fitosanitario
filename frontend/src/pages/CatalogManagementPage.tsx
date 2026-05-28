@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, Bug, Leaf, Search, Sprout, X } from 'lucide-react';
 import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../App';
+import { getCatalogPests, getCatalogSpecies, type CatalogPestApiItem, type CatalogSpeciesApiItem } from '../services/catalogo.api';
 
 type Props = {
   sessionUser?: SessionUser;
@@ -18,51 +19,14 @@ type Props = {
 
 
 /**
- * Referencia a una plaga fitosanitaria utilizada en entradas de especies.
- */
-type PestRef = {
-  id_plaga: string;
-  nombre_comun: string;
-  nombre_cientifico: string;
-};
-
-/**
  * Representa una entrada del catálogo de especies vegetales con variedades y plagas asociadas.
  */
-type SpeciesItem = {
-  id: string;
-  nombreComun: string;
-  nombreCientifico: string;
-  ciclo: 'Corto' | 'Medio' | 'Largo';
-  variedades: string[];
-  plagas: PestRef[];
-  imagen: string;
-};
+type SpeciesItem = CatalogSpeciesApiItem;
 
 /**
  * Representa una entrada del catálogo de plagas con las especies afectadas.
  */
-type PestItem = {
-  id_plaga: string;
-  nombre_comun: string;
-  nombre_cientifico: string;
-  tipo_plaga: 'Insecto' | 'Hongo' | 'Bacteria';
-  especiesAfectadas: string[];
-  imagen_plaga: string;
-};
-
-const speciesSeed: SpeciesItem[] = [
-
-  { id: 'SP-001', nombreComun: 'Aguacate', nombreCientifico: 'Persea americana', ciclo: 'Largo', variedades: ['Hass', 'Lorena', 'Papelillo'], imagen: 'https://images.unsplash.com/photo-1601039641847-7857b994d704?auto=format&fit=crop&w=1600&q=80', plagas: [{ id_plaga: 'P-001', nombre_comun: 'Mosca de la fruta', nombre_cientifico: 'Anastrepha spp.'}, { id_plaga: 'P-002', nombre_comun: 'Trips', nombre_cientifico: 'Frankliniella occidentalis'}] },
-  { id: 'SP-002', nombreComun: 'Café', nombreCientifico: 'Coffea arabica', ciclo: 'Largo', variedades: ['Castillo', 'Caturra', 'Colombia'], imagen: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id_plaga: 'P-003', nombre_comun: 'Broca del café', nombre_cientifico: 'Hypothenemus hampei' }, { id_plaga: 'P-004', nombre_comun: 'Roya', nombre_cientifico: 'Hemileia vastatrix' }] },
-  { id: 'SP-003', nombreComun: 'Plátano', nombreCientifico: 'Musa paradisiaca', ciclo: 'Medio', variedades: ['Hartón', 'Dominico', 'FHIA-21'], imagen: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1600&q=80', plagas: [{ id_plaga: 'P-005', nombre_comun: 'Sigatoka negra', nombre_cientifico: 'Mycosphaerella fijiensis' }] },
-];
-
-const pestsSeed: PestItem[] = [
-  { id_plaga: 'P-001', nombre_comun: 'Mosca de la fruta', nombre_cientifico: 'Anastrepha spp.', tipo_plaga: 'Insecto', especiesAfectadas: ['Aguacate', 'Mango', 'Guayaba'], imagen_plaga: 'https://unsplash.com/es/fotos/un-insecto-en-una-hoja-X9wvzGcVs54' },
-  { id_plaga: 'P-002', nombre_comun: 'Trips', nombre_cientifico: 'Frankliniella occidentalis', tipo_plaga: 'Insecto', especiesAfectadas: ['Aguacate', 'Pimentón', 'Tomate'], imagen_plaga: 'https://images.unsplash.com/photo-1583496661160-fb5886a13d77?auto=format&fit=crop&w=1600&q=80' },
-  { id_plaga: 'P-004', nombre_comun: 'Roya', nombre_cientifico: 'Hemileia vastatrix', tipo_plaga: 'Hongo', especiesAfectadas: ['Café'], imagen_plaga: 'https://images.unsplash.com/photo-1566404883711-0d8032d13228?auto=format&fit=crop&w=1600&q=80' },
-];
+type PestItem = CatalogPestApiItem;
 
 /**
  * Tarjeta pequeña de KPI usada en la sección de resumen del catálogo.
@@ -116,14 +80,64 @@ export default function CatalogManagementPage({
   const [q, setQ] = useState('');
   const [sp, setSp] = useState<SpeciesItem | null>(null);
   const [pt, setPt] = useState<PestItem | null>(null);
+  const [species, setSpecies] = useState<SpeciesItem[]>([]);
+  const [pests, setPests] = useState<PestItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
-  const fSp = useMemo(() => !q.trim() ? speciesSeed : speciesSeed.filter(i => [i.nombreComun, i.nombreCientifico, ...i.variedades].join(' ').toLowerCase().includes(q.toLowerCase())), [q]);
-  const fPt = useMemo(() => !q.trim() ? pestsSeed : pestsSeed.filter(i => [i.nombre_comun, i.nombre_cientifico, ...i.especiesAfectadas].join(' ').toLowerCase().includes(q.toLowerCase())), [q]);
+  const fSp = useMemo(
+    () =>
+      !q.trim()
+        ? species
+        : species.filter((i) =>
+            [i.nombreComun, i.nombreCientifico, ...i.variedades].join(' ').toLowerCase().includes(q.toLowerCase()),
+          ),
+    [q, species],
+  );
+  const fPt = useMemo(
+    () =>
+      !q.trim()
+        ? pests
+        : pests.filter((i) =>
+            [i.nombre_comun, i.nombre_cientifico, ...i.especiesAfectadas].join(' ').toLowerCase().includes(q.toLowerCase()),
+          ),
+    [q, pests],
+  );
 
   useEffect(() => {
     const h = (e: KeyboardEvent) => e.key === 'Escape' && (setSp(null), setPt(null));
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
+  }, []);
+
+  /**
+   * Carga inicial de catálogo desde backend (BD real).
+   */
+  useEffect(() => {
+    let mounted = true;
+
+    const loadCatalog = async () => {
+      try {
+        setLoading(true);
+        setError('');
+        const [speciesData, pestsData] = await Promise.all([getCatalogSpecies(), getCatalogPests()]);
+        if (!mounted) return;
+        setSpecies(speciesData);
+        setPests(pestsData);
+      } catch (err) {
+        console.error('Error cargando catálogo:', err);
+        if (!mounted) return;
+        setError('No fue posible cargar datos de catálogo desde la base de datos.');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+
+    loadCatalog();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const nav = (v: DashboardViewKey) => { if (v === 'home') onGoHome?.(); if (v === 'users') onGoUsers?.(); if (v === 'roles') onGoRoles?.(); if (v === 'agricultural') onGoAgricultural?.(); if (v === 'approval-places') onGoApprovalPlaces?.(); if (v === 'inspections-agenda') onGoInspectionsAgenda?.(); if (v === 'inspections-history') onGoInspectionsHistory?.(); if (v === 'reports') onGoReports?.(); };
@@ -135,19 +149,19 @@ export default function CatalogManagementPage({
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           <Kpi
           t={tab === 'species' ? 'Especies registradas' : 'Plagas registradas'}
-          v={tab === 'species' ? speciesSeed.length : pestsSeed.length}
+          v={tab === 'species' ? species.length : pests.length}
           s={tab === 'species' ? 'Base taxonómica activa' : 'Vigilancia fitosanitaria activa'}
           i={tab === 'species' ? <Sprout size={20} /> : <Bug size={20} />}
         />
         <Kpi
           t={tab === 'species' ? 'Variedades asociadas' : 'Especies afectadas'}
-          v={tab === 'species' ? speciesSeed.reduce((a, i) => a + i.variedades.length, 0) : pestsSeed.reduce((a, i) => a + i.especiesAfectadas.length, 0)}
+          v={tab === 'species' ? species.reduce((a, i) => a + i.variedades.length, 0) : pests.reduce((a, i) => a + i.especiesAfectadas.length, 0)}
           s="Indicadores técnicos"
           i={<Leaf size={20} />}
         />
         <Kpi
           t={tab === 'species' ? 'Plagas asociadas' : 'Especies asociadas'}
-          v={tab === 'species' ? speciesSeed.reduce((a, i) => a + i.plagas.length, 0) : pestsSeed.reduce((a, i) => a + i.especiesAfectadas.length, 0)}
+          v={tab === 'species' ? species.reduce((a, i) => a + i.plagas.length, 0) : pests.reduce((a, i) => a + i.especiesAfectadas.length, 0)}
           s="Indicadores técnicos"
           i={<Leaf size={20} />}
         />
@@ -169,7 +183,11 @@ export default function CatalogManagementPage({
             <div className="mb-4 w-full max-w-3xl rounded-xl border border-white/70 bg-white/75 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,.95),0_10px_25px_rgba(15,23,42,.06)] backdrop-blur">
               <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2.5"><Search size={16} className="text-slate-400" /><input value={q} onChange={(e) => setQ(e.target.value)} placeholder={tab === 'species' ? 'Buscar por especie o variedad...' : 'Buscar por plaga ...'} className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400" /></div>
             </div>
-            {tab === 'species' ? (
+            {loading ? (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">Cargando catálogo...</div>
+            ) : error ? (
+              <div className="rounded-xl border border-rose-200 bg-rose-50 p-6 text-sm text-rose-700">{error}</div>
+            ) : tab === 'species' ? (
               <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
 
                 <div className="overflow-x-auto">
@@ -445,7 +463,7 @@ export default function CatalogManagementPage({
                             <p className="text-sm font-semibold text-slate-900">{p.nombre_comun}</p>
                             <p className="text-xs italic text-slate-500">{p.nombre_cientifico}</p>
                           </div>
-                          <button onClick={() => { const f = pestsSeed.find((x) => x.id_plaga === p.id_plaga); if (f) setPt(f); }} className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">Ver detalle <ArrowUpRight size={12} /></button>
+                          <button onClick={() => { const f = pests.find((x) => x.id_plaga === p.id_plaga); if (f) setPt(f); }} className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">Ver detalle <ArrowUpRight size={12} /></button>
                         </div>
                       </div>
                     ))}

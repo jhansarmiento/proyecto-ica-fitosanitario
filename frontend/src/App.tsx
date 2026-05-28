@@ -1,3 +1,12 @@
+/**
+ * Componente principal de la aplicación.
+ *
+ * Este componente actúa como el contenedor raíz de la SPA y maneja la
+ * navegación interna sin usar React Router. Controla las vistas de:
+ * login, registro, administración, catálogos, inspecciones y reportes.
+ *
+ * @module App
+ */
 import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
@@ -14,6 +23,7 @@ import InspectionHistoryPage from './pages/InspectionHistoryPage';
 import InspectionProcessPage from './pages/InspectionProcessPage';
 import CatalogManagementPage from './pages/CatalogManagementPage';
 import ReportsPage from './pages/ReportsPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 type View =
   | 'login'
@@ -31,6 +41,15 @@ type View =
   | 'inspection-process'
   | 'reports';
 
+/**
+ * Usuario autenticado en la sesión.
+ *
+ * @typedef {Object} SessionUser
+ * @property {string} id Identificador del usuario.
+ * @property {string} nombre Nombre del usuario.
+ * @property {string} apellidos Apellidos del usuario.
+ * @property {string} rol Rol asignado al usuario.
+ */
 export type SessionUser = {
   id: string;
   nombre: string;
@@ -38,8 +57,19 @@ export type SessionUser = {
   rol: string;
 };
 
+/**
+ * Componente raíz de la aplicación.
+ *
+ * Determina la vista inicial según la ruta y el estado de autenticación,
+ * carga el usuario de sesión desde localStorage y delega la renderización
+ * de las páginas hijas mediante callbacks de navegación.
+ *
+ * @returns {JSX.Element} Página actual de la aplicación.
+ */
 function App() {
   const [view, setView] = useState<View>(() => {
+    const path = window.location.pathname;
+    if (path === '/reset-password') return 'login';
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     return isAuthenticated ? 'home' : 'login';
   });
@@ -69,6 +99,10 @@ function App() {
     setSelectedSite(null);
     setView('login');
   };
+
+  if (window.location.pathname === '/reset-password') {
+    return <ResetPasswordPage />;
+  }
 
   let page: React.ReactNode;
 
