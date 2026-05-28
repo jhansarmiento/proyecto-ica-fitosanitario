@@ -4,7 +4,7 @@ import sequelize from '../config/database';
 class Predio extends Model {
     public id_predio!: string;
     public numero_predial!: string;
-    public numero_registro_ica!: string;
+    public numero_registro_ica?: string;
     public nombre_predio!: string;
     public direccion!: string;
     public latitud?: number;
@@ -13,7 +13,6 @@ class Predio extends Model {
     public id_vereda!: string; // Vereda traída desde la BD Catalógo
     public id_lugar_produccion?: string; // Clave foránea para el Lugar de Producción
     public id_propietario!: string; // Clave foránea para el Propietario (Usuario)
-    public numero_identificacion_productor?: string;
 
     static associate(models: any) {
         // Un Predio pertenece a un Propietario
@@ -48,7 +47,7 @@ Predio.init(
         },
         numero_registro_ica: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true,    
         },
         nombre_predio: {

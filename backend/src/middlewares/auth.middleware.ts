@@ -11,7 +11,7 @@ export const validarJWT = (req: AuthenticatedRequest, res: Response, next: NextF
         return;
     }
 
-    // Obtenemos el token
+    // Obtenemos el token, El formato es "Bearer {TOKEN}", nos quedamos solo con el token
     const token = authHeader.split(' ')[1];
 
     try {

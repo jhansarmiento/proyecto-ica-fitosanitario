@@ -2,6 +2,9 @@
 import { Response } from 'express';
 import sequelize from '../config/database';
 import models from '../index';
+import catalogmodels from '../catalogIndex'; 
+import Predio from '../models/Predio';
+import type { IVeredaGeografica } from '../types/infoGeo.interface';
 import { AuthenticatedRequest } from '../types/usuario.types';
 
 // ─── 1. ENDPOINT PARA CREAR LUGAR DE PRODUCCIÓN (POST) ────────────────────────
@@ -10,7 +13,7 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
     const t = await sequelize.transaction();
 
     try {
-        const { nombre_lugar_produccion, numero_registro_ica, predios_ids, especies } = req.body;
+        const { nombre_lugar_produccion, predios_ids, especies } = req.body;
         const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
 
         // Regla de negocio pre-condición: Debe tener al menos un predio asociado
@@ -19,9 +22,49 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
             return;
         }
 
+
+        // ─── VALIDACIÓN DE CONTIGÜIDAD (MISMO DEPARTAMENTO) ───────────────────
+        // 1. Buscamos los predios seleccionados en la BD Operacional para obtener sus id_vereda
+        const prediosBase = await Predio.findAll({
+            where: { id_predio: predios_ids }
+        });
+
+        const idVeredas = prediosBase.map(p => p.id_vereda)
+
+        // 2. Consultamos el árbol geográfico en la BD de Catálogos
+        const veredasGeograficas = await catalogmodels.Vereda.findAll({
+            where: { id_vereda: idVeredas},
+            include: [
+                {
+                    model: catalogmodels.Municipio,
+                    as: 'municipio',
+                    include: [{
+                        model: catalogmodels.Departamento,
+                        as: 'departamento',
+                    }]
+                }
+            ]
+        }) as unknown as IVeredaGeografica[];
+
+        // 3. Extraemos los IDs de los departamentos a los que pertenecen las veredas
+        const departamentosIds = veredasGeograficas
+            .map(v => v.municipio?.departamento?.id_departamento)
+            .filter(Boolean)
+
+        // Usamos un Set para eliminar duplicados. Si el tamaño es mayor a 1, significa que hay más de un departamento.
+        const departamentosUnicos = [...new Set(departamentosIds)];
+
+        if (departamentosUnicos.length > 1) {
+            // Cancelamos el flujo antes de tocar la base de datos
+            res.status(400).json({ 
+                message: 'Criterio de aceptación ICA rechazado: Todos los predios asociados deben pertenecer al mismo departamento para garantizar la contigüidad.' 
+            });
+            return;
+        }
+
         // Generamos un Radicado Único Temporal (Ej: RAD-83726-2026)
         const anioActual = new Date().getFullYear();
-        const numeroRadicadoProvisional = `RAD-${Math.floor(10000 + Math.random() * 90000)}-${anioActual}`;
+        const numeroRadicadoProvisional = `ICA-LP-${Math.floor(10000 + Math.random() * 90000)}-${anioActual}`;
 
         // 1. Crear el Lugar de Producción con su radicado provisional y estado pendiente
         const nuevoLugar = await models.LugarProduccion.create({
@@ -55,9 +98,11 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
         // Si todo el circuito se ejecutó sin errores, consolidamos los datos permanentemente
         await t.commit();
 
+        // Devolvemos una respuesta exitosa con el número de radicado provisional para seguimiento
         res.status(201).json({
             message: 'Solicitud de lugar de producción creada con éxito y enviada a revisión ICA.',
-            id_lugar_produccion: nuevoLugar.id_lugar_produccion
+            id_lugar_produccion: nuevoLugar.id_lugar_produccion,
+            radicado_provisional: numeroRadicadoProvisional
         });
 
     } catch (error) {

@@ -44,9 +44,9 @@ export const obtenerPrediosDisponibles = async (req: Request, res: Response): Pr
             
             return {
                 ...p.toJSON(),
-                vereda: infoGeo?.nombre_vereda || infoGeo?.nombre || 'N/D',
-                municipio: infoGeo?.municipio?.nombre_municipio || infoGeo?.municipio?.nombre || 'N/D',
-                departamento: infoGeo?.municipio?.departamento?.nombre_departamento || infoGeo?.municipio?.departamento?.nombre || 'N/D'
+                vereda: infoGeo?.nombre_vereda || 'N/D',
+                municipio: infoGeo?.municipio?.nombre_municipio || 'N/D',
+                departamento: infoGeo?.municipio?.departamento?.nombre_departamento || 'N/D'
             };
         });
 

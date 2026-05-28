@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
-import './catalogIndex';
+
+// Seeders
 import { seedGeoData } from './seeders/geoSeeder'; // Función para inyectar datos geográficos
 import { seedEspeciesVegetales } from './seeders/especieSeeder'; // Función para inyectar datos de especies vegetales
 import { seedRoles } from './seeders/rolSeeder'; // Función para inyectar roles
@@ -22,7 +23,12 @@ import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
+
+// Modelos de BD Catalogo
+import './catalogIndex';
 import catalogModels from './catalogIndex';
+
+// Rutas
 import authRoutes from './routes/auth.routes';
 import lugarProduccionRoutes from './routes/lugarProduccion.routes';
 import predioRoutes from './routes/predio.routes';
@@ -69,6 +75,7 @@ app.get('/api/health', (_req, res) => {
   res.status(200).json({ ok: true, message: 'Backend activo' });
 });
 
+// Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/lugares-produccion', lugarProduccionRoutes);
 app.use('/api/predios', predioRoutes);
@@ -79,8 +86,6 @@ app.use('/api/lotes', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 app.use('/api/especies-vegetales', especieRoutes);
 //app.use('/api/roles', rolesRoutes);
-// app.use('/api/usuarios', usuariosRoutes);
-// app.use('/api/roles', rolesRoutes);
 // app.use('/api/usuarios', usuariosRoutes);
 
 const startServer = async () => {
@@ -101,7 +106,7 @@ const startServer = async () => {
     await sequelizeCatalog.sync({ force: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
 
-    // Inyectar roles y usuarios
+    // Inyectar roles, usuarios, predios, propietarios y geografía
     await seedRoles();
     await seedAdmins();
     await seedAsistentes();

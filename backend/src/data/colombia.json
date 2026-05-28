@@ -6,27 +6,37 @@
       {
         "nombre": "Bucaramanga",
         "codigo_mun": "68001",
-        "veredas": ["El Solar", "La Malaña", "Santa Rita", "San José", "Retiro Chiquito"]
+        "veredas": ["El Solar", "La Malaña", "Santa Rita", "San José", "Retiro Chiquito", "El Cucharo", "La Pedregosa"]
       },
       {
         "nombre": "Floridablanca",
         "codigo_mun": "68276",
-        "veredas": ["Casiano", "Helechales", "Ruperto", "Vericute", "La Hormiga"]
+        "veredas": ["Casiano", "Helechales", "Ruperto", "Vericute", "La Hormiga", "El Tambo", "Montebello"]
       },
       {
         "nombre": "Girón",
         "codigo_mun": "68307",
-        "veredas": ["Acacias", "Bocas", "Carrizal", "Chocoita", "El Recreo"]
+        "veredas": ["Acacias", "Bocas", "Carrizal", "Chocoita", "El Recreo", "Rionegro", "El Guamo"]
       },
       {
         "nombre": "Piedecuesta",
         "codigo_mun": "68547",
-        "veredas": ["Sevilla", "Pajonal", "Planadas", "Mensulí", "Cristales"]
+        "veredas": ["Sevilla", "Pajonal", "Planadas", "Mensulí", "Cristales", "La Cumbre", "El Salado"]
       },
       {
         "nombre": "San Gil",
         "codigo_mun": "68679",
-        "veredas": ["Ojo de Agua", "Jarardita", "La Laja", "Monas", "Versalles"]
+        "veredas": ["Ojo de Agua", "Jarardita", "La Laja", "Monas", "Versalles", "El Carmen", "San Rafael"]
+      },
+      {
+        "nombre": "Barrancabermeja",
+        "codigo_mun": "68081",
+        "veredas": ["La Fortuna", "El Centro", "San Silvestre", "La Esperanza", "Campo Alegre", "El Paraíso", "Morro Hermoso"]
+      },
+      {
+        "nombre": "Socorro",
+        "codigo_mun": "68601",
+        "veredas": ["La Sabana", "El Roble", "Chaguacá", "La Capilla", "El Calvario", "San Antonio", "El Paraíso"]
       }
     ]
   },
@@ -37,27 +47,37 @@
       {
         "nombre": "Medellín",
         "codigo_mun": "05001",
-        "veredas": ["San Cristóbal", "Santa Elena", "Altavista", "San Antonio de Prado", "Palmitas"]
+        "veredas": ["San Cristóbal", "Santa Elena", "Altavista", "San Antonio de Prado", "Palmitas", "El Cerro", "La Honda"]
       },
       {
         "nombre": "Envigado",
         "codigo_mun": "05266",
-        "veredas": ["Las Palmas", "El Vallano", "Perico", "Pantanillo", "Santa Catalina"]
+        "veredas": ["Las Palmas", "El Vallano", "Perico", "Pantanillo", "Santa Catalina", "El Chuscal", "La Soledad"]
       },
       {
         "nombre": "Rionegro",
         "codigo_mun": "05615",
-        "veredas": ["Llanogrande", "Abreo", "Cuchillas", "Cabeceras", "Higuerón"]
+        "veredas": ["Llanogrande", "Abreo", "Cuchillas", "Cabeceras", "Higuerón", "El Porvenir", "San Antonio"]
       },
       {
         "nombre": "Itagüí",
         "codigo_mun": "05360",
-        "veredas": ["La María", "Los Gómez", "El Ajizal", "El Porvenir", "Los Olivares"]
+        "veredas": ["La María", "Los Gómez", "El Ajizal", "El Porvenir", "Los Olivares", "La Tablaza", "El Tablón"]
       },
       {
         "nombre": "Bello",
         "codigo_mun": "05088",
-        "veredas": ["San Félix", "La Unión", "Tierradentro", "Hato Viejo", "Potrerito"]
+        "veredas": ["San Félix", "La Unión", "Tierradentro", "Hato Viejo", "Potrerito", "El Salado", "La Pintada"]
+      },
+      {
+        "nombre": "Caldas",
+        "codigo_mun": "05129",
+        "veredas": ["La Inmaculada", "El Chumbimbe", "San Andrés", "La Clara", "El Roble", "El Salto", "La Ceja"]
+      },
+      {
+        "nombre": "Copacabana",
+        "codigo_mun": "05212",
+        "veredas": ["El Cabuyal", "La Unión", "El Diamante", "San José", "La Florida", "El Rosario", "El Piñal"]
       }
     ]
   },
@@ -68,27 +88,37 @@
       {
         "nombre": "Zipaquirá",
         "codigo_mun": "25899",
-        "veredas": ["El Abra", "Barandillas", "Río Frío", "San Jorge", "Venta Larga"]
+        "veredas": ["El Abra", "Barandillas", "Río Frío", "San Jorge", "Venta Larga", "El Batán", "Canica"]
       },
       {
         "nombre": "Facatativá",
         "codigo_mun": "25269",
-        "veredas": ["Prado", "Pueblo Viejo", "Mancilla", "La Selva", "Los Olivos"]
+        "veredas": ["Prado", "Pueblo Viejo", "Mancilla", "La Selva", "Los Olivos", "El Vino", "San José"]
       },
       {
         "nombre": "Chía",
         "codigo_mun": "25175",
-        "veredas": ["Bojacá", "Fagua", "Tíquiza", "Cerca de Piedra", "Fonquetá"]
+        "veredas": ["Bojacá", "Fagua", "Tíquiza", "Cerca de Piedra", "Fonquetá", "El Rosal", "La Balsa"]
       },
       {
         "nombre": "Fusagasugá",
         "codigo_mun": "25290",
-        "veredas": ["Chinauta", "Bermejal", "Piamonte", "La Aguadita", "Espinalito"]
+        "veredas": ["Chinauta", "Bermejal", "Piamonte", "La Aguadita", "Espinalito", "El Triunfo", "San Rafael"]
       },
       {
         "nombre": "Soacha",
         "codigo_mun": "25754",
-        "veredas": ["Bosatama", "Cascajal", "Alto de la Cruz", "Panamá", "Villanueva"]
+        "veredas": ["Bosatama", "Cascajal", "Alto de la Cruz", "Panamá", "Villanueva", "El Vínculo", "La Isla"]
+      },
+      {
+        "nombre": "Madrid",
+        "codigo_mun": "25430",
+        "veredas": ["La Esperanza", "El Porvenir", "San Jorge", "El Estanque", "La Florida", "El Volador", "El Pantano"]
+      },
+      {
+        "nombre": "Cajicá",
+        "codigo_mun": "25126",
+        "veredas": ["La Cabaña", "Tibito", "El Callejón", "San Francisco", "El Rosalito", "La Punta", "Los Arrayanes"]
       }
     ]
   },
@@ -99,27 +129,37 @@
       {
         "nombre": "Cali",
         "codigo_mun": "76001",
-        "veredas": ["Pance", "La Leonera", "Felidia", "Pichindé", "Villacarmelo"]
+        "veredas": ["Pance", "La Leonera", "Felidia", "Pichindé", "Villacarmelo", "El Saladito", "La Elvira"]
       },
       {
         "nombre": "Palmira",
         "codigo_mun": "76520",
-        "veredas": ["Rozo", "La Buitrera", "Tienda Nueva", "Tuluá", "La Zapata"]
+        "veredas": ["Rozo", "La Buitrera", "Tienda Nueva", "Tuluá", "La Zapata", "El Placer", "La Trocha"]
       },
       {
         "nombre": "Buga",
         "codigo_mun": "76111",
-        "veredas": ["La Habana", "Alaska", "El Vínculo", "Monterrey", "Quebrada Seca"]
+        "veredas": ["La Habana", "Alaska", "El Vínculo", "Monterrey", "Quebrada Seca", "El Llano", "San Joaquín"]
       },
       {
         "nombre": "Tulua",
         "codigo_mun": "76834",
-        "veredas": ["La Marina", "Barragán", "Santa Lucía", "Monteloro", "Venus"]
+        "veredas": ["La Marina", "Barragán", "Santa Lucía", "Monteloro", "Venus", "El Aguacate", "La Paila"]
       },
       {
         "nombre": "Cartago",
         "codigo_mun": "76147",
-        "veredas": ["Cauca", "Modín", "Coloradas", "Piedra de Moler", "Santa Ana"]
+        "veredas": ["Cauca", "Modín", "Coloradas", "Piedra de Moler", "Santa Ana", "El Caimo", "La Isabela"]
+      },
+      {
+        "nombre": "Buenaventura",
+        "codigo_mun": "76109",
+        "veredas": ["Pianguita", "San Cipriano", "La Barra", "Anchicayá", "El Cucho", "Sabales", "El Naranjo"]
+      },
+      {
+        "nombre": "Jamundí",
+        "codigo_mun": "76364",
+        "veredas": ["El Placer", "San Antonio", "La Troja", "El Limón", "Villa Paz", "La Rivera", "Potrerito"]
       }
     ]
   },
@@ -130,27 +170,160 @@
       {
         "nombre": "Barranquilla",
         "codigo_mun": "08001",
-        "veredas": ["Juan Mina", "La Playa", "Las Flores", "Palmarito", "El Morro"]
+        "veredas": ["Juan Mina", "La Playa", "Las Flores", "Palmarito", "El Morro", "Puerto Giraldo", "El Santuario"]
       },
       {
         "nombre": "Soledad",
         "codigo_mun": "08758",
-        "veredas": ["Cabica", "El Oasis", "La Central", "Hacienda El Oasis", "Isla de Cabica"]
+        "veredas": ["Cabica", "El Oasis", "La Central", "Hacienda El Oasis", "Isla de Cabica", "La Esperanza", "El Poblado"]
       },
       {
         "nombre": "Malambo",
         "codigo_mun": "08433",
-        "veredas": ["La Aguada", "El Espinal", "Caracolí", "Caimital", "Juan de Acosta"]
+        "veredas": ["La Aguada", "El Espinal", "Caracolí", "Caimital", "Juan de Acosta", "El Bejuco", "Las Mercedes"]
       },
       {
         "nombre": "Puerto Colombia",
         "codigo_mun": "08573",
-        "veredas": ["Sabanilla", "Salgar", "El Castillo", "Lagos de Caujaral", "Punta Roca"]
+        "veredas": ["Sabanilla", "Salgar", "El Castillo", "Lagos de Caujaral", "Punta Roca", "El Coral", "Playa Mendoza"]
       },
       {
         "nombre": "Baranoa",
         "codigo_mun": "08078",
-        "veredas": ["Pital de Megua", "Sibarco", "Campeche", "La Esperanza", "El Desorden"]
+        "veredas": ["Pital de Megua", "Sibarco", "Campeche", "La Esperanza", "El Desorden", "El Silencio", "La Concha"]
+      },
+      {
+        "nombre": "Sabanalarga",
+        "codigo_mun": "08638",
+        "veredas": ["Agua Fría", "El Palmar", "La Ceiba", "El Retiro", "San José", "El Carmen", "Las Piedras"]
+      },
+      {
+        "nombre": "Campo de la Cruz",
+        "codigo_mun": "08137",
+        "veredas": ["El Limón", "La Peña", "San Pablo", "El Jobo", "La Florida", "El Recreo", "El Tamarindo"]
+      }
+    ]
+  },
+  {
+    "departamento": "Boyacá",
+    "codigo_dep": "15",
+    "municipios": [
+      {
+        "nombre": "Tunja",
+        "codigo_mun": "15001",
+        "veredas": ["Soracá", "Chiriví", "La Esperanza", "El Rosal", "Tibasosa", "Samacá", "Ventaquemada"]
+      },
+      {
+        "nombre": "Duitama",
+        "codigo_mun": "15212",
+        "veredas": ["La Balsa", "El Cocuy", "San Antonio", "El Porvenir", "Tibasosa Alto", "La Pradera", "El Valle"]
+      },
+      {
+        "nombre": "Sogamoso",
+        "codigo_mun": "15667",
+        "veredas": ["Tópaga", "Mongua", "Nobsa", "Firavitoba", "Pesca", "Cuitiva", "Iza"]
+      },
+      {
+        "nombre": "Chiquinquirá",
+        "codigo_mun": "15176",
+        "veredas": ["San José", "El Arenal", "La Cumbre", "El Roble", "Paz de Río", "San Miguel", "El Carmen"]
+      },
+      {
+        "nombre": "Paipa",
+        "codigo_mun": "15518",
+        "veredas": ["Las Piedras", "Sotaquirá", "Tuta", "Sáchica", "Toca", "Oicatá", "Combita"]
+      },
+      {
+        "nombre": "Villa de Leyva",
+        "codigo_mun": "15407",
+        "veredas": ["Santa Sofía", "Sutamarchán", "Ráquira", "Tinjacá", "Úmbita", "Gachantivá", "Arcabuco"]
+      },
+      {
+        "nombre": "Samacá",
+        "codigo_mun": "15646",
+        "veredas": ["Ventaquemada", "Cajicá", "Tuta Alto", "El Hatillo", "La Pradera", "San Benito", "El Mirador"]
+      }
+    ]
+  },
+  {
+    "departamento": "Bolívar",
+    "codigo_dep": "13",
+    "municipios": [
+      {
+        "nombre": "Cartagena",
+        "codigo_mun": "13001",
+        "veredas": ["Bayunca", "Puerto Badel", "Punta Canoa", "Santa Rosa", "Turbaco", "Tierra Baja", "Pasacaballos"]
+      },
+      {
+        "nombre": "Magangué",
+        "codigo_mun": "13430",
+        "veredas": ["El Retiro", "La Peña", "San Sebastián", "El Carmen", "La Esperanza", "El Guamo", "Bocas del Rosario"]
+      },
+      {
+        "nombre": "Turbaco",
+        "codigo_mun": "13838",
+        "veredas": ["El Pueblito", "La Cordialidad", "Arjona", "Clemencia", "Santa Catalina", "Mahates", "El Viso"]
+      },
+      {
+        "nombre": "El Carmen de Bolívar",
+        "codigo_mun": "13244",
+        "veredas": ["San Benito", "La Matanza", "El Hobo", "San Jacinto", "María La Baja", "San Juan Nepomuceno", "El Guamo"]
+      },
+      {
+        "nombre": "Mompós",
+        "codigo_mun": "13490",
+        "veredas": ["Pinillos", "Talaigua", "Guaranda", "Margarita", "Hatillo de Loba", "San Fernando", "Chimichagua"]
+      },
+      {
+        "nombre": "Arjona",
+        "codigo_mun": "13052",
+        "veredas": ["La Concepción", "El Cedro", "San Pablo", "Santa Isabel", "El Olivo", "El Limón", "Las Mercedes"]
+      },
+      {
+        "nombre": "Mahates",
+        "codigo_mun": "13442",
+        "veredas": ["San Francisco", "Santa Lucía", "Soplaviento", "San Estanislao", "Calamar", "Santa Rosa", "El Viso"]
+      }
+    ]
+  },
+  {
+    "departamento": "Magdalena",
+    "codigo_dep": "47",
+    "municipios": [
+      {
+        "nombre": "Santa Marta",
+        "codigo_mun": "47001",
+        "veredas": ["Minca", "Bonda", "Machete", "Taganga", "Ciénaga", "Aracataca", "Fundación"]
+      },
+      {
+        "nombre": "Ciénaga",
+        "codigo_mun": "47170",
+        "veredas": ["Orihueca", "El Copey", "La Florida", "San Ángel", "Pivijay", "Zona Bananera", "Sitionuevo"]
+      },
+      {
+        "nombre": "El Banco",
+        "codigo_mun": "47245",
+        "veredas": ["Guamal", "Pijiño", "San Zenón", "Pinto", "Nueva Granada", "Sabanas de San Ángel", "Concordia"]
+      },
+      {
+        "nombre": "Plato",
+        "codigo_mun": "47555",
+        "veredas": ["Ariguani", "Chivolo", "Sabanas", "Zona Bananera", "El Difícil", "Remolino", "Salamina"]
+      },
+      {
+        "nombre": "Fundación",
+        "codigo_mun": "47288",
+        "veredas": ["Aracataca", "Copey", "El Retén", "Sitio Nuevo", "Pivijay", "Jaguar", "Cerro Azul"]
+      },
+      {
+        "nombre": "Zona Bananera",
+        "codigo_mun": "47960",
+        "veredas": ["Orihueca", "Sevilla", "Copey", "San Pedro", "Tucurinca", "Carmen", "La Sabana"]
+      },
+      {
+        "nombre": "Pivijay",
+        "codigo_mun": "47545",
+        "veredas": ["Remolino", "Salamina", "Sitionuevo", "Chivolo", "El Difícil", "Ariguani", "Nueva Granada"]
       }
     ]
   }
