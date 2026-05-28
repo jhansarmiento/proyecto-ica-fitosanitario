@@ -99,11 +99,11 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Sincronizamos las tablas de la base de datos operacional
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     console.log('📊 Tablas de BD Operacional sincronizadas');
 
     // Sincronizamos las tablas del catálogo
-    await sequelizeCatalog.sync({ force: true });
+    await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
 
     // Inyectar roles, usuarios, predios, propietarios y geografía

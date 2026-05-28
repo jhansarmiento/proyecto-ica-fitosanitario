@@ -28,6 +28,11 @@ function NewProductionPlaceModal({
   const [selectedPredios, setSelectedPredios] = useState<string[]>([]);
   const [selectedSpecies, setSelectedSpecies] = useState<string[]>([]);
 
+  // Estados de filtrado jerárquico
+  const [deptFilter, setDeptFilter] = useState("");
+  const [muniFilter, setMuniFilter] = useState("");
+  const [veredaFilter, setVeredaFilter] = useState("");
+
   // Datos maestros de las fincas y plantas
   const [predios, setPredios] = useState<PredioUI[]>([]);
   const [species, setSpecies] = useState<EspecieUI[]>([]);
@@ -96,15 +101,54 @@ function NewProductionPlaceModal({
     }
   }, [isOpen]);
 
+  // 1. Departamentos disponibles (Todos los que existan en los predios cargados)
+  const availableDepts = useMemo(() => {
+    return [...new Set(predios.map((p) => p.departamento))].filter(Boolean);
+  }, [predios]);
+
+  // 2. Municipios disponibles (Solo los que pertenecen al departamento seleccionado)
+  const availableMunis = useMemo(() => {
+    if (!deptFilter) return [];
+    return [
+      ...new Set(
+        predios
+          .filter((p) => p.departamento === deptFilter)
+          .map((p) => p.municipio),
+      ),
+    ].filter(Boolean);
+  }, [predios, deptFilter]);
+
+  // 3. Veredas disponibles (Solo las que pertenecen al municipio seleccionado)
+  const availableVeredas = useMemo(() => {
+    if (!muniFilter) return [];
+    return [
+      ...new Set(
+        predios.filter((p) => p.municipio === muniFilter).map((p) => p.vereda),
+      ),
+    ].filter(Boolean);
+  }, [predios, muniFilter]);
+
   const filteredPredios = useMemo(() => {
+    let result = predios;
+
+    // Aplicar filtros en cascada si están seleccionados
+    if (deptFilter)
+      result = result.filter((p) => p.departamento === deptFilter);
+    if (muniFilter) result = result.filter((p) => p.municipio === muniFilter);
+    if (veredaFilter) result = result.filter((p) => p.vereda === veredaFilter);
+
+    // Aplicar búsqueda por texto (nombre o código predial)
     const q = predioSearch.trim().toLowerCase();
-    if (!q) return predios;
-    return predios.filter(
-      (p) =>
-        p.nombre.toLowerCase().includes(q) ||
-        p.codigo.toLowerCase().includes(q),
-    );
-  }, [predioSearch, predios]);
+    if (q) {
+      result = result.filter(
+        (p) =>
+          p.nombre.toLowerCase().includes(q) ||
+          p.codigo.toLowerCase().includes(q),
+      );
+    }
+
+    return result;
+  }, [predioSearch, predios, deptFilter, muniFilter, veredaFilter]);
 
   const filteredSpecies = useMemo(() => {
     const q = speciesSearch.trim().toLowerCase();
@@ -146,8 +190,7 @@ function NewProductionPlaceModal({
 
   // Validación corregida: Ya no exige idUsuarioProductor en el cliente
   const canCreate =
-    nombreLugar.trim().length > 0 &&
-    capacidadProduccion.trim().length > 0;
+    nombreLugar.trim().length > 0 && capacidadProduccion.trim().length > 0;
 
   const goNext = () => {
     if (step === 1 && !canNextFromStep1) return;
@@ -262,6 +305,74 @@ function NewProductionPlaceModal({
                 Seleccione los predios que conformarán este lugar de producción.
                 El área total se calculará automáticamente.
               </p>
+
+              {/* Selectores Geográficos en Cascada */}
+              <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wider">
+                    Departamento
+                  </label>
+                  <select
+                    value={deptFilter}
+                    onChange={(e) => {
+                      setDeptFilter(e.target.value);
+                      setMuniFilter("");
+                      setVeredaFilter("");
+                    }}
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm outline-none transition focus:border-emerald-400"
+                  >
+                    <option value="">Todos los Departamentos</option>
+                    {availableDepts.map((d) => (
+                      <option key={d} value={d}>
+                        {d}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wider">
+                    Municipio
+                  </label>
+                  <select
+                    value={muniFilter}
+                    disabled={!deptFilter}
+                    onChange={(e) => {
+                      setMuniFilter(e.target.value);
+                      setVeredaFilter("");
+                    }}
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm outline-none transition focus:border-emerald-400 disabled:bg-slate-50 disabled:text-slate-400"
+                  >
+                    <option value="">Todos los Municipios</option>
+                    {availableMunis.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wider">
+                    Vereda
+                  </label>
+                  <select
+                    value={veredaFilter}
+                    disabled={!muniFilter}
+                    onChange={(e) => setVeredaFilter(e.target.value)}
+                    className="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm outline-none transition focus:border-emerald-400 disabled:bg-slate-50 disabled:text-slate-400"
+                  >
+                    <option value="">Todas las Veredas</option>
+                    {availableVeredas.map((v) => (
+                      <option key={v} value={v}>
+                        {v}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              
+              {/* Barra de busqueda */} 
               <div className="mb-4 flex w-full items-center gap-2 rounded-xl border border-slate-300 bg-white px-3 py-2.5 shadow-sm">
                 <Search size={18} className="text-slate-400" />
                 <input
