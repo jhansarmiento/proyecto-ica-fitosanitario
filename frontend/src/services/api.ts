@@ -11,11 +11,13 @@
  */
 
 import type { UsuarioDTO, RolDTO } from '../types/auth.types';
-import { request, type ApiEnvelope } from './http.client';
+import { request } from './apiClient';
+import type { ApiEnvelope } from '../types/api.types';
 import { rolesApi } from './roles.api';
-import { usuariosApi } from './usuarios.api';
+import { authService } from './auth.service';
 
-export { request, type ApiEnvelope, rolesApi, usuariosApi };
+
+export { request, type ApiEnvelope, rolesApi, authService };
 
 /** DTO de Predio */
 export type PredioDTO = {
@@ -173,16 +175,16 @@ export const api = {
 
   // Usuarios
   getUsuarios() {
-    return usuariosApi.getUsuarios();
+    return authService.getUsuarios();
   },
   createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
-    return usuariosApi.createUsuario(body);
+    return authService.createUsuario(body);
   },
   updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
-    return usuariosApi.updateUsuario(id, body);
+    return authService.updateUsuario(id, body);
   },
   deleteUsuario(id: string) {
-    return usuariosApi.deleteUsuario(id);
+    return authService.deleteUsuario(id);
   },
 
   // Lugares de producción

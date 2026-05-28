@@ -3,7 +3,10 @@ import { Search, Plus, MapPin, Database, Leaf, Layers3, Eye, Pencil, FileText } 
 import NewProductionPlaceModal from '../components/ui/NewProductionPlaceModal';
 import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
-import { request, type ApiEnvelope } from '../services/http.client';
+import { request } from '../services/apiClient';
+import type { ApiEnvelope } from '../types/api.types';
+
+
 import type { SessionUser } from '../App';
 
 export type ProductionSite = {

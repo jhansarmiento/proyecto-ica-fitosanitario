@@ -4,7 +4,7 @@ import NewUserModal from '../components/ui/NewUserModal';
 import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import { rolesApi } from '../services/roles.api';
-import { usuariosApi } from '../services/usuarios.api';
+import { authService } from '../services/auth.service';
 import type { SessionUser } from '../App';
 
 /**
@@ -167,7 +167,7 @@ function UsersPage({
     try {
       setLoading(true);
       setError('');
-      const [usersResponse, rolesResponse] = await Promise.all([usuariosApi.getUsuarios(), rolesApi.getRoles()]);
+      const [usersResponse, rolesResponse] = await Promise.all([authService.getUsuarios(), rolesApi.getRoles()]);
       const normalizedRoles = rolesResponse.data.map((r: any) => ({
         id: String(r.id ?? r.id_rol ?? ''),
         nombreRol: String(r.nombreRol ?? r.nombre_rol ?? ''),
@@ -195,7 +195,7 @@ function UsersPage({
   }, []);
 
   const handleSaveUser = async (payload: EditableUser) => {
-    await usuariosApi.updateUsuario(String(payload.id), {
+    await authService.updateUsuario(String(payload.id), {
       numeroIdentificacion: payload.identificacion,
       nombre: payload.nombres,
       apellidos: payload.apellidos,
@@ -225,7 +225,7 @@ function UsersPage({
   }) => {
     try {
       setError('');
-      await usuariosApi.createUsuario({
+      await authService.createUsuario({
         numeroIdentificacion: payload.identificacion,
         telefono: payload.telefono,
         nombre: payload.nombres,
@@ -250,7 +250,7 @@ function UsersPage({
     if (!deleteTarget) return;
     try {
       setIsDeleting(true);
-      await usuariosApi.deleteUsuario(String(deleteTarget.id));
+      await authService.deleteUsuario(String(deleteTarget.id));
       await loadUsers();
       setSuccess('Usuario eliminado correctamente');
       setDeleteTarget(null);

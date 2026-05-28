@@ -18,7 +18,8 @@ import {
 } from 'lucide-react';
 import { IconTrazabilidad, IconInspeccion, IconInforme } from '../components/ui/icons';
 import FeatureItem from '../components/ui/FeatureItem';
-import { request } from '../services/http.client';
+import { request } from '../services/apiClient';
+
 
 type RegisterProductorPageProps = {
   onGoLogin: () => void;

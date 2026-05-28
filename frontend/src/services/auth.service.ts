@@ -1,5 +1,4 @@
 // servicios de login
-
 import { request } from './apiClient';
 import type { ApiEnvelope } from '../types/api.types';
 import type { 
@@ -21,6 +20,10 @@ export const authService = {
     return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
   },
 
+  getRoles() {
+    return request<ApiEnvelope<RolDTO[]>>('/roles');
+  },
+
   createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
     return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
       method: 'POST',
@@ -28,8 +31,16 @@ export const authService = {
     });
   },
 
-  getRoles() {
-    return request<ApiEnvelope<RolDTO[]>>('/roles');
+  updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
+    return request<ApiEnvelope<UsuarioDTO>>(`/usuarios/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+
+  deleteUsuario(id: string) {
+    return request<{ message: string }>(`/usuarios/${id}`, {
+      method: 'DELETE',
+    });
   }
-  // ... aquí meten los métodos de update y delete de usuarios/roles
 };

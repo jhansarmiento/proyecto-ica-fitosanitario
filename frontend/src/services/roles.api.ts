@@ -1,5 +1,6 @@
 import type { RolDTO } from '../types/auth.types';
-import { request, type ApiEnvelope } from './http.client';
+import { request } from './apiClient';
+import type { ApiEnvelope } from '../types/api.types';
 
 export const rolesApi = {
   getRoles() {
