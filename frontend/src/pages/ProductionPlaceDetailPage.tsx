@@ -1,17 +1,9 @@
-import { useMemo, useState } from "react";
+// frontend/src/pages/ProductionPlaceDetailPage.tsx
+import { useState } from "react";
 import { ArrowLeft, MapPin, Warehouse } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import type { ProductionSite } from "./AgriculturalManagementPage";
 import type { SessionUser } from "../types/auth.types";
-
-type PredioDetail = {
-  id: number;
-  nombre: string;
-  matricula: string;
-  vereda: string;
-  municipio: string;
-  areaHa: number;
-};
 
 type ProductionPlaceDetailPageProps = {
   sessionUser?: SessionUser;
@@ -29,25 +21,6 @@ type ProductionPlaceDetailPageProps = {
   onLogout?: () => void;
 };
 
-const prediosAsociadosMock: PredioDetail[] = [
-  {
-    id: 1,
-    nombre: "Predio La Esperanza",
-    matricula: "001-2023",
-    vereda: "La Cabaña",
-    municipio: "Chinchiná",
-    areaHa: 15.5,
-  },
-  {
-    id: 2,
-    nombre: "Predio Santa Elena",
-    matricula: "004-2023",
-    vereda: "La Aurora",
-    municipio: "Chinchiná",
-    areaHa: 12.4,
-  },
-];
-
 const ProductionPlaceDetailPage = ({
   sessionUser,
   site,
@@ -64,17 +37,11 @@ const ProductionPlaceDetailPage = ({
   onLogout,
 }: ProductionPlaceDetailPageProps) => {
   const [activeTab, setActiveTab] = useState<"resumen" | "lotes">("resumen");
-  const totalPredios = prediosAsociadosMock.length;
-  const totalArea = useMemo(
-    () => prediosAsociadosMock.reduce((acc, p) => acc + p.areaHa, 0).toFixed(1),
-    [],
-  );
 
   // Validamos si el usuario actual es un Productor
   const esProductor = sessionUser?.rol?.toLowerCase() === "productor";
 
   const handleSolicitarInspeccion = () => {
-    // Marcador de posición para abrir el modal en el siguiente paso
     alert(
       `Iniciando solicitud de inspección fitosanitaria para el lugar: ${site?.nombre_lugar_produccion || "Zona Productiva"}`,
     );
@@ -120,8 +87,8 @@ const ProductionPlaceDetailPage = ({
             </h2>
           </div>
 
+          {/* 🌟 BOTONES PERFECTAMENTE ALINEADOS A LA DERECHA */}
           <div className="flex items-center gap-2">
-            {/* ACCIÓN EXCLUSIVA: Solo visible para el rol productor */}
             {esProductor && (
               <button
                 type="button"
@@ -131,14 +98,13 @@ const ProductionPlaceDetailPage = ({
                 Solicitar Inspección Fitosanitaria
               </button>
             )}
+            <button
+              type="button"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            >
+              Editar
+            </button>
           </div>
-
-          <button
-            type="button"
-            className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-          >
-            Editar
-          </button>
         </div>
 
         <div className="mb-5 inline-flex rounded-2xl border border-slate-200 bg-white p-1">
@@ -170,60 +136,59 @@ const ProductionPlaceDetailPage = ({
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Código
+                    Código Radicado
                   </p>
-                  <p className="mt-1 text-base font-semibold text-slate-800">
-                    LP-001
+                  <p className="mt-1 font-semibold text-slate-800 font-mono text-sm">
+                    {site?.numero_registro_ica ?? "N/D"}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
                     Estado
                   </p>
-                  <span className="mt-1 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
+                  <span
+                    className={`mt-1 inline-flex rounded-full px-3 py-1 text-sm font-semibold ${
+                      site?.estado === "Activo"
+                        ? "bg-emerald-100 text-emerald-700"
+                        : site?.estado === "Rechazado"
+                          ? "bg-rose-100 text-rose-700"
+                          : "bg-amber-100 text-amber-700"
+                    }`}
+                  >
                     {site?.estado ?? "Activo"}
                   </span>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Capacidad
+                    Fecha de Solicitud
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    1000 Kg
+                    {site?.fecha_creacion ?? "N/D"}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Fecha de creación
+                    Ubicación Geográfica
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    2024-01-15
+                    {site ? `${site.municipio}, ${site.departamento}` : "N/D"}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Ubicación
+                    Área Consolidada
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    {site
-                      ? `${site.municipio}, ${site.departamento}`
-                      : "Chinchiná, Caldas"}
+                    {site?.area_total ?? "0 ha"}
                   </p>
                 </div>
+                {/* 🌟 CAMBIO: Asistente Asignado en lugar de Productor */}
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Área total
+                    Asistente Técnico Asignado
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    {site?.area_total ?? "27.9 ha"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Productor
-                  </p>
-                  <p className="mt-1 text-base font-semibold text-slate-800">
-                     No definido
+                    {site?.asistente_asignado ?? "Pendiente"}
                   </p>
                 </div>
               </div>
@@ -231,12 +196,13 @@ const ProductionPlaceDetailPage = ({
 
             <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <h3 className="mb-4 text-2xl font-bold text-slate-900">
-                Predios Asociados
+                Predios Asociados ({site?.predios_asociados ?? 0})
               </h3>
               <div className="space-y-3">
-                {prediosAsociadosMock.map((predio) => (
+                {/* 🌟 LISTA DE PREDIOS REALES CONECTADOS A LA BD */}
+                {site?.predios?.map((predio) => (
                   <div
-                    key={predio.id}
+                    key={predio.id_predio}
                     className="rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-emerald-200 hover:bg-emerald-50/30"
                   >
                     <div className="mb-2 flex items-start justify-between gap-3">
@@ -248,13 +214,13 @@ const ProductionPlaceDetailPage = ({
                           <p className="text-base font-bold text-slate-800">
                             {predio.nombre}
                           </p>
-                          <p className="text-xs text-slate-500">
-                            Matrícula: {predio.matricula}
+                          <p className="text-xs text-slate-500 font-mono">
+                            Código: {predio.codigo}
                           </p>
                         </div>
                       </div>
                       <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                        Activo
+                        Vinculado
                       </span>
                     </div>
                     <div className="grid gap-2 text-sm text-slate-700 sm:grid-cols-3">
@@ -268,26 +234,28 @@ const ProductionPlaceDetailPage = ({
                       </p>
                       <p>
                         <span className="text-slate-500">Área:</span>{" "}
-                        <span className="font-semibold">
-                          {predio.areaHa} ha
-                        </span>
+                        <span className="font-semibold">{predio.area} ha</span>
                       </p>
                     </div>
                   </div>
                 ))}
+
+                {site?.predios?.length === 0 && (
+                  <p className="text-sm text-slate-500 text-center py-4">
+                    No hay predios vinculados a este registro.
+                  </p>
+                )}
               </div>
             </article>
           </div>
 
           <aside className="space-y-5">
-            <div className="rounded-2xl bg-gradient-to-r from-emerald-700 to-emerald-600 p-5 text-white shadow-md">
+            <div className="rounded-2xl bg-linear-to-r from-emerald-700 to-emerald-600 p-5 text-white shadow-md">
               <p className="text-sm text-emerald-100">Total Lotes</p>
               <p className="mt-1 text-4xl font-extrabold">
-                {site?.lotes_activos ?? 2}
+                {site?.lotes_activos ?? 0}
               </p>
-              <p className="mt-2 text-xs text-emerald-100/90">
-                Última actualización: hace 5 minutos
-              </p>
+              {/* 🌟 SE ELIMINÓ EL TEXTO DE 'ÚLTIMA ACTUALIZACIÓN' */}
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -297,12 +265,14 @@ const ProductionPlaceDetailPage = ({
               <div className="space-y-3 text-lg">
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Predios</p>
-                  <p className="font-bold text-slate-900">{totalPredios}</p>
+                  <p className="font-bold text-slate-900">
+                    {site?.predios_asociados ?? 0}
+                  </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Lotes Activos</p>
                   <p className="font-bold text-slate-900">
-                    {site?.lotes_activos ?? 2}
+                    {site?.lotes_activos ?? 0}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -313,13 +283,15 @@ const ProductionPlaceDetailPage = ({
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Área Total</p>
-                  <p className="font-bold text-slate-900">{totalArea} ha</p>
+                  <p className="font-bold text-slate-900">
+                    {site?.area_total ?? "0 ha"}
+                  </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Ubicación</p>
                   <p className="flex items-center gap-1 font-bold text-slate-900">
                     <MapPin size={14} />
-                    {site?.municipio ?? "Chinchiná"}
+                    {site?.municipio ?? "N/D"}
                   </p>
                 </div>
               </div>

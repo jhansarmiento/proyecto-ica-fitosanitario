@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import type { DashboardViewKey } from "../types/dashboard.types";
-import type { SessionUser } from "../App";
+import type { SessionUser } from "../types/auth.types";
 import type { ProductionApprovalItem } from "../types/dashboard.types";
 import type { UsuarioDTO, RolDTO } from "../types/auth.types";
 import { fincaService } from "../services/finca.service";
@@ -518,7 +518,7 @@ function AdminProductionApprovalPage({
 
             {/* LISTADO DE PREDIOS ASOCIADOS PARA AUDITORÍA ICA */}
             <div className="mt-5 space-y-2">
-              <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider text-xs">
+              <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                 Terrenos y Predios Vinculados ({selected.predios?.length})
               </h4>
               <div className="grid gap-2 sm:grid-cols-2">

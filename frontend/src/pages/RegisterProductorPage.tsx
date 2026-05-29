@@ -215,7 +215,7 @@ function RecaptchaWidget({
         <button
           type="button"
           onClick={handleClick}
-          className={`relative flex h-6 w-6 flex-shrink-0 items-center justify-center rounded border-2 transition-all duration-300 ${
+          className={`relative flex h-6 w-6 shrink-0 items-center justify-center rounded border-2 transition-all duration-300 ${
             checked
               ? 'border-emerald-400 bg-emerald-500'
               : 'border-white/30 bg-white/10 hover:border-emerald-300'
@@ -379,7 +379,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
       <div className="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 bottom-1/4 h-72 w-72 rounded-full bg-emerald-400/8 blur-3xl" />
 
-      <div className="relative mx-auto grid min-h-screen w-full max-w-[1400px] grid-cols-1 gap-10 px-6 py-10 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:px-14 lg:py-12">
+      <div className="relative mx-auto grid min-h-screen w-full max-w-350 grid-cols-1 gap-10 px-6 py-10 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12 lg:px-14 lg:py-12">
 
         {/* ── Panel izquierdo ── */}
         <section className="flex flex-col justify-center gap-8 lg:pr-6">
@@ -391,11 +391,11 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
           </div>
 
           <div className="space-y-3">
-            <h1 className="max-w-[620px] text-[2.6rem] font-bold leading-[1.02] sm:text-[3.2rem] lg:text-[4.15rem]">
+            <h1 className="max-w-155 text-[2.6rem] font-bold leading-[1.02] sm:text-[3.2rem] lg:text-[4.15rem]">
               Únete como{' '}
               <span className="text-emerald-300">Productor</span>
             </h1>
-            <p className="max-w-[610px] text-[1.05rem] font-semibold leading-[1.35] text-emerald-50 sm:text-[1.2rem] lg:text-[1.35rem]">
+            <p className="max-w-152.5 text-[1.05rem] font-semibold leading-[1.35] text-emerald-50 sm:text-[1.2rem] lg:text-[1.35rem]">
               Registra tus cultivos, solicita inspecciones fitosanitarias y accede a reportes especializados del ICA.
             </p>
           </div>
@@ -418,7 +418,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
               ].map(({ n, label, active }) => (
                 <div key={n} className="flex items-center gap-3">
                   <span
-                    className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
+                    className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
                       active
                         ? 'bg-emerald-400 text-emerald-950 shadow-[0_0_12px_rgba(52,211,153,0.5)]'
                         : step > n
@@ -443,7 +443,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
 
         {/* ── Panel derecho — Formulario ── */}
         <section className="flex items-center justify-center">
-          <div className="w-full max-w-[560px] rounded-[30px] border border-white/15 bg-white/10 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
+          <div className="w-full max-w-140 rounded-[30px] border border-white/15 bg-white/10 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
 
             {/* Header del formulario */}
             <div className="mb-6 flex items-center justify-between">
@@ -456,7 +456,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
                 </p>
               </div>
               {/* Indicador de progreso circular */}
-              <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center">
+              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center">
                 <svg className="absolute inset-0 -rotate-90" viewBox="0 0 56 56">
                   <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="4" />
                   <circle
@@ -672,7 +672,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
 
                 {submitError && (
                   <div className="flex items-center gap-2 rounded-xl border border-red-400/30 bg-red-500/15 px-4 py-3 text-sm text-red-200">
-                    <AlertCircle size={16} className="flex-shrink-0" />
+                    <AlertCircle size={16} className="shrink-0" />
                     {submitError}
                   </div>
                 )}

@@ -5,7 +5,7 @@ import EditUserModal, { type EditableUser } from '../components/ui/EditUserModal
 import DashboardLayout from '../components/layout/DashboardLayout';
 import { rolesApi } from '../services/roles.api';
 import { authService } from '../services/auth.service';
-import type { SessionUser } from '../App';
+import type { SessionUser } from '../types/auth.types';
 
 /**
  * Campos visibles actualmente en la tabla de usuarios.
@@ -75,7 +75,7 @@ function ConfirmDeleteModal({ isOpen, userName, onConfirm, onCancel, isDeleting 
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 backdrop-blur-[1px]">
       <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
         <div className="flex items-center gap-3 bg-red-600 px-5 py-4 text-white">
-          <div className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-red-500 ring-1 ring-white/20">
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-red-500 ring-1 ring-white/20">
             <AlertTriangle size={20} />
           </div>
           <div className="flex-1">
@@ -196,16 +196,16 @@ function UsersPage({
 
   const handleSaveUser = async (payload: EditableUser) => {
     await authService.updateUsuario(String(payload.id), {
-      numeroIdentificacion: payload.identificacion,
+      numero_identificacion: payload.identificacion,
       nombre: payload.nombres,
       apellidos: payload.apellidos,
       direccion: payload.direccion,
       telefono: payload.telefono,
-      ingresoUsuario: payload.usuario,
-      correoElectronico: payload.correo,
-      idRol: payload.rol || undefined,
-      registroICA: payload.registroIca,
-      tarjetaProfesional: payload.tarjetaProfesional,
+      ingreso_usuario: payload.usuario,
+      correo_electronico: payload.correo,
+      id_rol: payload.rol || undefined,
+      registro_ica: payload.registroIca,
+      tarjeta_profesional: payload.tarjetaProfesional,
     });
     await loadUsers();
     setSuccess('Usuario actualizado correctamente');
@@ -226,16 +226,16 @@ function UsersPage({
     try {
       setError('');
       await authService.createUsuario({
-        numeroIdentificacion: payload.identificacion,
+        numero_identificacion: payload.identificacion,
         telefono: payload.telefono,
         nombre: payload.nombres,
         apellidos: payload.apellidos,
         direccion: payload.direccion,
-        ingresoUsuario: payload.usuario,
-        correoElectronico: payload.correo,
-        idRol: payload.rol,
-        registroICA: payload.registroIca || null,
-        tarjetaProfesional: payload.tarjetaProfesional || null,
+        ingreso_usuario: payload.usuario,
+        correo_electronico: payload.correo,
+        id_rol: payload.rol,
+        registro_ica: payload.registroIca || null,
+        tarjeta_profesional: payload.tarjetaProfesional || null,
         ingresoContrasena: payload.identificacion || 'Temporal123*',
       });
       await loadUsers();

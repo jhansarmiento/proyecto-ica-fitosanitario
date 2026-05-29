@@ -12,6 +12,17 @@ type ProductionSiteEditable = {
   area_total: string;
   numero_registro_ica: string;
   estado: 'Activo' | 'Pendiente' | 'Rechazado';
+  asistente_asignado: string;
+  fecha_creacion: string;
+  predios: {
+    id_predio: string;
+    nombre: string;
+    codigo: string;
+    vereda: string;
+    municipio: string;
+    departamento: string;
+    area: number;
+  }[];
 };
 
 type EditProductionPlaceModalProps = {
