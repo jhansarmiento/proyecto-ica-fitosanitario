@@ -13,11 +13,6 @@ class Lote extends Model {
     public id_predio!: string; // Clave foránea para el Predio (BD Cataálogo)
 
     static associate(models: any) {
-        // Un lote puede tener muchas solicitudes de inspección
-        this.hasMany(models.SolicitudInspeccion, {
-            foreignKey: 'id_lote',
-            as: 'solicitudesInspeccion',
-        });
         // Un lote pertenece a un predio
         this.belongsTo(models.Predio, {
             foreignKey: 'id_predio',

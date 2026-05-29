@@ -26,18 +26,13 @@ class LugarProduccion extends Model {
             foreignKey: 'id_lugar_produccion',
             as: 'predio',
         });
-        // Un Lugar de Producción puede tener muchos Lotes
-        this.hasMany(models.Lote, {
-            foreignKey: 'id_lugar_produccion',
-            as: 'lote', 
-        });
         // Una Solicitud de Registro es aprobada por un Usuario (Administrador)
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_admin_aprobador',
             targetKey: 'id_usuario',
             as: 'administradorAprobador',
         });
-        // Una Solicitud de Registro es asignada a un Usuario (Asistente Técnico)
+        // Un Lugar de producción es asignado a un Usuario (Asistente Técnico)
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_asistente_asignado',
             targetKey: 'id_usuario',

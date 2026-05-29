@@ -8,15 +8,9 @@ class SolicitudInspeccion extends Model {
     public fecha_programada_tecnico?: Date; // Cuando el tecnico confirma que irá
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
     public observaciones?: string;
-    public id_lote!: string;
-    public id_asistente_tecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
+    public id_lugar_produccion!: string; // FK a LugarProduccion
 
     static associate(models: any) {
-        // Una solicitud de inspección pertenece a un lote
-        this.belongsTo(models.Lote, {
-            foreignKey: 'id_lote',
-            as: 'lote',
-        });
         // Una solicitud de inspección tiene un asistente técnico asignado
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_asistente_tecnico',
@@ -60,20 +54,12 @@ SolicitudInspeccion.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        id_lote: {
+        id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: false,
-            references : {
-                model: 'lote', // Nombre de la tabla referenciada
-                key: 'id_lote', // Columna referenciada
-            }
-        },
-        id_asistente_tecnico: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references : {
-                model: 'usuario', // Nombre de la tabla referenciada
-                key: 'id_usuario', // Columna referenciada
+            references: {
+                model: 'lugar_produccion', // Nombre de la tabla física
+                key: 'id_lugar_produccion',
             }
         },
     },
