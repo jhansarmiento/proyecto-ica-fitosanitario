@@ -102,9 +102,8 @@ function AgriculturalManagementPage({
         return {
           id_lugar_produccion: lugar.id_lugar_produccion,
           nombre_lugar_produccion: lugar.nombre_lugar_produccion,
-          municipio: primerPredio?.municipio || "N/A",
-          departamento:
-            primerPredio?.department || primerPredio?.departamento || "N/A",
+          municipio: primerPredio?.municipio || 'N/D',
+          departamento: primerPredio?.departamento || 'N/D',
           predios_asociados: lugar.predio?.length || 0,
           especies_autorizadas: lugar.autorizacionEspecie?.length || 0,
           lotes_activos: 0,
@@ -119,9 +118,7 @@ function AgriculturalManagementPage({
               : lugar.estado === "RECHAZADO"
                 ? "Rechazado"
                 : "Pendiente",
-          asistente_asignado: lugar.id_asistente_asignado
-            ? "Profesional Asignado por ICA"
-            : "Pendiente de asignación",
+          asistente_asignado: lugar.nombre_asistente_real,
           fecha_creacion: lugar.fecha_solicitud
             ? lugar.fecha_solicitud.split("T")[0]
             : "N/D",

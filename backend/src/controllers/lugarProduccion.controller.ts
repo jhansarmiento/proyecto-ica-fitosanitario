@@ -122,7 +122,12 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
             where: { id_usuario_productor },
             include: [
                 { association: 'predio' }, // Trae los predios vinculados
-                { association: 'autorizacionEspecie' } // Trae las especies lógicas autorizadas
+                { association: 'autorizacionEspecie' }, // Trae las especies lógicas autorizadas
+                { 
+                    model: models.Usuario, 
+                    as: 'asistenteAsignado', 
+                    attributes: ['nombre', 'apellidos'] 
+                }
             ],
             order: [['fecha_solicitud', 'DESC']]
         });
@@ -150,29 +155,54 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
             ]
         });
         
-        // Indexamos en un Map O(1) para máxima velocidad de procesamiento
-        const geoMap = new Map<string, any>(
-            veredasCatalogo.map((v: any) => [v.id_vereda, v])
-        );
+        // 3. Consulta al Catálogo Geográfico (Mapeo Completo)
+        let geoMap = new Map<string, any>();
+        if (uniqueVeredaIds.length > 0) {
+            const veredasCatalogo = await catalogmodels.Vereda.findAll({
+                where: { id_vereda: uniqueVeredaIds },
+                include: [
+                    {
+                        model: catalogmodels.Municipio,
+                        as: 'municipio',
+                        include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
+                    }
+                ]
+            });
+            geoMap = new Map<string, any>(
+                veredasCatalogo.map((v: any) => [v.id_vereda, v])
+            );
+        }
 
         // 4. Estampamos las cadenas de texto geográficas en cada predio del objeto
         const lugaresEnriquecidos = lugares.map((l: any) => {
             const lugarJson = l.toJSON();
+
+            // Formateamos el nombre del asistente real
+            const nombreAsistente = lugarJson.asistente_asignado 
+                ? `${lugarJson.asistente_asignado.nombre} ${lugarJson.asistente_asignado.apellidos}`
+                : 'Pendiente de asignación';
+        
+
             if (lugarJson.predio) {
                 lugarJson.predio = lugarJson.predio.map((p: any) => {
                     const infoGeo = geoMap.get(p.id_vereda);
                     return {
                         ...p,
-                        vereda: infoGeo?.nombre || 'N/D',
-                        municipio: infoGeo?.municipio?.nombre || 'N/D',
-                        departamento: infoGeo?.municipio?.departamento?.nombre || 'N/D'
+                        // 💡 CORRECCIÓN: Si el catálogo falla, usamos el dato guardado en texto plano (si existe)
+                        vereda: infoGeo?.nombre || p.vereda || 'N/D',
+                        municipio: infoGeo?.municipio?.nombre || p.municipio || 'N/D',
+                        departamento: infoGeo?.municipio?.departamento?.nombre || p.departamento || 'N/D'
                     };
                 });
             }
-            return lugarJson;
+            
+            return {
+                ...lugarJson,
+                nombre_asistente_real: nombreAsistente // Mandamos el string listo al frontend
+            };
         });
 
-        res.json({ data: lugares });
+        res.json({ data: lugaresEnriquecidos });
     } catch (error) {
         console.error('❌ Error al listar lugares de producción:', error);
         res.status(500).json({ message: 'Error interno al cargar tus lugares de producción.' });
