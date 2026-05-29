@@ -19,7 +19,7 @@ import { request } from "../services/apiClient";
 import type { ApiEnvelope } from "../types/api.types";
 import type { SessionUser } from "../types/auth.types";
 
-// 💡 CONTRATO UNIFICADO: Tu excelente estructura en snake_case
+// 💡 CONTRATO UNIFICADO:
 export type ProductionSite = {
   id_lugar_produccion: string;
   nombre_lugar_produccion: string;
@@ -42,6 +42,7 @@ export type ProductionSite = {
     departamento: string;
     area: number;
   }[];
+  especies_autorizadas_ids: string[];
 };
 
 type AgriculturalManagementPageProps = {
@@ -102,8 +103,8 @@ function AgriculturalManagementPage({
         return {
           id_lugar_produccion: lugar.id_lugar_produccion,
           nombre_lugar_produccion: lugar.nombre_lugar_produccion,
-          municipio: primerPredio?.municipio || 'N/D',
-          departamento: primerPredio?.departamento || 'N/D',
+          municipio: primerPredio?.municipio || "N/D",
+          departamento: primerPredio?.departamento || "N/D",
           predios_asociados: lugar.predio?.length || 0,
           especies_autorizadas: lugar.autorizacionEspecie?.length || 0,
           lotes_activos: 0,
@@ -132,6 +133,9 @@ function AgriculturalManagementPage({
               departamento: p.departamento || "N/D",
               area: Number(p.area_total || 0),
             })) || [],
+          especies_autorizadas_ids:
+            lugar.autorizacionEspecie?.map((e: any) => e.id_especie_vegetal) ||
+            [],
         };
       });
 
@@ -364,9 +368,11 @@ function AgriculturalManagementPage({
             ...updated,
             id_lugar_produccion: String(updated.id_lugar_produccion),
             estado: updated.estado === "Activo" ? "Activo" : "Pendiente",
-            asistente_asignado: updated.asistente_asignado || "Pendiente de asignación",
+            asistente_asignado:
+              updated.asistente_asignado || "Pendiente de asignación",
             fecha_creacion: updated.fecha_creacion || "N/D",
             predios: updated.predios || [],
+            especies_autorizadas_ids: selectedSite?.especies_autorizadas_ids || [],
           };
 
           setSites((prev) =>

@@ -30,12 +30,16 @@ import catalogModels from './catalogIndex';
 
 // Rutas
 import authRoutes from './routes/auth.routes';
-import lugarProduccionRoutes from './routes/lugarProduccion.routes';
-import predioRoutes from './routes/predio.routes';
-import especieRoutes from './routes/especie.routes';
-import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 import usuarioRoutes from './routes/usuario.routes';
 import rolesRoutes from './routes/rol.routes';
+
+import lugarProduccionRoutes from './routes/lugarProduccion.routes';
+import predioRoutes from './routes/predio.routes';
+import loteRoutes from './routes/lote.routes';
+
+import especieRoutes from './routes/especie.routes';
+import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
+
 
 
 const models: any = {
@@ -77,16 +81,15 @@ app.get('/api/health', (_req, res) => {
 
 // Rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/lugares-produccion', lugarProduccionRoutes);
-app.use('/api/predios', predioRoutes);
-app.use('/api/especies-vegetales', especieRoutes);
-app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
-app.use('/api/predios', predioRoutes);
-app.use('/api/lotes', especieRoutes);
-app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
-app.use('/api/especies-vegetales', especieRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/roles', rolesRoutes);
+
+app.use('/api/lugares-produccion', lugarProduccionRoutes);
+app.use('/api/predios', predioRoutes);
+app.use('/api/lugares-produccion', loteRoutes);
+
+app.use('/api/especies-vegetales', especieRoutes);
+app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 
 const startServer = async () => {
   try {

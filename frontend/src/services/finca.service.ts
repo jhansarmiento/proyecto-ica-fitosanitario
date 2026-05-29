@@ -34,6 +34,10 @@ export const fincaService = {
     return request<ApiEnvelope<EspecieVegetalDTO[]>>('/especies-vegetales');
   },
 
+  getVariedadesPorEspecie(idEspecie: string) {
+    return request<ApiEnvelope<any[]>>(`/especies-vegetales/${idEspecie}/variedades`);
+  },
+
   // ── Solicitudes Pendientes ICA (para el administrador aceptar) ──
   getSolicitudesPendientesICA() {
   return request<ApiEnvelope<any[]>>('/lugares-produccion/solicitudes-pendientes-lp');

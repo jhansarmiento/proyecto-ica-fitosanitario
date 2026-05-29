@@ -128,7 +128,7 @@ function DashboardLayout({
     <main className="min-h-screen bg-slate-100 text-slate-900">
       <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[280px_1fr]">
         {/* Sidebar desktop */}
-        <aside className="sticky top-0 hidden h-screen overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white xl:block">
+        <aside className="sticky top-0 hidden h-screen overflow-hidden bg-linear-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white xl:block">
           <SidebarContent {...sharedSidebarProps} />
         </aside>
 
@@ -139,7 +139,7 @@ function DashboardLayout({
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm xl:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <aside className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white shadow-2xl xl:hidden">
+            <aside className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-linear-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white shadow-2xl xl:hidden">
               <SidebarContent
                 {...sharedSidebarProps}
                 onClose={() => setIsMobileMenuOpen(false)}
@@ -185,7 +185,7 @@ function DashboardLayout({
 
               {/* Panel de notificaciones dinámico */}
               {showNotifications && (
-                <div className="absolute right-0 top-12 z-50 w-[320px] rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl sm:w-[360px]">
+                <div className="absolute right-0 top-12 z-50 w-[320px] rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl sm:w-90">
                   <div className="border-b border-slate-100 px-4 py-3">
                     <h3 className="text-base font-bold">
                       Notificaciones recientes

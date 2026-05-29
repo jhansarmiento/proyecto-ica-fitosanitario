@@ -9,7 +9,7 @@ class Lote extends Model {
     public fecha_cosecha!: Date;
     public estado!: string;
     public cantidad_plantas!: number;
-    public id_variedad!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
+    public id_variedad_especie!: string; // Clave foránea para la Variedad de Especie (BD Catalógo) -- Ejemplo: Hass, Cafe, etc
     public id_predio!: string; // Clave foránea para el Predio (BD Cataálogo)
 
     static associate(models: any) {
@@ -56,7 +56,7 @@ Lote.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        id_variedad: {
+        id_variedad_especie: {
             type: DataTypes.UUID,
             allowNull: false,
         },

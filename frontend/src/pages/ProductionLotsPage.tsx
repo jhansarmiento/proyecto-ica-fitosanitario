@@ -236,6 +236,8 @@ function ProductionLotsPage({
         onClose={() => setIsNewLotOpen(false)} 
         onSuccess={() => { setIsNewLotOpen(false); loadLotes(); }} 
         idLugarProduccion={site?.id_lugar_produccion} // El modal necesita saber a qué lugar anclarlo
+        prediosDisponibles={site?.predios || []}
+        especiesAutorizadasIds={site?.especies_autorizadas_ids || []}
       />
       
       {/* Omito EditLotModal hasta que pasemos a limpiarlo, pero la firma será parecida */}
