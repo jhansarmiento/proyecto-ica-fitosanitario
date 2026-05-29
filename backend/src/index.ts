@@ -34,8 +34,8 @@ import lugarProduccionRoutes from './routes/lugarProduccion.routes';
 import predioRoutes from './routes/predio.routes';
 import especieRoutes from './routes/especie.routes';
 import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
-// import rolesRoutes from './routes/rolesRoutes';
-// import usuariosRoutes from './routes/usuariosRoutes';
+import usuarioRoutes from './routes/usuario.routes';
+import rolesRoutes from './routes/rol.routes';
 
 
 const models: any = {
@@ -85,8 +85,8 @@ app.use('/api/predios', predioRoutes);
 app.use('/api/lotes', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 app.use('/api/especies-vegetales', especieRoutes);
-//app.use('/api/roles', rolesRoutes);
-// app.use('/api/usuarios', usuariosRoutes);
+app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/roles', rolesRoutes);
 
 const startServer = async () => {
   try {

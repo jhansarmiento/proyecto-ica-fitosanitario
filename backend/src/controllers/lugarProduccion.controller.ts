@@ -228,7 +228,7 @@ export const aprobarLugarProduccion = async (req: AuthenticatedRequest, res: Res
         await lugar.update({
             estado: 'APROBADO',
             numero_registro_ica: numero_registro_ica_oficial,
-            id_asistente_assigned: id_asistente_asignado,
+            id_asistente_asignado: id_asistente_asignado,
             fecha_aprobacion: new Date(),
             id_admin_aprobador: req.usuario?.id // Auditoría de quién aprobó
         });

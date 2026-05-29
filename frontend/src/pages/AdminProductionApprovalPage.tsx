@@ -4,6 +4,7 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 import type { DashboardViewKey } from "../types/dashboard.types";
 import type { SessionUser } from "../App";
 import type { ProductionApprovalItem } from "../types/dashboard.types";
+import type { UsuarioDTO, RolDTO } from "../types/auth.types";
 import { fincaService } from "../services/finca.service";
 import { authService } from "../services/auth.service";
 import StatusBadge from "../components/ui/StatusBadge";
@@ -11,7 +12,7 @@ import Pagination from "../components/ui/Pagination";
 import ToastMessage from "../components/ui/ToastMessage";
 import EmptyState from "../components/ui/EmptyState";
 
-//
+// Define the type for the backend response
 interface BackendSolicitudItem {
   id_lugar_produccion: string;
   nombre_lugar_produccion: string;
@@ -29,7 +30,9 @@ interface BackendSolicitudItem {
   predio?: {
     id_predio: string;
     nombre_predio: string;
+    numero_predial: string;
     area_total: number | string;
+    vereda?: string;
     municipio?: string;
     departamento?: string;
   }[];
@@ -134,6 +137,18 @@ function AdminProductionApprovalPage({
           ) || ["Estudio Fitosanitario"],
           variedades: [],
           lotes: [],
+
+          // MAPEO REAL DE LA COLECCIÓN DE PREDIOS
+          predios:
+            item.predio?.map((p) => ({
+              id: p.id_predio,
+              nombre: p.nombre_predio || "Predio sin nombre",
+              codigo: p.numero_predial || "N/D",
+              vereda: p.vereda || "N/D",
+              municipio: p.municipio || "N/D",
+              departamento: p.departamento || "N/D",
+              area: Number(p.area_total || 0),
+            })) || [],
         }),
       );
       setRows(solicitudesMapeadas);
@@ -159,20 +174,21 @@ function AdminProductionApprovalPage({
 
       // Mapeamos los roles indexados para una búsqueda rápida
       const mapaRoles = new Map(
-        rolesRes.data.map((r: any) => [r.id, r.nombreRol.toLowerCase()]),
+        rolesRes.data.map((r: RolDTO) => [r.id_rol, r.nombre_rol.toLowerCase()]),
       );
 
       // Filtramos los usuarios que cumplan con el rol de asistente técnico
       const tecnicosCalificados = usuariosRes.data
-        .filter((u: any) => {
-          const nombreRol = mapaRoles.get(u.id_rol) || "";
+        .filter((u: UsuarioDTO) => {
+          const idRolSeguro = u.id_rol || "";
+          const nombreRol = mapaRoles.get(idRolSeguro) || "";
           return (
             nombreRol.includes("asistente") || nombreRol.includes("tecnico")
           );
         })
-        .map((u: any) => ({
+        .map((u: UsuarioDTO) => ({
           id: u.id_usuario,
-          label: `${u.nombre} ${u.apellidos} (TP: ${u.tarjeta_profesional || "N/D"})`,
+          label: `${u.nombre} ${u.apellidos} (${u.tarjeta_profesional || "N/D"})`,
         }));
 
       setAsistentesOptions(tecnicosCalificados);
@@ -193,11 +209,15 @@ function AdminProductionApprovalPage({
   // ─── ACCIONES REALES DE INTERRUPTOR HTTP ─────────────────────────────────────
   const handleApprove = async () => {
     if (!selected) return;
-    
+
     // Validamos que se haya seleccionado un asistente técnico profesional antes de aprobar
     // Este es un requisito de negocio para garantizar el acompañamiento técnico a los productores.
     if (!selectedAsistenteId) {
-      setToast({ type: "error", message: "Debe asignar un Asistente Técnico Profesional antes de proceder." });
+      setToast({
+        type: "error",
+        message:
+          "Debe asignar un Asistente Técnico Profesional antes de proceder.",
+      });
       return;
     }
     try {
@@ -206,7 +226,7 @@ function AdminProductionApprovalPage({
       // Enviar la solicitud de aprobación al backend con el número de registro ICA oficial generado y el asistente asignado
       const payloadOficial = {
         numero_registro_ica_oficial: `ICA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
-        id_asistente_asignado: selectedAsistenteId, 
+        id_asistente_asignado: selectedAsistenteId,
       };
 
       await fincaService.aprobarLugarProduccion(selected.id, payloadOficial);
@@ -215,6 +235,8 @@ function AdminProductionApprovalPage({
         type: "success",
         message: `Solicitud aprobada con éxito. Registro Oficial: ${payloadOficial.numero_registro_ica_oficial}`,
       });
+
+      // Limpieza de estados y cierre del Drawer
       setSelected(null);
       cargarSolicitudes(); // Recarga automática de la lista operacional
     } catch (error: any) {
@@ -494,9 +516,64 @@ function AdminProductionApprovalPage({
               </p>
             </div>
 
+            {/* LISTADO DE PREDIOS ASOCIADOS PARA AUDITORÍA ICA */}
+            <div className="mt-5 space-y-2">
+              <h4 className="text-sm font-bold text-slate-800 uppercase tracking-wider text-xs">
+                Terrenos y Predios Vinculados ({selected.predios?.length})
+              </h4>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {selected.predios?.map((predio) => (
+                  <div
+                    key={predio.id}
+                    className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-slate-300"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <span className="font-bold text-sm text-slate-800 line-clamp-1">
+                        {predio.nombre}
+                      </span>
+                      <span className="text-xs font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full shrink-0">
+                        {predio.area} ha
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 font-mono mb-1.5">
+                      Código: {predio.codigo}
+                    </p>
+                    <div className="text-xs text-slate-600 bg-slate-50 p-1.5 rounded-lg border border-slate-150">
+                      <span className="font-medium text-slate-700">
+                        Ubicación:
+                      </span>{" "}
+                      Vda. {predio.vereda}, {predio.municipio} (
+                      {predio.departamento})
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Acciones si la solicitud está pendiente */}
             {selected.estado === "Pendiente" && (
               <>
+                <div className="mt-5 space-y-2">
+                  <label className="text-sm font-semibold text-slate-700 block">
+                    Asignar Asistente Técnico Profesional (Obligatorio para
+                    aprobación)
+                  </label>
+                  <select
+                    value={selectedAsistenteId}
+                    onChange={(e) => setSelectedAsistenteId(e.target.value)}
+                    className="w-full h-11 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 transition"
+                  >
+                    <option value="">
+                      -- Seleccione un asistente técnico disponible --
+                    </option>
+                    {asistentesOptions.map((tecnico) => (
+                      <option key={tecnico.id} value={tecnico.id}>
+                        {tecnico.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
                 <div className="mt-4 space-y-2">
                   <label className="text-sm font-semibold text-slate-700">
                     Observaciones de rechazo (Obligatorio en caso de

@@ -48,6 +48,17 @@ export type ProductionApprovalItem = {
   especies: string[];
   variedades?: string[];
   lotes?: string[];
+
+  // Estructura tipada para los predios vinculados
+  predios: {
+    id: string;
+    nombre: string;
+    codigo: string;
+    vereda: string;
+    municipio: string;
+    departamento: string;
+    area: number;
+  }[];
 };
 
 export type ProducerPlaceItem = {

@@ -1,63 +1,36 @@
+// backend/src/services/usuarioProcedureService.ts
 import { QueryTypes } from 'sequelize';
 import sequelize from '../config/database';
 
-/**
- * Tipos de datos usados por los procedimientos almacenados de usuario.
- */
-
+// Este servicio se encarga de ejecutar los procedimientos almacenados relacionados con la gestión de usuarios (crear, actualizar, eliminar) 
+// utilizando Sequelize para interactuar con la base de datos.
 type CreateUsuarioProcedureInput = {
-  /** Número de identificación del usuario. */
   numero_identificacion: string;
-  /** Nombre del usuario. */
   nombre: string;
-  /** Apellidos del usuario. */
   apellidos: string;
-  /** Dirección opcional del usuario. */
   direccion?: string;
-  /** Teléfono opcional del usuario. */
   telefono?: string;
-  /** Correo electrónico obligatorio del usuario. */
   correo_electronico: string;
-  /** Nombre de usuario para el ingreso. */
   ingreso_usuario: string;
-  /** Contraseña para el ingreso. */
   ingreso_contrasena: string;
-  /** Tarjeta profesional, puede ser nula si no aplica. */
   tarjeta_profesional?: string | null;
-  /** Identificador del rol asignado al usuario. */
   id_rol: string;
 };
 
 type UpdateUsuarioProcedureInput = {
-  /** Identificador único del usuario a actualizar. */
   id_usuario: string;
-  /** Número de identificación del usuario. */
   numero_identificacion?: string;
-  /** Nombre del usuario. */
   nombre?: string;
-  /** Apellidos del usuario. */
   apellidos?: string;
-  /** Dirección del usuario. */
   direccion?: string;
-  /** Teléfono del usuario. */
   telefono?: string;
-  /** Correo electrónico del usuario. */
   correo_electronico?: string;
-  /** Nombre de usuario para login. */
   ingreso_usuario?: string;
-  /** Contraseña para login. */
   ingreso_contrasena?: string;
-  /** Tarjeta profesional, puede ser nula si no aplica. */
   tarjeta_profesional?: string | null;
-  /** Identificador del rol asignado al usuario. */
   id_rol?: string;
 };
 
-/**
- * Crea un nuevo usuario usando el procedimiento almacenado `sp_crear_usuario`.
- *
- * @param input - Datos del nuevo usuario.
- */
 export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInput): Promise<void> {
   await sequelize.query(
     `
@@ -92,11 +65,6 @@ export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInpu
   );
 }
 
-/**
- * Actualiza los datos de un usuario existente usando `sp_actualizar_usuario`.
- *
- * @param input - Datos del usuario a actualizar.
- */
 export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInput): Promise<void> {
   await sequelize.query(
     `
@@ -133,11 +101,6 @@ export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInpu
   );
 }
 
-/**
- * Elimina un usuario existente usando `sp_eliminar_usuario`.
- *
- * @param idUsuario - Identificador del usuario a eliminar.
- */
 export async function deleteUsuarioByProcedure(idUsuario: string): Promise<void> {
   await sequelize.query(
     `
