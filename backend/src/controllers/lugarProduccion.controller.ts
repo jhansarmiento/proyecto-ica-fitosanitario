@@ -132,3 +132,29 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
         res.status(500).json({ message: 'Error interno al cargar tus lugares de producción.' });
     }
 };
+
+// ─── 3. ENDPOINT PARA LISTAR SOLICITUDES PENDIENTES PARA EL ICA (GET) ──────────────────────
+export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        // Buscamos todos los lugares de producción que estén esperando aprobación
+        const solicitudes = await models.LugarProduccion.findAll({
+            where: { estado: 'PENDIENTE' },
+            include: [
+                {
+                    model: models.Usuario,
+                    as: 'productor', // Asegúrate de que este alias coincida con tu asociación en los modelos
+                    attributes: ['nombre', 'apellidos', 'numero_identificacion', 'correo_electronico', 'telefono'] // 💡 Traemos solo los datos básicos que necesitas del productor
+                },
+                {
+                    association: 'predio' // Incluye los predios vinculados para que el administrador vea el área total
+                }
+            ],
+            order: [['fecha_solicitud', 'DESC']] // Las más recientes primero
+        });
+
+        res.json({ data: solicitudes });
+    } catch (error) {
+        console.error('❌ Error al obtener solicitudes pendientes para el ICA:', error);
+        res.status(500).json({ message: 'Error interno al cargar la bandeja de revisión fitosanitaria.' });
+    }
+};

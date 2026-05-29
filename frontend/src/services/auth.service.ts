@@ -16,19 +16,44 @@ export const authService = {
     });
   },
 
-  getUsuarios() {
-    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
-  },
-
+  // Roles
   getRoles() {
     return request<ApiEnvelope<RolDTO[]>>('/roles');
   },
 
+  createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
+    return request<ApiEnvelope<RolDTO>>('/roles', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    });
+  },
+
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombreRol' | 'descripcion'>>) {
+    return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        ...(body.nombreRol !== undefined ? { nombreRol: body.nombreRol } : {}),
+        ...(body.descripcion !== undefined ? { descripcion: body.descripcion } : {}),
+      }),
+    });
+  },
+
+  deleteRole(id: string) {
+    return request<{ message: string }>(`/roles/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Usuarios
   createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
     return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
       method: 'POST',
       body: JSON.stringify(body),
     });
+  },
+
+  getUsuarios() {
+    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
   },
 
   updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
@@ -42,5 +67,5 @@ export const authService = {
     return request<{ message: string }>(`/usuarios/${id}`, {
       method: 'DELETE',
     });
-  }
+  },
 };
