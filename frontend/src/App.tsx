@@ -14,6 +14,7 @@ import InspectionHistoryPage from './pages/InspectionHistoryPage';
 import InspectionProcessPage from './pages/InspectionProcessPage';
 import CatalogManagementPage from './pages/CatalogManagementPage';
 import ReportsPage from './pages/ReportsPage';
+import type { SessionUser } from './types/auth.types';
 
 type View =
   | 'login'
@@ -31,12 +32,15 @@ type View =
   | 'inspection-process'
   | 'reports';
 
-export type SessionUser = {
-  id: string;
-  nombre: string;
-  apellidos: string;
-  rol: string;
+// Objeto de inicialización segura para evitar campos undefined
+const estadoUsuarioVacio: SessionUser = {
+  id_usuario: '',
+  nombre: '',
+  apellidos: '',
+  correo_electronico: '',
+  rol: ''
 };
+
 
 function App() {
   const [view, setView] = useState<View>(() => {
@@ -47,7 +51,7 @@ function App() {
   const [sessionUser, setSessionUser] = useState<SessionUser>(() => {
     try {
       const stored = localStorage.getItem('sessionUser');
-      return stored ? JSON.parse(stored) : { id: '', nombre: '', apellidos: '', rol: '' };
+      return stored ? JSON.parse(stored) : estadoUsuarioVacio;
     } catch {
       return { id: '', nombre: '', apellidos: '', rol: '' };
     }
@@ -65,7 +69,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('sessionUser');
-    setSessionUser({ id: '', nombre: '', apellidos: '', rol: '' });
+    setSessionUser({ id_usuario: '', nombre: '', apellidos: '', correo_electronico: '', rol: '' });
     setSelectedSite(null);
     setView('login');
   };

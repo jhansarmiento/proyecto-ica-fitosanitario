@@ -1,6 +1,6 @@
 // src/types/dashboard.types.ts
 import type { ReactNode } from 'react';
-import type { SessionUser } from '../App';
+import type { SessionUser } from './auth.types';
 
 export type NotificationItem = {
   id: string;
@@ -29,6 +29,13 @@ export type DashboardViewKey =
   onNavigate?: (view: DashboardViewKey) => void;
   onLogout?: () => void;
   children: ReactNode;
+}
+
+export interface NavigationItem {
+  key: DashboardViewKey;
+  label: string;
+  icon: string; // O el componente de icono que utilicen
+  rolesPermitidos: string[];
 }
 
 export type RequestStatus = 'Pendiente' | 'En revisión' | 'Aprobado' | 'Rechazado';

@@ -5,6 +5,7 @@ import { SidebarContent } from "./SidebarContent";
 import type {
   DashboardLayoutProps,
   NotificationItem,
+  NavigationItem,
 } from "../../types/dashboard.types";
 
 const notificationsSeed: NotificationItem[] = [
@@ -20,17 +21,51 @@ const notificationsSeed: NotificationItem[] = [
     mensaje: "Nueva inspección programada en Predio El Porvenir.",
     horaRelativa: "Hace 25 min",
   },
+];
+
+// MAPA CENTRALIZADO DE ACCESOS
+const MENU_ITEMS: NavigationItem[] = [
   {
-    id: "N-3",
-    tipo: "info",
-    mensaje: "Reporte ICA generado con éxito para INS-2026-0012.",
-    horaRelativa: "Hace 1 h",
+    key: "home",
+    label: "Inicio",
+    icon: "HomeIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
   },
   {
-    id: "N-4",
-    tipo: "urgent",
-    mensaje: "Inspección vencida sin cierre en Hacienda La Aurora.",
-    horaRelativa: "Hace 2 h",
+    key: "users",
+    label: "Gestión de Usuarios",
+    icon: "UsersIcon",
+    rolesPermitidos: ["administrador"],
+  },
+  {
+    key: "agricultural",
+    label: "Gestión Agrícola",
+    icon: "SproutIcon",
+    rolesPermitidos: ["productor", "administrador", "asistente_tecnico"],
+  },
+  {
+    key: "catalog",
+    label: "Catálogo",
+    icon: "BookOpenIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
+  },
+  {
+    key: "approval-places",
+    label: "Mis Solicitudes",
+    icon: "FolderIcon",
+    rolesPermitidos: ["productor", "administrador"],
+  },
+  {
+    key: "inspections-agenda",
+    label: "Inspecciones",
+    icon: "ClipboardIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
+  },
+  {
+    key: "reports",
+    label: "Reportes",
+    icon: "ChartIcon",
+    rolesPermitidos: ["productor", "administrador", "asistente_tecnico"],
   },
 ];
 
@@ -44,6 +79,16 @@ function DashboardLayout({
   onLogout,
   children,
 }: DashboardLayoutProps) {
+  const rolUsuario = sessionUser?.rol?.toLocaleLowerCase() || "";
+
+  // Filtramos los accesos según el rol de la sesión activa
+  const menuFiltrado = useMemo(() => {
+    return MENU_ITEMS.filter((item) =>
+      item.rolesPermitidos.includes(rolUsuario),
+    );
+  }, [rolUsuario]);
+
+  // Estados para controlar la apertura de submenús y paneles
   const [isUsersOpen, setIsUsersOpen] = useState(
     activeView === "users" || activeView === "roles",
   );
@@ -57,6 +102,7 @@ function DashboardLayout({
 
   const unreadCount = notifications.length;
 
+  // CENTRALIZACIÓN: Le pasamos 'menuItems' a la barra lateral para que oculte las vistas
   const sharedSidebarProps = useMemo(
     () => ({
       activeView,
@@ -66,8 +112,16 @@ function DashboardLayout({
       setIsInspectionsOpen,
       onNavigate,
       onLogout,
+      menuItems: menuFiltrado, // Inyectamos la lista filtrada por rol
     }),
-    [activeView, isUsersOpen, isInspectionsOpen, onNavigate, onLogout],
+    [
+      activeView,
+      isUsersOpen,
+      isInspectionsOpen,
+      onNavigate,
+      onLogout,
+      menuFiltrado,
+    ],
   );
 
   return (
@@ -160,15 +214,16 @@ function DashboardLayout({
 
               <div className="hidden text-right sm:block">
                 <p className="text-sm font-bold leading-none sm:text-base">
-                  {sessionUser
+                  {sessionUser?.nombre
                     ? `${sessionUser.nombre} ${sessionUser.apellidos}`
                     : ""}
                 </p>
-                <p className="text-xs text-emerald-200">
-                  {sessionUser?.rol ?? ""}
+                <p className="text-xs text-emerald-200 uppercase tracking-wider mt-1">
+                  {sessionUser?.rol || ""}
                 </p>
               </div>
 
+              {/* Avatar circular con iniciales nativas */}
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-700 text-sm font-bold sm:h-10 sm:w-10">
                 {sessionUser?.nombre && sessionUser?.apellidos
                   ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase()
