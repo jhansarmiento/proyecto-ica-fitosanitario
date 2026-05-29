@@ -76,7 +76,7 @@ const ProductionPlaceDetailPage = ({
   const handleSolicitarInspeccion = () => {
     // Marcador de posición para abrir el modal en el siguiente paso
     alert(
-      `Iniciando solicitud de inspección fitosanitaria para el lugar: ${site?.name || "Zona Productiva"}`,
+      `Iniciando solicitud de inspección fitosanitaria para el lugar: ${site?.nombre_lugar_produccion || "Zona Productiva"}`,
     );
   };
 
@@ -112,11 +112,11 @@ const ProductionPlaceDetailPage = ({
               </button>
               <span>/</span>
               <span className="font-semibold text-slate-700">
-                {site?.name ?? "Detalle"}
+                {site?.nombre_lugar_produccion ?? "Detalle"}
               </span>
             </div>
             <h2 className="text-[3rem] font-extrabold leading-none tracking-tight text-slate-900">
-              {site?.name ?? "Zona Productiva"}
+              {site?.nombre_lugar_produccion ?? "Zona Productiva"}
             </h2>
           </div>
 
@@ -157,7 +157,7 @@ const ProductionPlaceDetailPage = ({
             }}
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${activeTab === "lotes" ? "bg-emerald-900 text-white" : "text-slate-600 hover:bg-slate-100"}`}
           >
-            Lotes ({site?.activeLots ?? 0})
+            Lotes ({site?.lotes_activos ?? 0})
           </button>
         </div>
 
@@ -181,7 +181,7 @@ const ProductionPlaceDetailPage = ({
                     Estado
                   </p>
                   <span className="mt-1 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
-                    {site?.status ?? "Activo"}
+                    {site?.estado ?? "Activo"}
                   </span>
                 </div>
                 <div>
@@ -206,7 +206,7 @@ const ProductionPlaceDetailPage = ({
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
                     {site
-                      ? `${site.municipality}, ${site.department}`
+                      ? `${site.municipio}, ${site.departamento}`
                       : "Chinchiná, Caldas"}
                   </p>
                 </div>
@@ -215,15 +215,15 @@ const ProductionPlaceDetailPage = ({
                     Área total
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    {site?.area ?? "27.9 ha"}
+                    {site?.area_total ?? "27.9 ha"}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Propietario
+                    Productor
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
-                    {site?.ownerName ?? "No definido"}
+                     No definido
                   </p>
                 </div>
               </div>
@@ -283,7 +283,7 @@ const ProductionPlaceDetailPage = ({
             <div className="rounded-2xl bg-gradient-to-r from-emerald-700 to-emerald-600 p-5 text-white shadow-md">
               <p className="text-sm text-emerald-100">Total Lotes</p>
               <p className="mt-1 text-4xl font-extrabold">
-                {site?.activeLots ?? 2}
+                {site?.lotes_activos ?? 2}
               </p>
               <p className="mt-2 text-xs text-emerald-100/90">
                 Última actualización: hace 5 minutos
@@ -302,13 +302,13 @@ const ProductionPlaceDetailPage = ({
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Lotes Activos</p>
                   <p className="font-bold text-slate-900">
-                    {site?.activeLots ?? 2}
+                    {site?.lotes_activos ?? 2}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Especies</p>
                   <p className="font-bold text-slate-900">
-                    {site?.authorizedSpecies ?? 0}
+                    {site?.especies_autorizadas ?? 0}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -319,13 +319,7 @@ const ProductionPlaceDetailPage = ({
                   <p className="text-slate-600">Ubicación</p>
                   <p className="flex items-center gap-1 font-bold text-slate-900">
                     <MapPin size={14} />
-                    {site?.municipality ?? "Chinchiná"}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="text-slate-600">Propietario</p>
-                  <p className="font-bold text-slate-900">
-                    {site?.ownerName ?? "No definido"}
+                    {site?.municipio ?? "Chinchiná"}
                   </p>
                 </div>
               </div>

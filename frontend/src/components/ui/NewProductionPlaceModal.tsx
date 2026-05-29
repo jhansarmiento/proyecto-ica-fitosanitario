@@ -384,7 +384,7 @@ function NewProductionPlaceModal({
                 />
               </div>
 
-              <div className="max-h-[260px] space-y-3 overflow-y-auto pr-1">
+              <div className="max-h-65 space-y-3 overflow-y-auto pr-1">
                 {filteredPredios.map((predio) => {
                   const checked = selectedPredios.includes(predio.id);
                   return (
@@ -445,7 +445,7 @@ function NewProductionPlaceModal({
                   />
                 </div>
 
-                <div className="max-h-[320px] space-y-3 overflow-y-auto pr-1">
+                <div className="max-h-80 space-y-3 overflow-y-auto pr-1">
                   {filteredSpecies.map((sp) => {
                     const checked = selectedSpecies.includes(
                       sp.id_especie_vegetal,

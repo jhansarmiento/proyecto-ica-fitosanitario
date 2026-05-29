@@ -117,13 +117,59 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
 export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
         const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
-
+        // 1. Traemos los lugares del productor con sus relaciones crudas de la BD Operacional
         const lugares = await models.LugarProduccion.findAll({
             where: { id_usuario_productor },
             include: [
                 { association: 'predio' }, // Trae los predios vinculados
                 { association: 'autorizacionEspecie' } // Trae las especies lógicas autorizadas
+            ],
+            order: [['fecha_solicitud', 'DESC']]
+        });
+
+        // 2. Recolectamos todos los id_vereda para buscar sus nombres en el Catálogo
+        const veredaIds: string[] = [];
+        lugares.forEach((l: any) => {
+            if (l.predio) {
+                l.predio.forEach((p: any) => {
+                    if (p.id_vereda) veredaIds.push(p.id_vereda);
+                });
+            }
+        });
+        const uniqueVeredaIds = [...new Set(veredaIds)];
+
+       // 3. Consultamos el árbol geográfico en la BD de Catálogos
+        const veredasCatalogo = await catalogmodels.Vereda.findAll({
+            where: { id_vereda: uniqueVeredaIds },
+            include: [
+                {
+                    model: catalogmodels.Municipio,
+                    as: 'municipio',
+                    include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
+                }
             ]
+        });
+        
+        // Indexamos en un Map O(1) para máxima velocidad de procesamiento
+        const geoMap = new Map<string, any>(
+            veredasCatalogo.map((v: any) => [v.id_vereda, v])
+        );
+
+        // 4. Estampamos las cadenas de texto geográficas en cada predio del objeto
+        const lugaresEnriquecidos = lugares.map((l: any) => {
+            const lugarJson = l.toJSON();
+            if (lugarJson.predio) {
+                lugarJson.predio = lugarJson.predio.map((p: any) => {
+                    const infoGeo = geoMap.get(p.id_vereda);
+                    return {
+                        ...p,
+                        vereda: infoGeo?.nombre || 'N/D',
+                        municipio: infoGeo?.municipio?.nombre || 'N/D',
+                        departamento: infoGeo?.municipio?.departamento?.nombre || 'N/D'
+                    };
+                });
+            }
+            return lugarJson;
         });
 
         res.json({ data: lugares });

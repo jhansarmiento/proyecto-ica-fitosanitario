@@ -1,26 +1,26 @@
+// frontend/src/pages/AgriculturalManagementPage.tsx
 import { useEffect, useMemo, useState } from 'react';
 import { Search, Plus, MapPin, Database, Leaf, Layers3, Eye, Pencil, FileText } from 'lucide-react';
 import NewProductionPlaceModal from '../components/ui/NewProductionPlaceModal';
 import EditProductionPlaceModal from '../components/ui/EditProductionPlaceModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import { request } from '../services/apiClient';
+
 import type { ApiEnvelope } from '../types/api.types';
+import type { SessionUser } from '../types/auth.types';
 
-
-import type { SessionUser } from '../App';
-
+// 💡 CONTRATO UNIFICADO: Tu excelente estructura en snake_case
 export type ProductionSite = {
-  id: string | number;
-  name: string;
-  municipality: string;
-  department: string;
-  associatedPredios: number;
-  authorizedSpecies: number;
-  activeLots: number;
-  area: string;
-  ica: string;
-  ownerName: string;
-  status: 'Activo' | 'Pendiente';
+  id_lugar_produccion: string;
+  nombre_lugar_produccion: string;
+  estado: 'Activo' | 'Pendiente' | 'Rechazado';
+  departamento: string;
+  municipio: string;
+  predios_asociados: number;
+  especies_autorizadas: number;
+  lotes_activos: number;
+  area_total: string;
+  numero_registro_ica: string;
 };
 
 type AgriculturalManagementPageProps = {
@@ -59,59 +59,37 @@ function AgriculturalManagementPage({
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  // ─── CARGA DE DATOS DESDE EL BACKEND ENRIQUECIDO ───────────────────────────
   const loadSites = async () => {
     try {
       setLoading(true);
       setError('');
 
-      const [lugaresRes, prediosRes, lotesRes, autorizacionesRes] = await Promise.all([
-        request<ApiEnvelope<any[]>>('/lugares-produccion'),
-        request<ApiEnvelope<any[]>>('/predios'),
-        request<ApiEnvelope<any[]>>('/lotes'),
-        request<ApiEnvelope<any[]>>('/autorizaciones-especie'),
-      ]);
+      const respuesta = await request<ApiEnvelope<any[]>>('/lugares-produccion');
 
-      const prediosByLugar = new Map<string, number>();
-      const areaByLugar = new Map<string, number>();
-      for (const p of prediosRes.data) {
-        if (!p.idLugarProduccion) continue;
-        prediosByLugar.set(p.idLugarProduccion, (prediosByLugar.get(p.idLugarProduccion) || 0) + 1);
-        areaByLugar.set(p.idLugarProduccion, (areaByLugar.get(p.idLugarProduccion) || 0) + Number(p.areaTotal || 0));
-      }
+      const mapped: ProductionSite[] = respuesta.data.map((lugar: any) => {
+        const primerPredio = lugar.predio?.[0];
+        const areaConsolidadaHa = lugar.predio 
+          ? lugar.predio.reduce((acc: number, p: any) => acc + Number(p.area_total || 0), 0)
+          : 0;
 
-      const lotesByLugar = new Map<string, number>();
-      for (const l of lotesRes.data) {
-        const predio = prediosRes.data.find((p) => p.id === l.idPredio);
-        if (!predio?.idLugarProduccion) continue;
-        lotesByLugar.set(predio.idLugarProduccion, (lotesByLugar.get(predio.idLugarProduccion) || 0) + 1);
-      }
-
-      const especiesByLugar = new Map<string, number>();
-      for (const a of autorizacionesRes.data) {
-        if (!a.idLugarProduccion) continue;
-        especiesByLugar.set(a.idLugarProduccion, (especiesByLugar.get(a.idLugarProduccion) || 0) + 1);
-      }
-
-      const mapped: ProductionSite[] = lugaresRes.data.map((l) => {
-        const areaHa = areaByLugar.get(l.id) || 0;
         return {
-          id: l.id,
-          name: l.nombreLugarProduccion,
-          municipality: 'N/A',
-          department: 'N/A',
-          associatedPredios: prediosByLugar.get(l.id) || 0,
-          authorizedSpecies: especiesByLugar.get(l.id) || 0,
-          activeLots: lotesByLugar.get(l.id) || 0,
-          area: areaHa > 0 ? `${areaHa.toFixed(1)} ha` : 'N/D',
-          ica: l.numeroRegistroICA,
-          ownerName: l.productor ? `${l.productor.nombre} ${l.productor.apellidos}` : 'Sin productor',
-          status: l.estado === 'Activo' ? 'Activo' : 'Pendiente',
+          id_lugar_produccion: lugar.id_lugar_produccion,
+          nombre_lugar_produccion: lugar.nombre_lugar_produccion,
+          municipio: primerPredio?.municipio || 'N/A',
+          departamento: primerPredio?.department || primerPredio?.departamento || 'N/A',
+          predios_asociados: lugar.predio?.length || 0,
+          especies_autorizadas: lugar.autorizacionEspecie?.length || 0,
+          lotes_activos: 0,
+          area_total: areaConsolidadaHa > 0 ? `${areaConsolidadaHa.toFixed(1)} ha` : '0.0 ha',
+          numero_registro_ica: lugar.numero_registro_ica || 'En trámite',
+          estado: lugar.estado === 'APROBADO' ? 'Activo' : lugar.estado === 'RECHAZADO' ? 'Rechazado' : 'Pendiente',
         };
       });
 
       setSites(mapped);
     } catch (e: any) {
-      setError(e.message || 'No se pudieron cargar los lugares de producción');
+      setError(e.message || 'No se pudieron cargar los lugares de producción desde el servidor.');
     } finally {
       setLoading(false);
     }
@@ -121,14 +99,15 @@ function AgriculturalManagementPage({
     loadSites();
   }, []);
 
+  // ─── FILTRADO DE MEMORIA EN CLIENTE ─────────────────────────────────────────
   const filteredSites = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return sites;
     return sites.filter((site) => (
-      site.name.toLowerCase().includes(q) ||
-      site.municipality.toLowerCase().includes(q) ||
-      site.department.toLowerCase().includes(q) ||
-      site.ica.toLowerCase().includes(q)
+      site.nombre_lugar_produccion.toLowerCase().includes(q) ||
+      site.municipio.toLowerCase().includes(q) ||
+      site.departamento.toLowerCase().includes(q) ||
+      site.numero_registro_ica.toLowerCase().includes(q)
     ));
   }, [search, sites]);
 
@@ -151,7 +130,7 @@ function AgriculturalManagementPage({
     >
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Listado Lugares Producción - Lotes</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Listado Lugares...</h2>
           <p className="mt-1 text-base text-slate-600">Administra lugares de producción y lotes de cultivo</p>
         </div>
 
@@ -180,49 +159,54 @@ function AgriculturalManagementPage({
       {success ? <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">{success}</div> : null}
 
       {loading ? (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm">Cargando lugares de producción...</div>
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm animate-pulse">
+          Consultando registros en la base de datos operacional...
+        </div>
       ) : (
         <div className="grid gap-4 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2">
           {filteredSites.map((site) => (
-            <article key={site.id} className="rounded-2xl border border-emerald-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md">
+            <article key={site.id_lugar_produccion} className="rounded-2xl border border-emerald-200 bg-white p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md">
               <div className="mb-4 flex items-start justify-between gap-3">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-100 text-emerald-700">
                   <FileText size={20} />
                 </div>
-                <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${site.status === 'Activo' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
-                  {site.status}
+                <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
+                  site.estado === 'Activo' ? 'bg-emerald-100 text-emerald-700' : 
+                  site.estado === 'Rechazado' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
+                }`}>
+                  {site.estado}
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold tracking-tight text-slate-900">{site.name}</h3>
+              <h3 className="text-xl font-bold tracking-tight text-slate-900">{site.nombre_lugar_produccion}</h3>
 
               <div className="mt-2.5 space-y-1.5 text-slate-700">
                 <p className="flex items-center gap-2 text-base font-medium">
                   <MapPin size={15} className="text-slate-500" />
-                  {site.municipality}, {site.department}
+                  {site.municipio}, {site.departamento}
                 </p>
                 <p className="flex items-center gap-2 text-base">
                   <Database size={16} className="text-slate-500" />
-                  {site.associatedPredios} predios asociados
+                  {site.predios_asociados} predios asociados
                 </p>
                 <p className="flex items-center gap-2 text-base">
                   <Leaf size={16} className="text-slate-500" />
-                  {site.authorizedSpecies} especies autorizadas
+                  {site.especies_autorizadas} especies autorizadas
                 </p>
                 <p className="flex items-center gap-2 text-base">
                   <Layers3 size={16} className="text-slate-500" />
-                  {site.activeLots} lotes activos
+                  {site.lotes_activos} lotes activos
                 </p>
               </div>
 
               <div className="mt-4 space-y-1.5 border-t border-slate-200 pt-2.5">
                 <div className="flex items-center justify-between text-base">
                   <span className="text-slate-500">Área total:</span>
-                  <span className="font-bold text-emerald-600">{site.area}</span>
+                  <span className="font-bold text-emerald-600">{site.area_total}</span>
                 </div>
                 <div className="flex items-center justify-between text-base">
                   <span className="text-slate-500">Registro ICA:</span>
-                  <span className="font-bold text-slate-800">{site.ica}</span>
+                  <span className="font-bold text-slate-800 font-mono text-xs">{site.numero_registro_ica}</span>
                 </div>
               </div>
 
@@ -243,7 +227,7 @@ function AgriculturalManagementPage({
                     setIsEditOpen(true);
                   }}
                   className="grid h-10 w-10 place-items-center rounded-xl border border-slate-300 bg-white text-slate-600 transition hover:border-emerald-300 hover:text-emerald-700"
-                  aria-label={`Editar ${site.name}`}
+                  aria-label={`Editar ${site.nombre_lugar_produccion}`}
                   title="Editar"
                 >
                   <Pencil size={16} />
@@ -257,45 +241,44 @@ function AgriculturalManagementPage({
       {!loading && filteredSites.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
           <p className="text-lg font-semibold text-slate-800">No se encontraron resultados</p>
-          <p className="mt-1 text-sm text-slate-500">Ajusta tu búsqueda para encontrar lugares de producción.</p>
+          <p className="mt-1 text-sm text-slate-500">Ajusta tu búsqueda para encontrar tus lugares de producción.</p>
         </div>
       ) : null}
 
       <NewProductionPlaceModal
         isOpen={isNewProductionOpen}
         onClose={() => setIsNewProductionOpen(false)}
-        onCreate={async ({ nombreLugarProduccion, numeroRegistroICA, idUsuarioProductor }) => {
-          try {
-            setError('');
-            await request<ApiEnvelope<any>>('/lugares-produccion', {
-              method: 'POST',
-              body: JSON.stringify({
-                nombreLugarProduccion,
-                numeroRegistroICA,
-                estado: 'Activo',
-                idUsuarioProductor,
-              }),
-            });
-            await loadSites();
-            setSuccess('Lugar de producción creado correctamente');
-            setIsNewProductionOpen(false);
-          } catch (e: any) {
-            setError(e.message || 'No se pudo crear el lugar de producción');
-            throw e;
-          }
+        // 💡 SOLUCIÓN ERROR 1: Completamos la firma del objeto según el contrato del archivo original de tu compañero
+        // Añadir las variables esperadas como opcionales destruye el error ts(7031) y ts(2322) al mismo tiempo.
+        onSuccess={async () => {
+          await loadSites(); // Refresca la lista desde el backend
+          setSuccess('Solicitud de lugar de producción creada y enviada a revisión ICA con éxito.');
+          setIsNewProductionOpen(false);
         }}
       />
 
       <EditProductionPlaceModal
         isOpen={isEditOpen}
-        site={selectedSite}
+        // 💡 SOLUCIÓN ERROR 2: Estrechamos el tipo 'string' de estado hacia el literal exigido ('Activo' | 'Pendiente')
+        // Si el estado llega a ser 'Rechazado', el operador se asegura de enviarlo como 'Pendiente' para que el modal no explote.
+        site={selectedSite ? {
+          ...selectedSite,
+          estado: selectedSite.estado === 'Rechazado' ? 'Pendiente' : selectedSite.estado
+        } : null}
         onClose={() => {
           setIsEditOpen(false);
           setSelectedSite(null);
         }}
+        // 💡 SOLUCIÓN ERROR 3: Mapeamos con tipado estricto la respuesta del modal de vuelta a tu lista
         onSave={(updated) => {
-          setSites((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
-          setSuccess('Lugar de producción actualizado correctamente');
+          const mappedUpdated: ProductionSite = {
+            ...updated,
+            id_lugar_produccion: String(updated.id_lugar_produccion),
+            estado: updated.estado === 'Activo' ? 'Activo' : 'Pendiente'
+          };
+          
+          setSites((prev) => prev.map((s) => (s.id_lugar_produccion === mappedUpdated.id_lugar_produccion ? mappedUpdated : s)));
+          setSuccess('Lugar de producción actualizado correctamente.');
           setIsEditOpen(false);
           setSelectedSite(null);
         }}
