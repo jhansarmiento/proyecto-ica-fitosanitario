@@ -4,7 +4,8 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 import type { DashboardViewKey } from "../types/dashboard.types";
 import type { SessionUser } from "../App";
 import type { ProductionApprovalItem } from "../types/dashboard.types";
-import { fincaService } from "../services/finca.service"; // 💡 Tu servicio unificado
+import { fincaService } from "../services/finca.service";
+import { authService } from "../services/auth.service";
 import StatusBadge from "../components/ui/StatusBadge";
 import Pagination from "../components/ui/Pagination";
 import ToastMessage from "../components/ui/ToastMessage";
@@ -83,6 +84,12 @@ function AdminProductionApprovalPage({
   const [rejectionReason, setRejectionReason] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
+  // Estados para la asignación de asistentes técnicos
+  const [asistentesOptions, setAsistentesOptions] = useState<
+    { id: string; label: string }[]
+  >([]);
+  const [selectedAsistenteId, setSelectedAsistenteId] = useState("");
+
   // ─── CARGA DE DATOS DESDE EL BACKEND ────────────────────────────────────────
   const cargarSolicitudes = async () => {
     try {
@@ -93,16 +100,13 @@ function AdminProductionApprovalPage({
       const solicitudesMapeadas: ProductionApprovalItem[] = respuesta.data.map(
         (item: BackendSolicitudItem) => ({
           id: item.id_lugar_produccion,
-
           nombreLugarProduccion: item.nombre_lugar_produccion,
-
           productor: item.productor
             ? `${item.productor.nombre} ${item.productor.apellidos}`
             : "Productor Desconocido",
           identificacionProductor:
             item.productor?.numero_identificacion || "N/D",
           telefonoProductor: item.productor?.telefono || "N/D",
-
           fechaSolicitud: item.fecha_solicitud
             ? item.fecha_solicitud.split("T")[0]
             : "N/D",
@@ -128,13 +132,10 @@ function AdminProductionApprovalPage({
           especies: item.autorizacionEspecie?.map(
             (e: any) => e.id_especie_vegetal,
           ) || ["Estudio Fitosanitario"],
-
-          // Inicializados por defecto para cumplir con el tipado sin romper la UI stática
           variedades: [],
           lotes: [],
         }),
       );
-
       setRows(solicitudesMapeadas);
     } catch (error: any) {
       setToast({
@@ -148,20 +149,64 @@ function AdminProductionApprovalPage({
     }
   };
 
+  // Carga los técnicos una sola vez sin saturar el backend
+  const cargarAsistentes = async () => {
+    try {
+      const [usuariosRes, rolesRes] = await Promise.all([
+        authService.getUsuarios(),
+        authService.getRoles(),
+      ]);
+
+      // Mapeamos los roles indexados para una búsqueda rápida
+      const mapaRoles = new Map(
+        rolesRes.data.map((r: any) => [r.id, r.nombreRol.toLowerCase()]),
+      );
+
+      // Filtramos los usuarios que cumplan con el rol de asistente técnico
+      const tecnicosCalificados = usuariosRes.data
+        .filter((u: any) => {
+          const nombreRol = mapaRoles.get(u.id_rol) || "";
+          return (
+            nombreRol.includes("asistente") || nombreRol.includes("tecnico")
+          );
+        })
+        .map((u: any) => ({
+          id: u.id_usuario,
+          label: `${u.nombre} ${u.apellidos} (TP: ${u.tarjeta_profesional || "N/D"})`,
+        }));
+
+      setAsistentesOptions(tecnicosCalificados);
+    } catch (error) {
+      console.error(
+        "❌ Error al mapear el catálogo de asistentes del ICA:",
+        error,
+      );
+    }
+  };
+
+  // dispara ambos flujos en paralelo al cargar la página
   useEffect(() => {
     cargarSolicitudes();
+    cargarAsistentes();
   }, []);
 
   // ─── ACCIONES REALES DE INTERRUPTOR HTTP ─────────────────────────────────────
   const handleApprove = async () => {
     if (!selected) return;
+    
+    // Validamos que se haya seleccionado un asistente técnico profesional antes de aprobar
+    // Este es un requisito de negocio para garantizar el acompañamiento técnico a los productores.
+    if (!selectedAsistenteId) {
+      setToast({ type: "error", message: "Debe asignar un Asistente Técnico Profesional antes de proceder." });
+      return;
+    }
     try {
       setIsSaving(true);
 
-      // Formateamos los parámetros obligatorios que solicita tu firma del servicio
+      // Enviar la solicitud de aprobación al backend con el número de registro ICA oficial generado y el asistente asignado
       const payloadOficial = {
         numero_registro_ica_oficial: `ICA-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`,
-        id_asistente_asignado: "asistente-uuid-temporal", // Modificar cuando se integre el selector de técnicos
+        id_asistente_asignado: selectedAsistenteId, 
       };
 
       await fincaService.aprobarLugarProduccion(selected.id, payloadOficial);
@@ -412,9 +457,7 @@ function AdminProductionApprovalPage({
                 </span>
               </p>
               <p>
-                <span className="font-semibold text-slate-800">
-                  Teléfono:
-                </span>{" "}
+                <span className="font-semibold text-slate-800">Teléfono:</span>{" "}
                 {selected.telefonoProductor}
               </p>
               <p>

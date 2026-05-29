@@ -205,3 +205,70 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
         res.status(500).json({ message: 'Error interno al cargar la bandeja de revisión fitosanitaria.' });
     }
 };
+
+// ─── 4. ENDPOINT PARA APROBAR LUGAR DE PRODUCCIÓN (PATCH) ───────────────────
+export const aprobarLugarProduccion = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const { numero_registro_ica_oficial, id_asistente_asignado } = req.body;
+
+        // Regla de negocio: Validar parámetros obligatorios, se debe asignar un asistente técnico para aprobar
+        if (!id_asistente_asignado) {
+            res.status(400).json({ message: 'Criterio ICA rechazado: Es obligatorio asignar un asistente técnico calificado para aprobar el lugar.' });
+            return;
+        }
+
+        const lugar = await models.LugarProduccion.findByPk(id);
+        if (!lugar) {
+            res.status(404).json({ message: 'El lugar de producción solicitado no existe.' });
+            return;
+        }
+
+        // Actualización física del estado del trámite
+        await lugar.update({
+            estado: 'APROBADO',
+            numero_registro_ica: numero_registro_ica_oficial,
+            id_asistente_assigned: id_asistente_asignado,
+            fecha_aprobacion: new Date(),
+            id_admin_aprobador: req.usuario?.id // Auditoría de quién aprobó
+        });
+
+        res.json({ 
+            message: 'Lugar de producción aprobado con éxito. Se ha emitido el Registro oficial del ICA y asignado el asistente técnico.',
+            registro_oficial: numero_registro_ica_oficial
+        });
+    } catch (error) {
+        console.error('❌ Error al aprobar lugar de producción:', error);
+        res.status(500).json({ message: 'Error interno al procesar el cambio de estado a Aprobado.' });
+    }
+};
+
+// ─── 5. ENDPOINT PARA RECHAZAR SOLICITUD (PATCH) ─────────────────────────────
+export const rechazarLugarProduccion = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const { observaciones } = req.body;
+
+        if (!observaciones || observaciones.trim() === '') {
+            res.status(400).json({ message: 'Es obligatorio ingresar una justificación técnica para rechazar la solicitud.' });
+            return;
+        }
+
+        const lugar = await models.LugarProduccion.findByPk(id);
+        if (!lugar) {
+            res.status(404).json({ message: 'El lugar de producción solicitado no existe.' });
+            return;
+        }
+
+        await lugar.update({
+            estado: 'RECHAZADO',
+            observaciones_administrador: observaciones.trim(),
+            id_admin_aprobador: req.usuario?.id
+        });
+
+        res.json({ message: 'La solicitud ha sido rechazada formalmente con las observaciones adjuntas.' });
+    } catch (error) {
+        console.error('❌ Error al rechazar lugar de producción:', error);
+        res.status(500).json({ message: 'Error interno al procesar el rechazo de la solicitud.' });
+    }
+};
