@@ -136,23 +136,70 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
 // ─── 3. ENDPOINT PARA LISTAR SOLICITUDES PENDIENTES PARA EL ICA (GET) ──────────────────────
 export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        // Buscamos todos los lugares de producción que estén esperando aprobación
+        // 1. Buscamos todas las solicitudes pendientes de la BD Operacional
         const solicitudes = await models.LugarProduccion.findAll({
             where: { estado: 'PENDIENTE' },
             include: [
                 {
                     model: models.Usuario,
-                    as: 'productor', // Asegúrate de que este alias coincida con tu asociación en los modelos
-                    attributes: ['nombre', 'apellidos', 'numero_identificacion', 'correo_electronico', 'telefono'] // 💡 Traemos solo los datos básicos que necesitas del productor
+                    as: 'productor',
+                    attributes: ['nombre', 'apellidos', 'numero_identificacion', 'correo_electronico', 'telefono']
                 },
                 {
-                    association: 'predio' // Incluye los predios vinculados para que el administrador vea el área total
+                    association: 'predio' // Trae los terrenos amarrados
                 }
             ],
-            order: [['fecha_solicitud', 'DESC']] // Las más recientes primero
+            order: [['fecha_solicitud', 'DESC']]
         });
 
-        res.json({ data: solicitudes });
+        // 2. Extraer todos los id_vereda únicos de todos los predios de la lista
+        const allVeredaIds: string[] = [];
+        solicitudes.forEach((sol: any) => {
+            if (sol.predio) {
+                sol.predio.forEach((p: any) => {
+                    if (p.id_vereda) allVeredaIds.push(p.id_vereda);
+                });
+            }
+        });
+        const uniqueVeredaIds = [...new Set(allVeredaIds)];
+
+        // 3. Consultar las ubicaciones de las veredas en la BD de Catálogos 
+        // para obtener municipio y departamento, y mapearlo en un objeto de consulta rápida
+        const veredasCatalogo = await catalogmodels.Vereda.findAll({
+            where: { id_vereda: uniqueVeredaIds },
+            include: [
+                {
+                    model: catalogmodels.Municipio,
+                    as: 'municipio',
+                    include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
+                }
+            ]
+        });
+
+        // Mapeamos los datos del catálogo en un Map O(1)
+        const geoMap = new Map<string, any>(
+            veredasCatalogo.map((v: any) => [v.id_vereda, v])
+        );
+
+        // 4. Inyectar de forma transparente las ubicaciones del catálogo en cada predio
+        const solicitudesEnriquecidas = solicitudes.map((sol: any) => {
+            const solJson = sol.toJSON();
+            if (solJson.predio) {
+                solJson.predio = solJson.predio.map((p: any) => {
+                    const infoGeo = geoMap.get(p.id_vereda);
+                    return {
+                        ...p,
+                        vereda: infoGeo?.nombre || 'N/D',
+                        municipio: infoGeo?.municipio?.nombre || 'N/D',
+                        departamento: infoGeo?.municipio?.departamento?.nombre || 'N/D'
+                    };
+                });
+            }
+            return solJson;
+        });
+
+        // Retornamos la respuesta enriquecida al frontend
+        res.json({ data: solicitudesEnriquecidas });
     } catch (error) {
         console.error('❌ Error al obtener solicitudes pendientes para el ICA:', error);
         res.status(500).json({ message: 'Error interno al cargar la bandeja de revisión fitosanitaria.' });

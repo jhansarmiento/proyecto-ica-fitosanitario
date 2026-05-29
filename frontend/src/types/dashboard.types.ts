@@ -37,15 +37,17 @@ export type ProductionApprovalItem = {
   id: string;
   nombreLugarProduccion: string;
   productor: string;
+  identificacionProductor: string;
+  telefonoProductor: string;
   fechaSolicitud: string;
   estado: Exclude<RequestStatus, 'En revisión'>;
-  municipio: string;
+  departamento: string;
   areaTotal: number;
   numeroICA: string;
   observaciones?: string;
   especies: string[];
-  variedades: string[];
-  lotes: string[];
+  variedades?: string[];
+  lotes?: string[];
 };
 
 export type ProducerPlaceItem = {

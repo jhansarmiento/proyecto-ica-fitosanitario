@@ -39,11 +39,19 @@ export const fincaService = {
   return request<ApiEnvelope<any[]>>('/lugares-produccion/solicitudes-pendientes-lp');
   },
 
-  // Método listo para cuando el administrador presione "Aprobar"
+  // Método para aprobar un lugar de producción desde el panel de administración
   aprobarLugarProduccion(idLugarProduccion: string, payload: { numero_registro_ica_oficial: string; id_asistente_asignado: string }) {
     return request<{ message: string }>(`/lugares-produccion/${idLugarProduccion}/aprobar`, {
       method: 'PATCH', // Usamos PATCH para actualizaciones parciales
       body: JSON.stringify(payload)
     });
+  },
+
+  // Método para rechazar un lugar de producción desde el panel de administración, con observaciones para el productor
+  rechazarLugarProduccion(idLugarProduccion: string, payload: { observaciones: string }) {
+  return request<{ message: string }>(`/lugares-produccion/${idLugarProduccion}/rechazar`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload)
+  });
   },
 };
