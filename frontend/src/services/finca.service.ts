@@ -54,4 +54,16 @@ export const fincaService = {
     body: JSON.stringify(payload)
   });
   },
+
+  // ── LOTES ──
+  getLotesPorLugar(idLugarProduccion: string) {
+    return request<ApiEnvelope<any[]>>(`/lugares-produccion/${idLugarProduccion}/lotes`);
+  },
+
+  createLote(idLugarProduccion: string, payload: any) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/${idLugarProduccion}/lotes`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
 };

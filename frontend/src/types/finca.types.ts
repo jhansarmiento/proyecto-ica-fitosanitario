@@ -1,5 +1,11 @@
 // predios, lugares de produccion y lotes
 
+
+export interface ProducerOption {
+  id: string;
+  label: string;
+}
+
 // ── PREDIOS ──
 export interface PredioDTO {
   id_predio: string;
@@ -48,7 +54,21 @@ export interface EspecieUI {
   ciclo_cultivo: string;
 }
 
-export interface ProducerOption {
-  id: string;
-  label: string;
+export interface LoteUI {
+  id_lote: string;
+  numero_lote: string;
+  area_total: number;
+  fecha_siembra: string;
+  fecha_cosecha?: string;
+  estado: string; // 'Activo', 'Inactivo'
+  cantidad_plantas: number;
+  id_variedad: string;
+  id_predio: string;
+  // Campos enriquecidos por el backend
+  especie_nombre?: string;
+  variedad_nombre?: string;
+  predio_nombre?: string;
 }
+
+
+

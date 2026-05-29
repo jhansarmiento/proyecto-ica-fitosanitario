@@ -142,18 +142,6 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
             }
         });
         const uniqueVeredaIds = [...new Set(veredaIds)];
-
-       // 3. Consultamos el árbol geográfico en la BD de Catálogos
-        const veredasCatalogo = await catalogmodels.Vereda.findAll({
-            where: { id_vereda: uniqueVeredaIds },
-            include: [
-                {
-                    model: catalogmodels.Municipio,
-                    as: 'municipio',
-                    include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
-                }
-            ]
-        });
         
         // 3. Consulta al Catálogo Geográfico (Mapeo Completo)
         let geoMap = new Map<string, any>();
@@ -178,8 +166,8 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
             const lugarJson = l.toJSON();
 
             // Formateamos el nombre del asistente real
-            const nombreAsistente = lugarJson.asistente_asignado 
-                ? `${lugarJson.asistente_asignado.nombre} ${lugarJson.asistente_asignado.apellidos}`
+            const nombreAsistente = lugarJson.asistenteAsignado
+                ? `${lugarJson.asistenteAsignado.nombre} ${lugarJson.asistenteAsignado.apellidos}`
                 : 'Pendiente de asignación';
         
 

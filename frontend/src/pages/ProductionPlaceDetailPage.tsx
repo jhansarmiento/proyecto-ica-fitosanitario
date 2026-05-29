@@ -136,7 +136,7 @@ const ProductionPlaceDetailPage = ({
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Código Radicado
+                    Número de registro ICA
                   </p>
                   <p className="mt-1 font-semibold text-slate-800 font-mono text-sm">
                     {site?.numero_registro_ica ?? "N/D"}
@@ -160,7 +160,7 @@ const ProductionPlaceDetailPage = ({
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Fecha de Solicitud
+                    Fecha de creación
                   </p>
                   <p className="mt-1 text-base font-semibold text-slate-800">
                     {site?.fecha_creacion ?? "N/D"}
