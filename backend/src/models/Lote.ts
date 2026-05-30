@@ -47,7 +47,7 @@ Lote.init(
         },
         fecha_cosecha: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         estado: {
             type: DataTypes.STRING,

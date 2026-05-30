@@ -15,11 +15,16 @@ export const createSolicitudInspeccion = async (req: Request, res: Response): Pr
             return;
         }
 
-        // 2. Insertamos la solicitud
+        // 2. Si la BD exige asistente técnico no nulo, tomamos el asignado al lugar
+        const lugarAny: any = lugar;
+        const idAsistenteTecnico = lugarAny.id_asistente_asignado ?? null;
+
+        // 3. Insertamos la solicitud
         const nuevaSolicitud = await models.SolicitudInspeccion.create({
             fecha_tentativa_productor: payload.fecha_tentativa_productor,
             observaciones: payload.observaciones || null,
             id_lugar_produccion: id_lugar_produccion,
+            id_asistente_tecnico: idAsistenteTecnico,
             estado: 'SOLICITADA' 
         });
 

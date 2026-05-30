@@ -51,9 +51,7 @@ function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordModalProps) {
 
     try {
       setIsLoading(true);
-      const response = await authService.forgotPassword({
-        correo_electronico: normalizedEmail,
-      });
+      const response = await authService.forgotPassword(normalizedEmail);
 
       setSuccessMessage(
         response?.message ??

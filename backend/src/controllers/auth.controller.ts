@@ -112,14 +112,20 @@ export const login = async (req: Request, res: Response): Promise<void> => {
  */
 export const forgotPassword = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { correo_electronico } = req.body as { correo_electronico?: string };
+    const body = (req.body ?? {}) as { correo_electronico?: unknown };
+    const rawEmail =
+      typeof body.correo_electronico === 'string'
+        ? body.correo_electronico
+        : typeof (body as any).email === 'string'
+          ? (body as any).email
+          : '';
 
-    if (!correo_electronico || !correo_electronico.trim()) {
+    if (!rawEmail || !rawEmail.trim()) {
       res.status(400).json({ message: 'El correo electrónico es obligatorio' });
       return;
     }
 
-    const email = correo_electronico.trim().toLowerCase();
+    const email = rawEmail.trim().toLowerCase();
 
     const usuario: any = await models.Usuario.findOne({
       where: { correo_electronico: email },
@@ -185,17 +191,26 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
  */
 export const resetPassword = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { token, nueva_contrasena } = req.body as {
-      token?: string;
-      nueva_contrasena?: string;
+    const body = (req.body ?? {}) as {
+      token?: unknown;
+      nueva_contrasena?: unknown;
+      nuevaContrasena?: unknown;
     };
 
-    if (!token || !nueva_contrasena) {
+    const token = typeof body.token === 'string' ? body.token : '';
+    const nuevaContrasenaRaw =
+      typeof body.nueva_contrasena === 'string'
+        ? body.nueva_contrasena
+        : typeof body.nuevaContrasena === 'string'
+          ? body.nuevaContrasena
+          : '';
+
+    if (!token || !nuevaContrasenaRaw) {
       res.status(400).json({ message: 'Token y nueva contraseña son obligatorios' });
       return;
     }
 
-    if (nueva_contrasena.length < 8) {
+    if (nuevaContrasenaRaw.length < 8) {
       res.status(400).json({ message: 'La nueva contraseña debe tener al menos 8 caracteres' });
       return;
     }
@@ -221,7 +236,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    const hashedPassword = await bcrypt.hash(nueva_contrasena, 10);
+    const hashedPassword = await bcrypt.hash(nuevaContrasenaRaw, 10);
 
     await usuario.update({ ingreso_contrasena: hashedPassword });
     await resetRecord.update({ used_at: new Date() });

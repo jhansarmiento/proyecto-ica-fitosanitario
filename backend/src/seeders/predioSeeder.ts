@@ -38,7 +38,7 @@ export const seedPropietariosYPredios = async () => {
             const veredaAleatoria = veredas[i % veredas.length];
 
             await models.Predio.findOrCreate({
-                where: { numero_predial: data.numero_predial },
+                where: { numero_registro_ica: data.numero_registro_ica },
                 defaults: {
                     numero_predial: data.numero_predial,
                     numero_registro_ica: data.numero_registro_ica,

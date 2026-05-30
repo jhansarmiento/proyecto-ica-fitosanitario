@@ -51,10 +51,7 @@ function ResetPasswordPage() {
 
     try {
       setIsLoading(true);
-      const response = await authService.resetPassword({
-        token,
-        nueva_contrasena: password,
-      });
+      const response = await authService.resetPassword(token, password);
 
       setSuccessMessage(response?.message ?? 'Contraseña actualizada exitosamente.');
       setPassword('');
