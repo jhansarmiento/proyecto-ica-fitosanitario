@@ -179,16 +179,18 @@ export const gestionarSolicitud = async (req: any, res: Response): Promise<void>
     }
 };
 
+// backend/src/controllers/solicitud.controller.ts
+
 export const getDatosInicioInspeccion = async (req: any, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
 
-        // 1. Buscamos la solicitud con todos sus datos
+        // 1. CONSULTA LIMPIA
         const solicitud = await models.SolicitudInspeccion.findByPk(id, {
             include: [{
                 association: 'lugarProduccion',
                 include: [
-                    { association: 'predio' },
+                    { association: 'predio' }, 
                     { model: models.Usuario, as: 'productor', attributes: ['nombre', 'apellidos', 'telefono'] }
                 ]
             }]
@@ -203,26 +205,45 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
         const predioPrincipal = lugar?.predio?.[0] || {};
         const productor = lugar?.productor;
 
-        // 2. Traemos Lotes y Catálogos
+        // 2. Traemos Lotes y Catálogos Agrícolas (Usando catalogModels con M mayúscula)
         const prediosIds = lugar?.predio?.map((p: any) => p.id_predio) || [];
         const lotesFisicos = prediosIds.length > 0 ? await models.Lote.findAll({ where: { id_predio: prediosIds } }) : [];
 
-        const variedades = models.VariedadEspecie ? await models.VariedadEspecie.findAll() : await catalogModels.VariedadEspecie.findAll().catch(()=>[]);
-        const especies = models.EspecieVegetal ? await models.EspecieVegetal.findAll() : await catalogModels.EspecieVegetal.findAll().catch(()=>[]);
+        const variedadesCat = models.VariedadEspecie ? await models.VariedadEspecie.findAll() : await catalogModels.VariedadEspecie.findAll().catch(()=>[]);
+        const especiesCat = models.EspecieVegetal ? await models.EspecieVegetal.findAll() : await catalogModels.EspecieVegetal.findAll().catch(()=>[]);
         const plagasCat = catalogModels.Plaga ? await catalogModels.Plaga.findAll().catch(()=>[]) : [];
 
-        // 3. MAPEO PARA EL FRONTEND
+        // 🌟 3. TRADUCCIÓN GEOGRÁFICA (Con tipado any para evitar el error de TypeScript)
+        let txtMunicipio = 'N/D';
+        let txtVereda = 'N/D';
+
+        if (predioPrincipal.id_vereda) {
+            // Le indicamos explícitamente a TypeScript que esto es "any"
+            const veredaObj: any = await catalogModels.Vereda.findByPk(predioPrincipal.id_vereda, {
+                include: [{
+                    model: catalogModels.Municipio,
+                    as: 'municipio'
+                }]
+            }).catch(() => null);
+
+            if (veredaObj) {
+                // Ahora TypeScript nos deja acceder tranquilamente a las propiedades anidadas
+                txtVereda = veredaObj.nombre_vereda || veredaObj.nombre || 'N/D';
+                txtMunicipio = veredaObj.municipio?.nombre_municipio || veredaObj.municipio?.nombre || 'N/D';
+            }
+        }
+
+        // 4. MAPEO PARA EL FRONTEND
         const lotes = lotesFisicos.map((l: any) => {
-            const varObj = variedades.find((v:any) => String(v.id_variedad_especie) === String(l.id_variedad_especie));
-            const espObj = varObj ? especies.find((e:any) => String(e.id_especie_vegetal) === String(varObj.id_especie_vegetal)) : null;
+            const varObj = variedadesCat.find((v:any) => String(v.id_variedad_especie) === String(l.id_variedad_especie));
+            const espObj = varObj ? especiesCat.find((e:any) => String(e.id_especie_vegetal) === String(varObj.id_especie_vegetal)) : null;
 
             return {
                 id: l.id_lote, 
-                numero: l.numero_lote, // 🌟 Pasamos el número de lote
+                numero: l.numero_lote,
                 cultivo: espObj ? espObj.nombre_comun : 'Cultivo',
                 nombreCientifico: espObj ? (espObj.nombre_cientifico || 'N/A') : 'N/A',
-                id_especie_vegetal: espObj ? espObj.id_especie_vegetal : null, // 🌟 Para filtrar plagas
-                // 🌟 Formateamos la fecha quitando la hora
+                id_especie_vegetal: espObj ? espObj.id_especie_vegetal : null,
                 fechaSiembra: l.fecha_siembra ? new Date(l.fecha_siembra).toISOString().split('T')[0] : 'N/D',
                 plantas: l.cantidad_plantas || 0,
                 areaHa: l.area_total,
@@ -235,19 +256,23 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
             id: p.id_plaga || p.id,
             nombre: p.nombre_comun || p.nombre,
             nombreCientifico: p.nombre_cientifico || 'N/A',
-            id_especie_vegetal: p.id_especie_vegetal || null, // 🌟 Para que el front sepa a qué planta ataca
+            id_especie_vegetal: p.id_especie_vegetal || null,
             imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80'
         }));
 
+        // 5. RESPUESTA AL FRONTEND
+        const lat = predioPrincipal.latitud;
+        const lng = predioPrincipal.longitud;
+        const txtCoordenadas = (lat && lng) ? `${lat}, ${lng}` : 'Coordenadas no registradas';
+
         res.status(200).json({
             data: {
-                // 🌟 INFORMACIÓN GENERAL REAL
                 generalInfo: {
                     registroIca: lugar?.numero_registro_ica || 'En trámite',
-                    coordenadas: `${predioPrincipal.latitud || 'N/D'}, ${predioPrincipal.longitud || 'N/D'}`,
+                    coordenadas: txtCoordenadas,
                     fechaInspeccion: new Date().toISOString().split('T')[0],
-                    vereda: predioPrincipal.vereda || 'N/D',
-                    municipio: predioPrincipal.municipio || 'N/D',
+                    vereda: txtVereda,
+                    municipio: txtMunicipio,
                     productorNombre: productor ? `${productor.nombre} ${productor.apellidos}` : 'N/D',
                     productorTelefono: productor?.telefono || 'N/D',
                     nombreLugar: lugar?.nombre_lugar_produccion || 'Lugar de Producción'
