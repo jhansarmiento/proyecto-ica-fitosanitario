@@ -25,6 +25,7 @@ export const authService = {
   // Roles
   getRoles() {
     return request<ApiEnvelope<RolDTO[]>>('/roles');
+<<<<<<< HEAD
   },
 
   createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
@@ -65,15 +66,61 @@ export const authService = {
   updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
     return request<ApiEnvelope<UsuarioDTO>>(`/usuarios/${id}`, {
       method: 'PUT',
+=======
+  },
+
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
+    return request<ApiEnvelope<RolDTO>>('/roles', {
+      method: 'POST',
       body: JSON.stringify(body),
     });
   },
 
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
+    return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        ...(body.nombre_rol !== undefined ? { nombre_rol: body.nombre_rol } : {}),
+        ...(body.descripcion !== undefined ? { descripcion: body.descripcion } : {}),
+      }),
+    });
+  },
+
+  deleteRole(id: string) {
+    return request<{ message: string }>(`/roles/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  // Usuarios
+  createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
+    return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
+      method: 'POST',
+>>>>>>> origin/jhan_branch
+      body: JSON.stringify(body),
+    });
+  },
+
+<<<<<<< HEAD
+=======
+  getUsuarios() {
+    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
+  },
+
+  updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
+    return request<ApiEnvelope<UsuarioDTO>>(`/usuarios/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+
+>>>>>>> origin/jhan_branch
   deleteUsuario(id: string) {
     return request<{ message: string }>(`/usuarios/${id}`, {
       method: 'DELETE',
     });
   },
+<<<<<<< HEAD
 
   forgotPassword(correo_electronico: string) {
     return request<{ message: string }>('/auth/forgot-password', {
@@ -88,4 +135,6 @@ export const authService = {
       body: JSON.stringify({ token, nuevaContrasena }),
     });
   },
+=======
+>>>>>>> origin/jhan_branch
 };

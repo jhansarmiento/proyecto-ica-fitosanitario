@@ -180,6 +180,9 @@ export const api = {
    * @param {Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>} body Campos a actualizar.
    * @returns {Promise<{ message: string }>} Resultado del backend.
    */
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
+    return rolesApi.createRole(body);
+  },
   updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return rolesApi.updateRole(id, body);
   },

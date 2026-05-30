@@ -27,6 +27,8 @@ export const rolesApi = {
    */
   createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
     return request<{ message: string }>('/roles', {
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
+    return request<ApiEnvelope<RolDTO>>('/roles', {
       method: 'POST',
       body: JSON.stringify(body),
     });
@@ -41,6 +43,8 @@ export const rolesApi = {
    */
   updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return request<{ message: string }>(`/roles/${id}`, {
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
+    return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
       method: 'PUT',
       body: JSON.stringify({
         ...(body.nombre_rol !== undefined ? { nombre_rol: body.nombre_rol } : {}),

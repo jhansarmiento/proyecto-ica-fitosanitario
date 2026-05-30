@@ -72,14 +72,6 @@ SolicitudInspeccion.init(
                 key: 'id_lugar_produccion',
             }
         },
-        id_asistente_tecnico: {
-            type: DataTypes.UUID,
-            allowNull: true,
-            references: {
-                model: 'usuario',
-                key: 'id_usuario',
-            },
-        },
     },
     {
         sequelize,

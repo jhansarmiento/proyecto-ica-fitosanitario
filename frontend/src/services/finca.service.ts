@@ -101,4 +101,15 @@ export const fincaService = {
     // Apunta exactamente a la ruta GET que creamos en el backend
     return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/iniciar-inspeccion`);
   },
+
+  finalizarInspeccion(idSolicitud: string, payload: any) {
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/finalizar-inspeccion`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  getReportesFitosanitarios() {
+    return request<ApiEnvelope<any[]>>('/solicitudes/reportes/generales');
+  },
 };

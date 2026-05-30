@@ -23,7 +23,6 @@ import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
-import PasswordResetToken from './models/PasswordResetToken';
 
 // Modelos de BD Catalogo
 import './catalogIndex';
@@ -42,7 +41,6 @@ import especieRoutes from './routes/especie.routes';
 import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 
 import solicitudRoutes from './routes/solicitud.routes';
-import catalogoRoutes from './routes/catalogo.routes';
 
 
 const models: any = {
@@ -96,14 +94,6 @@ app.use('/api/especies-vegetales', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 
 app.use('/api/solicitudes', solicitudRoutes);
-
-/**
- * Módulo de catálogo para consumo del frontend de gestión de catálogos.
- * Endpoints:
- * - GET /api/catalogo/especies
- * - GET /api/catalogo/plagas
- */
-app.use('/api/catalogo', catalogoRoutes);
 
 const startServer = async () => {
   try {

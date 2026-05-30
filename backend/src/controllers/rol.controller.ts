@@ -1,24 +1,14 @@
 // backend/src/controllers/rol.controller.ts
 import { Request, Response } from 'express';
+import Rol from '../models/Rol';
 import { createRolSchema, updateRolSchema } from '../schemas/rol.schema';
 import type { CreateRolInput, UpdateRolInput } from '../types/rol.types';
-import {
-  listRolesByFunction,
-  createRolByProcedure,
-  updateRolByProcedure,
-  deleteRolByProcedure,
-} from '../services/rolProcedureService';
 
-/**
- * Lista todos los roles usando la función SQL `fn_listar_roles`.
- *
- * @param {Request} _req Solicitud HTTP (no utilizada).
- * @param {Response} res Respuesta HTTP.
- * @returns {Promise<Response>} Respuesta con listado de roles.
- */
+// Controladores para la gestión de roles en el sistema fitosanitario
 export const listRoles = async (_req: Request, res: Response): Promise<Response> => {
   try {
-    const roles = await listRolesByFunction();
+    // 💡 Ajustamos el ordenamiento físico a 'nombre_rol'
+    const roles = await Rol.findAll({ order: [['nombre_rol', 'ASC']] });
     return res.status(200).json({ data: roles });
   } catch (error) {
     console.error('❌ Error listando roles:', error);
@@ -26,18 +16,10 @@ export const listRoles = async (_req: Request, res: Response): Promise<Response>
   }
 };
 
-/**
- * Obtiene un rol por id a partir del listado retornado por función SQL.
- *
- * @param {Request} req Solicitud HTTP con `params.id`.
- * @param {Response} res Respuesta HTTP.
- * @returns {Promise<Response>} Respuesta con rol encontrado o error.
- */
 export const getRolById = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const roles = await listRolesByFunction();
-    const rol = roles.find((r) => r.id_rol === id);
+    const rol = await Rol.findByPk(id);
     if (!rol) return res.status(404).json({ message: 'Rol no encontrado.' });
     return res.status(200).json({ data: rol });
   } catch (error) {
@@ -46,13 +28,6 @@ export const getRolById = async (req: Request, res: Response): Promise<Response>
   }
 };
 
-/**
- * Crea un nuevo rol validando payload con Zod y ejecutando procedimiento SQL.
- *
- * @param {Request} req Solicitud HTTP con datos del rol.
- * @param {Response} res Respuesta HTTP.
- * @returns {Promise<Response>} Resultado de creación.
- */
 export const createRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const parsed = createRolSchema.safeParse(req.body);
@@ -64,12 +39,12 @@ export const createRol = async (req: Request, res: Response): Promise<Response> 
     }
 
     const body: CreateRolInput = parsed.data;
-    await createRolByProcedure({
-      nombreRol: body.nombre_rol,
+    const created = await Rol.create({
+      nombre_rol: body.nombre_rol, // 💡 Forzamos el estándar físico snake_case
       descripcion: body.descripcion ?? '',
     });
 
-    return res.status(201).json({ message: 'Rol creado con éxito.' });
+    return res.status(201).json({ message: 'Rol creado con éxito.', data: created });
   } catch (error: unknown) {
     const dbError = error as { name?: string };
     if (dbError?.name === 'SequelizeUniqueConstraintError') {
@@ -80,16 +55,11 @@ export const createRol = async (req: Request, res: Response): Promise<Response> 
   }
 };
 
-/**
- * Actualiza un rol existente validando payload con Zod y usando procedimiento SQL.
- *
- * @param {Request} req Solicitud HTTP con `params.id` y campos a actualizar.
- * @param {Response} res Respuesta HTTP.
- * @returns {Promise<Response>} Resultado de actualización.
- */
 export const updateRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const rol = await Rol.findByPk(id);
+    if (!rol) return res.status(404).json({ message: 'Rol no encontrado.' });
 
     const parsed = updateRolSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -101,13 +71,13 @@ export const updateRol = async (req: Request, res: Response): Promise<Response> 
 
     const body: UpdateRolInput = parsed.data;
 
-    await updateRolByProcedure({
-      id_rol: id,
-      nombreRol: body.nombre_rol,
-      descripcion: body.descripcion,
+    await rol.update({
+      nombre_rol: body.nombre_rol ?? rol.getDataValue('nombre_rol'),
+      descripcion: body.descripcion ?? rol.getDataValue('descripcion'),
     });
 
-    return res.status(200).json({ message: 'Rol actualizado formalmente.' });
+    const updated = await Rol.findByPk(rol.getDataValue('id'));
+    return res.status(200).json({ message: 'Rol actualizado formalmente.', data: updated });
   } catch (error: unknown) {
     const dbError = error as { name?: string };
     if (dbError?.name === 'SequelizeUniqueConstraintError') {
@@ -118,17 +88,13 @@ export const updateRol = async (req: Request, res: Response): Promise<Response> 
   }
 };
 
-/**
- * Elimina un rol por id usando procedimiento SQL.
- *
- * @param {Request} req Solicitud HTTP con `params.id`.
- * @param {Response} res Respuesta HTTP.
- * @returns {Promise<Response>} Resultado de eliminación.
- */
 export const deleteRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    await deleteRolByProcedure(id);
+    const rol = await Rol.findByPk(id);
+    if (!rol) return res.status(404).json({ message: 'Rol no encontrado.' });
+
+    await rol.destroy();
     return res.status(200).json({ message: 'Rol eliminado satisfactoriamente.' });
   } catch (error) {
     console.error('❌ Error eliminando rol:', error);

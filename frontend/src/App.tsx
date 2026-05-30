@@ -17,7 +17,10 @@ import InspectionHistoryPage from "./pages/InspectionHistoryPage";
 import InspectionProcessPage from "./pages/InspectionProcessPage";
 import CatalogManagementPage from "./pages/CatalogManagementPage";
 import ReportsPage from "./pages/ReportsPage";
+<<<<<<< HEAD
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+=======
+>>>>>>> origin/jhan_branch
 import type { SessionUser } from "./types/auth.types";
 
 type View =
@@ -57,10 +60,15 @@ const estadoUsuarioVacio: SessionUser = {
  */
 function App() {
   const [view, setView] = useState<View>(() => {
+<<<<<<< HEAD
     const path = window.location.pathname;
     if (path === '/reset-password') return 'login';
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     return isAuthenticated ? 'home' : 'login';
+=======
+    const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+    return isAuthenticated ? "home" : "login";
+>>>>>>> origin/jhan_branch
   });
 
   const [sessionUser, setSessionUser] = useState<SessionUser>(() => {
@@ -68,7 +76,11 @@ function App() {
       const stored = localStorage.getItem("sessionUser");
       return stored ? JSON.parse(stored) : estadoUsuarioVacio;
     } catch {
+<<<<<<< HEAD
       return estadoUsuarioVacio;
+=======
+      return { id: "", nombre: "", apellidos: "", rol: "" };
+>>>>>>> origin/jhan_branch
     }
   });
 
@@ -296,7 +308,19 @@ function App() {
       <InspectionProcessPage
         sessionUser={sessionUser}
         solicitud={selectedSolicitud}
+<<<<<<< HEAD
         onGoInspectionsAgenda={() => setView("inspections-agenda")}
+=======
+        onGoHome={() => setView("home")}
+        onGoUsers={() => setView("users")}
+        onGoRoles={() => setView("roles")}
+        onGoAgricultural={() => setView("agricultural")}
+        onGoCatalog={() => setView("catalog")}
+        onGoApprovalPlaces={() => setView("approval-places")}
+        onGoInspectionsAgenda={() => setView("inspections-agenda")}
+        onGoInspectionsHistory={() => setView("inspections-history")}
+        onGoReports={() => setView("reports")}
+>>>>>>> origin/jhan_branch
         onLogout={handleLogout}
         onBack={() => setView("inspections-agenda")}
         onFinish={() => setView("inspections-history")}

@@ -47,13 +47,6 @@ type UpdateUsuarioProcedureInput = {
   id_rol?: string;
 };
 
-/**
- * Crea un usuario en la base de datos mediante el procedimiento almacenado
- * `sp_crear_usuario`.
- *
- * @param {CreateUsuarioProcedureInput} input Datos del usuario a crear.
- * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
- */
 export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInput): Promise<void> {
   const rows = await sequelize.query(
     `CALL sp_crear_usuario(
@@ -82,13 +75,6 @@ export async function createUsuarioByProcedure(input: CreateUsuarioProcedureInpu
   void rows;
 }
 
-/**
- * Actualiza un usuario existente mediante el procedimiento almacenado
- * `sp_actualizar_usuario`.
- *
- * @param {UpdateUsuarioProcedureInput} input Campos del usuario a actualizar.
- * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
- */
 export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInput): Promise<void> {
   const rows = await sequelize.query(
     `CALL sp_actualizar_usuario(
@@ -125,17 +111,14 @@ export async function updateUsuarioByProcedure(input: UpdateUsuarioProcedureInpu
   void rows;
 }
 
-/**
- * Elimina un usuario mediante el procedimiento almacenado `sp_eliminar_usuario`.
- *
- * @param {string} idUsuario Identificador del usuario a eliminar.
- * @returns {Promise<void>} Promesa que se resuelve cuando el procedimiento termina.
- */
 export async function deleteUsuarioByProcedure(idUsuario: string): Promise<void> {
-  const rows = await sequelize.query(`CALL sp_eliminar_usuario(:id_usuario);`, {
-    replacements: { id_usuario: idUsuario },
-    type: QueryTypes.RAW,
-  });
-
-  void rows;
+  await sequelize.query(
+    `
+    CALL sp_eliminar_usuario(:id_usuario);
+    `,
+    {
+      replacements: { id_usuario: idUsuario },
+      type: QueryTypes.RAW,
+    },
+  );
 }
