@@ -1,5 +1,6 @@
 // backend/src/controllers/solicitud.controller.ts
 import { Request, Response } from 'express';
+import sequelize from '../config/database';
 import catalogModels from '../catalogIndex';
 import models from '../index'; 
 
@@ -179,8 +180,6 @@ export const gestionarSolicitud = async (req: any, res: Response): Promise<void>
     }
 };
 
-// backend/src/controllers/solicitud.controller.ts
-
 export const getDatosInicioInspeccion = async (req: any, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
@@ -298,5 +297,58 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
     } catch (error) {
         console.error('❌ Error al preparar inspección:', error);
         res.status(500).json({ message: 'Error interno al cargar los datos de inspección.' });
+    }
+};
+
+export const finalizarInspeccion = async (req: any, res: Response): Promise<void> => {
+    // Iniciamos la transacción
+    const t = await sequelize.transaction();
+    try {
+        const { id } = req.params; // ID de la Solicitud
+        const { lotesInspeccionados } = req.body;
+
+        if (!lotesInspeccionados || lotesInspeccionados.length === 0) {
+            res.status(400).json({ message: 'No hay datos de lotes para guardar.' });
+            return;
+        }
+
+        // 1. Iterar sobre cada lote inspeccionado
+        for (const lote of lotesInspeccionados) {
+            // A. Crear el registro general de la inspección para este lote
+            const nuevaInspeccion = await models.InspeccionFitosanitaria.create({
+                cantidad_plantas: lote.cantidad_plantas,
+                estado_fenologico: lote.estado_fenologico,
+                fecha_inspeccion: new Date(),
+                observaciones: lote.observaciones,
+                id_solicitud_inspeccion: id,
+                id_lote: lote.id_lote
+            }, { transaction: t });
+
+            // B. Si se reportaron plagas, crear sus registros asociados
+            if (lote.plagas && lote.plagas.length > 0) {
+                const hallazgos = lote.plagas.map((p: any) => ({
+                    cantidad_plantas_infestadas: p.cantidad,
+                    id_plaga: p.id_plaga,
+                    id_inspeccion_fitosanitaria: nuevaInspeccion.id_inspeccion_fitosanitaria
+                }));
+                // Usamos bulkCreate para insertarlas todas de golpe
+                await models.HallazgoPlaga.bulkCreate(hallazgos, { transaction: t });
+            }
+        }
+
+        // 2. Cambiar el estado de la solicitud a 'REALIZADA'
+        await models.SolicitudInspeccion.update(
+            { estado: 'REALIZADA' },
+            { where: { id_solicitud_inspeccion: id }, transaction: t }
+        );
+
+        // 3. Confirmar la transacción
+        await t.commit();
+        res.status(200).json({ message: 'Inspección finalizada y guardada con éxito.' });
+        
+    } catch (error) {
+        await t.rollback();
+        console.error('❌ Error al finalizar inspección:', error);
+        res.status(500).json({ message: 'Error interno al guardar los datos de la inspección.' });
     }
 };

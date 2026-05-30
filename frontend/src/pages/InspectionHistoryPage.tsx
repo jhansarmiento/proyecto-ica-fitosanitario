@@ -17,9 +17,10 @@ import {
   X,
   XCircle,
 } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import type { DashboardViewKey } from '../types/dashboard.types';
 import SkeletonBlock from '../components/ui/SkeletonBlock';
-import type { SessionUser } from '../App';
+import type { SessionUser } from '../types/auth.types';
 import {
   api,
   type CreateSolicitudDTO,
@@ -212,7 +213,7 @@ function Toast({ toast, onClose }: { toast: ToastState; onClose: () => void }) {
   if (!toast) return null;
   return (
     <div
-      className={`fixed bottom-6 right-6 z-[200] flex items-center gap-3 rounded-2xl border px-5 py-3.5 shadow-xl text-sm font-medium animate-in slide-in-from-bottom-4 ${TOAST_STYLES[toast.type]}`}
+      className={`fixed bottom-6 right-6 z-200 flex items-center gap-3 rounded-2xl border px-5 py-3.5 shadow-xl text-sm font-medium animate-in slide-in-from-bottom-4 ${TOAST_STYLES[toast.type]}`}
     >
       {toast.type === 'success' && <CheckCircle2 size={18} />}
       {toast.type === 'error' && <AlertCircle size={18} />}
@@ -242,7 +243,7 @@ function Modal({
   const widths = { md: 'max-w-lg', lg: 'max-w-2xl', xl: 'max-w-4xl' };
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div
@@ -288,7 +289,7 @@ function ModalDetalleProductor({
   return (
     <Modal open onClose={onClose} size="lg">
       {/* Header */}
-      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-gradient-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
+      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-linear-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-emerald-200">Detalle de Solicitud</p>
           <h2 className="mt-1 text-xl font-bold leading-tight">
@@ -384,7 +385,7 @@ function ModalDetalleAdmin({
   return (
     <Modal open onClose={onClose} size="xl">
       {/* Header */}
-      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-gradient-to-r from-slate-900 to-slate-700 px-6 py-5 text-white">
+      <div className="sticky top-0 z-10 flex items-start justify-between gap-4 rounded-t-3xl bg-linear-to-r from-slate-900 to-slate-700 px-6 py-5 text-white">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">Gestión de Solicitud</p>
           <h2 className="mt-1 text-xl font-bold leading-tight">
@@ -635,7 +636,7 @@ function ModalSolicitarInspeccion({
   return (
     <Modal open={open} onClose={handleClose} size="md">
       {/* Header */}
-      <div className="flex items-center justify-between rounded-t-3xl bg-gradient-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
+      <div className="flex items-center justify-between rounded-t-3xl bg-linear-to-r from-emerald-900 to-emerald-700 px-6 py-5 text-white">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-emerald-200">
             Paso {step} de 2
@@ -957,7 +958,7 @@ export default function InspectionHistoryPage({
   onLogout,
 }: InspectionHistoryPageProps) {
   const rol = sessionUser?.rol ?? '';
-  const userId = sessionUser?.id ?? '';
+  const userId = sessionUser?.id_usuario ?? '';
   const isProductor = rol === 'PRODUCTOR';
   const isAdminOrTecnico = rol === 'ADMIN' || rol === 'ASISTENTE_TECNICO';
 

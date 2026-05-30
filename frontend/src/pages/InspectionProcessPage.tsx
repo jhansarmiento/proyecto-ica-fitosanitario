@@ -1,6 +1,6 @@
 // frontend/src/pages/InspectionProcessPage.tsx
 import { useEffect, useState } from 'react';
-import { ArrowLeft, CheckCircle2, ChevronUp, Eye, Minus, Plus, Save } from 'lucide-react';
+import { CheckCircle2, ChevronUp, Eye, Minus, Plus, Save } from 'lucide-react';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../types/auth.types';
 import { fincaService } from '../services/finca.service';
@@ -116,6 +116,48 @@ export default function InspectionProcessPage({
   };
 
   const canFinish = Object.values(inspectionData).some(d => d.isCompleted);
+
+  const handleFinalizarInspeccion = async () => {
+    try {
+      setLoading(true);
+
+      // 1. Transformamos el estado local al formato que el backend espera
+      const lotesInspeccionados = Object.entries(inspectionData)
+        .filter(([_, data]) => data.isCompleted) // 👈 Solo enviamos los lotes que se marcaron como listos
+        .map(([lotId, data]) => {
+          
+          // Mapeamos solo las plagas que tengan > 0 afectadas
+          const plagas = Object.entries(data.pestCounts)
+            .filter(([_, count]) => count > 0)
+            .map(([plagaId, count]) => ({
+              id_plaga: plagaId,
+              cantidad: count
+            }));
+
+          return {
+            id_lote: lotId,
+            cantidad_plantas: data.totalPlants, // 👈 Lo que digitó el técnico
+            estado_fenologico: data.phenologyState,
+            observaciones: data.observations,
+            plagas: plagas // 👈 Arreglo de hallazgos
+          };
+        });
+
+      // 2. Enviamos al Backend
+      await fincaService.finalizarInspeccion(solicitud.id_solicitud, { lotesInspeccionados });
+
+      // 3. Limpiamos el borrador del LocalStorage para que no vuelva a aparecer
+      localStorage.removeItem(draftKey);
+
+      // 4. Redirigimos a la página de Historial
+      onFinish?.();
+
+    } catch (error) {
+      console.error("Error guardando la inspección final:", error);
+      alert("Hubo un error al guardar los datos. Intenta nuevamente.");
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -300,7 +342,7 @@ export default function InspectionProcessPage({
           
           <button 
             type="button" 
-            onClick={onFinish} 
+            onClick={handleFinalizarInspeccion} 
             disabled={!canFinish}
             className="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-800 disabled:opacity-50 shadow-sm"
           >
