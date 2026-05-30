@@ -1,6 +1,6 @@
 // frontend/src/pages/ProductionLotsPage.tsx
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Eye, Pencil, Plus, Search } from 'lucide-react';
+import { ArrowLeft, Pencil, Plus, Search } from 'lucide-react';
 import NewLotModal from '../components/ui/NewLotModal';
 import EditLotModal from '../components/ui/EditLotModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
@@ -206,9 +206,7 @@ function ProductionLotsPage({
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex justify-end gap-2 text-slate-500">
-                          <button type="button" className="rounded-md p-1.5 transition hover:bg-slate-100 hover:text-emerald-700">
-                            <Eye size={15} />
-                          </button>
+                          <span>Editar</span>
                           <button type="button" onClick={() => handleEditClick(lote)} className="rounded-md p-1.5 transition hover:bg-slate-100 hover:text-emerald-700">
                             <Pencil size={15} />
                           </button>

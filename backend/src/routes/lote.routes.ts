@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createLote, getLotesPorLugar, updateLote } from '../controllers/lote.controller';
+import { createLote, getLotesPorLugar, updateLote, deleteLote } from '../controllers/lote.controller';
 import { validarJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -11,5 +11,6 @@ router.use(validarJWT as any);
 router.post('/:id/lotes', createLote as any);
 router.get('/:id/lotes', getLotesPorLugar as any);
 router.put('/lotes/:id_lote', updateLote as any);
+router.delete('/lotes/:id_lote', deleteLote as any);
 
 export default router;
