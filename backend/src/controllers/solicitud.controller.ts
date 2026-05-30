@@ -360,13 +360,13 @@ export const getReportes = async (req: any, res: Response): Promise<void> => {
         const id_usuario = req.usuario.id;
         const rol = req.usuario.rol?.toLowerCase();
 
-        // 🌟 1. LÓGICA DE PERMISOS (RBAC)
+        // 1. LÓGICA DE PERMISOS (RBAC)
         let whereLugar: any = {};
         if (rol === 'productor') {
             whereLugar.id_usuario_productor = id_usuario;
         } else if (rol.includes('asistente')) {
             whereLugar.id_asistente_asignado = id_usuario;
-        } // Administrador no tiene whereLugar, así que ve todo.
+        } 
 
         // 2. Traer Solicitudes REALIZADAS
         const solicitudes = await models.SolicitudInspeccion.findAll({
@@ -382,13 +382,14 @@ export const getReportes = async (req: any, res: Response): Promise<void> => {
             order: [['fecha_programada_tecnico', 'DESC']]
         });
 
-        const solicitudesIds = solicitudes.map((s:any) => s.id_solicitud_inspeccion);
-        if(solicitudesIds.length === 0) {
+        if(solicitudes.length === 0) {
             res.status(200).json({ data: [] });
             return;
         }
+        
+        const solicitudesIds = solicitudes.map((s:any) => s.id_solicitud_inspeccion);
 
-        // 3. Traer Inspecciones, Hallazgos y Lotes físicos
+        // 3. Traer Datos Físicos
         const inspecciones = await models.InspeccionFitosanitaria.findAll({ where: { id_solicitud_inspeccion: solicitudesIds }});
         const inspeccionesIds = inspecciones.map((i:any) => i.id_inspeccion_fitosanitaria);
         const lotesIds = [...new Set(inspecciones.map((i:any) => i.id_lote))];
@@ -401,42 +402,55 @@ export const getReportes = async (req: any, res: Response): Promise<void> => {
         const variedadesCat = catalogModels.VariedadEspecie ? await catalogModels.VariedadEspecie.findAll() : [];
         const plagasCat = catalogModels.Plaga ? await catalogModels.Plaga.findAll() : [];
 
-        // 🌟 5. ENSAMBLAR EL REPORTE FINAL
-        const reportes = inspecciones.map((inspeccion: any) => {
-            const solicitud = solicitudes.find((s:any) => s.id_solicitud_inspeccion === inspeccion.id_solicitud_inspeccion);
-            const lugar = solicitud?.lugarProduccion;
+        // 🌟 5. ENSAMBLAR REPORTE AGRUPADO POR LUGAR DE PRODUCCIÓN
+        const reportes = solicitudes.map((solicitud: any) => {
+            const lugar = solicitud.lugarProduccion;
             const tecnico = lugar?.asistenteAsignado ? `${lugar.asistenteAsignado.nombre} ${lugar.asistenteAsignado.apellidos}` : 'Sin asignar';
             
-            const lote = lotes.find((l:any) => l.id_lote === inspeccion.id_lote);
-            const variedad = lote ? variedadesCat.find((v:any) => String(v.id_variedad_especie) === String(lote.id_variedad_especie)) : null;
-            const especie = variedad ? especiesCat.find((e:any) => String(e.id_especie_vegetal) === String(variedad.id_especie_vegetal)) : null;
+            // Filtramos las inspecciones de lotes que pertenecen a esta solicitud
+            const inspeccionesDeEstaSolicitud = inspecciones.filter((i: any) => i.id_solicitud_inspeccion === solicitud.id_solicitud_inspeccion);
 
-            // Mapear Plagas y calcular porcentajes
-            const hallazgosLote = hallazgos.filter((h:any) => h.id_inspeccion_fitosanitaria === inspeccion.id_inspeccion_fitosanitaria);
-            let totalAfectadas = 0;
+            // Anidamos los detalles por cada lote
+            const detalleLotes = inspeccionesDeEstaSolicitud.map((inspeccion: any) => {
+                const lote = lotes.find((l:any) => l.id_lote === inspeccion.id_lote);
+                const variedad = lote ? variedadesCat.find((v:any) => String(v.id_variedad_especie) === String(lote.id_variedad_especie)) : null;
+                const especie = variedad ? especiesCat.find((e:any) => String(e.id_especie_vegetal) === String(variedad.id_especie_vegetal)) : null;
 
-            const plagasDetalle = hallazgosLote.map((h:any) => {
-                const plagaObj = plagasCat.find((p:any) => String(p.id_plaga) === String(h.id_plaga));
-                totalAfectadas += (h.cantidad_plantas_infestadas || 0);
+                const hallazgosLote = hallazgos.filter((h:any) => h.id_inspeccion_fitosanitaria === inspeccion.id_inspeccion_fitosanitaria);
+                
+                let totalAfectadas = 0;
+                const plagasDetalle = hallazgosLote.map((h:any) => {
+                    const plagaObj = plagasCat.find((p:any) => String(p.id_plaga) === String(h.id_plaga));
+                    totalAfectadas += (h.cantidad_plantas_infestadas || 0);
+                    return {
+                        nombre: plagaObj ? (plagaObj.nombre_comun) : 'Plaga N/D',
+                        cantidad: h.cantidad_plantas_infestadas
+                    };
+                });
+
+                const porcentaje = inspeccion.cantidad_plantas > 0 ? ((totalAfectadas / inspeccion.cantidad_plantas) * 100).toFixed(2) : '0.00';
+
                 return {
-                    nombre: plagaObj ? (plagaObj.nombre_comun) : 'Plaga N/D',
-                    cantidad: h.cantidad_plantas_infestadas
+                    numero_lote: lote?.numero_lote || 'N/D',
+                    cultivo: especie ? especie.nombre_comun : 'Cultivo N/D',
+                    estado_fenologico: inspeccion.estado_fenologico || 'N/D',
+                    plantas_totales: inspeccion.cantidad_plantas || 0,
+                    plantas_afectadas: totalAfectadas,
+                    porcentaje_infestacion: parseFloat(porcentaje),
+                    plagas: plagasDetalle
                 };
             });
 
-            const porcentaje = inspeccion.cantidad_plantas > 0 ? ((totalAfectadas / inspeccion.cantidad_plantas) * 100).toFixed(2) : '0.00';
+            // Extraemos la fecha de la inspección real (o fallback a la programada)
+            const fechaReal = inspeccionesDeEstaSolicitud.length > 0 ? inspeccionesDeEstaSolicitud[0].fecha_inspeccion : solicitud.fecha_programada_tecnico;
 
             return {
-                id: inspeccion.id_inspeccion_fitosanitaria,
-                fecha: inspeccion.fecha_inspeccion ? new Date(inspeccion.fecha_inspeccion).toISOString().split('T')[0] : 'N/D',
+                id_solicitud: solicitud.id_solicitud_inspeccion,
+                fecha: fechaReal ? new Date(fechaReal).toISOString().split('T')[0] : 'N/D',
                 lugar_produccion: lugar?.nombre_lugar_produccion || 'N/D',
-                lote: lote?.numero_lote || 'N/D',
-                cultivo: especie ? especie.nombre_comun : 'Cultivo N/D',
                 tecnico,
-                plantas_totales: inspeccion.cantidad_plantas || 0,
-                estado_fenologico: inspeccion.estado_fenologico || 'N/D',
-                plagas: plagasDetalle,
-                porcentaje_infestacion: parseFloat(porcentaje)
+                cantidad_lotes: detalleLotes.length,
+                detalle_lotes: detalleLotes // 👈 Toda la data anidada lista para el Modal
             };
         });
 
