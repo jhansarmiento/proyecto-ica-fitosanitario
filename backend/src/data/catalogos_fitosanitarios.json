@@ -121,13 +121,15 @@
         "id_plaga": "P-011",
         "nombre_especie_plaga": "Thecla basilides",
         "nombre_comun_plaga": "Tecla de la piña",
-        "tipo_plaga": "Insecto"
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://res.cloudinary.com/djirlwozs/image/upload/c_fill,g_auto,w_1600,q_auto,f_auto/v1780019483/Tecla_de_la_pi%C3%B1a_rfwpsd.jpg"
       },
       {
         "id_plaga": "P-012",
         "nombre_especie_plaga": "Dysmicoccus brevipes",
         "nombre_comun_plaga": "Cochinilla harinosa",
-        "tipo_plaga": "Insecto"
+        "tipo_plaga": "Insecto",
+        "imagen_plaga": "https://res.cloudinary.com/djirlwozs/image/upload/c_fill,g_auto,w_1600,q_auto,f_auto/v1780019483/Cochinilla_harinosa_vhjzqf.jpg"
       }
     ]
   },
