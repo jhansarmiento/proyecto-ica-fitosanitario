@@ -4,7 +4,6 @@ import sequelize from '../config/database'; // Base de datos OPERACIONAL
 class HallazgoPlaga extends Model {
     public id_hallazgo_plaga!: string
     public cantidad_plantas_infestadas!: number
-    public porcentaje_infestacion!: number
     public id_plaga!: string // Dato traído desde la BD Catalógo 
     public id_inspeccion_fitosanitaria!: string // Clave foránea para InspeccionFitosanitaria
 
@@ -26,10 +25,6 @@ HallazgoPlaga.init(
         },
         cantidad_plantas_infestadas: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        porcentaje_infestacion: {
-            type: DataTypes.FLOAT,
             allowNull: false,
         },
         id_plaga: {

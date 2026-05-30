@@ -4,7 +4,7 @@ import sequelize from '../config/database';
 class LugarProduccion extends Model {
     public id_lugar_produccion!: string;
     public nombre_lugar_produccion!: string;
-    public numero_registro_ica!: string;
+    public numero_registro_ica?: string;
     public fecha_solicitud!: Date;
     public fecha_aprobacion?: Date; // opcional al inicio
     public estado!: string;
@@ -26,18 +26,13 @@ class LugarProduccion extends Model {
             foreignKey: 'id_lugar_produccion',
             as: 'predio',
         });
-        // Un Lugar de Producción puede tener muchos Lotes
-        this.hasMany(models.Lote, {
-            foreignKey: 'id_lugar_produccion',
-            as: 'lote', 
-        });
         // Una Solicitud de Registro es aprobada por un Usuario (Administrador)
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_admin_aprobador',
             targetKey: 'id_usuario',
             as: 'administradorAprobador',
         });
-        // Una Solicitud de Registro es asignada a un Usuario (Asistente Técnico)
+        // Un Lugar de producción es asignado a un Usuario (Asistente Técnico)
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_asistente_asignado',
             targetKey: 'id_usuario',
@@ -47,7 +42,12 @@ class LugarProduccion extends Model {
         this.hasMany(models.AutorizacionEspecie, {
             foreignKey: 'id_lugar_produccion',
             as: 'autorizacionEspecie',
-        })
+        });
+        // Un Lugar de Producción puede tener muchas Solicitudes de Inspección
+        this.hasMany(models.SolicitudInspeccion, {
+            foreignKey: 'id_lugar_produccion',
+            as: 'solicitudesInspeccion',
+        });
     }
 }
 
@@ -64,7 +64,7 @@ LugarProduccion.init(
         },
         numero_registro_ica: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true,
         },
         fecha_solicitud: {

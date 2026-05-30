@@ -4,14 +4,15 @@ import sequelize from '../config/database';
 class Predio extends Model {
     public id_predio!: string;
     public numero_predial!: string;
-    public numero_registro_ica!: string;
+    public numero_registro_ica?: string;
     public nombre_predio!: string;
     public direccion!: string;
+    public latitud?: number;
+    public longitud?: number;
     public area_total!: number;
-    public id_vereda!: number; // Vereda traída desde la BD Catalógo
+    public id_vereda!: string; // Vereda traída desde la BD Catalógo
     public id_lugar_produccion?: string; // Clave foránea para el Lugar de Producción
     public id_propietario!: string; // Clave foránea para el Propietario (Usuario)
-    public numero_identificacion_productor?: string;
 
     static associate(models: any) {
         // Un Predio pertenece a un Propietario
@@ -46,7 +47,7 @@ Predio.init(
         },
         numero_registro_ica: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             unique: true,    
         },
         nombre_predio: {
@@ -55,6 +56,14 @@ Predio.init(
         },
         direccion: {
             type: DataTypes.STRING,
+        },
+        latitud: {
+            type: DataTypes.FLOAT, // Usamos FLOAT para coordenadas
+            allowNull: true,
+        },
+        longitud: {
+            type: DataTypes.FLOAT,
+            allowNull: true,
         },
         area_total: {
             type: DataTypes.FLOAT,

@@ -2,17 +2,27 @@ import { Search, Sprout, Warehouse, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 type ProductionSiteEditable = {
-  id: string | number;
-  name: string;
-  municipality: string;
-  department: string;
-  associatedPredios: number;
-  authorizedSpecies: number;
-  activeLots: number;
-  area: string;
-  ica: string;
-  ownerName: string;
-  status: 'Activo' | 'Pendiente';
+  id_lugar_produccion: string | number;
+  nombre_lugar_produccion: string;
+  municipio: string;
+  departamento: string;
+  predios_asociados: number;
+  especies_autorizadas: number;
+  lotes_activos: number;
+  area_total: string;
+  numero_registro_ica: string;
+  estado: 'Activo' | 'Pendiente' | 'Rechazado';
+  asistente_asignado: string;
+  fecha_creacion: string;
+  predios: {
+    id_predio: string;
+    nombre: string;
+    codigo: string;
+    vereda: string;
+    municipio: string;
+    departamento: string;
+    area: number;
+  }[];
 };
 
 type EditProductionPlaceModalProps = {
@@ -23,12 +33,12 @@ type EditProductionPlaceModalProps = {
 };
 
 type Predio = {
-  id: number;
-  nombre: string;
+  id_predio: number;
+  nombre_predio: string;
   codigo: string;
   municipio: string;
   departamento: string;
-  areaHa: number;
+  area_total: number;
 };
 
 type Species = {
@@ -39,10 +49,10 @@ type Species = {
 };
 
 const prediosMock: Predio[] = [
-  { id: 1, nombre: 'Finca Santa Rosa', codigo: 'PRD-003', municipio: 'Acevedo', departamento: 'Huila', areaHa: 28 },
-  { id: 2, nombre: 'Lote El Mirador', codigo: 'PRD-017', municipio: 'Pitalito', departamento: 'Huila', areaHa: 13 },
-  { id: 3, nombre: 'Hacienda La Esperanza', codigo: 'PRD-022', municipio: 'Garzón', departamento: 'Huila', areaHa: 41 },
-  { id: 4, nombre: 'Parcela Campo Verde', codigo: 'PRD-031', municipio: 'La Plata', departamento: 'Huila', areaHa: 18 },
+  { id_predio: 1, nombre_predio: 'Finca Santa Rosa', codigo: 'PRD-003', municipio: 'Acevedo', departamento: 'Huila', area_total: 28 },
+  { id_predio: 2, nombre_predio: 'Lote El Mirador', codigo: 'PRD-017', municipio: 'Pitalito', departamento: 'Huila', area_total: 13 },
+  { id_predio: 3, nombre_predio: 'Hacienda La Esperanza', codigo: 'PRD-022', municipio: 'Garzón', departamento: 'Huila', area_total: 41 },
+  { id_predio: 4, nombre_predio: 'Parcela Campo Verde', codigo: 'PRD-031', municipio: 'La Plata', departamento: 'Huila', area_total: 18 },
 ];
 
 const speciesMock: Species[] = [
@@ -78,11 +88,11 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
     setStep(1);
     setPredioSearch('');
     setSpeciesSearch('');
-    setNombreLugar(site.name);
-    setRegistroIca(site.ica);
+    setNombreLugar(site.nombre_lugar_produccion);
+    setRegistroIca(site.numero_registro_ica);
 
-    setSelectedPredios(prediosMock.slice(0, Math.max(site.associatedPredios, 1)).map((p) => p.id));
-    setSelectedSpecies(speciesMock.slice(0, Math.max(site.authorizedSpecies, 1)).map((s) => s.id));
+    setSelectedPredios(prediosMock.slice(0, Math.max(site.predios_asociados, 1)).map((p) => p.id_predio));
+    setSelectedSpecies(speciesMock.slice(0, Math.max(site.especies_autorizadas, 1)).map((s) => s.id));
   }, [isOpen, site]);
 
   const filteredPredios = useMemo(() => {
@@ -90,7 +100,7 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
     if (!q) return prediosMock;
     return prediosMock.filter((p) => {
       return (
-        p.nombre.toLowerCase().includes(q) ||
+        p.nombre_predio.toLowerCase().includes(q) ||
         p.codigo.toLowerCase().includes(q) ||
         p.municipio.toLowerCase().includes(q) ||
         p.departamento.toLowerCase().includes(q)
@@ -112,8 +122,8 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
 
   const areaConsolidada = useMemo(() => {
     return prediosMock
-      .filter((p) => selectedPredios.includes(p.id))
-      .reduce((acc, p) => acc + p.areaHa, 0);
+      .filter((p) => selectedPredios.includes(p.id_predio))
+      .reduce((acc, p) => acc + p.area_total, 0);
   }, [selectedPredios]);
 
   const selectedSpeciesData = useMemo(
@@ -148,18 +158,18 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
   const handleSave = () => {
     if (!canSave) return;
 
-    const areaFinal = areaConsolidada > 0 ? areaConsolidada : parseArea(site.area);
+    const areaFinal = areaConsolidada > 0 ? areaConsolidada : parseArea(site.area_total);
 
     onSave({
       ...site,
-      name: nombreLugar.trim(),
-      municipality: prediosMock.find((p) => selectedPredios.includes(p.id))?.municipio ?? site.municipality,
-      department: prediosMock.find((p) => selectedPredios.includes(p.id))?.departamento ?? site.department,
-      associatedPredios: selectedPredios.length,
-      authorizedSpecies: selectedSpecies.length,
-      area: `${areaFinal.toFixed(1)} ha`,
-      ica: registroIca.trim(),
-      status: site.status,
+      nombre_lugar_produccion: nombreLugar.trim(),
+      municipio: prediosMock.find((p) => selectedPredios.includes(p.id_predio))?.municipio ?? site.municipio,
+      departamento: prediosMock.find((p) => selectedPredios.includes(p.id_predio))?.departamento ?? site.departamento,
+      predios_asociados: selectedPredios.length,
+      especies_autorizadas: selectedSpecies.length,
+      area_total: `${areaFinal.toFixed(1)} ha`,
+      numero_registro_ica: registroIca.trim(),
+      estado: site.estado,
     });
 
     onClose();
@@ -238,13 +248,13 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
                 />
               </div>
 
-              <div className="max-h-[260px] space-y-3 overflow-y-auto pr-1">
+              <div className="max-h-65 space-y-3 overflow-y-auto pr-1">
                 {filteredPredios.map((predio) => {
-                  const checked = selectedPredios.includes(predio.id);
+                  const checked = selectedPredios.includes(predio.id_predio);
 
                   return (
                     <label
-                      key={predio.id}
+                      key={predio.id_predio}
                       className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition ${
                         checked ? 'border-emerald-300 bg-emerald-50 shadow-sm' : 'border-slate-200 bg-white hover:border-emerald-200'
                       }`}
@@ -253,17 +263,17 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
                         <input
                           type="checkbox"
                           checked={checked}
-                          onChange={() => togglePredio(predio.id)}
+                          onChange={() => togglePredio(predio.id_predio)}
                           className="mt-1 h-5 w-5 rounded border-slate-300 text-emerald-700 focus:ring-emerald-400"
                         />
                         <div>
-                          <p className="text-base font-semibold text-slate-800">{predio.nombre}</p>
+                          <p className="text-base font-semibold text-slate-800">{predio.nombre_predio}</p>
                           <p className="text-sm text-slate-500">
                             {predio.codigo} · {predio.municipio}, {predio.departamento}
                           </p>
                         </div>
                       </div>
-                      <p className="text-lg font-bold text-slate-700">{predio.areaHa} ha</p>
+                      <p className="text-lg font-bold text-slate-700">{predio.area_total} ha</p>
                     </label>
                   );
                 })}
@@ -295,7 +305,7 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
                   />
                 </div>
 
-                <div className="max-h-[320px] space-y-3 overflow-y-auto pr-1">
+                <div className="max-h-80 space-y-3 overflow-y-auto pr-1">
                   {filteredSpecies.map((sp) => {
                     const checked = selectedSpecies.includes(sp.id);
 
@@ -364,7 +374,7 @@ function EditProductionPlaceModal({ isOpen, site, onClose, onSave }: EditProduct
               <div className="mb-4 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3">
                 <p className="text-sm font-medium text-blue-800">Área consolidada (solo lectura)</p>
                 <p className="text-4xl font-extrabold text-blue-700">
-                  {(areaConsolidada > 0 ? areaConsolidada : parseArea(site.area)).toFixed(1)} ha
+                  {(areaConsolidada > 0 ? areaConsolidada : parseArea(site.area_total)).toFixed(1)} ha
                 </p>
               </div>
 

@@ -1,11 +1,4 @@
-/**
- * Servicio de autenticación y gestión de usuarios.
- *
- * Proporciona funciones para iniciar sesión, recuperar contraseña,
- * restablecer contraseña y consultar usuarios/roles desde el backend.
- *
- * @module authService
- */
+// servicios de login
 import { request } from './apiClient';
 import type { ApiEnvelope } from '../types/api.types';
 import type { 
@@ -29,47 +22,35 @@ export const authService = {
     });
   },
 
-  /**
-   * Solicita el envío del correo de recuperación de contraseña.
-   *
-   * @param {{ correo_electronico: string }} body Objeto con el correo electrónico.
-   * @returns {Promise<{ message: string }>} Mensaje de éxito del backend.
-   */
-  forgotPassword(body: { correo_electronico: string }) {
-    return request<{ message: string }>('/auth/forgot-password', {
+  // Roles
+  getRoles() {
+    return request<ApiEnvelope<RolDTO[]>>('/roles');
+  },
+
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
+    return request<ApiEnvelope<RolDTO>>('/roles', {
       method: 'POST',
       body: JSON.stringify(body),
     });
   },
 
-  /**
-   * Restablece la contraseña usando el token de recuperación.
-   *
-   * @param {{ token: string; nueva_contrasena: string }} body Datos de restablecimiento.
-   * @returns {Promise<{ message: string }>} Mensaje de confirmación del backend.
-   */
-  resetPassword(body: { token: string; nueva_contrasena: string }) {
-    return request<{ message: string }>('/auth/reset-password', {
-      method: 'POST',
-      body: JSON.stringify(body),
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
+    return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        ...(body.nombre_rol !== undefined ? { nombre_rol: body.nombre_rol } : {}),
+        ...(body.descripcion !== undefined ? { descripcion: body.descripcion } : {}),
+      }),
     });
   },
 
-  /**
-   * Obtiene la lista de usuarios del sistema.
-   *
-   * @returns {Promise<ApiEnvelope<UsuarioDTO[]>>} Paquete de respuesta con los usuarios.
-   */
-  getUsuarios() {
-    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
+  deleteRole(id: string) {
+    return request<{ message: string }>(`/roles/${id}`, {
+      method: 'DELETE',
+    });
   },
 
-  /**
-   * Crea un nuevo usuario.
-   *
-   * @param {Partial<UsuarioDTO> & { ingresoContrasena: string }} body Datos del usuario a crear.
-   * @returns {Promise<ApiEnvelope<UsuarioDTO>>} Respuesta con el usuario creado.
-   */
+  // Usuarios
   createUsuario(body: Partial<UsuarioDTO> & { ingresoContrasena: string }) {
     return request<ApiEnvelope<UsuarioDTO>>('/usuarios', {
       method: 'POST',
@@ -77,13 +58,34 @@ export const authService = {
     });
   },
 
-  /**
-   * Obtiene los roles definidos en el sistema.
-   *
-   * @returns {Promise<ApiEnvelope<RolDTO[]>>} Paquete de respuesta con los roles.
-   */
-  getRoles() {
-    return request<ApiEnvelope<RolDTO[]>>('/roles');
-  }
-  // ... aquí meten los métodos de update y delete de usuarios/roles
+  getUsuarios() {
+    return request<ApiEnvelope<UsuarioDTO[]>>('/usuarios');
+  },
+
+  updateUsuario(id: string, body: Partial<UsuarioDTO> & { ingresoContrasena?: string }) {
+    return request<ApiEnvelope<UsuarioDTO>>(`/usuarios/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+    });
+  },
+
+  deleteUsuario(id: string) {
+    return request<{ message: string }>(`/usuarios/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  forgotPassword(correo_electronico: string) {
+    return request<{ message: string }>('/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ correo_electronico }),
+    });
+  },
+
+  resetPassword(token: string, nuevaContrasena: string) {
+    return request<{ message: string }>('/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, nuevaContrasena }),
+    });
+  },
 };

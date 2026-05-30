@@ -5,19 +5,13 @@ class SolicitudInspeccion extends Model {
     public id_solicitud_inspeccion!: string;
     public fecha_creacion!: Date;
     public fecha_tentativa_productor!: Date; // Fecha tentativa propuesta por el Productor
-    public fecha_programada_tecnico!: Date; // Cuando el tecnico confirma que irá
+    public fecha_programada_tecnico?: Date; // Cuando el tecnico confirma que irá
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
     public observaciones?: string;
-    public id_lote!: string;
-    public id_lugar_produccion!: string; // Clave foránea para el Lugar de Producción
-    public id_asistente_tecnico!: string; // Clave foránea para el Asistente Técnico (Usuario)
+    public observaciones_tecnico?: string;
+    public id_lugar_produccion!: string; // FK a LugarProduccion
 
     static associate(models: any) {
-        // Una solicitud de inspección pertenece a un lote
-        this.belongsTo(models.Lote, {
-            foreignKey: 'id_lote',
-            as: 'lote',
-        });
         // Una solicitud de inspección tiene un asistente técnico asignado
         this.belongsTo(models.Usuario, {
             foreignKey: 'id_asistente_tecnico',
@@ -27,6 +21,11 @@ class SolicitudInspeccion extends Model {
         this.hasOne(models.InspeccionFitosanitaria, {
             foreignKey: 'id_solicitud_inspeccion',
             as: 'inspeccionFitosanitaria',
+        });
+        // Una solicitud de inspección pertenece a un lugar de producción
+        this.belongsTo(models.LugarProduccion, { 
+            foreignKey: 'id_lugar_produccion', 
+            as: 'lugarProduccion' 
         });
     }
 }
@@ -61,20 +60,16 @@ SolicitudInspeccion.init(
             type: DataTypes.TEXT,
             allowNull: true,
         },
-        id_lote: {
-            type: DataTypes.UUID,
-            allowNull: false,
-            references : {
-                model: 'lote', // Nombre de la tabla referenciada
-                key: 'id_lote', // Columna referenciada
-            }
+        observaciones_tecnico: { 
+            type: DataTypes.TEXT,
+            allowNull: true,
         },
-        id_asistente_tecnico: {
+        id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: false,
-            references : {
-                model: 'usuario', // Nombre de la tabla referenciada
-                key: 'id_usuario', // Columna referenciada
+            references: {
+                model: 'lugar_produccion', // Nombre de la tabla física
+                key: 'id_lugar_produccion',
             }
         },
     },

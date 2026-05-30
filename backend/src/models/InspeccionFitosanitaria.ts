@@ -8,6 +8,7 @@ class InspeccionFitosanitaria extends Model {
     public fecha_inspeccion!: Date;
     public observaciones!: string;
     public id_solicitud_inspeccion!: string; // Clave foránea para el Asistente Técnico (Usuario)
+    public id_lote!: string; // Clave foránea para el Lote
 
     static associate(models: any) {
         // Una inspección fitosanitaria pertenece a una solicitud de inspección
@@ -19,6 +20,11 @@ class InspeccionFitosanitaria extends Model {
         this.hasMany(models.HallazgoPlaga, {
             foreignKey: 'id_inspeccion_fitosanitaria',
             as: 'hallazgosPlaga',
+        })
+        // Una inspección fitosanitaria pertenece a un lote
+        this.belongsTo(models.Lote, {
+            foreignKey: 'id_lote',
+            as: 'lote',
         })
     }
 }

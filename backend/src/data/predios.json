@@ -1,272 +1,4034 @@
 [
-    {
-        "numero_predial": "68001-001",
-        "numero_registro_ica": "ICA-1001",
-        "nombre_predio": "La Esperanza",
-        "direccion": "Km 5 Vía al Mar",
-        "area_total": 12.4,
-        "nombre_vereda_busqueda": "El Solar",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68001-002",
-        "numero_registro_ica": "ICA-1002",
-        "nombre_predio": "Villa Rocío",
-        "direccion": "Sector La Cumbre",
-        "area_total": 8.2,
-        "nombre_vereda_busqueda": "La Malaña",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68001-003",
-        "numero_registro_ica": "ICA-1003",
-        "nombre_predio": "El Paraíso",
-        "direccion": "Lote 14",
-        "area_total": 15.0,
-        "nombre_vereda_busqueda": "Santa Rita",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68276-004",
-        "numero_registro_ica": "ICA-1004",
-        "nombre_predio": "Don Jhan",
-        "direccion": "Vereda Alta",
-        "area_total": 5.7,
-        "nombre_vereda_busqueda": "Casiano",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68276-005",
-        "numero_registro_ica": "ICA-1005",
-        "nombre_predio": "La Montaña",
-        "direccion": "Entrada principal",
-        "area_total": 22.1,
-        "nombre_vereda_busqueda": "Helechales",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68307-006",
-        "numero_registro_ica": "ICA-1006",
-        "nombre_predio": "Los Olivos",
-        "direccion": "Finca 3",
-        "area_total": 10.3,
-        "nombre_vereda_busqueda": "Acacias",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68307-007",
-        "numero_registro_ica": "ICA-1007",
-        "nombre_predio": "Vista Hermosa",
-        "direccion": "Bajo Girón",
-        "area_total": 7.8,
-        "nombre_vereda_busqueda": "Bocas",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68547-008",
-        "numero_registro_ica": "ICA-1008",
-        "nombre_predio": "El Mirador",
-        "direccion": "Sector Norte",
-        "area_total": 30.5,
-        "nombre_vereda_busqueda": "Sevilla",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "68547-009",
-        "numero_registro_ica": "ICA-1009",
-        "nombre_predio": "La Bonanza",
-        "direccion": "Lote 45",
-        "area_total": 4.2,
-        "nombre_vereda_busqueda": "Pajonal",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "05001-010",
-        "numero_registro_ica": "ICA-1010",
-        "nombre_predio": "San Antonio",
-        "direccion": "Cerca al Río",
-        "area_total": 18.6,
-        "nombre_vereda_busqueda": "Santa Elena",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "05001-011",
-        "numero_registro_ica": "ICA-1011",
-        "nombre_predio": "La Pradera",
-        "direccion": "Camino Viejo",
-        "area_total": 9.4,
-        "nombre_vereda_busqueda": "Altavista",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "05266-012",
-        "numero_registro_ica": "ICA-1012",
-        "nombre_predio": "Finca El Sol",
-        "direccion": "Vereda Las Palmas Km 2",
-        "area_total": 11.2,
-        "nombre_vereda_busqueda": "Las Palmas",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "05266-013",
-        "numero_registro_ica": "ICA-1013",
-        "nombre_predio": "Los Cedros",
-        "direccion": "Sector El Vallano",
-        "area_total": 6.9,
-        "nombre_vereda_busqueda": "El Vallano",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "05615-014",
-        "numero_registro_ica": "ICA-1014",
-        "nombre_predio": "AgroRionegro",
-        "direccion": "Lote B-12",
-        "area_total": 40.0,
-        "nombre_vereda_busqueda": "Llanogrande",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "25899-015",
-        "numero_registro_ica": "ICA-1015",
-        "nombre_predio": "Cuna de Sal",
-        "direccion": "Calle de la Mina",
-        "area_total": 3.5,
-        "nombre_vereda_busqueda": "El Abra",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "25899-016",
-        "numero_registro_ica": "ICA-1016",
-        "nombre_predio": "La Cabaña",
-        "direccion": "Cerca a la Represa",
-        "area_total": 14.7,
-        "nombre_vereda_busqueda": "Barandillas",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "25269-017",
-        "numero_registro_ica": "ICA-1017",
-        "nombre_predio": "Pueblo Viejo",
-        "direccion": "Calle 4 Norte",
-        "area_total": 8.8,
-        "nombre_vereda_busqueda": "Mancilla",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "25175-018",
-        "numero_registro_ica": "ICA-1018",
-        "nombre_predio": "El Recreo",
-        "direccion": "Avenida Chilacos",
-        "area_total": 5.1,
-        "nombre_vereda_busqueda": "Bojacá",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "25175-019",
-        "numero_registro_ica": "ICA-1019",
-        "nombre_predio": "La Huerta",
-        "direccion": "Camino de Piedra",
-        "area_total": 2.3,
-        "nombre_vereda_busqueda": "Tíquiza",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "76001-020",
-        "numero_registro_ica": "ICA-1020",
-        "nombre_predio": "Valle Lindo",
-        "direccion": "Km 18 Vía al Mar",
-        "area_total": 55.0,
-        "nombre_vereda_busqueda": "Pance",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "76001-021",
-        "numero_registro_ica": "ICA-1021",
-        "nombre_predio": "Finca Pance",
-        "direccion": "Sector Farallones",
-        "area_total": 25.4,
-        "nombre_vereda_busqueda": "La Leonera",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "76520-022",
-        "numero_registro_ica": "ICA-1022",
-        "nombre_predio": "El Rosal",
-        "direccion": "Lote central",
-        "area_total": 12.9,
-        "nombre_vereda_busqueda": "Rozo",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "76111-023",
-        "numero_registro_ica": "ICA-1023",
-        "nombre_predio": "La Milagrosa",
-        "direccion": "Hacienda La Unión",
-        "area_total": 33.2,
-        "nombre_vereda_busqueda": "La Habana",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "76834-024",
-        "numero_registro_ica": "ICA-1024",
-        "nombre_predio": "Tierra Fértil",
-        "direccion": "Vía Monteloro",
-        "area_total": 19.1,
-        "nombre_vereda_busqueda": "La Marina",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08001-025",
-        "numero_registro_ica": "ICA-1025",
-        "nombre_predio": "El Galeón",
-        "direccion": "Sector Industrial Norte",
-        "area_total": 4.5,
-        "nombre_vereda_busqueda": "Juan Mina",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08001-026",
-        "numero_registro_ica": "ICA-1026",
-        "nombre_predio": "Brisas del Mar",
-        "direccion": "Vía Puerto",
-        "area_total": 7.2,
-        "nombre_vereda_busqueda": "La Playa",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08758-027",
-        "numero_registro_ica": "ICA-1027",
-        "nombre_predio": "Isla de Paz",
-        "direccion": "Calle del Río",
-        "area_total": 10.8,
-        "nombre_vereda_busqueda": "Cabica",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08433-028",
-        "numero_registro_ica": "ICA-1028",
-        "nombre_predio": "El Porvenir",
-        "direccion": "Sector Caimital",
-        "area_total": 15.6,
-        "nombre_vereda_busqueda": "El Espinal",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08573-029",
-        "numero_registro_ica": "ICA-1029",
-        "nombre_predio": "Lagos Azules",
-        "direccion": "Vía Salgar",
-        "area_total": 5.4,
-        "nombre_vereda_busqueda": "Sabanilla",
-        "numero_identificacion_productor": null
-    },
-    {
-        "numero_predial": "08078-030",
-        "numero_registro_ica": "ICA-1030",
-        "nombre_predio": "Sibarco Real",
-        "direccion": "Calle Principal 2",
-        "area_total": 21.0,
-        "nombre_vereda_busqueda": "Sibarco",
-        "numero_identificacion_productor": null
-    }
+  {
+    "numero_predial": "68001-001",
+    "numero_registro_ica": "ICA-1001",
+    "nombre_predio": "La Esperanza",
+    "direccion": "Km 5 Vía Bucaramanga",
+    "area_total": 12.4,
+    "nombre_vereda_busqueda": "El Solar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-002",
+    "numero_registro_ica": "ICA-1002",
+    "nombre_predio": "El Cucharo Alto",
+    "direccion": "Sector Alto del Solar",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "El Solar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-003",
+    "numero_registro_ica": "ICA-1003",
+    "nombre_predio": "Los Pinos",
+    "direccion": "Camino Rural 7",
+    "area_total": 9.2,
+    "nombre_vereda_busqueda": "El Solar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-004",
+    "numero_registro_ica": "ICA-1004",
+    "nombre_predio": "Villa Rocío",
+    "direccion": "Vereda Central",
+    "area_total": 8.2,
+    "nombre_vereda_busqueda": "La Malaña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-005",
+    "numero_registro_ica": "ICA-1005",
+    "nombre_predio": "El Roble",
+    "direccion": "Lote 12",
+    "area_total": 25.1,
+    "nombre_vereda_busqueda": "La Malaña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-006",
+    "numero_registro_ica": "ICA-1006",
+    "nombre_predio": "La Primavera",
+    "direccion": "Km 3 vía Girón",
+    "area_total": 14.5,
+    "nombre_vereda_busqueda": "La Malaña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-007",
+    "numero_registro_ica": "ICA-1007",
+    "nombre_predio": "El Paraíso",
+    "direccion": "Sector Santa Rita",
+    "area_total": 15.0,
+    "nombre_vereda_busqueda": "Santa Rita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-008",
+    "numero_registro_ica": "ICA-1008",
+    "nombre_predio": "Monteverde",
+    "direccion": "Alto de la Vereda",
+    "area_total": 11.8,
+    "nombre_vereda_busqueda": "Santa Rita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-009",
+    "numero_registro_ica": "ICA-1009",
+    "nombre_predio": "San Isidro",
+    "direccion": "Camino de Tierra",
+    "area_total": 22.3,
+    "nombre_vereda_busqueda": "Santa Rita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-010",
+    "numero_registro_ica": "ICA-1010",
+    "nombre_predio": "La Hermosa",
+    "direccion": "Vía principal",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-011",
+    "numero_registro_ica": "ICA-1011",
+    "nombre_predio": "El Bosque",
+    "direccion": "Lote 28",
+    "area_total": 7.5,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-012",
+    "numero_registro_ica": "ICA-1012",
+    "nombre_predio": "Vista Alegre",
+    "direccion": "Sector Retiro",
+    "area_total": 19.4,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-013",
+    "numero_registro_ica": "ICA-1013",
+    "nombre_predio": "Retiro Chiquito",
+    "direccion": "Finca 5",
+    "area_total": 13.2,
+    "nombre_vereda_busqueda": "Retiro Chiquito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-014",
+    "numero_registro_ica": "ICA-1014",
+    "nombre_predio": "El Mirador",
+    "direccion": "Alto del Cerro",
+    "area_total": 24.8,
+    "nombre_vereda_busqueda": "Retiro Chiquito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-015",
+    "numero_registro_ica": "ICA-1015",
+    "nombre_predio": "La Esmeralda",
+    "direccion": "Vereda Baja",
+    "area_total": 10.1,
+    "nombre_vereda_busqueda": "Retiro Chiquito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-016",
+    "numero_registro_ica": "ICA-1016",
+    "nombre_predio": "El Cucharo Alto",
+    "direccion": "Km 8",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "El Cucharo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-017",
+    "numero_registro_ica": "ICA-1017",
+    "nombre_predio": "Las Palmas",
+    "direccion": "Sector Central",
+    "area_total": 8.9,
+    "nombre_vereda_busqueda": "El Cucharo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-018",
+    "numero_registro_ica": "ICA-1018",
+    "nombre_predio": "Finca Nueva",
+    "direccion": "Camino de Herradura",
+    "area_total": 21.5,
+    "nombre_vereda_busqueda": "El Cucharo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-019",
+    "numero_registro_ica": "ICA-1019",
+    "nombre_predio": "La Pedregosa",
+    "direccion": "Vía a Piedecuesta",
+    "area_total": 14.3,
+    "nombre_vereda_busqueda": "La Pedregosa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-020",
+    "numero_registro_ica": "ICA-1020",
+    "nombre_predio": "El Diamante",
+    "direccion": "Lote 33",
+    "area_total": 12.7,
+    "nombre_vereda_busqueda": "La Pedregosa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68001-021",
+    "numero_registro_ica": "ICA-1021",
+    "nombre_predio": "Monte Azul",
+    "direccion": "Sector Alto",
+    "area_total": 26.4,
+    "nombre_vereda_busqueda": "La Pedregosa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-022",
+    "numero_registro_ica": "ICA-1022",
+    "nombre_predio": "Don Jhan",
+    "direccion": "Vereda Alta",
+    "area_total": 5.7,
+    "nombre_vereda_busqueda": "Casiano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-023",
+    "numero_registro_ica": "ICA-1023",
+    "nombre_predio": "El Tambo",
+    "direccion": "Lote 19",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "Casiano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-024",
+    "numero_registro_ica": "ICA-1024",
+    "nombre_predio": "La Fortuna",
+    "direccion": "Camino Central",
+    "area_total": 13.6,
+    "nombre_vereda_busqueda": "Casiano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-025",
+    "numero_registro_ica": "ICA-1025",
+    "nombre_predio": "Helechales Grande",
+    "direccion": "Sector Norte",
+    "area_total": 22.1,
+    "nombre_vereda_busqueda": "Helechales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-026",
+    "numero_registro_ica": "ICA-1026",
+    "nombre_predio": "La Montaña",
+    "direccion": "Entrada principal",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "Helechales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-027",
+    "numero_registro_ica": "ICA-1027",
+    "nombre_predio": "Los Robles",
+    "direccion": "Vereda Baja",
+    "area_total": 11.9,
+    "nombre_vereda_busqueda": "Helechales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-028",
+    "numero_registro_ica": "ICA-1028",
+    "nombre_predio": "Ruperto Real",
+    "direccion": "Km 4",
+    "area_total": 24.5,
+    "nombre_vereda_busqueda": "Ruperto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-029",
+    "numero_registro_ica": "ICA-1029",
+    "nombre_predio": "El Edén",
+    "direccion": "Sector Ruperto",
+    "area_total": 9.7,
+    "nombre_vereda_busqueda": "Ruperto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-030",
+    "numero_registro_ica": "ICA-1030",
+    "nombre_predio": "Vista Hermosa",
+    "direccion": "Lote 8",
+    "area_total": 15.2,
+    "nombre_vereda_busqueda": "Ruperto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-031",
+    "numero_registro_ica": "ICA-1031",
+    "nombre_predio": "Vericute Alto",
+    "direccion": "Camino principal",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "Vericute",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-032",
+    "numero_registro_ica": "ICA-1032",
+    "nombre_predio": "La Hormiga",
+    "direccion": "Sector Central",
+    "area_total": 7.8,
+    "nombre_vereda_busqueda": "Vericute",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-033",
+    "numero_registro_ica": "ICA-1033",
+    "nombre_predio": "El Progreso",
+    "direccion": "Vereda Vericute",
+    "area_total": 21.0,
+    "nombre_vereda_busqueda": "Vericute",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-034",
+    "numero_registro_ica": "ICA-1034",
+    "nombre_predio": "La Hormiga Grande",
+    "direccion": "Km 6",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "La Hormiga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-035",
+    "numero_registro_ica": "ICA-1035",
+    "nombre_predio": "El Tambo Bajo",
+    "direccion": "Sector Sur",
+    "area_total": 10.5,
+    "nombre_vereda_busqueda": "La Hormiga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-036",
+    "numero_registro_ica": "ICA-1036",
+    "nombre_predio": "Montebello",
+    "direccion": "Lote 15",
+    "area_total": 17.2,
+    "nombre_vereda_busqueda": "La Hormiga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-037",
+    "numero_registro_ica": "ICA-1037",
+    "nombre_predio": "Los Olivos",
+    "direccion": "Finca 3",
+    "area_total": 10.3,
+    "nombre_vereda_busqueda": "Acacias",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-038",
+    "numero_registro_ica": "ICA-1038",
+    "nombre_predio": "Acacias Alta",
+    "direccion": "Vía principal",
+    "area_total": 23.6,
+    "nombre_vereda_busqueda": "Acacias",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-039",
+    "numero_registro_ica": "ICA-1039",
+    "nombre_predio": "El Recuerdo",
+    "direccion": "Sector Acacias",
+    "area_total": 12.8,
+    "nombre_vereda_busqueda": "Acacias",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-040",
+    "numero_registro_ica": "ICA-1040",
+    "nombre_predio": "Bocas del Río",
+    "direccion": "Bajo Girón",
+    "area_total": 7.8,
+    "nombre_vereda_busqueda": "Bocas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-041",
+    "numero_registro_ica": "ICA-1041",
+    "nombre_predio": "Carrizal",
+    "direccion": "Lote 22",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "Bocas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-042",
+    "numero_registro_ica": "ICA-1042",
+    "nombre_predio": "Chocoita",
+    "direccion": "Vereda Central",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "Bocas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-043",
+    "numero_registro_ica": "ICA-1043",
+    "nombre_predio": "Carrizal Grande",
+    "direccion": "Sector Alto",
+    "area_total": 28.1,
+    "nombre_vereda_busqueda": "Carrizal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-044",
+    "numero_registro_ica": "ICA-1044",
+    "nombre_predio": "El Recreo",
+    "direccion": "Vía principal",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "El Recreo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-045",
+    "numero_registro_ica": "ICA-1045",
+    "nombre_predio": "Rionegro",
+    "direccion": "Lote 9",
+    "area_total": 12.4,
+    "nombre_vereda_busqueda": "El Recreo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-046",
+    "numero_registro_ica": "ICA-1046",
+    "nombre_predio": "El Guamo",
+    "direccion": "Camino Rural",
+    "area_total": 20.3,
+    "nombre_vereda_busqueda": "El Guamo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-047",
+    "numero_registro_ica": "ICA-1047",
+    "nombre_predio": "San Rafael",
+    "direccion": "Sector Guamo",
+    "area_total": 9.8,
+    "nombre_vereda_busqueda": "El Guamo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-048",
+    "numero_registro_ica": "ICA-1048",
+    "nombre_predio": "La Esmeralda",
+    "direccion": "Finca 14",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "El Guamo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-049",
+    "numero_registro_ica": "ICA-1049",
+    "nombre_predio": "El Mirador",
+    "direccion": "Sector Norte",
+    "area_total": 30.5,
+    "nombre_vereda_busqueda": "Sevilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-050",
+    "numero_registro_ica": "ICA-1050",
+    "nombre_predio": "Sevilla Alta",
+    "direccion": "Km 7",
+    "area_total": 14.2,
+    "nombre_vereda_busqueda": "Sevilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-051",
+    "numero_registro_ica": "ICA-1051",
+    "nombre_predio": "La Cumbre",
+    "direccion": "Vereda Central",
+    "area_total": 21.9,
+    "nombre_vereda_busqueda": "Sevilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-052",
+    "numero_registro_ica": "ICA-1052",
+    "nombre_predio": "La Bonanza",
+    "direccion": "Lote 45",
+    "area_total": 4.2,
+    "nombre_vereda_busqueda": "Pajonal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-053",
+    "numero_registro_ica": "ICA-1053",
+    "nombre_predio": "Pajonal Grande",
+    "direccion": "Sector Pajonal",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "Pajonal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-054",
+    "numero_registro_ica": "ICA-1054",
+    "nombre_predio": "El Salado",
+    "direccion": "Camino de Tierra",
+    "area_total": 15.8,
+    "nombre_vereda_busqueda": "Pajonal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-055",
+    "numero_registro_ica": "ICA-1055",
+    "nombre_predio": "Planadas",
+    "direccion": "Vereda Alta",
+    "area_total": 23.4,
+    "nombre_vereda_busqueda": "Planadas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-056",
+    "numero_registro_ica": "ICA-1056",
+    "nombre_predio": "Mensulí",
+    "direccion": "Lote 17",
+    "area_total": 11.3,
+    "nombre_vereda_busqueda": "Mensulí",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-057",
+    "numero_registro_ica": "ICA-1057",
+    "nombre_predio": "Cristales",
+    "direccion": "Sector Central",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "Cristales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-058",
+    "numero_registro_ica": "ICA-1058",
+    "nombre_predio": "Ojo de Agua",
+    "direccion": "Vía principal",
+    "area_total": 16.5,
+    "nombre_vereda_busqueda": "Ojo de Agua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-059",
+    "numero_registro_ica": "ICA-1059",
+    "nombre_predio": "Jarardita",
+    "direccion": "Finca 8",
+    "area_total": 13.9,
+    "nombre_vereda_busqueda": "Jarardita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-060",
+    "numero_registro_ica": "ICA-1060",
+    "nombre_predio": "La Laja",
+    "direccion": "Sector Bajo",
+    "area_total": 24.2,
+    "nombre_vereda_busqueda": "La Laja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-061",
+    "numero_registro_ica": "ICA-1061",
+    "nombre_predio": "Monas",
+    "direccion": "Camino Rural",
+    "area_total": 8.7,
+    "nombre_vereda_busqueda": "Monas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-062",
+    "numero_registro_ica": "ICA-1062",
+    "nombre_predio": "Versalles",
+    "direccion": "Lote 21",
+    "area_total": 17.4,
+    "nombre_vereda_busqueda": "Versalles",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-063",
+    "numero_registro_ica": "ICA-1063",
+    "nombre_predio": "El Carmen",
+    "direccion": "Vereda El Carmen",
+    "area_total": 12.1,
+    "nombre_vereda_busqueda": "El Carmen",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-064",
+    "numero_registro_ica": "ICA-1064",
+    "nombre_predio": "San Rafael",
+    "direccion": "Sector Alto",
+    "area_total": 20.8,
+    "nombre_vereda_busqueda": "San Rafael",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-065",
+    "numero_registro_ica": "ICA-1065",
+    "nombre_predio": "La Fortuna",
+    "direccion": "Vereda Central",
+    "area_total": 35.2,
+    "nombre_vereda_busqueda": "La Fortuna",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-066",
+    "numero_registro_ica": "ICA-1066",
+    "nombre_predio": "El Centro",
+    "direccion": "Km 12",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "El Centro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-067",
+    "numero_registro_ica": "ICA-1067",
+    "nombre_predio": "San Silvestre",
+    "direccion": "Sector Petrolero",
+    "area_total": 27.6,
+    "nombre_vereda_busqueda": "San Silvestre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-068",
+    "numero_registro_ica": "ICA-1068",
+    "nombre_predio": "La Esperanza",
+    "direccion": "Vía Barrancabermeja",
+    "area_total": 14.3,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-069",
+    "numero_registro_ica": "ICA-1069",
+    "nombre_predio": "Campo Alegre",
+    "direccion": "Lote 30",
+    "area_total": 11.5,
+    "nombre_vereda_busqueda": "Campo Alegre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-070",
+    "numero_registro_ica": "ICA-1070",
+    "nombre_predio": "El Paraíso",
+    "direccion": "Sector Sur",
+    "area_total": 22.4,
+    "nombre_vereda_busqueda": "El Paraíso",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-071",
+    "numero_registro_ica": "ICA-1071",
+    "nombre_predio": "Morro Hermoso",
+    "direccion": "Vereda Alta",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "Morro Hermoso",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-072",
+    "numero_registro_ica": "ICA-1072",
+    "nombre_predio": "La Sabana",
+    "direccion": "Vía principal",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "La Sabana",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-073",
+    "numero_registro_ica": "ICA-1073",
+    "nombre_predio": "El Roble",
+    "direccion": "Sector Socorro",
+    "area_total": 13.2,
+    "nombre_vereda_busqueda": "El Roble",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-074",
+    "numero_registro_ica": "ICA-1074",
+    "nombre_predio": "Chaguacá",
+    "direccion": "Lote 11",
+    "area_total": 24.7,
+    "nombre_vereda_busqueda": "Chaguacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-075",
+    "numero_registro_ica": "ICA-1075",
+    "nombre_predio": "La Capilla",
+    "direccion": "Camino Rural",
+    "area_total": 10.9,
+    "nombre_vereda_busqueda": "La Capilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-076",
+    "numero_registro_ica": "ICA-1076",
+    "nombre_predio": "El Calvario",
+    "direccion": "Sector Centro",
+    "area_total": 15.6,
+    "nombre_vereda_busqueda": "El Calvario",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-077",
+    "numero_registro_ica": "ICA-1077",
+    "nombre_predio": "San Antonio",
+    "direccion": "Vereda Alta",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "San Antonio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-078",
+    "numero_registro_ica": "ICA-1078",
+    "nombre_predio": "El Paraíso Socorro",
+    "direccion": "Finca 22",
+    "area_total": 21.1,
+    "nombre_vereda_busqueda": "El Paraíso",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-079",
+    "numero_registro_ica": "ICA-1079",
+    "nombre_predio": "El Tambo",
+    "direccion": "Vereda Alta",
+    "area_total": 13.8,
+    "nombre_vereda_busqueda": "El Tambo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-080",
+    "numero_registro_ica": "ICA-1080",
+    "nombre_predio": "Montebello Grande",
+    "direccion": "Sector Montebello",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "Montebello",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68276-081",
+    "numero_registro_ica": "ICA-1081",
+    "nombre_predio": "La Esperanza Floridablanca",
+    "direccion": "Camino Rural",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "Montebello",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-082",
+    "numero_registro_ica": "ICA-1082",
+    "nombre_predio": "Rionegro Alto",
+    "direccion": "Vereda Rionegro",
+    "area_total": 22.7,
+    "nombre_vereda_busqueda": "Rionegro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-083",
+    "numero_registro_ica": "ICA-1083",
+    "nombre_predio": "Chocoita",
+    "direccion": "Lote 16",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "Chocoita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68307-084",
+    "numero_registro_ica": "ICA-1084",
+    "nombre_predio": "El Recreo Girón",
+    "direccion": "Sector Recreo",
+    "area_total": 25.3,
+    "nombre_vereda_busqueda": "El Recreo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-085",
+    "numero_registro_ica": "ICA-1085",
+    "nombre_predio": "Planadas Alta",
+    "direccion": "Km 9",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "Planadas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-086",
+    "numero_registro_ica": "ICA-1086",
+    "nombre_predio": "Mensulí Grande",
+    "direccion": "Vereda Central",
+    "area_total": 12.5,
+    "nombre_vereda_busqueda": "Mensulí",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-087",
+    "numero_registro_ica": "ICA-1087",
+    "nombre_predio": "Cristales del Río",
+    "direccion": "Sector Cristales",
+    "area_total": 21.4,
+    "nombre_vereda_busqueda": "Cristales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-088",
+    "numero_registro_ica": "ICA-1088",
+    "nombre_predio": "La Cumbre",
+    "direccion": "Alto de Piedecuesta",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "La Cumbre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68547-089",
+    "numero_registro_ica": "ICA-1089",
+    "nombre_predio": "El Salado Bajo",
+    "direccion": "Vía El Salado",
+    "area_total": 15.1,
+    "nombre_vereda_busqueda": "El Salado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-090",
+    "numero_registro_ica": "ICA-1090",
+    "nombre_predio": "Ojo de Agua Grande",
+    "direccion": "Sector Principal",
+    "area_total": 23.6,
+    "nombre_vereda_busqueda": "Ojo de Agua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-091",
+    "numero_registro_ica": "ICA-1091",
+    "nombre_predio": "Jarardita Alta",
+    "direccion": "Lote 7",
+    "area_total": 10.2,
+    "nombre_vereda_busqueda": "Jarardita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-092",
+    "numero_registro_ica": "ICA-1092",
+    "nombre_predio": "La Laja",
+    "direccion": "Camino de La Laja",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "La Laja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-093",
+    "numero_registro_ica": "ICA-1093",
+    "nombre_predio": "Monas del Valle",
+    "direccion": "Vereda Monas",
+    "area_total": 14.3,
+    "nombre_vereda_busqueda": "Monas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-094",
+    "numero_registro_ica": "ICA-1094",
+    "nombre_predio": "Versalles",
+    "direccion": "Finca Versalles",
+    "area_total": 26.8,
+    "nombre_vereda_busqueda": "Versalles",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-095",
+    "numero_registro_ica": "ICA-1095",
+    "nombre_predio": "El Carmen San Gil",
+    "direccion": "Sector El Carmen",
+    "area_total": 12.9,
+    "nombre_vereda_busqueda": "El Carmen",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68679-096",
+    "numero_registro_ica": "ICA-1096",
+    "nombre_predio": "San Rafael Alto",
+    "direccion": "Vereda San Rafael",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "San Rafael",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-097",
+    "numero_registro_ica": "ICA-1097",
+    "nombre_predio": "La Fortuna Barranca",
+    "direccion": "Km 5 Vía Barrancabermeja",
+    "area_total": 31.4,
+    "nombre_vereda_busqueda": "La Fortuna",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-098",
+    "numero_registro_ica": "ICA-1098",
+    "nombre_predio": "El Centro Petrolero",
+    "direccion": "Sector Industrial",
+    "area_total": 24.1,
+    "nombre_vereda_busqueda": "El Centro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-099",
+    "numero_registro_ica": "ICA-1099",
+    "nombre_predio": "San Silvestre",
+    "direccion": "Vereda San Silvestre",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "San Silvestre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-100",
+    "numero_registro_ica": "ICA-1100",
+    "nombre_predio": "Campo Alegre",
+    "direccion": "Lote 28",
+    "area_total": 13.7,
+    "nombre_vereda_busqueda": "Campo Alegre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68081-101",
+    "numero_registro_ica": "ICA-1101",
+    "nombre_predio": "Morro Hermoso",
+    "direccion": "Alto del Morro",
+    "area_total": 28.5,
+    "nombre_vereda_busqueda": "Morro Hermoso",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-102",
+    "numero_registro_ica": "ICA-1102",
+    "nombre_predio": "La Sabana Socorro",
+    "direccion": "Vía principal",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "La Sabana",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-103",
+    "numero_registro_ica": "ICA-1103",
+    "nombre_predio": "Chaguacá Grande",
+    "direccion": "Sector Chaguacá",
+    "area_total": 20.4,
+    "nombre_vereda_busqueda": "Chaguacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-104",
+    "numero_registro_ica": "ICA-1104",
+    "nombre_predio": "La Capilla",
+    "direccion": "Vereda La Capilla",
+    "area_total": 11.6,
+    "nombre_vereda_busqueda": "La Capilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-105",
+    "numero_registro_ica": "ICA-1105",
+    "nombre_predio": "El Calvario Socorro",
+    "direccion": "Sector Centro",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "El Calvario",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-106",
+    "numero_registro_ica": "ICA-1106",
+    "nombre_predio": "San Antonio Socorro",
+    "direccion": "Vereda Alta",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "San Antonio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "68601-107",
+    "numero_registro_ica": "ICA-1107",
+    "nombre_predio": "El Paraíso Socorro",
+    "direccion": "Finca 22",
+    "area_total": 21.1,
+    "nombre_vereda_busqueda": "El Paraíso",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-108",
+    "numero_registro_ica": "ICA-1108",
+    "nombre_predio": "San Cristóbal",
+    "direccion": "Vía a San Cristóbal",
+    "area_total": 25.4,
+    "nombre_vereda_busqueda": "San Cristóbal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-109",
+    "numero_registro_ica": "ICA-1109",
+    "nombre_predio": "El Cerro Alto",
+    "direccion": "Sector Montañoso",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "San Cristóbal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-110",
+    "numero_registro_ica": "ICA-1110",
+    "nombre_predio": "La Honda",
+    "direccion": "Km 12 Vía Medellín",
+    "area_total": 14.2,
+    "nombre_vereda_busqueda": "San Cristóbal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-111",
+    "numero_registro_ica": "ICA-1111",
+    "nombre_predio": "Santa Elena",
+    "direccion": "Vereda Santa Elena",
+    "area_total": 32.1,
+    "nombre_vereda_busqueda": "Santa Elena",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-112",
+    "numero_registro_ica": "ICA-1112",
+    "nombre_predio": "Altavista",
+    "direccion": "Sector Altavista",
+    "area_total": 21.5,
+    "nombre_vereda_busqueda": "Altavista",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-113",
+    "numero_registro_ica": "ICA-1113",
+    "nombre_predio": "San Antonio de Prado",
+    "direccion": "Finca 45",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "San Antonio de Prado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-114",
+    "numero_registro_ica": "ICA-1114",
+    "nombre_predio": "Palmitas",
+    "direccion": "Vía Palmitas",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "Palmitas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-115",
+    "numero_registro_ica": "ICA-1115",
+    "nombre_predio": "El Cerro",
+    "direccion": "Sector El Cerro",
+    "area_total": 23.6,
+    "nombre_vereda_busqueda": "El Cerro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-116",
+    "numero_registro_ica": "ICA-1116",
+    "nombre_predio": "La Pradera Medellín",
+    "direccion": "Camino Viejo",
+    "area_total": 12.9,
+    "nombre_vereda_busqueda": "La Honda",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-117",
+    "numero_registro_ica": "ICA-1117",
+    "nombre_predio": "Las Palmas",
+    "direccion": "Vereda Las Palmas Km 2",
+    "area_total": 11.2,
+    "nombre_vereda_busqueda": "Las Palmas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-118",
+    "numero_registro_ica": "ICA-1118",
+    "nombre_predio": "El Vallano",
+    "direccion": "Sector El Vallano",
+    "area_total": 6.9,
+    "nombre_vereda_busqueda": "El Vallano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-119",
+    "numero_registro_ica": "ICA-1119",
+    "nombre_predio": "Perico",
+    "direccion": "Finca Perico",
+    "area_total": 24.8,
+    "nombre_vereda_busqueda": "Perico",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-120",
+    "numero_registro_ica": "ICA-1120",
+    "nombre_predio": "Pantanillo",
+    "direccion": "Vereda Pantanillo",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "Pantanillo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-121",
+    "numero_registro_ica": "ICA-1121",
+    "nombre_predio": "Santa Catalina",
+    "direccion": "Sector Santa Catalina",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "Santa Catalina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-122",
+    "numero_registro_ica": "ICA-1122",
+    "nombre_predio": "El Chuscal",
+    "direccion": "Km 4 Envigado",
+    "area_total": 13.2,
+    "nombre_vereda_busqueda": "El Chuscal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-123",
+    "numero_registro_ica": "ICA-1123",
+    "nombre_predio": "La Soledad",
+    "direccion": "Vereda La Soledad",
+    "area_total": 20.5,
+    "nombre_vereda_busqueda": "La Soledad",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-124",
+    "numero_registro_ica": "ICA-1124",
+    "nombre_predio": "Llanogrande",
+    "direccion": "Lote B-12",
+    "area_total": 40.0,
+    "nombre_vereda_busqueda": "Llanogrande",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-125",
+    "numero_registro_ica": "ICA-1125",
+    "nombre_predio": "Abreo",
+    "direccion": "Sector Abreo",
+    "area_total": 17.3,
+    "nombre_vereda_busqueda": "Abreo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-126",
+    "numero_registro_ica": "ICA-1126",
+    "nombre_predio": "Cuchillas",
+    "direccion": "Vía Cuchillas",
+    "area_total": 22.9,
+    "nombre_vereda_busqueda": "Cuchillas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-127",
+    "numero_registro_ica": "ICA-1127",
+    "nombre_predio": "Cabeceras",
+    "direccion": "Finca Cabeceras",
+    "area_total": 14.6,
+    "nombre_vereda_busqueda": "Cabeceras",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-128",
+    "numero_registro_ica": "ICA-1128",
+    "nombre_predio": "Higuerón",
+    "direccion": "Sector Higuerón",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "Higuerón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-129",
+    "numero_registro_ica": "ICA-1129",
+    "nombre_predio": "El Porvenir Rionegro",
+    "direccion": "Vereda El Porvenir",
+    "area_total": 25.1,
+    "nombre_vereda_busqueda": "El Porvenir",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-130",
+    "numero_registro_ica": "ICA-1130",
+    "nombre_predio": "San Antonio Rionegro",
+    "direccion": "Camino San Antonio",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "San Antonio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-131",
+    "numero_registro_ica": "ICA-1131",
+    "nombre_predio": "La María",
+    "direccion": "Vereda La María",
+    "area_total": 12.8,
+    "nombre_vereda_busqueda": "La María",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-132",
+    "numero_registro_ica": "ICA-1132",
+    "nombre_predio": "Los Gómez",
+    "direccion": "Sector Los Gómez",
+    "area_total": 21.3,
+    "nombre_vereda_busqueda": "Los Gómez",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-133",
+    "numero_registro_ica": "ICA-1133",
+    "nombre_predio": "El Ajizal",
+    "direccion": "Finca El Ajizal",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "El Ajizal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-134",
+    "numero_registro_ica": "ICA-1134",
+    "nombre_predio": "Los Olivares",
+    "direccion": "Vereda Los Olivares",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "Los Olivares",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-135",
+    "numero_registro_ica": "ICA-1135",
+    "nombre_predio": "La Tablaza",
+    "direccion": "Sector La Tablaza",
+    "area_total": 23.2,
+    "nombre_vereda_busqueda": "La Tablaza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-136",
+    "numero_registro_ica": "ICA-1136",
+    "nombre_predio": "El Tablón",
+    "direccion": "Camino El Tablón",
+    "area_total": 17.1,
+    "nombre_vereda_busqueda": "El Tablón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-137",
+    "numero_registro_ica": "ICA-1137",
+    "nombre_predio": "San Félix",
+    "direccion": "Vía Bello",
+    "area_total": 14.5,
+    "nombre_vereda_busqueda": "San Félix",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-138",
+    "numero_registro_ica": "ICA-1138",
+    "nombre_predio": "La Unión Bello",
+    "direccion": "Sector La Unión",
+    "area_total": 19.6,
+    "nombre_vereda_busqueda": "La Unión",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-139",
+    "numero_registro_ica": "ICA-1139",
+    "nombre_predio": "Tierradentro",
+    "direccion": "Finca Tierradentro",
+    "area_total": 26.3,
+    "nombre_vereda_busqueda": "Tierradentro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-140",
+    "numero_registro_ica": "ICA-1140",
+    "nombre_predio": "Hato Viejo",
+    "direccion": "Vereda Hato Viejo",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "Hato Viejo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-141",
+    "numero_registro_ica": "ICA-1141",
+    "nombre_predio": "Potrerito",
+    "direccion": "Sector Potrerito",
+    "area_total": 12.4,
+    "nombre_vereda_busqueda": "Potrerito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-142",
+    "numero_registro_ica": "ICA-1142",
+    "nombre_predio": "El Salado Bello",
+    "direccion": "Km 8 Vía Bello",
+    "area_total": 23.7,
+    "nombre_vereda_busqueda": "El Salado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-143",
+    "numero_registro_ica": "ICA-1143",
+    "nombre_predio": "La Pintada",
+    "direccion": "Vereda La Pintada",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "La Pintada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-144",
+    "numero_registro_ica": "ICA-1144",
+    "nombre_predio": "La Inmaculada",
+    "direccion": "Sector Caldas",
+    "area_total": 21.5,
+    "nombre_vereda_busqueda": "La Inmaculada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-145",
+    "numero_registro_ica": "ICA-1145",
+    "nombre_predio": "El Chumbimbe",
+    "direccion": "Vereda El Chumbimbe",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "El Chumbimbe",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-146",
+    "numero_registro_ica": "ICA-1146",
+    "nombre_predio": "San Andrés Caldas",
+    "direccion": "Finca San Andrés",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "San Andrés",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-147",
+    "numero_registro_ica": "ICA-1147",
+    "nombre_predio": "La Clara",
+    "direccion": "Sector La Clara",
+    "area_total": 14.1,
+    "nombre_vereda_busqueda": "La Clara",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-148",
+    "numero_registro_ica": "ICA-1148",
+    "nombre_predio": "El Roble Caldas",
+    "direccion": "Vía El Roble",
+    "area_total": 25.6,
+    "nombre_vereda_busqueda": "El Roble",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-149",
+    "numero_registro_ica": "ICA-1149",
+    "nombre_predio": "El Salto",
+    "direccion": "Camino El Salto",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "El Salto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-150",
+    "numero_registro_ica": "ICA-1150",
+    "nombre_predio": "La Ceja Caldas",
+    "direccion": "Vereda La Ceja",
+    "area_total": 13.5,
+    "nombre_vereda_busqueda": "La Ceja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-151",
+    "numero_registro_ica": "ICA-1151",
+    "nombre_predio": "El Cabuyal",
+    "direccion": "Vereda El Cabuyal",
+    "area_total": 20.4,
+    "nombre_vereda_busqueda": "El Cabuyal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-152",
+    "numero_registro_ica": "ICA-1152",
+    "nombre_predio": "La Unión Copacabana",
+    "direccion": "Sector La Unión",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "La Unión",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-153",
+    "numero_registro_ica": "ICA-1153",
+    "nombre_predio": "El Diamante",
+    "direccion": "Finca El Diamante",
+    "area_total": 22.8,
+    "nombre_vereda_busqueda": "El Diamante",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-154",
+    "numero_registro_ica": "ICA-1154",
+    "nombre_predio": "San José Copacabana",
+    "direccion": "Vereda San José",
+    "area_total": 11.9,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-155",
+    "numero_registro_ica": "ICA-1155",
+    "nombre_predio": "La Florida Copacabana",
+    "direccion": "Sector La Florida",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "La Florida",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-156",
+    "numero_registro_ica": "ICA-1156",
+    "nombre_predio": "El Rosario",
+    "direccion": "Vía El Rosario",
+    "area_total": 24.2,
+    "nombre_vereda_busqueda": "El Rosario",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-157",
+    "numero_registro_ica": "ICA-1157",
+    "nombre_predio": "El Piñal",
+    "direccion": "Camino El Piñal",
+    "area_total": 16.3,
+    "nombre_vereda_busqueda": "El Piñal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-158",
+    "numero_registro_ica": "ICA-1158",
+    "nombre_predio": "Palmitas Alta",
+    "direccion": "Sector Palmitas",
+    "area_total": 27.1,
+    "nombre_vereda_busqueda": "Palmitas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-159",
+    "numero_registro_ica": "ICA-1159",
+    "nombre_predio": "Santa Elena Grande",
+    "direccion": "Vereda Alta",
+    "area_total": 29.4,
+    "nombre_vereda_busqueda": "Santa Elena",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-160",
+    "numero_registro_ica": "ICA-1160",
+    "nombre_predio": "Pantanillo Alto",
+    "direccion": "Km 5 Envigado",
+    "area_total": 14.8,
+    "nombre_vereda_busqueda": "Pantanillo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-161",
+    "numero_registro_ica": "ICA-1161",
+    "nombre_predio": "Llanogrande Grande",
+    "direccion": "Aeropuerto Sector",
+    "area_total": 45.2,
+    "nombre_vereda_busqueda": "Llanogrande",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-162",
+    "numero_registro_ica": "ICA-1162",
+    "nombre_predio": "Los Gómez Alto",
+    "direccion": "Vereda Los Gómez",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "Los Gómez",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-163",
+    "numero_registro_ica": "ICA-1163",
+    "nombre_predio": "Tierradentro Bello",
+    "direccion": "Sector Tierradentro",
+    "area_total": 23.9,
+    "nombre_vereda_busqueda": "Tierradentro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-164",
+    "numero_registro_ica": "ICA-1164",
+    "nombre_predio": "Potrerito Bello",
+    "direccion": "Vereda Potrerito",
+    "area_total": 14.7,
+    "nombre_vereda_busqueda": "Potrerito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-165",
+    "numero_registro_ica": "ICA-1165",
+    "nombre_predio": "La Clara Alta",
+    "direccion": "Sector La Clara",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "La Clara",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-166",
+    "numero_registro_ica": "ICA-1166",
+    "nombre_predio": "El Roble Grande",
+    "direccion": "Vía Caldas",
+    "area_total": 22.3,
+    "nombre_vereda_busqueda": "El Roble",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-167",
+    "numero_registro_ica": "ICA-1167",
+    "nombre_predio": "La Ceja Alta",
+    "direccion": "Finca La Ceja",
+    "area_total": 16.5,
+    "nombre_vereda_busqueda": "La Ceja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-168",
+    "numero_registro_ica": "ICA-1168",
+    "nombre_predio": "El Cabuyal Grande",
+    "direccion": "Vereda Principal",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "El Cabuyal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-169",
+    "numero_registro_ica": "ICA-1169",
+    "nombre_predio": "El Diamante Copacabana",
+    "direccion": "Sector Diamante",
+    "area_total": 24.1,
+    "nombre_vereda_busqueda": "El Diamante",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-170",
+    "numero_registro_ica": "ICA-1170",
+    "nombre_predio": "La Florida Alta",
+    "direccion": "Km 6 Copacabana",
+    "area_total": 13.4,
+    "nombre_vereda_busqueda": "La Florida",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-171",
+    "numero_registro_ica": "ICA-1171",
+    "nombre_predio": "El Rosario Copacabana",
+    "direccion": "Vereda El Rosario",
+    "area_total": 21.7,
+    "nombre_vereda_busqueda": "El Rosario",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-172",
+    "numero_registro_ica": "ICA-1172",
+    "nombre_predio": "El Piñal Grande",
+    "direccion": "Camino Rural",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "El Piñal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-173",
+    "numero_registro_ica": "ICA-1173",
+    "nombre_predio": "San Antonio de Prado",
+    "direccion": "Vereda Prado",
+    "area_total": 28.6,
+    "nombre_vereda_busqueda": "San Antonio de Prado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05001-174",
+    "numero_registro_ica": "ICA-1174",
+    "nombre_predio": "Altavista Grande",
+    "direccion": "Sector Montañoso",
+    "area_total": 23.2,
+    "nombre_vereda_busqueda": "Altavista",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05266-175",
+    "numero_registro_ica": "ICA-1175",
+    "nombre_predio": "Santa Catalina Envigado",
+    "direccion": "Vereda Santa Catalina",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "Santa Catalina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-176",
+    "numero_registro_ica": "ICA-1176",
+    "nombre_predio": "Higuerón Alto",
+    "direccion": "Vía Rionegro",
+    "area_total": 26.4,
+    "nombre_vereda_busqueda": "Higuerón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-177",
+    "numero_registro_ica": "ICA-1177",
+    "nombre_predio": "El Ajizal Itagüí",
+    "direccion": "Sector El Ajizal",
+    "area_total": 20.1,
+    "nombre_vereda_busqueda": "El Ajizal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-178",
+    "numero_registro_ica": "ICA-1178",
+    "nombre_predio": "Hato Viejo Bello",
+    "direccion": "Vereda Hato Viejo",
+    "area_total": 18.5,
+    "nombre_vereda_busqueda": "Hato Viejo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-179",
+    "numero_registro_ica": "ICA-1179",
+    "nombre_predio": "San Andrés Caldas",
+    "direccion": "Finca Central",
+    "area_total": 22.9,
+    "nombre_vereda_busqueda": "San Andrés",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05212-180",
+    "numero_registro_ica": "ICA-1180",
+    "nombre_predio": "El Piñal Copacabana",
+    "direccion": "Sector El Piñal",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "El Piñal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05615-181",
+    "numero_registro_ica": "ICA-1181",
+    "nombre_predio": "Cabeceras Rionegro",
+    "direccion": "Vereda Cabeceras",
+    "area_total": 24.8,
+    "nombre_vereda_busqueda": "Cabeceras",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05360-182",
+    "numero_registro_ica": "ICA-1182",
+    "nombre_predio": "La Tablaza Itagüí",
+    "direccion": "Sector La Tablaza",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "La Tablaza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05088-183",
+    "numero_registro_ica": "ICA-1183",
+    "nombre_predio": "La Pintada Bello",
+    "direccion": "Vereda La Pintada",
+    "area_total": 21.6,
+    "nombre_vereda_busqueda": "La Pintada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "05129-184",
+    "numero_registro_ica": "ICA-1184",
+    "nombre_predio": "El Salto Caldas",
+    "direccion": "Km 10 Vía Caldas",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "El Salto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-185",
+    "numero_registro_ica": "ICA-1185",
+    "nombre_predio": "El Abra",
+    "direccion": "Vereda El Abra",
+    "area_total": 15.3,
+    "nombre_vereda_busqueda": "El Abra",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-186",
+    "numero_registro_ica": "ICA-1186",
+    "nombre_predio": "El Abra Alta",
+    "direccion": "Sector Montañoso",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "El Abra",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-187",
+    "numero_registro_ica": "ICA-1187",
+    "nombre_predio": "La Cabaña Zipa",
+    "direccion": "Km 5 Vía Zipaquirá",
+    "area_total": 12.8,
+    "nombre_vereda_busqueda": "El Abra",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-188",
+    "numero_registro_ica": "ICA-1188",
+    "nombre_predio": "Barandillas",
+    "direccion": "Vereda Barandillas",
+    "area_total": 14.7,
+    "nombre_vereda_busqueda": "Barandillas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-189",
+    "numero_registro_ica": "ICA-1189",
+    "nombre_predio": "Barandillas Alta",
+    "direccion": "Cerca a la Represa",
+    "area_total": 21.4,
+    "nombre_vereda_busqueda": "Barandillas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-190",
+    "numero_registro_ica": "ICA-1190",
+    "nombre_predio": "El Batán",
+    "direccion": "Sector El Batán",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "Barandillas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-191",
+    "numero_registro_ica": "ICA-1191",
+    "nombre_predio": "Río Frío",
+    "direccion": "Vereda Río Frío",
+    "area_total": 23.6,
+    "nombre_vereda_busqueda": "Río Frío",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-192",
+    "numero_registro_ica": "ICA-1192",
+    "nombre_predio": "San Jorge Zipa",
+    "direccion": "Finca San Jorge",
+    "area_total": 16.2,
+    "nombre_vereda_busqueda": "San Jorge",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-193",
+    "numero_registro_ica": "ICA-1193",
+    "nombre_predio": "Venta Larga",
+    "direccion": "Vía Venta Larga",
+    "area_total": 18.5,
+    "nombre_vereda_busqueda": "Venta Larga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-194",
+    "numero_registro_ica": "ICA-1194",
+    "nombre_predio": "El Batán Alto",
+    "direccion": "Sector El Batán",
+    "area_total": 20.1,
+    "nombre_vereda_busqueda": "El Batán",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-195",
+    "numero_registro_ica": "ICA-1195",
+    "nombre_predio": "Canica",
+    "direccion": "Vereda Canica",
+    "area_total": 13.9,
+    "nombre_vereda_busqueda": "Canica",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-196",
+    "numero_registro_ica": "ICA-1196",
+    "nombre_predio": "Prado",
+    "direccion": "Vereda Prado",
+    "area_total": 11.4,
+    "nombre_vereda_busqueda": "Prado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-197",
+    "numero_registro_ica": "ICA-1197",
+    "nombre_predio": "Pueblo Viejo",
+    "direccion": "Calle 4 Norte",
+    "area_total": 8.8,
+    "nombre_vereda_busqueda": "Pueblo Viejo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-198",
+    "numero_registro_ica": "ICA-1198",
+    "nombre_predio": "Mancilla",
+    "direccion": "Sector Mancilla",
+    "area_total": 24.3,
+    "nombre_vereda_busqueda": "Mancilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-199",
+    "numero_registro_ica": "ICA-1199",
+    "nombre_predio": "La Selva",
+    "direccion": "Vereda La Selva",
+    "area_total": 19.6,
+    "nombre_vereda_busqueda": "La Selva",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-200",
+    "numero_registro_ica": "ICA-1200",
+    "nombre_predio": "Los Olivos Facatativá",
+    "direccion": "Finca Los Olivos",
+    "area_total": 15.2,
+    "nombre_vereda_busqueda": "Los Olivos",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-201",
+    "numero_registro_ica": "ICA-1201",
+    "nombre_predio": "El Vino",
+    "direccion": "Sector El Vino",
+    "area_total": 22.7,
+    "nombre_vereda_busqueda": "El Vino",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-202",
+    "numero_registro_ica": "ICA-1202",
+    "nombre_predio": "San José Facatativá",
+    "direccion": "Vereda San José",
+    "area_total": 17.4,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-203",
+    "numero_registro_ica": "ICA-1203",
+    "nombre_predio": "Bojacá",
+    "direccion": "Avenida Chilacos",
+    "area_total": 5.1,
+    "nombre_vereda_busqueda": "Bojacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-204",
+    "numero_registro_ica": "ICA-1204",
+    "nombre_predio": "Fagua",
+    "direccion": "Vereda Fagua",
+    "area_total": 14.8,
+    "nombre_vereda_busqueda": "Fagua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-205",
+    "numero_registro_ica": "ICA-1205",
+    "nombre_predio": "Tíquiza",
+    "direccion": "Camino de Piedra",
+    "area_total": 2.3,
+    "nombre_vereda_busqueda": "Tíquiza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-206",
+    "numero_registro_ica": "ICA-1206",
+    "nombre_predio": "Cerca de Piedra",
+    "direccion": "Sector Cerca de Piedra",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Cerca de Piedra",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-207",
+    "numero_registro_ica": "ICA-1207",
+    "nombre_predio": "Fonquetá",
+    "direccion": "Vereda Fonquetá",
+    "area_total": 16.5,
+    "nombre_vereda_busqueda": "Fonquetá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-208",
+    "numero_registro_ica": "ICA-1208",
+    "nombre_predio": "El Rosal Chía",
+    "direccion": "Vereda El Rosal",
+    "area_total": 13.2,
+    "nombre_vereda_busqueda": "El Rosal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-209",
+    "numero_registro_ica": "ICA-1209",
+    "nombre_predio": "La Balsa",
+    "direccion": "Sector La Balsa",
+    "area_total": 19.4,
+    "nombre_vereda_busqueda": "La Balsa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-210",
+    "numero_registro_ica": "ICA-1210",
+    "nombre_predio": "Bojacá Grande",
+    "direccion": "Vereda Bojacá",
+    "area_total": 22.1,
+    "nombre_vereda_busqueda": "Bojacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-211",
+    "numero_registro_ica": "ICA-1211",
+    "nombre_predio": "Chinauta",
+    "direccion": "Vereda Chinauta",
+    "area_total": 25.8,
+    "nombre_vereda_busqueda": "Chinauta",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-212",
+    "numero_registro_ica": "ICA-1212",
+    "nombre_predio": "Bermejal",
+    "direccion": "Sector Bermejal",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "Bermejal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-213",
+    "numero_registro_ica": "ICA-1213",
+    "nombre_predio": "Piamonte",
+    "direccion": "Finca Piamonte",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "Piamonte",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-214",
+    "numero_registro_ica": "ICA-1214",
+    "nombre_predio": "La Aguadita",
+    "direccion": "Vereda La Aguadita",
+    "area_total": 20.3,
+    "nombre_vereda_busqueda": "La Aguadita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-215",
+    "numero_registro_ica": "ICA-1215",
+    "nombre_predio": "Espinalito",
+    "direccion": "Sector Espinalito",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "Espinalito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-216",
+    "numero_registro_ica": "ICA-1216",
+    "nombre_predio": "El Triunfo Fusagasugá",
+    "direccion": "Vereda El Triunfo",
+    "area_total": 23.5,
+    "nombre_vereda_busqueda": "El Triunfo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-217",
+    "numero_registro_ica": "ICA-1217",
+    "nombre_predio": "San Rafael Fusagasugá",
+    "direccion": "Camino San Rafael",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "San Rafael",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-218",
+    "numero_registro_ica": "ICA-1218",
+    "nombre_predio": "Bosatama",
+    "direccion": "Vereda Bosatama",
+    "area_total": 12.6,
+    "nombre_vereda_busqueda": "Bosatama",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-219",
+    "numero_registro_ica": "ICA-1219",
+    "nombre_predio": "Cascajal",
+    "direccion": "Sector Cascajal",
+    "area_total": 21.4,
+    "nombre_vereda_busqueda": "Cascajal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-220",
+    "numero_registro_ica": "ICA-1220",
+    "nombre_predio": "Alto de la Cruz",
+    "direccion": "Vereda Alto de la Cruz",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "Alto de la Cruz",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-221",
+    "numero_registro_ica": "ICA-1221",
+    "nombre_predio": "Panamá Soacha",
+    "direccion": "Sector Panamá",
+    "area_total": 15.3,
+    "nombre_vereda_busqueda": "Panamá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-222",
+    "numero_registro_ica": "ICA-1222",
+    "nombre_predio": "Villanueva",
+    "direccion": "Vereda Villanueva",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "Villanueva",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-223",
+    "numero_registro_ica": "ICA-1223",
+    "nombre_predio": "El Vínculo",
+    "direccion": "Sector El Vínculo",
+    "area_total": 24.1,
+    "nombre_vereda_busqueda": "El Vínculo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-224",
+    "numero_registro_ica": "ICA-1224",
+    "nombre_predio": "La Isla Soacha",
+    "direccion": "Vereda La Isla",
+    "area_total": 13.7,
+    "nombre_vereda_busqueda": "La Isla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-225",
+    "numero_registro_ica": "ICA-1225",
+    "nombre_predio": "La Esperanza Madrid",
+    "direccion": "Vereda La Esperanza",
+    "area_total": 18.5,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-226",
+    "numero_registro_ica": "ICA-1226",
+    "nombre_predio": "El Porvenir Madrid",
+    "direccion": "Sector El Porvenir",
+    "area_total": 16.2,
+    "nombre_vereda_busqueda": "El Porvenir",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-227",
+    "numero_registro_ica": "ICA-1227",
+    "nombre_predio": "San Jorge Madrid",
+    "direccion": "Finca San Jorge",
+    "area_total": 20.8,
+    "nombre_vereda_busqueda": "San Jorge",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-228",
+    "numero_registro_ica": "ICA-1228",
+    "nombre_predio": "El Estanque",
+    "direccion": "Vereda El Estanque",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "El Estanque",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-229",
+    "numero_registro_ica": "ICA-1229",
+    "nombre_predio": "La Florida Madrid",
+    "direccion": "Sector La Florida",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "La Florida",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-230",
+    "numero_registro_ica": "ICA-1230",
+    "nombre_predio": "El Volador",
+    "direccion": "Camino El Volador",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "El Volador",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-231",
+    "numero_registro_ica": "ICA-1231",
+    "nombre_predio": "El Pantano",
+    "direccion": "Vereda El Pantano",
+    "area_total": 15.8,
+    "nombre_vereda_busqueda": "El Pantano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-232",
+    "numero_registro_ica": "ICA-1232",
+    "nombre_predio": "La Cabaña Cajicá",
+    "direccion": "Vereda La Cabaña",
+    "area_total": 18.4,
+    "nombre_vereda_busqueda": "La Cabaña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-233",
+    "numero_registro_ica": "ICA-1233",
+    "nombre_predio": "Tibito",
+    "direccion": "Sector Tibito",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "Tibito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-234",
+    "numero_registro_ica": "ICA-1234",
+    "nombre_predio": "El Callejón",
+    "direccion": "Vereda El Callejón",
+    "area_total": 21.7,
+    "nombre_vereda_busqueda": "El Callejón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-235",
+    "numero_registro_ica": "ICA-1235",
+    "nombre_predio": "San Francisco Cajicá",
+    "direccion": "Finca San Francisco",
+    "area_total": 14.2,
+    "nombre_vereda_busqueda": "San Francisco",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-236",
+    "numero_registro_ica": "ICA-1236",
+    "nombre_predio": "El Rosalito",
+    "direccion": "Sector El Rosalito",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "El Rosalito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-237",
+    "numero_registro_ica": "ICA-1237",
+    "nombre_predio": "La Punta Cajicá",
+    "direccion": "Vereda La Punta",
+    "area_total": 17.3,
+    "nombre_vereda_busqueda": "La Punta",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-238",
+    "numero_registro_ica": "ICA-1238",
+    "nombre_predio": "Los Arrayanes",
+    "direccion": "Camino Los Arrayanes",
+    "area_total": 23.1,
+    "nombre_vereda_busqueda": "Los Arrayanes",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25899-239",
+    "numero_registro_ica": "ICA-1239",
+    "nombre_predio": "Venta Larga Alta",
+    "direccion": "Sector Venta Larga",
+    "area_total": 20.6,
+    "nombre_vereda_busqueda": "Venta Larga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25269-240",
+    "numero_registro_ica": "ICA-1240",
+    "nombre_predio": "La Selva Facatativá",
+    "direccion": "Vereda La Selva",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "La Selva",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25175-241",
+    "numero_registro_ica": "ICA-1241",
+    "nombre_predio": "Tíquiza Grande",
+    "direccion": "Sector Tíquiza",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "Tíquiza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-242",
+    "numero_registro_ica": "ICA-1242",
+    "nombre_predio": "Chinauta Alta",
+    "direccion": "Vereda Chinauta",
+    "area_total": 26.4,
+    "nombre_vereda_busqueda": "Chinauta",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-243",
+    "numero_registro_ica": "ICA-1243",
+    "nombre_predio": "Cascajal Soacha",
+    "direccion": "Sector Cascajal",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "Cascajal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25430-244",
+    "numero_registro_ica": "ICA-1244",
+    "nombre_predio": "El Volador Madrid",
+    "direccion": "Vereda El Volador",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "El Volador",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25126-245",
+    "numero_registro_ica": "ICA-1245",
+    "nombre_predio": "Los Arrayanes Cajicá",
+    "direccion": "Finca Los Arrayanes",
+    "area_total": 21.3,
+    "nombre_vereda_busqueda": "Los Arrayanes",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25290-246",
+    "numero_registro_ica": "ICA-1246",
+    "nombre_predio": "Piamonte Fusagasugá",
+    "direccion": "Sector Piamonte",
+    "area_total": 16.5,
+    "nombre_vereda_busqueda": "Piamonte",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "25754-247",
+    "numero_registro_ica": "ICA-1247",
+    "nombre_predio": "La Isla Grande",
+    "direccion": "Vereda La Isla",
+    "area_total": 14.8,
+    "nombre_vereda_busqueda": "La Isla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-248",
+    "numero_registro_ica": "ICA-1248",
+    "nombre_predio": "Pance",
+    "direccion": "Km 18 Vía al Mar",
+    "area_total": 55.0,
+    "nombre_vereda_busqueda": "Pance",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-249",
+    "numero_registro_ica": "ICA-1249",
+    "nombre_predio": "Pance Alto",
+    "direccion": "Sector Farallones",
+    "area_total": 42.3,
+    "nombre_vereda_busqueda": "Pance",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-250",
+    "numero_registro_ica": "ICA-1250",
+    "nombre_predio": "La Leonera",
+    "direccion": "Vereda La Leonera",
+    "area_total": 25.4,
+    "nombre_vereda_busqueda": "La Leonera",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-251",
+    "numero_registro_ica": "ICA-1251",
+    "nombre_predio": "Felidia",
+    "direccion": "Sector Felidia",
+    "area_total": 31.7,
+    "nombre_vereda_busqueda": "Felidia",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-252",
+    "numero_registro_ica": "ICA-1252",
+    "nombre_predio": "Pichindé",
+    "direccion": "Vereda Pichindé",
+    "area_total": 28.9,
+    "nombre_vereda_busqueda": "Pichindé",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-253",
+    "numero_registro_ica": "ICA-1253",
+    "nombre_predio": "Villacarmelo",
+    "direccion": "Finca Villacarmelo",
+    "area_total": 22.6,
+    "nombre_vereda_busqueda": "Villacarmelo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-254",
+    "numero_registro_ica": "ICA-1254",
+    "nombre_predio": "El Saladito",
+    "direccion": "Sector El Saladito",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "El Saladito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76001-255",
+    "numero_registro_ica": "ICA-1255",
+    "nombre_predio": "La Elvira",
+    "direccion": "Vereda La Elvira",
+    "area_total": 35.2,
+    "nombre_vereda_busqueda": "La Elvira",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-256",
+    "numero_registro_ica": "ICA-1256",
+    "nombre_predio": "Rozo",
+    "direccion": "Lote central",
+    "area_total": 12.9,
+    "nombre_vereda_busqueda": "Rozo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-257",
+    "numero_registro_ica": "ICA-1257",
+    "nombre_predio": "La Buitrera",
+    "direccion": "Vereda La Buitrera",
+    "area_total": 24.5,
+    "nombre_vereda_busqueda": "La Buitrera",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-258",
+    "numero_registro_ica": "ICA-1258",
+    "nombre_predio": "Tienda Nueva",
+    "direccion": "Sector Tienda Nueva",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "Tienda Nueva",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-259",
+    "numero_registro_ica": "ICA-1259",
+    "nombre_predio": "La Zapata",
+    "direccion": "Finca La Zapata",
+    "area_total": 21.7,
+    "nombre_vereda_busqueda": "La Zapata",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-260",
+    "numero_registro_ica": "ICA-1260",
+    "nombre_predio": "El Placer Palmira",
+    "direccion": "Vereda El Placer",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "El Placer",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76520-261",
+    "numero_registro_ica": "ICA-1261",
+    "nombre_predio": "La Trocha",
+    "direccion": "Camino La Trocha",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "La Trocha",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-262",
+    "numero_registro_ica": "ICA-1262",
+    "nombre_predio": "La Habana",
+    "direccion": "Hacienda La Unión",
+    "area_total": 33.2,
+    "nombre_vereda_busqueda": "La Habana",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-263",
+    "numero_registro_ica": "ICA-1263",
+    "nombre_predio": "Alaska",
+    "direccion": "Sector Alaska",
+    "area_total": 27.8,
+    "nombre_vereda_busqueda": "Alaska",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-264",
+    "numero_registro_ica": "ICA-1264",
+    "nombre_predio": "El Vínculo Buga",
+    "direccion": "Vereda El Vínculo",
+    "area_total": 24.6,
+    "nombre_vereda_busqueda": "El Vínculo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-265",
+    "numero_registro_ica": "ICA-1265",
+    "nombre_predio": "Monterrey",
+    "direccion": "Finca Monterrey",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Monterrey",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-266",
+    "numero_registro_ica": "ICA-1266",
+    "nombre_predio": "Quebrada Seca",
+    "direccion": "Sector Quebrada Seca",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "Quebrada Seca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-267",
+    "numero_registro_ica": "ICA-1267",
+    "nombre_predio": "El Llano Buga",
+    "direccion": "Vereda El Llano",
+    "area_total": 22.3,
+    "nombre_vereda_busqueda": "El Llano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-268",
+    "numero_registro_ica": "ICA-1268",
+    "nombre_predio": "San Joaquín Buga",
+    "direccion": "Camino San Joaquín",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "San Joaquín",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-269",
+    "numero_registro_ica": "ICA-1269",
+    "nombre_predio": "La Marina",
+    "direccion": "Vía Monteloro",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "La Marina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-270",
+    "numero_registro_ica": "ICA-1270",
+    "nombre_predio": "Barragán",
+    "direccion": "Sector Barragán",
+    "area_total": 26.4,
+    "nombre_vereda_busqueda": "Barragán",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-271",
+    "numero_registro_ica": "ICA-1271",
+    "nombre_predio": "Santa Lucía Tuluá",
+    "direccion": "Sector Santa Lucía",
+    "area_total": 23.8,
+    "nombre_vereda_busqueda": "Santa Lucía",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-272",
+    "numero_registro_ica": "ICA-1272",
+    "nombre_predio": "Monteloro",
+    "direccion": "Vía Monteloro",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "Monteloro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-273",
+    "numero_registro_ica": "ICA-1273",
+    "nombre_predio": "Venus",
+    "direccion": "Sector Venus",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "Venus",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-274",
+    "numero_registro_ica": "ICA-1274",
+    "nombre_predio": "El Aguacate",
+    "direccion": "Finca El Aguacate",
+    "area_total": 21.3,
+    "nombre_vereda_busqueda": "El Aguacate",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-275",
+    "numero_registro_ica": "ICA-1275",
+    "nombre_predio": "Cauca",
+    "direccion": "Vereda Cauca",
+    "area_total": 24.6,
+    "nombre_vereda_busqueda": "Cauca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-276",
+    "numero_registro_ica": "ICA-1276",
+    "nombre_predio": "Modín",
+    "direccion": "Sector Modín",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Modín",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-277",
+    "numero_registro_ica": "ICA-1277",
+    "nombre_predio": "Coloradas",
+    "direccion": "Vereda Coloradas",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "Coloradas",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-278",
+    "numero_registro_ica": "ICA-1278",
+    "nombre_predio": "Piedra de Moler",
+    "direccion": "Finca Piedra de Moler",
+    "area_total": 20.7,
+    "nombre_vereda_busqueda": "Piedra de Moler",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-279",
+    "numero_registro_ica": "ICA-1279",
+    "nombre_predio": "Santa Ana Cartago",
+    "direccion": "Sector Santa Ana",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "Santa Ana",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-280",
+    "numero_registro_ica": "ICA-1280",
+    "nombre_predio": "El Caimo",
+    "direccion": "Vereda El Caimo",
+    "area_total": 22.1,
+    "nombre_vereda_busqueda": "El Caimo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-281",
+    "numero_registro_ica": "ICA-1281",
+    "nombre_predio": "Pianguita",
+    "direccion": "Vereda Pianguita",
+    "area_total": 28.5,
+    "nombre_vereda_busqueda": "Pianguita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-282",
+    "numero_registro_ica": "ICA-1282",
+    "nombre_predio": "San Cipriano",
+    "direccion": "Sector San Cipriano",
+    "area_total": 35.2,
+    "nombre_vereda_busqueda": "San Cipriano",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-283",
+    "numero_registro_ica": "ICA-1283",
+    "nombre_predio": "La Barra",
+    "direccion": "Vereda La Barra",
+    "area_total": 19.4,
+    "nombre_vereda_busqueda": "La Barra",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-284",
+    "numero_registro_ica": "ICA-1284",
+    "nombre_predio": "Anchicayá",
+    "direccion": "Finca Anchicayá",
+    "area_total": 24.7,
+    "nombre_vereda_busqueda": "Anchicayá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-285",
+    "numero_registro_ica": "ICA-1285",
+    "nombre_predio": "El Placer Jamundí",
+    "direccion": "Vereda El Placer",
+    "area_total": 17.3,
+    "nombre_vereda_busqueda": "El Placer",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-286",
+    "numero_registro_ica": "ICA-1286",
+    "nombre_predio": "San Antonio Jamundí",
+    "direccion": "Sector San Antonio",
+    "area_total": 21.6,
+    "nombre_vereda_busqueda": "San Antonio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-287",
+    "numero_registro_ica": "ICA-1287",
+    "nombre_predio": "La Troja",
+    "direccion": "Vereda La Troja",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "La Troja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-288",
+    "numero_registro_ica": "ICA-1288",
+    "nombre_predio": "El Limón Jamundí",
+    "direccion": "Finca El Limón",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "El Limón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-289",
+    "numero_registro_ica": "ICA-1289",
+    "nombre_predio": "Villa Paz",
+    "direccion": "Vereda Villa Paz",
+    "area_total": 23.4,
+    "nombre_vereda_busqueda": "Villa Paz",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-290",
+    "numero_registro_ica": "ICA-1290",
+    "nombre_predio": "La Rivera Jamundí",
+    "direccion": "Sector La Rivera",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "La Rivera",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-291",
+    "numero_registro_ica": "ICA-1291",
+    "nombre_predio": "Potrerito Jamundí",
+    "direccion": "Finca Potrerito",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "Potrerito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76111-292",
+    "numero_registro_ica": "ICA-1292",
+    "nombre_predio": "San Joaquín Buga",
+    "direccion": "Vereda San Joaquín",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "San Joaquín",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76834-293",
+    "numero_registro_ica": "ICA-1293",
+    "nombre_predio": "La Paila",
+    "direccion": "Sector La Paila",
+    "area_total": 20.9,
+    "nombre_vereda_busqueda": "La Paila",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76147-294",
+    "numero_registro_ica": "ICA-1294",
+    "nombre_predio": "La Isabela",
+    "direccion": "Vereda La Isabela",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "La Isabela",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-295",
+    "numero_registro_ica": "ICA-1295",
+    "nombre_predio": "El Cucho",
+    "direccion": "Sector El Cucho",
+    "area_total": 26.1,
+    "nombre_vereda_busqueda": "El Cucho",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-296",
+    "numero_registro_ica": "ICA-1296",
+    "nombre_predio": "Sabales",
+    "direccion": "Vereda Sabales",
+    "area_total": 22.4,
+    "nombre_vereda_busqueda": "Sabales",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76109-297",
+    "numero_registro_ica": "ICA-1297",
+    "nombre_predio": "El Naranjo Buenaventura",
+    "direccion": "Finca El Naranjo",
+    "area_total": 29.5,
+    "nombre_vereda_busqueda": "El Naranjo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "76364-298",
+    "numero_registro_ica": "ICA-1298",
+    "nombre_predio": "Villa Paz Jamundí",
+    "direccion": "Sector Villa Paz",
+    "area_total": 24.2,
+    "nombre_vereda_busqueda": "Villa Paz",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-299",
+    "numero_registro_ica": "ICA-1299",
+    "nombre_predio": "Juan Mina",
+    "direccion": "Km 5 Vía Barranquilla",
+    "area_total": 12.4,
+    "nombre_vereda_busqueda": "Juan Mina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-300",
+    "numero_registro_ica": "ICA-1300",
+    "nombre_predio": "Juan Mina Alto",
+    "direccion": "Sector Juan Mina",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "Juan Mina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-301",
+    "numero_registro_ica": "ICA-1301",
+    "nombre_predio": "La Playa",
+    "direccion": "Vía Puerto",
+    "area_total": 7.2,
+    "nombre_vereda_busqueda": "La Playa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-302",
+    "numero_registro_ica": "ICA-1302",
+    "nombre_predio": "Brisas del Mar",
+    "direccion": "Sector La Playa",
+    "area_total": 11.8,
+    "nombre_vereda_busqueda": "La Playa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-303",
+    "numero_registro_ica": "ICA-1303",
+    "nombre_predio": "Las Flores",
+    "direccion": "Vereda Las Flores",
+    "area_total": 9.5,
+    "nombre_vereda_busqueda": "Las Flores",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-304",
+    "numero_registro_ica": "ICA-1304",
+    "nombre_predio": "Palmarito",
+    "direccion": "Sector Palmarito",
+    "area_total": 14.3,
+    "nombre_vereda_busqueda": "Palmarito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-305",
+    "numero_registro_ica": "ICA-1305",
+    "nombre_predio": "El Morro",
+    "direccion": "Vereda El Morro",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "El Morro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08001-306",
+    "numero_registro_ica": "ICA-1306",
+    "nombre_predio": "Puerto Giraldo",
+    "direccion": "Sector Puerto Giraldo",
+    "area_total": 13.9,
+    "nombre_vereda_busqueda": "Puerto Giraldo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-307",
+    "numero_registro_ica": "ICA-1307",
+    "nombre_predio": "Cabica",
+    "direccion": "Calle del Río",
+    "area_total": 10.8,
+    "nombre_vereda_busqueda": "Cabica",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-308",
+    "numero_registro_ica": "ICA-1308",
+    "nombre_predio": "Isla de Paz",
+    "direccion": "Vereda Cabica",
+    "area_total": 16.2,
+    "nombre_vereda_busqueda": "Cabica",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-309",
+    "numero_registro_ica": "ICA-1309",
+    "nombre_predio": "El Oasis",
+    "direccion": "Sector El Oasis",
+    "area_total": 12.5,
+    "nombre_vereda_busqueda": "El Oasis",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-310",
+    "numero_registro_ica": "ICA-1310",
+    "nombre_predio": "La Central Soledad",
+    "direccion": "Vereda La Central",
+    "area_total": 14.7,
+    "nombre_vereda_busqueda": "La Central",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-311",
+    "numero_registro_ica": "ICA-1311",
+    "nombre_predio": "La Esperanza Soledad",
+    "direccion": "Sector La Esperanza",
+    "area_total": 13.4,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08758-312",
+    "numero_registro_ica": "ICA-1312",
+    "nombre_predio": "El Poblado",
+    "direccion": "Vereda El Poblado",
+    "area_total": 11.9,
+    "nombre_vereda_busqueda": "El Poblado",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08433-313",
+    "numero_registro_ica": "ICA-1313",
+    "nombre_predio": "La Aguada",
+    "direccion": "Sector La Aguada",
+    "area_total": 15.6,
+    "nombre_vereda_busqueda": "La Aguada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08433-314",
+    "numero_registro_ica": "ICA-1314",
+    "nombre_predio": "El Espinal Malambo",
+    "direccion": "Vereda El Espinal",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "El Espinal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08433-315",
+    "numero_registro_ica": "ICA-1315",
+    "nombre_predio": "Caracolí",
+    "direccion": "Sector Caracolí",
+    "area_total": 12.3,
+    "nombre_vereda_busqueda": "Caracolí",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08433-316",
+    "numero_registro_ica": "ICA-1316",
+    "nombre_predio": "Caimital",
+    "direccion": "Vereda Caimital",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "Caimital",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08573-317",
+    "numero_registro_ica": "ICA-1317",
+    "nombre_predio": "Sabanilla",
+    "direccion": "Vía Salgar",
+    "area_total": 5.4,
+    "nombre_vereda_busqueda": "Sabanilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08573-318",
+    "numero_registro_ica": "ICA-1318",
+    "nombre_predio": "Lagos Azules",
+    "direccion": "Sector Lagos de Caujaral",
+    "area_total": 16.2,
+    "nombre_vereda_busqueda": "Sabanilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08573-319",
+    "numero_registro_ica": "ICA-1319",
+    "nombre_predio": "Salgar",
+    "direccion": "Vereda Salgar",
+    "area_total": 13.5,
+    "nombre_vereda_busqueda": "Salgar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08573-320",
+    "numero_registro_ica": "ICA-1320",
+    "nombre_predio": "El Castillo",
+    "direccion": "Sector El Castillo",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "El Castillo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-321",
+    "numero_registro_ica": "ICA-1321",
+    "nombre_predio": "Pital de Megua",
+    "direccion": "Vereda Pital de Megua",
+    "area_total": 21.0,
+    "nombre_vereda_busqueda": "Pital de Megua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-322",
+    "numero_registro_ica": "ICA-1322",
+    "nombre_predio": "Sibarco Real",
+    "direccion": "Calle Principal",
+    "area_total": 19.4,
+    "nombre_vereda_busqueda": "Sibarco",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-323",
+    "numero_registro_ica": "ICA-1323",
+    "nombre_predio": "Campeche",
+    "direccion": "Vereda Campeche",
+    "area_total": 14.8,
+    "nombre_vereda_busqueda": "Campeche",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-324",
+    "numero_registro_ica": "ICA-1324",
+    "nombre_predio": "La Esperanza Baranoa",
+    "direccion": "Sector La Esperanza",
+    "area_total": 16.5,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-325",
+    "numero_registro_ica": "ICA-1325",
+    "nombre_predio": "El Desorden",
+    "direccion": "Vereda El Desorden",
+    "area_total": 12.9,
+    "nombre_vereda_busqueda": "El Desorden",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-326",
+    "numero_registro_ica": "ICA-1326",
+    "nombre_predio": "El Silencio",
+    "direccion": "Sector El Silencio",
+    "area_total": 15.2,
+    "nombre_vereda_busqueda": "El Silencio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08078-327",
+    "numero_registro_ica": "ICA-1327",
+    "nombre_predio": "La Concha",
+    "direccion": "Vereda La Concha",
+    "area_total": 13.7,
+    "nombre_vereda_busqueda": "La Concha",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08638-328",
+    "numero_registro_ica": "ICA-1328",
+    "nombre_predio": "Agua Fría",
+    "direccion": "Vereda Agua Fría",
+    "area_total": 18.4,
+    "nombre_vereda_busqueda": "Agua Fría",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08638-329",
+    "numero_registro_ica": "ICA-1329",
+    "nombre_predio": "El Palmar Sabanalarga",
+    "direccion": "Sector El Palmar",
+    "area_total": 14.6,
+    "nombre_vereda_busqueda": "El Palmar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08638-330",
+    "numero_registro_ica": "ICA-1330",
+    "nombre_predio": "La Ceiba",
+    "direccion": "Vereda La Ceiba",
+    "area_total": 17.1,
+    "nombre_vereda_busqueda": "La Ceiba",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08137-331",
+    "numero_registro_ica": "ICA-1331",
+    "nombre_predio": "El Limón Campo",
+    "direccion": "Vereda El Limón",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "El Limón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08137-332",
+    "numero_registro_ica": "ICA-1332",
+    "nombre_predio": "La Peña",
+    "direccion": "Sector La Peña",
+    "area_total": 12.8,
+    "nombre_vereda_busqueda": "La Peña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08137-333",
+    "numero_registro_ica": "ICA-1333",
+    "nombre_predio": "San Pablo Campo",
+    "direccion": "Vereda San Pablo",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "San Pablo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "08137-334",
+    "numero_registro_ica": "ICA-1334",
+    "nombre_predio": "El Jobo",
+    "direccion": "Sector El Jobo",
+    "area_total": 14.2,
+    "nombre_vereda_busqueda": "El Jobo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-335",
+    "numero_registro_ica": "ICA-1335",
+    "nombre_predio": "Soracá",
+    "direccion": "Vereda Soracá",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "Soracá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-336",
+    "numero_registro_ica": "ICA-1336",
+    "nombre_predio": "Soracá Alto",
+    "direccion": "Sector Alto Tunja",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "Soracá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-337",
+    "numero_registro_ica": "ICA-1337",
+    "nombre_predio": "Chiriví",
+    "direccion": "Vereda Chiriví",
+    "area_total": 14.2,
+    "nombre_vereda_busqueda": "Chiriví",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-338",
+    "numero_registro_ica": "ICA-1338",
+    "nombre_predio": "La Esperanza Tunja",
+    "direccion": "Sector La Esperanza",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-339",
+    "numero_registro_ica": "ICA-1339",
+    "nombre_predio": "El Rosal Tunja",
+    "direccion": "Vereda El Rosal",
+    "area_total": 15.3,
+    "nombre_vereda_busqueda": "El Rosal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15001-340",
+    "numero_registro_ica": "ICA-1340",
+    "nombre_predio": "Tibasosa",
+    "direccion": "Sector Tibasosa",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "Tibasosa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15212-341",
+    "numero_registro_ica": "ICA-1341",
+    "nombre_predio": "La Balsa Duitama",
+    "direccion": "Vereda La Balsa",
+    "area_total": 21.4,
+    "nombre_vereda_busqueda": "La Balsa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15212-342",
+    "numero_registro_ica": "ICA-1342",
+    "nombre_predio": "El Cocuy Duitama",
+    "direccion": "Sector El Cocuy",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "El Cocuy",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15212-343",
+    "numero_registro_ica": "ICA-1343",
+    "nombre_predio": "San Antonio Duitama",
+    "direccion": "Vereda San Antonio",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "San Antonio",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15212-344",
+    "numero_registro_ica": "ICA-1344",
+    "nombre_predio": "El Porvenir Duitama",
+    "direccion": "Sector El Porvenir",
+    "area_total": 14.8,
+    "nombre_vereda_busqueda": "El Porvenir",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-345",
+    "numero_registro_ica": "ICA-1345",
+    "nombre_predio": "Tópaga",
+    "direccion": "Vereda Tópaga",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "Tópaga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-346",
+    "numero_registro_ica": "ICA-1346",
+    "nombre_predio": "Mongua",
+    "direccion": "Sector Mongua",
+    "area_total": 15.1,
+    "nombre_vereda_busqueda": "Mongua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-347",
+    "numero_registro_ica": "ICA-1347",
+    "nombre_predio": "Nobsa",
+    "direccion": "Vereda Nobsa",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "Nobsa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-348",
+    "numero_registro_ica": "ICA-1348",
+    "nombre_predio": "Firavitoba",
+    "direccion": "Sector Firavitoba",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "Firavitoba",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-349",
+    "numero_registro_ica": "ICA-1349",
+    "nombre_predio": "Pesca",
+    "direccion": "Vereda Pesca",
+    "area_total": 14.9,
+    "nombre_vereda_busqueda": "Pesca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15667-350",
+    "numero_registro_ica": "ICA-1350",
+    "nombre_predio": "Cuitiva",
+    "direccion": "Sector Cuitiva",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "Cuitiva",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15176-351",
+    "numero_registro_ica": "ICA-1351",
+    "nombre_predio": "San José Chiquinquirá",
+    "direccion": "Vereda San José",
+    "area_total": 17.2,
+    "nombre_vereda_busqueda": "San José",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15176-352",
+    "numero_registro_ica": "ICA-1352",
+    "nombre_predio": "El Arenal",
+    "direccion": "Sector El Arenal",
+    "area_total": 15.8,
+    "nombre_vereda_busqueda": "El Arenal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15176-353",
+    "numero_registro_ica": "ICA-1353",
+    "nombre_predio": "La Cumbre Chiquinquirá",
+    "direccion": "Vereda La Cumbre",
+    "area_total": 20.1,
+    "nombre_vereda_busqueda": "La Cumbre",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15176-354",
+    "numero_registro_ica": "ICA-1354",
+    "nombre_predio": "El Roble Chiquinquirá",
+    "direccion": "Sector El Roble",
+    "area_total": 13.6,
+    "nombre_vereda_busqueda": "El Roble",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-355",
+    "numero_registro_ica": "ICA-1355",
+    "nombre_predio": "Las Piedras Paipa",
+    "direccion": "Vereda Las Piedras",
+    "area_total": 18.4,
+    "nombre_vereda_busqueda": "Las Piedras",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-356",
+    "numero_registro_ica": "ICA-1356",
+    "nombre_predio": "Sotaquirá",
+    "direccion": "Sector Sotaquirá",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "Sotaquirá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-357",
+    "numero_registro_ica": "ICA-1357",
+    "nombre_predio": "Tuta Paipa",
+    "direccion": "Vereda Tuta",
+    "area_total": 14.7,
+    "nombre_vereda_busqueda": "Tuta",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-358",
+    "numero_registro_ica": "ICA-1358",
+    "nombre_predio": "Sáchica",
+    "direccion": "Sector Sáchica",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "Sáchica",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-359",
+    "numero_registro_ica": "ICA-1359",
+    "nombre_predio": "Toca",
+    "direccion": "Vereda Toca",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "Toca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-360",
+    "numero_registro_ica": "ICA-1360",
+    "nombre_predio": "Oicatá",
+    "direccion": "Sector Oicatá",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "Oicatá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-361",
+    "numero_registro_ica": "ICA-1361",
+    "nombre_predio": "Santa Sofía",
+    "direccion": "Vereda Santa Sofía",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Santa Sofía",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-362",
+    "numero_registro_ica": "ICA-1362",
+    "nombre_predio": "Sutamarchán",
+    "direccion": "Sector Sutamarchán",
+    "area_total": 16.3,
+    "nombre_vereda_busqueda": "Sutamarchán",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-363",
+    "numero_registro_ica": "ICA-1363",
+    "nombre_predio": "Ráquira",
+    "direccion": "Vereda Ráquira",
+    "area_total": 20.7,
+    "nombre_vereda_busqueda": "Ráquira",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-364",
+    "numero_registro_ica": "ICA-1364",
+    "nombre_predio": "Tinjacá",
+    "direccion": "Sector Tinjacá",
+    "area_total": 14.5,
+    "nombre_vereda_busqueda": "Tinjacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-365",
+    "numero_registro_ica": "ICA-1365",
+    "nombre_predio": "Ventaquemada Samacá",
+    "direccion": "Vereda Ventaquemada",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "Ventaquemada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-366",
+    "numero_registro_ica": "ICA-1366",
+    "nombre_predio": "Tuta Alto Samacá",
+    "direccion": "Sector Tuta Alto",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "Tuta Alto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-367",
+    "numero_registro_ica": "ICA-1367",
+    "nombre_predio": "El Hatillo",
+    "direccion": "Vereda El Hatillo",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "El Hatillo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-368",
+    "numero_registro_ica": "ICA-1368",
+    "nombre_predio": "La Pradera Samacá",
+    "direccion": "Sector La Pradera",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "La Pradera",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-359",
+    "numero_registro_ica": "ICA-1359",
+    "nombre_predio": "Toca",
+    "direccion": "Vereda Toca",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "Toca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15518-360",
+    "numero_registro_ica": "ICA-1360",
+    "nombre_predio": "Oicatá",
+    "direccion": "Sector Oicatá",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "Oicatá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-361",
+    "numero_registro_ica": "ICA-1361",
+    "nombre_predio": "Santa Sofía",
+    "direccion": "Vereda Santa Sofía",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Santa Sofía",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-362",
+    "numero_registro_ica": "ICA-1362",
+    "nombre_predio": "Sutamarchán",
+    "direccion": "Sector Sutamarchán",
+    "area_total": 16.3,
+    "nombre_vereda_busqueda": "Sutamarchán",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-363",
+    "numero_registro_ica": "ICA-1363",
+    "nombre_predio": "Ráquira",
+    "direccion": "Vereda Ráquira",
+    "area_total": 20.7,
+    "nombre_vereda_busqueda": "Ráquira",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15407-364",
+    "numero_registro_ica": "ICA-1364",
+    "nombre_predio": "Tinjacá",
+    "direccion": "Sector Tinjacá",
+    "area_total": 14.5,
+    "nombre_vereda_busqueda": "Tinjacá",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-365",
+    "numero_registro_ica": "ICA-1365",
+    "nombre_predio": "Ventaquemada Samacá",
+    "direccion": "Vereda Ventaquemada",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "Ventaquemada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-366",
+    "numero_registro_ica": "ICA-1366",
+    "nombre_predio": "Tuta Alto Samacá",
+    "direccion": "Sector Tuta Alto",
+    "area_total": 17.6,
+    "nombre_vereda_busqueda": "Tuta Alto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-367",
+    "numero_registro_ica": "ICA-1367",
+    "nombre_predio": "El Hatillo",
+    "direccion": "Vereda El Hatillo",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "El Hatillo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "15646-368",
+    "numero_registro_ica": "ICA-1368",
+    "nombre_predio": "La Pradera Samacá",
+    "direccion": "Sector La Pradera",
+    "area_total": 18.2,
+    "nombre_vereda_busqueda": "La Pradera",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-369",
+    "numero_registro_ica": "ICA-1369",
+    "nombre_predio": "Bayunca",
+    "direccion": "Vereda Bayunca",
+    "area_total": 22.4,
+    "nombre_vereda_busqueda": "Bayunca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-370",
+    "numero_registro_ica": "ICA-1370",
+    "nombre_predio": "Bayunca Grande",
+    "direccion": "Sector Bayunca",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "Bayunca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-371",
+    "numero_registro_ica": "ICA-1371",
+    "nombre_predio": "Puerto Badel",
+    "direccion": "Vereda Puerto Badel",
+    "area_total": 25.1,
+    "nombre_vereda_busqueda": "Puerto Badel",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-372",
+    "numero_registro_ica": "ICA-1372",
+    "nombre_predio": "Punta Canoa",
+    "direccion": "Sector Punta Canoa",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "Punta Canoa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-373",
+    "numero_registro_ica": "ICA-1373",
+    "nombre_predio": "Santa Rosa Cartagena",
+    "direccion": "Vereda Santa Rosa",
+    "area_total": 16.8,
+    "nombre_vereda_busqueda": "Santa Rosa",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13001-374",
+    "numero_registro_ica": "ICA-1374",
+    "nombre_predio": "Turbaco",
+    "direccion": "Sector Turbaco",
+    "area_total": 21.5,
+    "nombre_vereda_busqueda": "Turbaco",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-375",
+    "numero_registro_ica": "ICA-1375",
+    "nombre_predio": "El Retiro Magangué",
+    "direccion": "Vereda El Retiro",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "El Retiro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-376",
+    "numero_registro_ica": "ICA-1376",
+    "nombre_predio": "La Peña Magangué",
+    "direccion": "Sector La Peña",
+    "area_total": 15.4,
+    "nombre_vereda_busqueda": "La Peña",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-377",
+    "numero_registro_ica": "ICA-1377",
+    "nombre_predio": "San Sebastián Magangué",
+    "direccion": "Vereda San Sebastián",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "San Sebastián",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-378",
+    "numero_registro_ica": "ICA-1378",
+    "nombre_predio": "El Carmen Magangué",
+    "direccion": "Sector El Carmen",
+    "area_total": 14.6,
+    "nombre_vereda_busqueda": "El Carmen",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13838-379",
+    "numero_registro_ica": "ICA-1379",
+    "nombre_predio": "El Pueblito Turbaco",
+    "direccion": "Vereda El Pueblito",
+    "area_total": 16.3,
+    "nombre_vereda_busqueda": "El Pueblito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13838-380",
+    "numero_registro_ica": "ICA-1380",
+    "nombre_predio": "La Cordialidad",
+    "direccion": "Sector La Cordialidad",
+    "area_total": 18.1,
+    "nombre_vereda_busqueda": "La Cordialidad",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13838-381",
+    "numero_registro_ica": "ICA-1381",
+    "nombre_predio": "Arjona Turbaco",
+    "direccion": "Vereda Arjona",
+    "area_total": 20.4,
+    "nombre_vereda_busqueda": "Arjona",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13838-382",
+    "numero_registro_ica": "ICA-1382",
+    "nombre_predio": "Clemencia",
+    "direccion": "Sector Clemencia",
+    "area_total": 15.7,
+    "nombre_vereda_busqueda": "Clemencia",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-383",
+    "numero_registro_ica": "ICA-1383",
+    "nombre_predio": "San Benito",
+    "direccion": "Vereda San Benito",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "San Benito",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-384",
+    "numero_registro_ica": "ICA-1384",
+    "nombre_predio": "La Matanza",
+    "direccion": "Sector La Matanza",
+    "area_total": 16.2,
+    "nombre_vereda_busqueda": "La Matanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-385",
+    "numero_registro_ica": "ICA-1385",
+    "nombre_predio": "El Hobo",
+    "direccion": "Vereda El Hobo",
+    "area_total": 19.5,
+    "nombre_vereda_busqueda": "El Hobo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-386",
+    "numero_registro_ica": "ICA-1386",
+    "nombre_predio": "San Jacinto",
+    "direccion": "Sector San Jacinto",
+    "area_total": 17.3,
+    "nombre_vereda_busqueda": "San Jacinto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13490-387",
+    "numero_registro_ica": "ICA-1387",
+    "nombre_predio": "Pinillos",
+    "direccion": "Vereda Pinillos",
+    "area_total": 21.6,
+    "nombre_vereda_busqueda": "Pinillos",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13490-388",
+    "numero_registro_ica": "ICA-1388",
+    "nombre_predio": "Talaigua",
+    "direccion": "Sector Talaigua",
+    "area_total": 15.8,
+    "nombre_vereda_busqueda": "Talaigua",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13052-389",
+    "numero_registro_ica": "ICA-1389",
+    "nombre_predio": "La Concepción Arjona",
+    "direccion": "Vereda La Concepción",
+    "area_total": 18.4,
+    "nombre_vereda_busqueda": "La Concepción",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13052-390",
+    "numero_registro_ica": "ICA-1390",
+    "nombre_predio": "El Cedro",
+    "direccion": "Sector El Cedro",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "El Cedro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13442-391",
+    "numero_registro_ica": "ICA-1391",
+    "nombre_predio": "San Francisco Mahates",
+    "direccion": "Vereda San Francisco",
+    "area_total": 17.2,
+    "nombre_vereda_busqueda": "San Francisco",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13442-392",
+    "numero_registro_ica": "ICA-1392",
+    "nombre_predio": "Santa Lucía Mahates",
+    "direccion": "Sector Santa Lucía",
+    "area_total": 14.5,
+    "nombre_vereda_busqueda": "Santa Lucía",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13442-393",
+    "numero_registro_ica": "ICA-1393",
+    "nombre_predio": "Soplaviento",
+    "direccion": "Vereda Soplaviento",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "Soplaviento",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13442-394",
+    "numero_registro_ica": "ICA-1394",
+    "nombre_predio": "Calamar Mahates",
+    "direccion": "Sector Calamar",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "Calamar",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-395",
+    "numero_registro_ica": "ICA-1395",
+    "nombre_predio": "La Esperanza Magangué",
+    "direccion": "Vereda La Esperanza",
+    "area_total": 18.3,
+    "nombre_vereda_busqueda": "La Esperanza",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13430-396",
+    "numero_registro_ica": "ICA-1396",
+    "nombre_predio": "Bocas del Rosario",
+    "direccion": "Sector Bocas del Rosario",
+    "area_total": 21.2,
+    "nombre_vereda_busqueda": "Bocas del Rosario",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-397",
+    "numero_registro_ica": "ICA-1397",
+    "nombre_predio": "María La Baja",
+    "direccion": "Vereda María La Baja",
+    "area_total": 17.9,
+    "nombre_vereda_busqueda": "María La Baja",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13244-398",
+    "numero_registro_ica": "ICA-1398",
+    "nombre_predio": "San Juan Nepomuceno",
+    "direccion": "Sector San Juan",
+    "area_total": 15.6,
+    "nombre_vereda_busqueda": "San Juan Nepomuceno",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13490-399",
+    "numero_registro_ica": "ICA-1399",
+    "nombre_predio": "Guaranda",
+    "direccion": "Vereda Guaranda",
+    "area_total": 20.5,
+    "nombre_vereda_busqueda": "Guaranda",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13490-400",
+    "numero_registro_ica": "ICA-1400",
+    "nombre_predio": "Margarita Mompós",
+    "direccion": "Sector Margarita",
+    "area_total": 18.1,
+    "nombre_vereda_busqueda": "Margarita",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13052-401",
+    "numero_registro_ica": "ICA-1401",
+    "nombre_predio": "El Olivo Arjona",
+    "direccion": "Vereda El Olivo",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "El Olivo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "13052-402",
+    "numero_registro_ica": "ICA-1402",
+    "nombre_predio": "Las Mercedes Arjona",
+    "direccion": "Sector Las Mercedes",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "Las Mercedes",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-403",
+    "numero_registro_ica": "ICA-1403",
+    "nombre_predio": "Minca",
+    "direccion": "Vereda Minca",
+    "area_total": 28.5,
+    "nombre_vereda_busqueda": "Minca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-404",
+    "numero_registro_ica": "ICA-1404",
+    "nombre_predio": "Minca Alta",
+    "direccion": "Sector Montañoso",
+    "area_total": 24.7,
+    "nombre_vereda_busqueda": "Minca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-405",
+    "numero_registro_ica": "ICA-1405",
+    "nombre_predio": "Bonda",
+    "direccion": "Vereda Bonda",
+    "area_total": 19.3,
+    "nombre_vereda_busqueda": "Bonda",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-406",
+    "numero_registro_ica": "ICA-1406",
+    "nombre_predio": "Taganga",
+    "direccion": "Sector Taganga",
+    "area_total": 15.8,
+    "nombre_vereda_busqueda": "Taganga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47170-407",
+    "numero_registro_ica": "ICA-1407",
+    "nombre_predio": "Orihueca",
+    "direccion": "Vereda Orihueca",
+    "area_total": 22.1,
+    "nombre_vereda_busqueda": "Orihueca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47170-408",
+    "numero_registro_ica": "ICA-1408",
+    "nombre_predio": "El Copey Ciénaga",
+    "direccion": "Sector El Copey",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "El Copey",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47170-409",
+    "numero_registro_ica": "ICA-1409",
+    "nombre_predio": "La Florida Ciénaga",
+    "direccion": "Vereda La Florida",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "La Florida",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47170-410",
+    "numero_registro_ica": "ICA-1410",
+    "nombre_predio": "San Ángel",
+    "direccion": "Sector San Ángel",
+    "area_total": 20.9,
+    "nombre_vereda_busqueda": "San Ángel",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-411",
+    "numero_registro_ica": "ICA-1411",
+    "nombre_predio": "Guamal",
+    "direccion": "Vereda Guamal",
+    "area_total": 17.5,
+    "nombre_vereda_busqueda": "Guamal",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-412",
+    "numero_registro_ica": "ICA-1412",
+    "nombre_predio": "Pijiño",
+    "direccion": "Sector Pijiño",
+    "area_total": 19.2,
+    "nombre_vereda_busqueda": "Pijiño",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47288-413",
+    "numero_registro_ica": "ICA-1413",
+    "nombre_predio": "Aracataca",
+    "direccion": "Vereda Aracataca",
+    "area_total": 23.8,
+    "nombre_vereda_busqueda": "Aracataca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47288-414",
+    "numero_registro_ica": "ICA-1414",
+    "nombre_predio": "El Retén",
+    "direccion": "Sector El Retén",
+    "area_total": 16.1,
+    "nombre_vereda_busqueda": "El Retén",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47288-415",
+    "numero_registro_ica": "ICA-1415",
+    "nombre_predio": "Sitio Nuevo",
+    "direccion": "Vereda Sitio Nuevo",
+    "area_total": 18.7,
+    "nombre_vereda_busqueda": "Sitio Nuevo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47288-416",
+    "numero_registro_ica": "ICA-1416",
+    "nombre_predio": "Pivijay Fundación",
+    "direccion": "Sector Pivijay",
+    "area_total": 21.3,
+    "nombre_vereda_busqueda": "Pivijay",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-417",
+    "numero_registro_ica": "ICA-1417",
+    "nombre_predio": "Orihueca Zona Bananera",
+    "direccion": "Vereda Orihueca",
+    "area_total": 24.5,
+    "nombre_vereda_busqueda": "Orihueca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-418",
+    "numero_registro_ica": "ICA-1418",
+    "nombre_predio": "Sevilla Zona Bananera",
+    "direccion": "Sector Sevilla",
+    "area_total": 19.8,
+    "nombre_vereda_busqueda": "Sevilla",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-419",
+    "numero_registro_ica": "ICA-1419",
+    "nombre_predio": "Copey",
+    "direccion": "Vereda Copey",
+    "area_total": 17.2,
+    "nombre_vereda_busqueda": "Copey",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-420",
+    "numero_registro_ica": "ICA-1420",
+    "nombre_predio": "San Pedro Zona Bananera",
+    "direccion": "Sector San Pedro",
+    "area_total": 20.4,
+    "nombre_vereda_busqueda": "San Pedro",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47545-421",
+    "numero_registro_ica": "ICA-1421",
+    "nombre_predio": "Remolino",
+    "direccion": "Vereda Remolino",
+    "area_total": 15.9,
+    "nombre_vereda_busqueda": "Remolino",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47545-422",
+    "numero_registro_ica": "ICA-1422",
+    "nombre_predio": "Salamina Pivijay",
+    "direccion": "Sector Salamina",
+    "area_total": 18.6,
+    "nombre_vereda_busqueda": "Salamina",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47545-423",
+    "numero_registro_ica": "ICA-1423",
+    "nombre_predio": "Sitionuevo",
+    "direccion": "Vereda Sitionuevo",
+    "area_total": 16.7,
+    "nombre_vereda_busqueda": "Sitionuevo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47545-424",
+    "numero_registro_ica": "ICA-1424",
+    "nombre_predio": "Chivolo",
+    "direccion": "Sector Chivolo",
+    "area_total": 19.1,
+    "nombre_vereda_busqueda": "Chivolo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-425",
+    "numero_registro_ica": "ICA-1425",
+    "nombre_predio": "San Zenón",
+    "direccion": "Vereda San Zenón",
+    "area_total": 17.4,
+    "nombre_vereda_busqueda": "San Zenón",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-426",
+    "numero_registro_ica": "ICA-1426",
+    "nombre_predio": "Nueva Granada",
+    "direccion": "Sector Nueva Granada",
+    "area_total": 20.2,
+    "nombre_vereda_busqueda": "Nueva Granada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-427",
+    "numero_registro_ica": "ICA-1427",
+    "nombre_predio": "Pinto",
+    "direccion": "Vereda Pinto",
+    "area_total": 15.3,
+    "nombre_vereda_busqueda": "Pinto",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47245-428",
+    "numero_registro_ica": "ICA-1428",
+    "nombre_predio": "Sabanas de San Ángel",
+    "direccion": "Sector Sabanas",
+    "area_total": 18.9,
+    "nombre_vereda_busqueda": "Sabanas de San Ángel",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47555-429",
+    "numero_registro_ica": "ICA-1429",
+    "nombre_predio": "Ariguani",
+    "direccion": "Vereda Ariguani",
+    "area_total": 19.7,
+    "nombre_vereda_busqueda": "Ariguani",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47555-430",
+    "numero_registro_ica": "ICA-1430",
+    "nombre_predio": "Chivolo Plato",
+    "direccion": "Sector Chivolo",
+    "area_total": 16.4,
+    "nombre_vereda_busqueda": "Chivolo",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47555-431",
+    "numero_registro_ica": "ICA-1431",
+    "nombre_predio": "El Difícil",
+    "direccion": "Vereda El Difícil",
+    "area_total": 21.2,
+    "nombre_vereda_busqueda": "El Difícil",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47555-432",
+    "numero_registro_ica": "ICA-1432",
+    "nombre_predio": "Remolino Plato",
+    "direccion": "Sector Remolino",
+    "area_total": 17.8,
+    "nombre_vereda_busqueda": "Remolino",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-433",
+    "numero_registro_ica": "ICA-1433",
+    "nombre_predio": "Tucurinca",
+    "direccion": "Vereda Tucurinca",
+    "area_total": 20.5,
+    "nombre_vereda_busqueda": "Tucurinca",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47960-434",
+    "numero_registro_ica": "ICA-1434",
+    "nombre_predio": "La Sabana",
+    "direccion": "Sector La Sabana",
+    "area_total": 18.1,
+    "nombre_vereda_busqueda": "La Sabana",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47545-435",
+    "numero_registro_ica": "ICA-1435",
+    "nombre_predio": "Nueva Granada Pivijay",
+    "direccion": "Vereda Nueva Granada",
+    "area_total": 16.9,
+    "nombre_vereda_busqueda": "Nueva Granada",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-436",
+    "numero_registro_ica": "ICA-1436",
+    "nombre_predio": "Machete",
+    "direccion": "Vereda Machete",
+    "area_total": 23.4,
+    "nombre_vereda_busqueda": "Machete",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-437",
+    "numero_registro_ica": "ICA-1437",
+    "nombre_predio": "Ciénaga Santa Marta",
+    "direccion": "Sector Ciénaga",
+    "area_total": 19.6,
+    "nombre_vereda_busqueda": "Ciénaga",
+    "numero_identificacion_productor": null
+  },
+  {
+    "numero_predial": "47001-438",
+    "numero_registro_ica": "ICA-1438",
+    "nombre_predio": "Fundación",
+    "direccion": "Vereda Fundación",
+    "area_total": 22.8,
+    "nombre_vereda_busqueda": "Fundación",
+    "numero_identificacion_productor": null
+  }
 ]

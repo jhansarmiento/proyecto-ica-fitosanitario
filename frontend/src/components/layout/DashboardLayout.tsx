@@ -1,51 +1,12 @@
-import {
-  Bell,
-  ChevronDown,
-  ClipboardList,
-  Folder,
-  Home,
-  Layers,
-  Menu,
-  ShieldCheck,
-  Users,
-  X,
-} from "lucide-react";
-import { useMemo, useState } from "react";
-import SidebarItem from "../ui/SidebarItem";
-import type { SessionUser } from "../../App";
-
-// ─── Tipos ────────────────────────────────────────────────────────────────────
-
-type NotificationItem = {
-  id: string;
-  tipo: "urgent" | "info";
-  mensaje: string;
-  horaRelativa: string;
-};
-
-export type DashboardViewKey =
-  | "home"
-  | "users"
-  | "roles"
-  | "agricultural"
-  | "catalog"
-  | "approval-places"
-  | "inspections-agenda"
-  | "inspections-history"
-  | "reports";
-
-type DashboardLayoutProps = {
-  title: string;
-  subtitle?: string;
-  sessionUser?: SessionUser;
-  activeView: DashboardViewKey;
-  breadcrumbs?: string[];
-  onNavigate?: (view: DashboardViewKey) => void;
-  onLogout?: () => void;
-  children: React.ReactNode;
-};
-
-// ─── Datos estáticos ──────────────────────────────────────────────────────────
+// src/components/layout/DashboardLayout.tsx
+import { useState, useMemo } from "react";
+import { Bell, Menu } from "lucide-react";
+import { SidebarContent } from "./SidebarContent";
+import type {
+  DashboardLayoutProps,
+  NotificationItem,
+  NavigationItem,
+} from "../../types/dashboard.types";
 
 const notificationsSeed: NotificationItem[] = [
   {
@@ -60,263 +21,73 @@ const notificationsSeed: NotificationItem[] = [
     mensaje: "Nueva inspección programada en Predio El Porvenir.",
     horaRelativa: "Hace 25 min",
   },
-  {
-    id: "N-3",
-    tipo: "info",
-    mensaje: "Reporte ICA generado con éxito para INS-2026-0012.",
-    horaRelativa: "Hace 1 h",
-  },
-  {
-    id: "N-4",
-    tipo: "urgent",
-    mensaje: "Inspección vencida sin cierre en Hacienda La Aurora.",
-    horaRelativa: "Hace 2 h",
-  },
 ];
 
-// ─── Sidebar interno ──────────────────────────────────────────────────────────
-
-function SidebarContent({
-  activeView,
-  isUsersOpen,
-  setIsUsersOpen,
-  isInspectionsOpen,
-  setIsInspectionsOpen,
-  onNavigate,
-  onLogout,
-  onClose,
-}: {
-  activeView: DashboardViewKey;
-  isUsersOpen: boolean;
-  setIsUsersOpen: (v: boolean | ((p: boolean) => boolean)) => void;
-  isInspectionsOpen: boolean;
-  setIsInspectionsOpen: (v: boolean | ((p: boolean) => boolean)) => void;
-  onNavigate?: (view: DashboardViewKey) => void;
-  onLogout?: () => void;
-  onClose?: () => void;
-}) {
-  const navigate = (view: DashboardViewKey) => {
-    onNavigate?.(view);
-    onClose?.();
-  };
-
-  return (
-    <div className="relative z-10 flex h-full flex-col">
-      {/* Logo */}
-      <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-        <div className="h-12 w-12 rounded-xl bg-white/95 shadow-md" />
-        <div>
-          <p className="text-2xl font-bold leading-none">FitoGestor</p>
-          <p className="mt-1 text-sm text-emerald-100/90">
-            Sistema Fitosanitario
-          </p>
-        </div>
-        {/* Botón cerrar en móvil */}
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            className="ml-auto grid h-8 w-8 place-items-center rounded-xl bg-white/10 text-white hover:bg-white/20 xl:hidden"
-          >
-            <X size={18} />
-          </button>
-        )}
-      </div>
-
-      {/* Nav */}
-      <nav className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1">
-        {/* Inicio */}
-        <button
-          type="button"
-          onClick={() => navigate("home")}
-          className="w-full"
-        >
-          <SidebarItem
-            label="Inicio"
-            active={activeView === "home"}
-            icon={<Home size={20} />}
-          />
-        </button>
-
-        {/* ── Gestión de Usuarios (desplegable) ── */}
-        <button
-          type="button"
-          onClick={() => setIsUsersOpen((prev) => !prev)}
-          className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
-            activeView === "users" || activeView === "roles"
-              ? "bg-white/10 text-white"
-              : "text-emerald-50/90 hover:bg-white/10 hover:text-white"
-          }`}
-        >
-          <Users size={20} className="text-emerald-200" />
-          <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">
-            Gestión de Usuarios
-          </span>
-          <ChevronDown
-            size={16}
-            className={`transition-transform duration-300 ${isUsersOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        {isUsersOpen && (
-          <div className="ml-3 mt-1 space-y-1">
-            {[
-              {
-                key: "users" as DashboardViewKey,
-                label: "Usuarios",
-                icon: <Users size={18} />,
-              },
-              {
-                key: "roles" as DashboardViewKey,
-                label: "Roles",
-                icon: <ShieldCheck size={18} />,
-              },
-            ].map((item) => (
-              <button
-                key={item.key}
-                type="button"
-                onClick={() => navigate(item.key)}
-                className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                  activeView === item.key
-                    ? "bg-white text-emerald-900 font-semibold shadow-sm"
-                    : "text-emerald-100 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {item.icon}
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Gestión Agrícola */}
-        <button
-          type="button"
-          onClick={() => navigate("agricultural")}
-          className="w-full"
-        >
-          <SidebarItem
-            label="Gestión Agrícola"
-            active={activeView === "agricultural"}
-            icon={<Layers size={20} />}
-          />
-        </button>
-
-        {/* Catálogo */}
-        <button
-          type="button"
-          onClick={() => navigate("catalog")}
-          className="w-full"
-        >
-          <SidebarItem
-            label="Catálogo"
-            active={activeView === "catalog"}
-            icon={<Layers size={20} />}
-          />
-        </button>
-
-        {/* Mis Solicitudes */}
-        <button
-          type="button"
-          onClick={() => navigate("approval-places")}
-          className="w-full"
-        >
-          <SidebarItem
-            label="Mis Solicitudes"
-            active={activeView === "approval-places"}
-            icon={<Folder size={20} />}
-          />
-        </button>
-
-        {/* ── Inspecciones (desplegable) ── */}
-        <button
-          type="button"
-          onClick={() => setIsInspectionsOpen((prev) => !prev)}
-          className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
-            activeView === "inspections-agenda" ||
-            activeView === "inspections-history"
-              ? "bg-white/10 text-white"
-              : "text-emerald-50/90 hover:bg-white/10 hover:text-white"
-          }`}
-        >
-          <ClipboardList size={20} className="text-emerald-200" />
-          <span className="flex-1 text-[1.02rem] font-semibold tracking-tight">
-            Inspecciones
-          </span>
-          <ChevronDown
-            size={16}
-            className={`transition-transform duration-300 ${isInspectionsOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        {isInspectionsOpen && (
-          <div className="ml-3 mt-1 space-y-1">
-            <button
-              type="button"
-              onClick={() => navigate("inspections-agenda")}
-              className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                activeView === "inspections-agenda"
-                  ? "bg-white text-emerald-900 font-semibold shadow-sm"
-                  : "text-emerald-100 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <ClipboardList size={18} />
-              Agenda de Inspecciones
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("inspections-history")}
-              className={`flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-base transition ${
-                activeView === "inspections-history"
-                  ? "bg-white text-emerald-900 font-semibold shadow-sm"
-                  : "text-emerald-100 hover:bg-white/10 hover:text-white"
-              }`}
-            >
-              <ClipboardList size={18} />
-              Historial de Inspecciones
-            </button>
-          </div>
-        )}
-
-        {/* Reportes */}
-        <button
-          type="button"
-          onClick={() => navigate("reports")}
-          className="w-full"
-        >
-          <SidebarItem
-            label="Reportes"
-            active={activeView === "reports"}
-            icon={<Folder size={20} />}
-          />
-        </button>
-      </nav>
-
-      {/* Cerrar sesión */}
-      <button
-        type="button"
-        onClick={onLogout}
-        className="mt-4 shrink-0 flex items-center gap-2 rounded-xl border border-red-300/30 bg-red-500/10 px-3 py-3 text-base font-bold text-red-300 transition hover:bg-red-500/20"
-      >
-        <span>↪</span>
-        Cerrar Sesión
-      </button>
-    </div>
-  );
-}
-
-// ─── Layout principal ─────────────────────────────────────────────────────────
+// MAPA CENTRALIZADO DE ACCESOS
+const MENU_ITEMS: NavigationItem[] = [
+  {
+    key: "home",
+    label: "Inicio",
+    icon: "HomeIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
+  },
+  {
+    key: "users",
+    label: "Gestión de Usuarios",
+    icon: "UsersIcon",
+    rolesPermitidos: ["administrador"],
+  },
+  {
+    key: "agricultural",
+    label: "Gestión Agrícola",
+    icon: "SproutIcon",
+    rolesPermitidos: ["productor", "administrador", "asistente_tecnico"],
+  },
+  {
+    key: "catalog",
+    label: "Catálogo",
+    icon: "BookOpenIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
+  },
+  {
+    key: "approval-places",
+    label: "Mis Solicitudes",
+    icon: "FolderIcon",
+    rolesPermitidos: ["productor", "administrador"],
+  },
+  {
+    key: "inspections-agenda",
+    label: "Inspecciones",
+    icon: "ClipboardIcon",
+    rolesPermitidos: ["administrador", "asistente_tecnico"],
+  },
+  {
+    key: "reports",
+    label: "Reportes",
+    icon: "ChartIcon",
+    rolesPermitidos: ["productor", "administrador", "asistente_tecnico"],
+  },
+];
 
 function DashboardLayout({
   title,
   subtitle = "Sistema de Inspección Fitosanitaria",
   sessionUser,
   activeView,
-  breadcrumbs = [],
   onNavigate,
   onLogout,
   children,
 }: DashboardLayoutProps) {
+  const rolUsuario = sessionUser?.rol?.toLocaleLowerCase() || "";
+
+  // Filtramos los accesos según el rol de la sesión activa
+  const menuFiltrado = useMemo(() => {
+    return MENU_ITEMS.filter((item) =>
+      item.rolesPermitidos.includes(rolUsuario),
+    );
+  }, [rolUsuario]);
+
+  // Estados para controlar la apertura de submenús y paneles
   const [isUsersOpen, setIsUsersOpen] = useState(
     activeView === "users" || activeView === "roles",
   );
@@ -330,6 +101,7 @@ function DashboardLayout({
 
   const unreadCount = notifications.length;
 
+  // CENTRALIZACIÓN: Le pasamos 'menuItems' a la barra lateral para que oculte las vistas
   const sharedSidebarProps = useMemo(
     () => ({
       activeView,
@@ -339,30 +111,36 @@ function DashboardLayout({
       setIsInspectionsOpen,
       onNavigate,
       onLogout,
+      sessionUser,
+      menuItems: menuFiltrado, // Inyectamos la lista filtrada por rol
     }),
-    [activeView, isUsersOpen, isInspectionsOpen, onNavigate, onLogout],
+    [
+      activeView,
+      isUsersOpen,
+      isInspectionsOpen,
+      onNavigate,
+      onLogout,
+      menuFiltrado,
+      sessionUser,
+    ],
   );
 
   return (
     <main className="min-h-screen bg-slate-100 text-slate-900">
       <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[280px_1fr]">
-        {/* ── Sidebar desktop (fijo, solo xl) ── */}
-        <aside className="sticky top-0 hidden h-screen overflow-hidden bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white xl:block">
-          <div className="pointer-events-none absolute -right-16 top-10 h-48 w-48 rounded-full bg-emerald-400/10 blur-3xl" />
+        {/* Sidebar desktop */}
+        <aside className="sticky top-0 hidden h-screen overflow-hidden bg-linear-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white xl:block">
           <SidebarContent {...sharedSidebarProps} />
         </aside>
 
-        {/* ── Sidebar móvil (drawer) ── */}
+        {/* Sidebar móvil */}
         {isMobileMenuOpen && (
           <>
-            {/* Overlay */}
             <div
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm xl:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            {/* Drawer */}
-            <aside className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white shadow-2xl xl:hidden">
-              <div className="pointer-events-none absolute -right-16 top-10 h-48 w-48 rounded-full bg-emerald-400/10 blur-3xl" />
+            <aside className="fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto bg-linear-to-b from-emerald-950 via-emerald-900 to-emerald-950 p-4 text-white shadow-2xl xl:hidden">
               <SidebarContent
                 {...sharedSidebarProps}
                 onClose={() => setIsMobileMenuOpen(false)}
@@ -371,77 +149,57 @@ function DashboardLayout({
           </>
         )}
 
-        {/* ── Contenido principal ── */}
         <div className="flex min-w-0 flex-col">
           {/* Header */}
-          <header className="sticky top-0 z-10 flex min-h-[72px] flex-wrap items-center justify-between gap-4 border-b border-emerald-800/40 bg-emerald-900/95 px-4 py-3 text-white backdrop-blur sm:px-8">
+          <header className="sticky top-0 z-10 flex min-h-18 flex-wrap items-center justify-between gap-4 border-b border-emerald-800/40 bg-emerald-900/95 px-4 py-3 text-white backdrop-blur sm:px-8">
             <div className="flex items-center gap-3 min-w-0">
-              {/* Botón hamburguesa (solo < xl) */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-emerald-800/60 text-emerald-200 transition hover:bg-emerald-700 xl:hidden"
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-emerald-800/60 text-emerald-200 xl:hidden"
               >
                 <Menu size={20} />
               </button>
-
               <div className="min-w-0">
-                <h1 className="truncate text-xl font-bold leading-none sm:text-3xl">
+                <h1 className="truncate text-xl font-bold sm:text-3xl">
                   {title}
                 </h1>
                 <p className="mt-0.5 text-xs text-emerald-100 sm:text-sm">
                   {subtitle}
                 </p>
-                {breadcrumbs.length > 0 && (
-                  <div className="mt-1 flex flex-wrap items-center gap-1 text-xs text-emerald-200/90">
-                    {breadcrumbs.map((crumb, idx) => (
-                      <span
-                        key={`${crumb}-${idx}`}
-                        className="inline-flex items-center gap-1"
-                      >
-                        {idx > 0 && <span>/</span>}
-                        <span>{crumb}</span>
-                      </span>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
 
-            {/* Acciones del header */}
             <div className="relative flex items-center gap-2 sm:gap-3">
-              {/* Campana */}
               <button
                 type="button"
                 onClick={() => setShowNotifications((prev) => !prev)}
-                className="relative grid h-9 w-9 place-items-center rounded-xl bg-emerald-900/40 text-emerald-300 transition hover:bg-emerald-700/80 hover:text-white"
+                className="relative grid h-9 w-9 place-items-center rounded-xl bg-emerald-900/40 text-emerald-300"
               >
                 <Bell size={18} />
                 {unreadCount > 0 && (
-                  <span className="absolute -right-1 -top-1 rounded-full bg-rose-500 px-1.5 text-[10px] font-bold leading-5 text-white">
+                  <span className="absolute -right-1 -top-1 rounded-full bg-rose-500 px-1.5 text-[10px] font-bold text-white">
                     {unreadCount}
                   </span>
                 )}
               </button>
 
-              {/* Panel notificaciones */}
+              {/* Panel de notificaciones dinámico */}
               {showNotifications && (
-                <div className="absolute right-0 top-12 z-50 w-[320px] max-w-[calc(100vw-2rem)] rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl sm:w-[360px]">
+                <div className="absolute right-0 top-12 z-50 w-[320px] rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl sm:w-90">
                   <div className="border-b border-slate-100 px-4 py-3">
-                    <h3 className="text-base font-bold text-slate-900 sm:text-lg">
+                    <h3 className="text-base font-bold">
                       Notificaciones recientes
                     </h3>
                   </div>
-                  <div className="max-h-72 divide-y divide-slate-100 overflow-y-auto sm:max-h-80">
+                  <div className="max-h-72 divide-y divide-slate-100 overflow-y-auto">
                     {notifications.map((n) => (
                       <article
                         key={n.id}
                         className="flex items-start gap-3 px-4 py-3"
                       >
                         <span
-                          className={`mt-2 h-2.5 w-2.5 shrink-0 rounded-full ${
-                            n.tipo === "urgent" ? "bg-rose-500" : "bg-blue-500"
-                          }`}
+                          className={`mt-2 h-2.5 w-2.5 shrink-0 rounded-full ${n.tipo === "urgent" ? "bg-rose-500" : "bg-blue-500"}`}
                         />
                         <div className="min-w-0">
                           <p className="text-sm text-slate-800">{n.mensaje}</p>
@@ -451,47 +209,30 @@ function DashboardLayout({
                         </div>
                       </article>
                     ))}
-                    {notifications.length === 0 && (
-                      <div className="px-4 py-6 text-center text-sm text-slate-500">
-                        No hay notificaciones pendientes.
-                      </div>
-                    )}
-                  </div>
-                  <div className="border-t border-slate-100 p-3">
-                    <button
-                      type="button"
-                      onClick={() => setNotifications([])}
-                      className="w-full rounded-xl bg-emerald-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800"
-                    >
-                      Marcar todas como leídas
-                    </button>
                   </div>
                 </div>
               )}
 
-              {/* Avatar + nombre */}
               <div className="hidden text-right sm:block">
                 <p className="text-sm font-bold leading-none sm:text-base">
-                  {sessionUser
+                  {sessionUser?.nombre
                     ? `${sessionUser.nombre} ${sessionUser.apellidos}`
                     : ""}
                 </p>
-                <p className="text-xs text-emerald-200">
-                  {sessionUser?.rol ?? ""}
+                <p className="text-xs text-emerald-200 uppercase tracking-wider mt-1">
+                  {sessionUser?.rol || ""}
                 </p>
               </div>
 
+              {/* Avatar circular con iniciales nativas */}
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-emerald-700 text-sm font-bold sm:h-10 sm:w-10">
-                {sessionUser?.nombre && sessionUser?.apellidos// Si hay nombre y apellidos
-                  ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase() // Mostrar las iniciales
-                  : sessionUser?.nombre // Si solo hay nombre
-                    ? sessionUser.nombre.charAt(0).toUpperCase() // Mostrar la inicial
-                    : "U"}
+                {sessionUser?.nombre && sessionUser?.apellidos
+                  ? `${sessionUser.nombre.charAt(0)}${sessionUser.apellidos.charAt(0)}`.toUpperCase()
+                  : "U"}
               </div>
             </div>
           </header>
 
-          {/* Contenido de la página */}
           <section className="flex-1 overflow-x-hidden p-4 sm:p-6">
             {children}
           </section>

@@ -4,6 +4,7 @@ import type { ApiEnvelope } from '../types/api.types';
 import type { PredioDTO, LugarProduccionInput, EspecieVegetalDTO } from '../types/finca.types';
 
 export const fincaService = {
+
   // ── PREDIOS ──
   getPredios() {
     return request<ApiEnvelope<PredioDTO[]>>('/predios');
@@ -33,8 +34,71 @@ export const fincaService = {
     return request<ApiEnvelope<EspecieVegetalDTO[]>>('/especies-vegetales');
   },
 
+  getVariedadesPorEspecie(idEspecie: string) {
+    return request<ApiEnvelope<any[]>>(`/especies-vegetales/${idEspecie}/variedades`);
+  },
+
+  // ── Solicitudes Pendientes ICA (para el administrador aceptar) ──
+  getSolicitudesPendientesICA() {
+  return request<ApiEnvelope<any[]>>('/lugares-produccion/solicitudes-pendientes-lp');
+  },
+
+  // Método para aprobar un lugar de producción desde el panel de administración
+  aprobarLugarProduccion(idLugarProduccion: string, payload: { numero_registro_ica_oficial: string; id_asistente_asignado: string }) {
+    return request<{ message: string }>(`/lugares-produccion/${idLugarProduccion}/aprobar`, {
+      method: 'PATCH', // Usamos PATCH para actualizaciones parciales
+      body: JSON.stringify(payload)
+    });
+  },
+
+  // Método para rechazar un lugar de producción desde el panel de administración, con observaciones para el productor
+  rechazarLugarProduccion(idLugarProduccion: string, payload: { observaciones: string }) {
+  return request<{ message: string }>(`/lugares-produccion/${idLugarProduccion}/rechazar`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload)
+  });
+  },
+
   // ── LOTES ──
-  // getLotes() {
-  //   return request<ApiEnvelope<LoteDTO[]>>('/lotes');
-  // }
+  getLotesPorLugar(idLugarProduccion: string) {
+    return request<ApiEnvelope<any[]>>(`/lugares-produccion/${idLugarProduccion}/lotes`);
+  },
+
+  createLote(idLugarProduccion: string, payload: any) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/${idLugarProduccion}/lotes`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  updateLote(idLote: string, payload: any) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/lotes/${idLote}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  // ── INSPECCIONES ──
+  createSolicitudInspeccion(idLugarProduccion: string, payload: { fecha_tentativa_productor: string; observaciones: string }) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/${idLugarProduccion}/solicitudes`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  getSolicitudesInspeccion() {
+    return request<ApiEnvelope<any[]>>('/solicitudes');
+  },
+
+  gestionarInspeccion(idSolicitud: string, payload: { fecha_programada_tecnico?: string; observaciones_tecnico?: string; estado: string }) {
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/gestionar`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  getDatosInicioInspeccion(idSolicitud: string) {
+    // Apunta exactamente a la ruta GET que creamos en el backend
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/iniciar-inspeccion`);
+  },
 };

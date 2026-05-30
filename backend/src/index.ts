@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import sequelize, { checkConnection } from './config/database';
 import sequelizeCatalog, { checkConnectionCatalog } from './config/database_catalog';
-import './catalogIndex';
+
+// Seeders
 import { seedGeoData } from './seeders/geoSeeder'; // Función para inyectar datos geográficos
 import { seedEspeciesVegetales } from './seeders/especieSeeder'; // Función para inyectar datos de especies vegetales
 import { seedRoles } from './seeders/rolSeeder'; // Función para inyectar roles
@@ -23,16 +24,26 @@ import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import PasswordResetToken from './models/PasswordResetToken';
+
+// Modelos de BD Catalogo
+import './catalogIndex';
 import catalogModels from './catalogIndex';
+
+// Rutas
 import authRoutes from './routes/auth.routes';
+import usuarioRoutes from './routes/usuario.routes';
+import rolesRoutes from './routes/rol.routes';
+
 import lugarProduccionRoutes from './routes/lugarProduccion.routes';
-import prediosRoutes from './routes/prediosRoutes';
-import lotesRoutes from './routes/lotesRoutes';
-import rolesRoutes from './routes/rolesRoutes';
-import usuariosRoutes from './routes/usuariosRoutes';
-import especiesRoutes from './routes/especiesRoutes';
-import autorizacionesRoutes from './routes/autorizacionesRoutes';
+import predioRoutes from './routes/predio.routes';
+import loteRoutes from './routes/lote.routes';
+
+import especieRoutes from './routes/especie.routes';
+import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
+
+import solicitudRoutes from './routes/solicitud.routes';
 import catalogoRoutes from './routes/catalogo.routes';
+
 
 const models: any = {
     // Modelos de BD Operacional
@@ -72,14 +83,19 @@ app.get('/api/health', (_req, res) => {
   res.status(200).json({ ok: true, message: 'Backend activo' });
 });
 
+// Rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/lugares-produccion', lugarProduccionRoutes);
-app.use('/api/predios', prediosRoutes);
-app.use('/api/lotes', lotesRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/roles', rolesRoutes);
-app.use('/api/usuarios', usuariosRoutes);
-app.use('/api/especies-vegetales', especiesRoutes);
-app.use('/api/autorizaciones-especie', autorizacionesRoutes);
+
+app.use('/api/lugares-produccion', lugarProduccionRoutes);
+app.use('/api/predios', predioRoutes);
+app.use('/api/lugares-produccion', loteRoutes);
+
+app.use('/api/especies-vegetales', especieRoutes);
+app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
+
+app.use('/api/solicitudes', solicitudRoutes);
 
 /**
  * Módulo de catálogo para consumo del frontend de gestión de catálogos.
@@ -100,14 +116,14 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Sincronizamos las tablas de la base de datos operacional
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     console.log('📊 Tablas de BD Operacional sincronizadas');
 
     // Sincronizamos las tablas del catálogo
-    await sequelizeCatalog.sync({ force: true });
+    await sequelizeCatalog.sync({ alter: true });
     console.log('📊 Tablas de BD Catalógo sincronizadas');
 
-    // Inyectar roles y usuarios
+    // Inyectar roles, usuarios, predios, propietarios y geografía
     await seedRoles();
     await seedAdmins();
     await seedAsistentes();

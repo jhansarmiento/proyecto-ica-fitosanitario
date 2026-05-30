@@ -1,24 +1,9 @@
+// backend/src/services/usuarioProcedureService.ts
 import { QueryTypes } from 'sequelize';
 import sequelize from '../config/database';
 
-/**
- * Tipos de datos usados por los procedimientos almacenados de usuario.
- */
-/**
- * Datos de entrada para crear un usuario mediante un procedimiento almacenado.
- *
- * @typedef {Object} CreateUsuarioProcedureInput
- * @property {string} numero_identificacion Documento de identificación del usuario.
- * @property {string} nombre Nombre del usuario.
- * @property {string} apellidos Apellidos del usuario.
- * @property {string} [direccion] Dirección del usuario.
- * @property {string} [telefono] Teléfono de contacto.
- * @property {string} correo_electronico Correo electrónico del usuario.
- * @property {string} ingreso_usuario Nombre de usuario para acceso.
- * @property {string} ingreso_contrasena Contraseña para acceso.
- * @property {string|null} [tarjeta_profesional] Tarjeta profesional si aplica.
- * @property {string} id_rol Identificador del rol asignado.
- */
+// Este servicio se encarga de ejecutar los procedimientos almacenados relacionados con la gestión de usuarios (crear, actualizar, eliminar) 
+// utilizando Sequelize para interactuar con la base de datos.
 type CreateUsuarioProcedureInput = {
   numero_identificacion: string;
   nombre: string;

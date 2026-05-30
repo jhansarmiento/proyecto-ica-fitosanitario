@@ -4,7 +4,7 @@ import sequelizeCatalog from '../config/database_catalog';
 class VariedadEspecie extends Model {
     public id_variedad_especie!: string;
     public nombre_variedad!: string;
-    public id_especie_vegetal!: string; // Clave foránea para EspecieVegetal
+    public id_especie_vegetal!: string; // Clave foránea para especie_vegetal
 
     static associate(models: any) {
         // Una variedad pertenece a una especie vegetal

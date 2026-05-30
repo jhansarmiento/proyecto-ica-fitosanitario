@@ -1,23 +1,24 @@
 import type { RolDTO } from '../types/auth.types';
-import { request, type ApiEnvelope } from './http.client';
+import { request } from './apiClient';
+import type { ApiEnvelope } from '../types/api.types';
 
 export const rolesApi = {
   getRoles() {
     return request<ApiEnvelope<RolDTO[]>>('/roles');
   },
 
-  createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
     return request<ApiEnvelope<RolDTO>>('/roles', {
       method: 'POST',
       body: JSON.stringify(body),
     });
   },
 
-  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombreRol' | 'descripcion'>>) {
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        ...(body.nombreRol !== undefined ? { nombreRol: body.nombreRol } : {}),
+        ...(body.nombre_rol !== undefined ? { nombre_rol: body.nombre_rol } : {}),
         ...(body.descripcion !== undefined ? { descripcion: body.descripcion } : {}),
       }),
     });
