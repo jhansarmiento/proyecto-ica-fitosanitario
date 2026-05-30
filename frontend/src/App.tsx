@@ -61,6 +61,7 @@ function App() {
   });
 
   const [selectedSite, setSelectedSite] = useState<ProductionSite | null>(null);
+  const [selectedSolicitud, setSelectedSolicitud] = useState<any>(null);
 
   const handleLoginSuccess = (user: SessionUser) => {
     localStorage.setItem("isAuthenticated", "true");
@@ -252,6 +253,11 @@ function App() {
         sessionUser={sessionUser}
         onNavigate={(v: string) => setView(v as View)}
         onLogout={handleLogout}
+        // Atrapamos la solicitud y vamos a la inspección
+        onStartInspection={(sol) => {
+          setSelectedSolicitud(sol);
+          setView('inspection-process');
+        }}
       />
     );
   } else if (view === "inspections-history") {
@@ -273,6 +279,7 @@ function App() {
     page = (
       <InspectionProcessPage
         sessionUser={sessionUser}
+        solicitud={selectedSolicitud}
         onGoHome={() => setView("home")}
         onGoUsers={() => setView("users")}
         onGoRoles={() => setView("roles")}

@@ -74,7 +74,6 @@ function DashboardLayout({
   subtitle = "Sistema de Inspección Fitosanitaria",
   sessionUser,
   activeView,
-  breadcrumbs = [],
   onNavigate,
   onLogout,
   children,

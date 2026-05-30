@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { Calendar } from "lucide-react";
+import { Calendar, CheckCircle2 } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import InspectionDetailsModal from "../components/ui/InspectionDetailsModal";
 import { fincaService } from "../services/finca.service";
 
-function InspectionRequestsPage({ sessionUser, onNavigate, onLogout }: any) {
+type InspectionRequestsPageProps = {
+  sessionUser?: any;
+  onNavigate?: (view: string) => void;
+  onLogout?: () => void;
+  onStartInspection?: (solicitud: any) => void; // 👈 Declaramos la nueva prop
+};
+
+function InspectionRequestsPage({ sessionUser, onNavigate, onLogout, onStartInspection }: InspectionRequestsPageProps) {
   const [solicitudes, setSolicitudes] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -109,14 +116,42 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout }: any) {
                 </p>
               </div>
 
-              {/* Lógica de botones según el ROL */}
-              {esTecnico && sol.estado === "SOLICITADA" ? (
-                <button
-                  onClick={() => openModal(sol)}
-                  className="w-full py-2 bg-emerald-900 text-white rounded-xl text-sm font-bold hover:bg-emerald-800 transition flex justify-center items-center gap-2"
-                >
-                  <Calendar size={16} /> Programar Visita
-                </button>
+              {/* Lógica de botones según el ROL y ESTADO */}
+              {esTecnico ? (
+                <>
+                  {sol.estado === "SOLICITADA" && (
+                    <button
+                      onClick={() => openModal(sol)}
+                      className="w-full py-2 bg-emerald-900 text-white rounded-xl text-sm font-bold hover:bg-emerald-800 transition flex justify-center items-center gap-2"
+                    >
+                      <Calendar size={16} /> Programar Visita
+                    </button>
+                  )}
+                  {sol.estado === "PROGRAMADA" && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => openModal(sol)}
+                        className="w-1/3 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition"
+                      >
+                        Detalles
+                      </button>
+                      <button
+                        onClick={() => onStartInspection?.(sol)} // AQUÍ LLAMAMOS A LA PANTALLA
+                        className="w-2/3 py-2 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 transition flex justify-center items-center gap-2"
+                      >
+                        <CheckCircle2 className="size={16} " /> Iniciar Inspección
+                      </button>
+                    </div>
+                  )}
+                  {sol.estado === "RECHAZADA" && (
+                    <button
+                      onClick={() => openModal(sol)}
+                      className="w-full py-2 bg-rose-50 text-rose-600 rounded-xl text-sm font-bold hover:bg-rose-100 transition"
+                    >
+                      Ver Motivo de Rechazo
+                    </button>
+                  )}
+                </>
               ) : (
                 <button
                   onClick={() => openModal(sol)}

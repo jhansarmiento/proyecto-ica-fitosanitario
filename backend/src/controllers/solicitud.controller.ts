@@ -178,3 +178,86 @@ export const gestionarSolicitud = async (req: any, res: Response): Promise<void>
         res.status(500).json({ message: 'Error interno al gestionar la inspección.' });
     }
 };
+
+export const getDatosInicioInspeccion = async (req: any, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        // 1. Buscamos la solicitud con todos sus datos
+        const solicitud = await models.SolicitudInspeccion.findByPk(id, {
+            include: [{
+                association: 'lugarProduccion',
+                include: [
+                    { association: 'predio' },
+                    { model: models.Usuario, as: 'productor', attributes: ['nombre', 'apellidos', 'telefono'] }
+                ]
+            }]
+        });
+
+        if (!solicitud) {
+            res.status(404).json({ message: 'Solicitud no encontrada.' });
+            return;
+        }
+
+        const lugar = solicitud.lugarProduccion;
+        const predioPrincipal = lugar?.predio?.[0] || {};
+        const productor = lugar?.productor;
+
+        // 2. Traemos Lotes y Catálogos
+        const prediosIds = lugar?.predio?.map((p: any) => p.id_predio) || [];
+        const lotesFisicos = prediosIds.length > 0 ? await models.Lote.findAll({ where: { id_predio: prediosIds } }) : [];
+
+        const variedades = models.VariedadEspecie ? await models.VariedadEspecie.findAll() : await catalogModels.VariedadEspecie.findAll().catch(()=>[]);
+        const especies = models.EspecieVegetal ? await models.EspecieVegetal.findAll() : await catalogModels.EspecieVegetal.findAll().catch(()=>[]);
+        const plagasCat = catalogModels.Plaga ? await catalogModels.Plaga.findAll().catch(()=>[]) : [];
+
+        // 3. MAPEO PARA EL FRONTEND
+        const lotes = lotesFisicos.map((l: any) => {
+            const varObj = variedades.find((v:any) => String(v.id_variedad_especie) === String(l.id_variedad_especie));
+            const espObj = varObj ? especies.find((e:any) => String(e.id_especie_vegetal) === String(varObj.id_especie_vegetal)) : null;
+
+            return {
+                id: l.id_lote, 
+                numero: l.numero_lote, // 🌟 Pasamos el número de lote
+                cultivo: espObj ? espObj.nombre_comun : 'Cultivo',
+                nombreCientifico: espObj ? (espObj.nombre_cientifico || 'N/A') : 'N/A',
+                id_especie_vegetal: espObj ? espObj.id_especie_vegetal : null, // 🌟 Para filtrar plagas
+                // 🌟 Formateamos la fecha quitando la hora
+                fechaSiembra: l.fecha_siembra ? new Date(l.fecha_siembra).toISOString().split('T')[0] : 'N/D',
+                plantas: l.cantidad_plantas || 0,
+                areaHa: l.area_total,
+                estado: 'Pendiente',
+                imagen: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=600&q=80'
+            };
+        });
+
+        const plagas = plagasCat.map((p: any) => ({
+            id: p.id_plaga || p.id,
+            nombre: p.nombre_comun || p.nombre,
+            nombreCientifico: p.nombre_cientifico || 'N/A',
+            id_especie_vegetal: p.id_especie_vegetal || null, // 🌟 Para que el front sepa a qué planta ataca
+            imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80'
+        }));
+
+        res.status(200).json({
+            data: {
+                // 🌟 INFORMACIÓN GENERAL REAL
+                generalInfo: {
+                    registroIca: lugar?.numero_registro_ica || 'En trámite',
+                    coordenadas: `${predioPrincipal.latitud || 'N/D'}, ${predioPrincipal.longitud || 'N/D'}`,
+                    fechaInspeccion: new Date().toISOString().split('T')[0],
+                    vereda: predioPrincipal.vereda || 'N/D',
+                    municipio: predioPrincipal.municipio || 'N/D',
+                    productorNombre: productor ? `${productor.nombre} ${productor.apellidos}` : 'N/D',
+                    productorTelefono: productor?.telefono || 'N/D',
+                    nombreLugar: lugar?.nombre_lugar_produccion || 'Lugar de Producción'
+                },
+                lotes,
+                plagas
+            }
+        });
+    } catch (error) {
+        console.error('❌ Error al preparar inspección:', error);
+        res.status(500).json({ message: 'Error interno al cargar los datos de inspección.' });
+    }
+};

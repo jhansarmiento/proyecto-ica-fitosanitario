@@ -18,6 +18,11 @@ class Lote extends Model {
             foreignKey: 'id_predio',
             as: 'predio',
         })
+        // Un lote puede tener muchas inspecciones fitosanitarias
+        this.hasMany(models.InspeccionFitosanitaria, {
+            foreignKey: 'id_lote',
+            as: 'inspeccionesFitosanitarias',
+        })
     }
 }
 

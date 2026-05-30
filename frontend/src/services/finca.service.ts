@@ -96,4 +96,9 @@ export const fincaService = {
       body: JSON.stringify(payload)
     });
   },
+
+  getDatosInicioInspeccion(idSolicitud: string) {
+    // Apunta exactamente a la ruta GET que creamos en el backend
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/iniciar-inspeccion`);
+  },
 };
