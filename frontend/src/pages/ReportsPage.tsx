@@ -1,5 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Download, FileText, Filter, Search, XCircle } from "lucide-react";
+import {
+  Download,
+  FileText,
+  Filter,
+  MapPin,
+  XCircle,
+  ChevronRight,
+  Bug,
+  Sprout,
+} from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import type { DashboardViewKey } from "../types/dashboard.types";
 import type { SessionUser } from "../types/auth.types";
@@ -36,12 +45,12 @@ export default function ReportsPage({
   const [loading, setLoading] = useState(true);
 
   // ── Filtros ──
-  const [filterLugar, setFilterLugar] = useState("");
-  const [filterLote, setFilterLote] = useState("");
-  const [filterEspecie, setFilterEspecie] = useState("");
+  const [filterLugar, setFilterLugar] = useState("Todos");
   const [filterFechaInicio, setFilterFechaInicio] = useState("");
   const [filterFechaFin, setFilterFechaFin] = useState("");
-  const [search, setSearch] = useState("");
+
+  // ── Modal de Detalle ──
+  const [selectedReport, setSelectedReport] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchReportes = async () => {
@@ -69,80 +78,42 @@ export default function ReportsPage({
       "inspections-agenda": onGoInspectionsAgenda,
       "inspections-history": onGoInspectionsHistory,
       reports: undefined,
-      'mis-solicitudes': undefined,
+      "mis-solicitudes": undefined,
     };
     map[view]?.();
   };
 
+  // 🌟 OBTENER LUGARES ÚNICOS PARA EL DROPDOWN
+  const lugaresUnicos = useMemo(() => {
+    const lugares = reportes.map((r) => r.lugar_produccion);
+    return [...new Set(lugares)];
+  }, [reportes]);
+
   // ── Filtrado Múltiple ──
   const filtered = useMemo(() => {
     return reportes.filter((i) => {
-      const q = search.toLowerCase();
-      // Búsqueda en texto de plagas
-      const txtPlagas = i.plagas
-        .map((p: any) => p.nombre.toLowerCase())
-        .join(" ");
-
-      const matchSearch =
-        !q ||
-        i.lugar_produccion.toLowerCase().includes(q) ||
-        i.lote.toLowerCase().includes(q) ||
-        i.cultivo.toLowerCase().includes(q) ||
-        i.tecnico.toLowerCase().includes(q) ||
-        txtPlagas.includes(q);
       const matchLugar =
-        !filterLugar ||
-        i.lugar_produccion.toLowerCase().includes(filterLugar.toLowerCase());
-      const matchLote =
-        !filterLote || i.lote.toLowerCase().includes(filterLote.toLowerCase());
-      const matchEspecie =
-        !filterEspecie ||
-        i.cultivo.toLowerCase().includes(filterEspecie.toLowerCase());
+        filterLugar === "Todos" || i.lugar_produccion === filterLugar;
       const matchInicio = !filterFechaInicio || i.fecha >= filterFechaInicio;
       const matchFin = !filterFechaFin || i.fecha <= filterFechaFin;
-
-      return (
-        matchSearch &&
-        matchLugar &&
-        matchLote &&
-        matchEspecie &&
-        matchInicio &&
-        matchFin
-      );
+      return matchLugar && matchInicio && matchFin;
     });
-  }, [
-    reportes,
-    search,
-    filterLugar,
-    filterLote,
-    filterEspecie,
-    filterFechaInicio,
-    filterFechaFin,
-  ]);
+  }, [reportes, filterLugar, filterFechaInicio, filterFechaFin]);
 
   const resetFilters = () => {
-    setFilterLugar("");
-    setFilterLote("");
-    setFilterEspecie("");
+    setFilterLugar("Todos");
     setFilterFechaInicio("");
     setFilterFechaFin("");
-    setSearch("");
   };
   const hasActiveFilters =
-    filterLugar ||
-    filterLote ||
-    filterEspecie ||
-    filterFechaInicio ||
-    filterFechaFin ||
-    search;
+    filterLugar !== "Todos" || filterFechaInicio || filterFechaFin;
 
-  // 🌟 GENERADOR DE PDF PROFESIONAL
+  // 🌟 GENERADOR DE PDF PROFESIONAL (Aplana los datos para la tabla)
   const exportarPDF = () => {
-    const doc = new jsPDF("landscape"); // Formato horizontal para que quepan las columnas
+    const doc = new jsPDF("landscape");
 
-    // Título y Cabeceras
     doc.setFontSize(16);
-    doc.text("Reporte Oficial de Trazabilidad Fitosanitaria", 14, 15);
+    doc.text("Reporte Oficial de Inspecciones Fitosanitarias", 14, 15);
     doc.setFontSize(10);
     doc.setTextColor(100);
     doc.text(
@@ -151,49 +122,45 @@ export default function ReportsPage({
       22,
     );
 
-    // Mapeo de datos para la tabla
-    const tableData = filtered.map((r) => {
-      // Convertir el arreglo de plagas en un string legible "Broca (5), Roya (2)"
-      const textoPlagas =
-        r.plagas.map((p: any) => `${p.nombre} (${p.cantidad})`).join(", ") ||
-        "Sin hallazgos";
-
-      return [
-        r.fecha,
-        r.lugar_produccion,
-        r.lote,
-        r.cultivo,
-        r.tecnico,
-        r.plantas_totales.toString(),
-        textoPlagas,
-        `${r.porcentaje_infestacion}%`,
-      ];
+    // Aplanamos la data: Por cada inspección, creamos una fila por cada lote
+    const tableData: any[] = [];
+    filtered.forEach((reporte) => {
+      reporte.detalle_lotes.forEach((lote: any) => {
+        const textoPlagas =
+          lote.plagas
+            .map((p: any) => `${p.nombre} (${p.cantidad})`)
+            .join(", ") || "Ninguna";
+        tableData.push([
+          reporte.fecha,
+          reporte.lugar_produccion,
+          reporte.tecnico,
+          lote.numero_lote,
+          lote.cultivo,
+          lote.plantas_totales.toString(),
+          textoPlagas,
+          `${lote.porcentaje_infestacion}%`,
+        ]);
+      });
     });
 
-    // Inyectar tabla en el PDF
     (doc as any).autoTable({
       startY: 30,
       head: [
         [
           "Fecha",
-          "Lugar de Producción",
+          "Lugar Producción",
+          "Técnico",
           "Lote",
           "Cultivo",
-          "Técnico",
-          "Total Plantas",
-          "Plagas Halladas (Cant.)",
+          "Plantas",
+          "Plagas Halladas",
           "% Infestación",
         ],
       ],
       body: tableData,
       theme: "grid",
-      headStyles: {
-        fillColor: [1, 92, 75],
-        textColor: [255, 255, 255],
-        fontStyle: "bold",
-      }, // Color Emerald-800
+      headStyles: { fillColor: [1, 92, 75] },
       styles: { fontSize: 8, cellPadding: 3 },
-      columnStyles: { 6: { cellWidth: 50 } }, // Darle más espacio a las plagas
     });
 
     doc.save(`Reporte_FitoGestor_${new Date().getTime()}.pdf`);
@@ -228,71 +195,44 @@ export default function ReportsPage({
             )}
           </div>
 
-          <div className="mb-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
-            <Search size={16} className="text-slate-400" />
-            <input
-              type="text"
-              placeholder="Búsqueda global..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div>
-              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
-                Lugar Producción
+              <label className="mb-1.5 block text-[11px] font-bold uppercase text-slate-500">
+                Lugar de Producción
               </label>
-              <input
-                type="text"
+              <select
                 value={filterLugar}
                 onChange={(e) => setFilterLugar(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
-              />
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
+              >
+                <option value="Todos">Todos los lugares</option>
+                {lugaresUnicos.map((lugar, idx) => (
+                  <option key={idx} value={lugar}>
+                    {lugar}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
-                Lote
-              </label>
-              <input
-                type="text"
-                value={filterLote}
-                onChange={(e) => setFilterLote(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
-                Cultivo
-              </label>
-              <input
-                type="text"
-                value={filterEspecie}
-                onChange={(e) => setFilterEspecie(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+              <label className="mb-1.5 block text-[11px] font-bold uppercase text-slate-500">
                 Desde Fecha
               </label>
               <input
                 type="date"
                 value={filterFechaInicio}
                 onChange={(e) => setFilterFechaInicio(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
               />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+              <label className="mb-1.5 block text-[11px] font-bold uppercase text-slate-500">
                 Hasta Fecha
               </label>
               <input
                 type="date"
                 value={filterFechaFin}
                 onChange={(e) => setFilterFechaFin(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"
               />
             </div>
           </div>
@@ -305,43 +245,42 @@ export default function ReportsPage({
               <FileText className="text-rose-600" /> Reporte Oficial PDF
             </h3>
             <p className="text-sm text-slate-500">
-              Genera un documento oficial con los {filtered.length} lotes
-              listados en la vista previa.
+              Genera un documento oficial con las {filtered.length} inspecciones
+              listadas en la vista previa.
             </p>
           </div>
           <button
             onClick={exportarPDF}
             disabled={filtered.length === 0}
-            className="flex items-center gap-2 rounded-xl bg-emerald-700 px-8 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-emerald-700 px-8 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 active:scale-95 disabled:opacity-50 shadow-sm"
           >
             <Download size={18} /> Exportar Documento PDF
           </button>
         </div>
 
-        {/* ── Tabla de Previsualización (CRÍTICO PARA UX) ── */}
+        {/* ── Tabla Principal (Por Inspección/Lugar) ── */}
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          <div className="bg-slate-50 px-5 py-3 border-b border-slate-100">
+          <div className="bg-slate-50 px-5 py-4 border-b border-slate-100">
             <h3 className="text-sm font-bold text-slate-700">
-              Vista Previa de Datos
+              Inspecciones Realizadas
             </h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="bg-white border-b border-slate-100 text-[11px] font-bold uppercase text-slate-500">
                 <tr>
-                  <th className="px-5 py-4">Lugar / Lote</th>
-                  <th className="px-5 py-4">Cultivo</th>
-                  <th className="px-5 py-4">Técnico</th>
-                  <th className="px-5 py-4">Estado Fenológico</th>
-                  <th className="px-5 py-4 bg-rose-50/50">Plagas Halladas</th>
-                  <th className="px-5 py-4 bg-rose-50/50">Infestación</th>
+                  <th className="px-5 py-4">Lugar Producción</th>
+                  <th className="px-5 py-4">Fecha Inspección</th>
+                  <th className="px-5 py-4">Técnico Asignado</th>
+                  <th className="px-5 py-4 text-center">Lotes Revisados</th>
+                  <th className="px-5 py-4 text-center">Acción</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
                     <td
-                      colSpan={6}
+                      colSpan={5}
                       className="p-8 text-center text-slate-500 animate-pulse"
                     >
                       Cargando datos...
@@ -351,7 +290,7 @@ export default function ReportsPage({
                 {!loading && filtered.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={6}
+                      colSpan={5}
                       className="p-8 text-center text-slate-500 italic"
                     >
                       No hay reportes que coincidan con los filtros.
@@ -359,45 +298,30 @@ export default function ReportsPage({
                   </tr>
                 ) : null}
                 {filtered.map((r) => (
-                  <tr key={r.id} className="hover:bg-slate-50 transition">
+                  <tr
+                    key={r.id_solicitud}
+                    className="hover:bg-slate-50 transition"
+                  >
                     <td className="px-5 py-4">
-                      <p className="font-bold text-slate-800">
+                      <p className="font-bold text-slate-800 flex items-center gap-1.5">
+                        <MapPin size={14} className="text-emerald-600" />{" "}
                         {r.lugar_produccion}
                       </p>
-                      <p className="text-xs text-slate-500">
-                        Lote: {r.lote} • {r.fecha}
-                      </p>
                     </td>
-                    <td className="px-5 py-4 font-medium text-slate-700">
-                      {r.cultivo}
+                    <td className="px-5 py-4 font-semibold text-slate-700">
+                      {r.fecha}
                     </td>
                     <td className="px-5 py-4 text-slate-600">{r.tecnico}</td>
-                    <td className="px-5 py-4 text-slate-600">
-                      {r.estado_fenologico}
+                    <td className="px-5 py-4 text-center font-black text-emerald-700">
+                      {r.cantidad_lotes}
                     </td>
-                    <td className="px-5 py-4 bg-rose-50/20">
-                      {r.plagas.length === 0 ? (
-                        <span className="text-slate-400 italic text-xs">
-                          Sin plagas
-                        </span>
-                      ) : (
-                        <div className="flex flex-col gap-1">
-                          {r.plagas.map((p: any, i: number) => (
-                            <span
-                              key={i}
-                              className="text-xs font-semibold text-rose-700"
-                            >
-                              {p.nombre}:{" "}
-                              <span className="text-slate-600">
-                                {p.cantidad} pl.
-                              </span>
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-5 py-4 bg-rose-50/20 font-black text-rose-600">
-                      {r.porcentaje_infestacion}%
+                    <td className="px-5 py-4 text-center">
+                      <button
+                        onClick={() => setSelectedReport(r)}
+                        className="rounded-lg bg-emerald-50 text-emerald-700 px-4 py-2 text-xs font-bold hover:bg-emerald-100 transition flex items-center gap-1 mx-auto"
+                      >
+                        Ver Detalles <ChevronRight size={14} />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -406,6 +330,109 @@ export default function ReportsPage({
           </div>
         </div>
       </div>
+
+      {/* 🌟 MODAL DE DETALLE DE LOTES */}
+      {selectedReport && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            {/* Header del Modal */}
+            <div className="bg-linear-to-r from-emerald-900 to-emerald-700 p-6 text-white flex justify-between items-start">
+              <div>
+                <span className="bg-white/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                  Reporte de Inspección
+                </span>
+                <h2 className="text-2xl font-black mt-2">
+                  {selectedReport.lugar_produccion}
+                </h2>
+                <p className="text-emerald-100 text-sm mt-1 flex items-center gap-2">
+                  Fecha: {selectedReport.fecha} • Técnico:{" "}
+                  {selectedReport.tecnico}
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectedReport(null)}
+                className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition"
+              >
+                <XCircle size={24} />
+              </button>
+            </div>
+
+            {/* Contenido (Scrollable) */}
+            <div className="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-4">
+              <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wide">
+                Desglose por Lotes ({selectedReport.cantidad_lotes})
+              </h3>
+
+              {selectedReport.detalle_lotes.map((lote: any, idx: number) => (
+                <div
+                  key={idx}
+                  className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm"
+                >
+                  <div className="flex flex-wrap justify-between items-start gap-4 mb-4 border-b border-slate-100 pb-4">
+                    <div>
+                      <h4 className="text-lg font-black text-slate-900">
+                        {lote.numero_lote}
+                      </h4>
+                      <p className="text-sm font-semibold text-emerald-700 flex items-center gap-1">
+                        <Sprout size={14} /> {lote.cultivo}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[10px] font-bold uppercase text-slate-400">
+                        Total Plantas
+                      </p>
+                      <p className="text-2xl font-black text-slate-700">
+                        {lote.plantas_totales}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-bold uppercase text-slate-500 mb-2 flex items-center gap-1">
+                        <Bug size={14} className="text-rose-500" /> Plagas
+                        Detectadas
+                      </p>
+                      {lote.plagas.length === 0 ? (
+                        <p className="text-sm text-slate-400 italic">
+                          Sin hallazgos.
+                        </p>
+                      ) : (
+                        <ul className="space-y-1">
+                          {lote.plagas.map((p: any, i: number) => (
+                            <li
+                              key={i}
+                              className="text-sm font-medium text-slate-700 flex justify-between"
+                            >
+                              <span>{p.nombre}</span>{" "}
+                              <span className="font-bold text-rose-600">
+                                {p.cantidad} afectadas
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <div className="bg-rose-50/50 rounded-xl p-4 border border-rose-100 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-bold text-rose-600 uppercase">
+                          Índice de Infestación
+                        </p>
+                        <p className="text-[10px] text-slate-500">
+                          Plantas afectadas vs. Totales
+                        </p>
+                      </div>
+                      <p className="text-3xl font-black text-rose-600">
+                        {lote.porcentaje_infestacion}%
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   );
 }
