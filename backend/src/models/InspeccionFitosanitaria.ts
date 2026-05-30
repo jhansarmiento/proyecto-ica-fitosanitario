@@ -56,8 +56,16 @@ InspeccionFitosanitaria.init(
             type: DataTypes.UUID,
             allowNull: false,
             references : {
-                model: 'solicitud_inspeccion', // Nombre de la tabla referenciada
-                key: 'id_solicitud_inspeccion', // Columna referenciada
+                model: 'solicitud_inspeccion',
+                key: 'id_solicitud_inspeccion',
+            }
+        },
+        id_lote: {
+            type: DataTypes.UUID,
+            allowNull: false,
+            references: {
+                model: 'lote',
+                key: 'id_lote',
             }
         },
     },   

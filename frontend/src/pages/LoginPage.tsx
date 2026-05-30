@@ -107,8 +107,8 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
         rol: usuario.rol ?? '',
       });
     } catch (error: any) {
-      // Capturamos el mensaje de error real enviado por el Backend (ej: "Contraseña incorrecta")
-      const apiMessage = error.response?.data?.message;
+      // `request()` lanza Error estándar con `message` (no axios-style `error.response`)
+      const apiMessage = typeof error?.message === "string" ? error.message : "";
       setErrorMessage(apiMessage || "No fue posible iniciar sesión.");
     } finally {
       setIsLoading(false);

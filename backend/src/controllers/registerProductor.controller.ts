@@ -29,7 +29,7 @@ export const registerProductor = async (req: Request, res: Response): Promise<vo
 
     const body = parsed.data;
 
-    const rolProductor = await Rol.findOne({ where: { nombre_rol: 'PRODUCTOR' } });
+    const rolProductor = await Rol.findOne({ where: { nombre_rol: 'Productor' } });
     if (!rolProductor) {
       res.status(500).json({ message: 'No se encontró el rol PRODUCTOR en la base de datos' });
       return;
