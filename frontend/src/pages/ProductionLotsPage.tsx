@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Eye, Pencil, Plus, Search } from 'lucide-react';
 import NewLotModal from '../components/ui/NewLotModal';
-import EditLotModal, { type EditableLot } from '../components/ui/EditLotModal';
+import EditLotModal from '../components/ui/EditLotModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import { fincaService } from '../services/finca.service';
 import type { ProductionSite } from './AgriculturalManagementPage';
@@ -241,12 +241,12 @@ function ProductionLotsPage({
       />
       
       {/* Omito EditLotModal hasta que pasemos a limpiarlo, pero la firma será parecida */}
-      {/* <EditLotModal 
+      <EditLotModal 
         isOpen={isEditLotOpen} 
         lot={selectedLot as any} 
         onClose={() => setIsEditLotOpen(false)} 
         onSuccess={() => { setIsEditLotOpen(false); loadLotes(); }} 
-      /> */}
+      />
     </DashboardLayout>
   );
 }

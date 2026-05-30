@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import models from '../index'; // Tus modelos de Sequelize
+import models from '../index'; // modelos de BD operacional
+import catalogModels from '../catalogIndex'; //  modelos de catálogo
 
 export const createLote = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -44,14 +45,56 @@ export const createLote = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
+// backend/src/controllers/lote.controller.ts
+
 export const getLotesPorLugar = async (req: Request, res: Response): Promise<void> => {
     try {
-        // En una implementación real, aquí harías un JOIN con Lote, Especie y Variedad
-        // basándote en que todos los lotes de este lugar_produccion tengan la FK asociada.
-        
-        // Simulación de respuesta vacía temporal para que la UI no rompa:
-        res.status(200).json({ data: [] }); 
+        const id_lugar_produccion = req.params.id;
+
+        // 1. Buscamos los predios que le pertenecen a este lugar
+        const lugar = await models.LugarProduccion.findByPk(id_lugar_produccion, {
+            include: [{ association: 'predio' }]
+        });
+
+        if (!lugar || !lugar.predio || lugar.predio.length === 0) {
+            res.status(200).json({ data: [] });
+            return;
+        }
+
+        const prediosIds = lugar.predio.map((p: any) => p.id_predio);
+
+        // 2. Buscamos todos los lotes plantados en esos predios
+        const lotes = await models.Lote.findAll({
+            where: { id_predio: prediosIds }
+        });
+
+        // 3. Traemos los catálogos para cruzar los nombres (Ultra seguro contra errores de Alias)
+        const variedades = await catalogModels.VariedadEspecie.findAll();
+        const especies = await catalogModels.EspecieVegetal.findAll();
+
+        // 4. Armamos el rompecabezas para el Frontend
+        const dataEnriquecida = lotes.map((l: any) => {
+            const loteFisico = l.toJSON();
+            const predio = lugar.predio.find((p: any) => p.id_predio === loteFisico.id_predio);
+            const variedad = variedades.find((v: any) => v.id_variedad_especie === loteFisico.id_variedad_especie);
+            const especie = especies.find((e: any) => e.id_especie_vegetal === variedad?.id_especie_vegetal);
+
+            return {
+                id_lote: loteFisico.id_lote,
+                numero_lote: loteFisico.numero_lote,
+                area_total: loteFisico.area_total,
+                fecha_siembra: loteFisico.fecha_siembra,
+                fecha_cosecha: loteFisico.fecha_cosecha,
+                estado: loteFisico.estado,
+                predio_nombre: predio ? predio.nombre_predio : 'N/D',
+                variedad_nombre: variedad ? variedad.nombre_variedad : 'N/D',
+                especie_nombre: especie ? especie.nombre_comun : 'Desconocida'
+            };
+        });
+
+        res.status(200).json({ data: dataEnriquecida });
     } catch (error) {
-        res.status(500).json({ message: 'Error listando lotes.' });
+        console.error("❌ Error en getLotesPorLugar:", error);
+        res.status(500).json({ message: 'Error listando los lotes del lugar de producción.' });
     }
 }
