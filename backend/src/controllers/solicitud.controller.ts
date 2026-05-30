@@ -59,12 +59,31 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
             order: [['fecha_creacion', 'DESC']]
         });
 
+        // 🌟 BÚSQUEDA SEGURA DE LOTES CORREGIDA (Usando id_predio)
+        const prediosIds = new Set<string>();
+        solicitudes.forEach((s: any) => {
+            const predios = s.lugarProduccion?.predio || [];
+            predios.forEach((p: any) => prediosIds.add(p.id_predio));
+        });
+
+        // Solo consultamos si hay predios (para evitar errores de sintaxis IN () en Postgres)
+        let lotes: any[] = [];
+        if (prediosIds.size > 0) {
+            lotes = await models.Lote.findAll({ 
+                where: { id_predio: Array.from(prediosIds) }
+            });
+        }
+
         // Mapeo limpio para el frontend
         const data = solicitudes.map((s: any) => {
             const json = s.toJSON();
             const lugar = json.lugarProduccion;
             const asistente = lugar?.asistenteAsignado;
-            
+
+            // 💡 Filtramos los lotes que pertenecen a los predios de ESTE lugar de producción
+            const idsPrediosDeEsteLugar = lugar?.predio?.map((p: any) => p.id_predio) || [];
+            const lotesDelLugar = lotes.filter((l: any) => idsPrediosDeEsteLugar.includes(l.id_predio));
+
             return {
                 id_solicitud: json.id_solicitud_inspeccion,
                 fecha_creacion: json.fecha_creacion,
@@ -76,6 +95,7 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
                 lugar_nombre: lugar?.nombre_lugar_produccion || 'N/D',
                 lugar_ubicacion: `${lugar?.predio?.[0]?.municipio || ''}`,
                 asistente_nombre: asistente ? `${asistente.nombre} ${asistente.apellidos}` : 'Pendiente',
+                cantidad_lotes: lotesDelLugar.length,
             };
         });
 
@@ -89,7 +109,7 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
 export const programarSolicitud = async (req: any, res: Response): Promise<void> => {
     try {
         const id_solicitud = req.params.id;
-        const { fecha_programada_tecnico } = req.body;
+        const { fecha_programada_tecnico, observaciones_tecnico } = req.body;
 
         const solicitud = await models.SolicitudInspeccion.findByPk(id_solicitud);
         if (!solicitud) {
@@ -99,7 +119,8 @@ export const programarSolicitud = async (req: any, res: Response): Promise<void>
 
         await solicitud.update({
             fecha_programada_tecnico,
-            estado: 'PROGRAMADA' // 🌟 Cambio de estado automático
+            observaciones_tecnico,
+            estado: 'PROGRAMADA' // cambio de estado automático
         });
 
         res.status(200).json({ message: 'Inspección programada con éxito.', data: solicitud });

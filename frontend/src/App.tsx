@@ -12,7 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterProductorPage from "./pages/RegisterProductorPage";
 import AdminProductionApprovalPage from "./pages/AdminProductionApprovalPage";
 import InspectionRequestsPage from "./pages/InspectionRequestsPage";
-import InspectionAgendaPage from "./pages/InspectionAgendaPage";
+// import InspectionAgendaPage from "./pages/InspectionAgendaPage";
 import InspectionHistoryPage from "./pages/InspectionHistoryPage";
 import InspectionProcessPage from "./pages/InspectionProcessPage";
 import CatalogManagementPage from "./pages/CatalogManagementPage";

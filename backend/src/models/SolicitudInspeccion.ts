@@ -8,6 +8,7 @@ class SolicitudInspeccion extends Model {
     public fecha_programada_tecnico?: Date; // Cuando el tecnico confirma que irá
     public estado!: string; // 'SOLICITADA', 'PROGRAMADA', 'REALIZADA', 'CANCELADA'
     public observaciones?: string;
+    public observaciones_tecnico?: string;
     public id_lugar_produccion!: string; // FK a LugarProduccion
 
     static associate(models: any) {
@@ -56,6 +57,10 @@ SolicitudInspeccion.init(
             },
         },
         observaciones: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        observaciones_tecnico: { 
             type: DataTypes.TEXT,
             allowNull: true,
         },
