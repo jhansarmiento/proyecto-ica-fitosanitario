@@ -6,7 +6,6 @@ import {
   MapPin,
   Database,
   Leaf,
-  Layers3,
   Eye,
   Pencil,
   FileText,
@@ -270,10 +269,6 @@ function AgriculturalManagementPage({
                 <p className="flex items-center gap-2 text-base">
                   <Leaf size={16} className="text-slate-500" />
                   {site.especies_autorizadas} especies autorizadas
-                </p>
-                <p className="flex items-center gap-2 text-base">
-                  <Layers3 size={16} className="text-slate-500" />
-                  {site.lotes_activos} lotes activos
                 </p>
               </div>
 
