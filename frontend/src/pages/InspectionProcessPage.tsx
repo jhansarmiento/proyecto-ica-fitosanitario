@@ -151,10 +151,10 @@ export default function InspectionProcessPage({
               <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">Registro ICA</p>
               <h3 className="mt-1 text-lg font-black text-slate-900">{generalInfo.registroIca}</h3>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
+            {/* <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
               <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">Coordenadas</p>
               <h3 className="mt-1 text-lg font-black text-slate-900">{generalInfo.coordenadas}</h3>
-            </div>
+            </div> */}
             <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4">
               <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">Fecha Inspección</p>
               <h3 className="mt-1 text-lg font-black text-slate-900">{generalInfo.fechaInspeccion}</h3>
@@ -180,7 +180,11 @@ export default function InspectionProcessPage({
           {lots.map((lot) => {
             const isExpanded = expandedLotId === lot.id;
             const data = inspectionData[lot.id];
-            const plagasDelLote = plagasCat.filter(p => !p.id_especie_vegetal || String(p.id_especie_vegetal) === String(lot.id_especie_vegetal));
+            // 🌟 FILTRO: Verifica si el ID de la especie del lote está en el arreglo de especies compatibles de la plaga
+            const plagasDelLote = plagasCat.filter(p => 
+              p.especies_compatibles && 
+              p.especies_compatibles.includes(String(lot.id_especie_vegetal))
+            );
 
             return (
               <article key={lot.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all">
@@ -300,7 +304,7 @@ export default function InspectionProcessPage({
             disabled={!canFinish}
             className="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-800 disabled:opacity-50 shadow-sm"
           >
-            <CheckCircle2 size={16} /> Enviar Informe Final al ICA
+            <CheckCircle2 size={16} /> Finalizar Inspección
           </button>
         </div>
 

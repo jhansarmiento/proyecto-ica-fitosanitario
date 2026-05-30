@@ -213,6 +213,8 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
         const especiesCat = models.EspecieVegetal ? await models.EspecieVegetal.findAll() : await catalogModels.EspecieVegetal.findAll().catch(()=>[]);
         const plagasCat = catalogModels.Plaga ? await catalogModels.Plaga.findAll().catch(()=>[]) : [];
 
+        const especiePlagaCat = catalogModels.EspeciePlaga ? await catalogModels.EspeciePlaga.findAll().catch(()=>[]) : [];
+
         // 🌟 3. TRADUCCIÓN GEOGRÁFICA (Con tipado any para evitar el error de TypeScript)
         let txtMunicipio = 'N/D';
         let txtVereda = 'N/D';
@@ -252,18 +254,30 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
             };
         });
 
-        const plagas = plagasCat.map((p: any) => ({
-            id: p.id_plaga || p.id,
-            nombre: p.nombre_comun || p.nombre,
-            nombreCientifico: p.nombre_cientifico || 'N/A',
-            id_especie_vegetal: p.id_especie_vegetal || null,
-            imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80'
-        }));
+        // Mapeo de plagas cruzando la tabla intermedia
+        const plagas = plagasCat.map((p: any) => {
+            const idPlaga = p.id_plaga || p.id;
+            
+            // Filtramos la tabla pivote para ver a qué especies ataca esta plaga
+            const especiesQueAtaca = especiePlagaCat
+                .filter((ep: any) => String(ep.id_plaga) === String(idPlaga))
+                .map((ep: any) => String(ep.id_especie_vegetal)); // Guardamos solo los IDs en un arreglo
+
+            return {
+                id: idPlaga,
+                nombre: p.nombre_comun || p.nombre,
+                nombreCientifico: p.nombre_cientifico || 'N/A',
+                especies_compatibles: especiesQueAtaca, // 👈 Arreglo de IDs (Ej: ['1', '5', '8'])
+                imagen: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=600&q=80'
+            };
+        });
 
         // 5. RESPUESTA AL FRONTEND
         const lat = predioPrincipal.latitud;
         const lng = predioPrincipal.longitud;
-        const txtCoordenadas = (lat && lng) ? `${lat}, ${lng}` : 'Coordenadas no registradas';
+        const txtCoordenadas = (lat != null && lng != null) 
+            ? `${lat}, ${lng}` 
+            : 'Coordenadas no registradas';
 
         res.status(200).json({
             data: {
