@@ -9,7 +9,13 @@ import {
   deleteRolByProcedure,
 } from '../services/rolProcedureService';
 
-// Controladores para la gestión de roles en el sistema fitosanitario
+/**
+ * Lista todos los roles usando la función SQL `fn_listar_roles`.
+ *
+ * @param {Request} _req Solicitud HTTP (no utilizada).
+ * @param {Response} res Respuesta HTTP.
+ * @returns {Promise<Response>} Respuesta con listado de roles.
+ */
 export const listRoles = async (_req: Request, res: Response): Promise<Response> => {
   try {
     const roles = await listRolesByFunction();
@@ -20,6 +26,13 @@ export const listRoles = async (_req: Request, res: Response): Promise<Response>
   }
 };
 
+/**
+ * Obtiene un rol por id a partir del listado retornado por función SQL.
+ *
+ * @param {Request} req Solicitud HTTP con `params.id`.
+ * @param {Response} res Respuesta HTTP.
+ * @returns {Promise<Response>} Respuesta con rol encontrado o error.
+ */
 export const getRolById = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
@@ -33,6 +46,13 @@ export const getRolById = async (req: Request, res: Response): Promise<Response>
   }
 };
 
+/**
+ * Crea un nuevo rol validando payload con Zod y ejecutando procedimiento SQL.
+ *
+ * @param {Request} req Solicitud HTTP con datos del rol.
+ * @param {Response} res Respuesta HTTP.
+ * @returns {Promise<Response>} Resultado de creación.
+ */
 export const createRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const parsed = createRolSchema.safeParse(req.body);
@@ -60,6 +80,13 @@ export const createRol = async (req: Request, res: Response): Promise<Response> 
   }
 };
 
+/**
+ * Actualiza un rol existente validando payload con Zod y usando procedimiento SQL.
+ *
+ * @param {Request} req Solicitud HTTP con `params.id` y campos a actualizar.
+ * @param {Response} res Respuesta HTTP.
+ * @returns {Promise<Response>} Resultado de actualización.
+ */
 export const updateRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
@@ -91,6 +118,13 @@ export const updateRol = async (req: Request, res: Response): Promise<Response> 
   }
 };
 
+/**
+ * Elimina un rol por id usando procedimiento SQL.
+ *
+ * @param {Request} req Solicitud HTTP con `params.id`.
+ * @param {Response} res Respuesta HTTP.
+ * @returns {Promise<Response>} Resultado de eliminación.
+ */
 export const deleteRol = async (req: Request, res: Response): Promise<Response> => {
   try {
     const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
