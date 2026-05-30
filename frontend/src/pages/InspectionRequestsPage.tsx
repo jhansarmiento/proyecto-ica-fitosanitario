@@ -12,7 +12,7 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout }: any) {
   const [selectedReq, setSelectedReq] = useState<any>(null);
 
   const esTecnico =
-    sessionUser?.rol?.toLowerCase() === "asistente_tecnico" ||
+    sessionUser?.rol?.toLowerCase().includes("asistente") ||
     sessionUser?.rol?.toLowerCase() === "administrador";
 
   const loadData = async () => {

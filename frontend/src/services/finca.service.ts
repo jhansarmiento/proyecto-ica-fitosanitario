@@ -90,10 +90,10 @@ export const fincaService = {
     return request<ApiEnvelope<any[]>>('/solicitudes');
   },
 
-  programarInspeccion(idSolicitud: string, payload: { fecha_programada_tecnico: string; observaciones_tecnico?: string }) {
-    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/programar`, {
+  gestionarInspeccion(idSolicitud: string, payload: { fecha_programada_tecnico?: string; observaciones_tecnico?: string; estado: string }) {
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/gestionar`, {
       method: 'PUT',
-      body: JSON.stringify(payload) // 🌟 Enviamos fecha y notas
+      body: JSON.stringify(payload)
     });
   },
 };

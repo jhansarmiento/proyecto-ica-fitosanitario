@@ -1,5 +1,6 @@
 // backend/src/controllers/solicitud.controller.ts
 import { Request, Response } from 'express';
+import catalogModels from '../catalogIndex';
 import models from '../index'; 
 
 export const createSolicitudInspeccion = async (req: Request, res: Response): Promise<void> => {
@@ -34,55 +35,93 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
         const id_usuario = req.usuario.id;
         const rol = req.usuario.rol?.toLowerCase();
 
-        // 💡 Filtro dinámico: El backend decide qué mostrar según quién pregunta
         let whereLugar: any = {};
         if (rol === 'productor') {
             whereLugar.id_usuario_productor = id_usuario;
-        } else if (rol === 'asistente_tecnico') {
+        } else if (rol.includes('asistente')) {
             whereLugar.id_asistente_asignado = id_usuario;
         }
 
+        // 🌟 2. CONSULTA OPERACIONAL (Transaccional pura)
         const solicitudes = await models.SolicitudInspeccion.findAll({
             include: [{
                 association: 'lugarProduccion',
                 where: whereLugar,
                 include: [
-                    // 💡 SOLUCIÓN: Declaramos explícitamente el modelo y su alias correcto
-                    { 
-                        model: models.Usuario, 
-                        as: 'asistenteAsignado', // 👈 Ej: 'asistente', 'asistenteAsignado', etc.
-                        attributes: ['nombre', 'apellidos'] 
-                    },
+                    { association: 'asistenteAsignado', attributes: ['nombre', 'apellidos'] },
                     { association: 'predio' }
                 ]
             }],
             order: [['fecha_creacion', 'DESC']]
         });
 
-        // 🌟 BÚSQUEDA SEGURA DE LOTES CORREGIDA (Usando id_predio)
+        // 🌟 3. RECOLECCIÓN DE IDs (Lotes y Geografía)
         const prediosIds = new Set<string>();
+        const veredaIds = new Set<string>();
+
         solicitudes.forEach((s: any) => {
             const predios = s.lugarProduccion?.predio || [];
-            predios.forEach((p: any) => prediosIds.add(p.id_predio));
+            predios.forEach((p: any) => {
+                prediosIds.add(p.id_predio);
+                if (p.id_vereda) veredaIds.add(p.id_vereda);
+            });
         });
 
-        // Solo consultamos si hay predios (para evitar errores de sintaxis IN () en Postgres)
+        // Buscamos los lotes físicos de esos predios
         let lotes: any[] = [];
         if (prediosIds.size > 0) {
-            lotes = await models.Lote.findAll({ 
-                where: { id_predio: Array.from(prediosIds) }
-            });
+            lotes = await models.Lote.findAll({ where: { id_predio: Array.from(prediosIds) }});
         }
 
-        // Mapeo limpio para el frontend
+        // 🌟 4. CONSULTA AL CATÁLOGO GEOGRÁFICO (Mapeo Completo)
+        let geoMap = new Map<string, any>();
+        if (veredaIds.size > 0) {
+            const veredasCatalogo = await catalogModels.Vereda.findAll({
+                where: { id_vereda: Array.from(veredaIds) },
+                include: [
+                    {
+                        model: catalogModels.Municipio,
+                        as: 'municipio',
+                        include: [{ model: catalogModels.Departamento, as: 'departamento' }]
+                    }
+                ]
+            });
+            geoMap = new Map<string, any>(
+                veredasCatalogo.map((v: any) => [String(v.id_vereda), v])
+            );
+        }
+
+        // 🌟 5. CONSULTA AL CATÁLOGO AGRÍCOLA
+        const variedadesCat = await catalogModels.VariedadEspecie.findAll();
+        const especiesCat = await catalogModels.EspecieVegetal.findAll();
+
+        // 🌟 6. ENSAMBLAJE FINAL (Cruce de datos en memoria)
         const data = solicitudes.map((s: any) => {
             const json = s.toJSON();
             const lugar = json.lugarProduccion;
             const asistente = lugar?.asistenteAsignado;
-
-            // 💡 Filtramos los lotes que pertenecen a los predios de ESTE lugar de producción
+            
+            // --- A. CRUZAR CULTIVOS ---
             const idsPrediosDeEsteLugar = lugar?.predio?.map((p: any) => p.id_predio) || [];
             const lotesDelLugar = lotes.filter((l: any) => idsPrediosDeEsteLugar.includes(l.id_predio));
+            
+            const idsVariedades = [...new Set(lotesDelLugar.map((l:any) => l.id_variedad_especie).filter(Boolean))];
+            const cultivosCultivados = idsVariedades.map(idVar => {
+                const variedad = variedadesCat.find((v:any) => String(v.id_variedad_especie) === String(idVar) || String(v.id) === String(idVar));
+                const especie = variedad ? especiesCat.find((e:any) => String(e.id_especie_vegetal) === String(variedad.id_especie_vegetal)) : null;
+                return `${especie ? especie.nombre_comun : 'Especie'} (${variedad ? variedad.nombre_variedad : 'Variedad'})`;
+            }).join(', ');
+
+            // --- B. CRUZAR GEOGRAFÍA ---
+            const predioPrincipal = lugar?.predio?.[0];
+            let txtMunicipio = 'N/D';
+            let txtVereda = 'N/D';
+
+            if (predioPrincipal && predioPrincipal.id_vereda) {
+                const infoGeo = geoMap.get(String(predioPrincipal.id_vereda));
+                txtVereda = infoGeo?.nombre || predioPrincipal.vereda || 'N/D';
+                txtMunicipio = infoGeo?.municipio?.nombre || predioPrincipal.municipio || 'N/D';
+            }
 
             return {
                 id_solicitud: json.id_solicitud_inspeccion,
@@ -90,12 +129,15 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
                 fecha_tentativa: json.fecha_tentativa_productor,
                 fecha_programada: json.fecha_programada_tecnico,
                 estado: json.estado,
-                observaciones: json.observaciones,
-                // Datos del lugar
+                observaciones: json.observaciones, 
+                observaciones_tecnico: json.observaciones_tecnico, 
+                
                 lugar_nombre: lugar?.nombre_lugar_produccion || 'N/D',
-                lugar_ubicacion: `${lugar?.predio?.[0]?.municipio || ''}`,
+                lugar_ubicacion: `${txtMunicipio} - Vda. ${txtVereda}`, 
+                
                 asistente_nombre: asistente ? `${asistente.nombre} ${asistente.apellidos}` : 'Pendiente',
                 cantidad_lotes: lotesDelLugar.length,
+                cultivos: cultivosCultivados || 'Ninguno registrado'
             };
         });
 
@@ -106,10 +148,10 @@ export const getSolicitudes = async (req: any, res: Response): Promise<void> => 
     }
 };
 
-export const programarSolicitud = async (req: any, res: Response): Promise<void> => {
+export const gestionarSolicitud = async (req: any, res: Response): Promise<void> => {
     try {
         const id_solicitud = req.params.id;
-        const { fecha_programada_tecnico, observaciones_tecnico } = req.body;
+        const { fecha_programada_tecnico, observaciones_tecnico, estado } = req.body;
 
         const solicitud = await models.SolicitudInspeccion.findByPk(id_solicitud);
         if (!solicitud) {
@@ -117,15 +159,22 @@ export const programarSolicitud = async (req: any, res: Response): Promise<void>
             return;
         }
 
+        // 💡 REGLA DE NEGOCIO: Si rechaza, DEBE dejar comentarios
+        if (estado === 'RECHAZADA' && (!observaciones_tecnico || observaciones_tecnico.trim() === '')) {
+            res.status(400).json({ message: 'Es obligatorio justificar el rechazo en los comentarios.' });
+            return;
+        }
+
         await solicitud.update({
-            fecha_programada_tecnico,
+            // Si rechaza, limpiamos la fecha de programación
+            fecha_programada_tecnico: estado === 'PROGRAMADA' ? fecha_programada_tecnico : null,
             observaciones_tecnico,
-            estado: 'PROGRAMADA' // cambio de estado automático
+            estado 
         });
 
-        res.status(200).json({ message: 'Inspección programada con éxito.', data: solicitud });
+        res.status(200).json({ message: `Solicitud ${estado.toLowerCase()} con éxito.`, data: solicitud });
     } catch (error) {
-        console.error('❌ Error programando solicitud:', error);
-        res.status(500).json({ message: 'Error interno al programar la inspección.' });
+        console.error('❌ Error gestionando solicitud:', error);
+        res.status(500).json({ message: 'Error interno al gestionar la inspección.' });
     }
 };
