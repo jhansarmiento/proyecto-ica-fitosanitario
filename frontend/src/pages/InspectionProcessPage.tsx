@@ -1,6 +1,6 @@
 // frontend/src/pages/InspectionProcessPage.tsx
 import { useEffect, useState } from 'react';
-import { ArrowLeft, CheckCircle2, ChevronUp, Eye, Minus, Plus, Save } from 'lucide-react';
+import { CheckCircle2, ChevronUp, Eye, Minus, Plus, Save } from 'lucide-react';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import type { SessionUser } from '../types/auth.types';
 import { fincaService } from '../services/finca.service';

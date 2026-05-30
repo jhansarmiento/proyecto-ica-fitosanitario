@@ -95,7 +95,7 @@ function DashboardLayout({
     activeView === "inspections-agenda" || activeView === "inspections-history",
   );
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] =
+  const [notifications, _setNotifications] =
     useState<NotificationItem[]>(notificationsSeed);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

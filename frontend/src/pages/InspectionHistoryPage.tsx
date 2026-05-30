@@ -17,9 +17,10 @@ import {
   X,
   XCircle,
 } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import type { DashboardViewKey } from '../types/dashboard.types';
 import SkeletonBlock from '../components/ui/SkeletonBlock';
-import type { SessionUser } from '../App';
+import type { SessionUser } from '../types/auth.types';
 import {
   api,
   type CreateSolicitudDTO,
@@ -957,7 +958,7 @@ export default function InspectionHistoryPage({
   onLogout,
 }: InspectionHistoryPageProps) {
   const rol = sessionUser?.rol ?? '';
-  const userId = sessionUser?.id ?? '';
+  const userId = sessionUser?.id_usuario ?? '';
   const isProductor = rol === 'PRODUCTOR';
   const isAdminOrTecnico = rol === 'ADMIN' || rol === 'ASISTENTE_TECNICO';
 

@@ -1,7 +1,7 @@
 import KpiCard from '../components/ui/KpiCard';
 import PanelCard from '../components/ui/PanelCard';
 import DashboardLayout from '../components/layout/DashboardLayout';
-import type { SessionUser } from '../App';
+import type { SessionUser } from '../types/auth.types';
 
 type HomePageProps = {
   sessionUser?: SessionUser;

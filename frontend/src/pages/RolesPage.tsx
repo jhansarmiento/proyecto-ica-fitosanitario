@@ -4,7 +4,7 @@ import NewRoleModal from '../components/ui/NewRoleModal';
 import EditRoleModal, { type EditableRole } from '../components/ui/EditRoleModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import { rolesApi } from '../services/roles.api';
-import type { SessionUser } from '../App';
+import type { SessionUser } from '../types/auth.types';
 
 type ConfirmDeleteRoleModalProps = {
   isOpen: boolean;
@@ -120,10 +120,10 @@ function RolesPage({
       setLoading(true);
       setError('');
       const response = await rolesApi.getRoles();
-      const mapped: EditableRole[] = response.data.map((r) => ({
-        id: r.id as any,
-        rol: r.nombreRol,
-        descripcion: r.descripcion || '',
+      const mapped: EditableRole[] = response.data.map((r: any) => ({
+        id: (r.id_rol ?? r.id) as any,
+        rol: (r.nombre_rol ?? r.nombreRol ?? '').toString(),
+        descripcion: (r.descripcion ?? '').toString(),
       }));
       setRoles(mapped);
     } catch (e: any) {
@@ -139,7 +139,7 @@ function RolesPage({
 
   const handleSaveRole = async (payload: EditableRole) => {
     await rolesApi.updateRole(String(payload.id), {
-      nombreRol: payload.rol,
+      nombre_rol: payload.rol,
       descripcion: payload.descripcion,
     });
     await loadRoles();
@@ -150,7 +150,7 @@ function RolesPage({
     try {
       setError('');
       await rolesApi.createRole({
-        nombreRol: payload.rol,
+        nombre_rol: payload.rol,
         descripcion: payload.descripcion,
       });
       await loadRoles();

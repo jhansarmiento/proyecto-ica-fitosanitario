@@ -12,7 +12,7 @@ import {
   IconInforme,
 } from "../components/ui/icons";
 import { authService } from '../services/auth.service';
-import type { SessionUser } from "../App";
+import type { SessionUser } from "../types/auth.types";
 
 /**
  * Props del componente LoginPage.
@@ -100,9 +100,10 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
 
       // 4. Enviamos al estado global del Frontend lo que espera recibir
       onLoginSuccess?.({
-        id: "",
+        id_usuario: usuario.id_usuario,
         nombre: usuario.nombre,
         apellidos: usuario.apellidos || '',
+        correo_electronico: usuario.correo_electronico ?? '',
         rol: usuario.rol ?? '',
       });
     } catch (error: any) {

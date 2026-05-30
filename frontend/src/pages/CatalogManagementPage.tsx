@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, Bug, Leaf, Search, Sprout, X } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
-import type { SessionUser } from '../App';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import type { DashboardViewKey } from '../types/dashboard.types';
+import type { SessionUser } from '../types/auth.types';
 import { getCatalogPests, getCatalogSpecies, type CatalogPestApiItem, type CatalogSpeciesApiItem } from '../services/catalogo.api';
 
 type Props = {

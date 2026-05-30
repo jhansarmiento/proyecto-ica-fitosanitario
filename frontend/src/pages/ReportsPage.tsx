@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Download, FileSpreadsheet, FileText, Filter, Search, X, XCircle } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
-import type { SessionUser } from '../App';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import type { DashboardViewKey } from '../types/dashboard.types';
+import type { SessionUser } from '../types/auth.types';
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 
@@ -85,7 +86,7 @@ export default function ReportsPage({
 
   // ── Navegación ──
   const handleNavigate = (view: DashboardViewKey) => {
-    const map: Record<DashboardViewKey, (() => void) | undefined> = {
+    const map: Partial<Record<DashboardViewKey, (() => void) | undefined>> = {
       home:                 onGoHome,
       users:                onGoUsers,
       roles:                onGoRoles,
@@ -100,7 +101,7 @@ export default function ReportsPage({
   };
 
   // ── Filtrado ──
-  const filtered = useMemo(() => {
+  const filteredInspecciones = useMemo(() => {
     return MOCK_INSPECCIONES.filter((i) => {
       const q = search.toLowerCase();
       const matchSearch = !q || i.lugarProduccion.toLowerCase().includes(q) || i.lote.toLowerCase().includes(q) || i.cultivo.toLowerCase().includes(q) || i.plagaDetectada.toLowerCase().includes(q) || i.tecnico.toLowerCase().includes(q) || i.id.toLowerCase().includes(q);
@@ -267,7 +268,7 @@ export default function ReportsPage({
             className="flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
           >
             <Download size={16} />
-            Generar Reporte
+            Generar Reporte ({filteredInspecciones.length} registros)
             <span className="ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs">
               {exportFormat === 'pdf' ? 'PDF' : 'Excel'}
             </span>

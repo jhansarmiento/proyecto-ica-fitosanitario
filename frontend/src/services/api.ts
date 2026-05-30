@@ -163,10 +163,24 @@ export const api = {
   getRoles() {
     return rolesApi.getRoles();
   },
-  createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
+  /**
+   * Crea un rol usando el contrato oficial en snake_case.
+   *
+   * @param {Pick<RolDTO, 'nombre_rol' | 'descripcion'>} body Datos del rol.
+   * @returns {Promise<{ message: string }>} Resultado del backend.
+   */
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
     return rolesApi.createRole(body);
   },
-  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombreRol' | 'descripcion'>>) {
+
+  /**
+   * Actualiza un rol existente usando el contrato oficial en snake_case.
+   *
+   * @param {string} id Identificador del rol.
+   * @param {Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>} body Campos a actualizar.
+   * @returns {Promise<{ message: string }>} Resultado del backend.
+   */
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return rolesApi.updateRole(id, body);
   },
   deleteRole(id: string) {
