@@ -163,10 +163,10 @@ export const api = {
   getRoles() {
     return rolesApi.getRoles();
   },
-  createRole(body: Pick<RolDTO, 'nombreRol' | 'descripcion'>) {
+  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
     return rolesApi.createRole(body);
   },
-  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombreRol' | 'descripcion'>>) {
+  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return rolesApi.updateRole(id, body);
   },
   deleteRole(id: string) {
