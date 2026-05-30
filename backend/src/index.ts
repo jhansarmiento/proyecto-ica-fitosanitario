@@ -23,6 +23,7 @@ import Rol from './models/Rol';
 import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
+import PasswordResetToken from './models/PasswordResetToken';
 
 // Modelos de BD Catalogo
 import './catalogIndex';

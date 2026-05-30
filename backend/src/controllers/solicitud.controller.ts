@@ -298,8 +298,6 @@ export const getDatosInicioInspeccion = async (req: any, res: Response): Promise
         console.error('❌ Error al preparar inspección:', error);
         res.status(500).json({ message: 'Error interno al cargar los datos de inspección.' });
     }
-<<<<<<< HEAD
-=======
 };
 
 export const finalizarInspeccion = async (req: any, res: Response): Promise<void> => {
@@ -459,5 +457,4 @@ export const getReportes = async (req: any, res: Response): Promise<void> => {
         console.error('❌ Error al generar reportes:', error);
         res.status(500).json({ message: 'Error al generar los reportes.' });
     }
->>>>>>> origin/jhan_branch
 };

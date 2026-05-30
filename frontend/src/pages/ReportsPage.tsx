@@ -62,97 +62,39 @@ export default function ReportsPage({
   }, []);
 
   const handleNavigate = (view: DashboardViewKey) => {
-<<<<<<< HEAD
     const map: Partial<Record<DashboardViewKey, (() => void) | undefined>> = {
-      home:                 onGoHome,
-      users:                onGoUsers,
-      roles:                onGoRoles,
-      agricultural:         onGoAgricultural,
-      catalog:              onGoCatalog,
-      'approval-places':    onGoApprovalPlaces,
-      'inspections-agenda': onGoInspectionsAgenda,
-      'inspections-history':onGoInspectionsHistory,
-      reports:              undefined,
-=======
-    const map: Record<DashboardViewKey, (() => void) | undefined> = {
-<<<<<<< HEAD
-      home: onGoHome,
-      users: onGoUsers,
-      roles: onGoRoles,
-      agricultural: onGoAgricultural,
-      catalog: onGoCatalog,
-      "approval-places": onGoApprovalPlaces,
-      "inspections-agenda": onGoInspectionsAgenda,
-      "inspections-history": onGoInspectionsHistory,
-      reports: undefined,
-<<<<<<< HEAD
-      'mis-solicitudes': undefined,
->>>>>>> origin/jhan_branch
-=======
-      "mis-solicitudes": undefined,
->>>>>>> origin/jhan_branch
-=======
-      home: onGoHome, users: onGoUsers, roles: onGoRoles, agricultural: onGoAgricultural, catalog: onGoCatalog,
-      'approval-places': onGoApprovalPlaces, 'inspections-agenda': onGoInspectionsAgenda, 'inspections-history': onGoInspectionsHistory, reports: undefined, 'mis-solicitudes': undefined
->>>>>>> origin/jhan_branch
+      home:                  onGoHome,
+      users:                 onGoUsers,
+      roles:                 onGoRoles,
+      agricultural:          onGoAgricultural,
+      catalog:               onGoCatalog,
+      'approval-places':     onGoApprovalPlaces,
+      'inspections-agenda':  onGoInspectionsAgenda,
+      'inspections-history': onGoInspectionsHistory,
+      reports:               undefined,
+      'mis-solicitudes':     undefined,
     };
     map[view]?.();
   };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  // ── Filtrado ──
-  const filteredInspecciones = useMemo(() => {
-    return MOCK_INSPECCIONES.filter((i) => {
-=======
-  // ── Filtrado Múltiple ──
-  const filtered = useMemo(() => {
-    return reportes.filter((i) => {
->>>>>>> origin/jhan_branch
-      const q = search.toLowerCase();
-      // Búsqueda en texto de plagas
-      const txtPlagas = i.plagas
-        .map((p: any) => p.nombre.toLowerCase())
-        .join(" ");
-
-      const matchSearch =
-        !q ||
-        i.lugar_produccion.toLowerCase().includes(q) ||
-        i.lote.toLowerCase().includes(q) ||
-        i.cultivo.toLowerCase().includes(q) ||
-        i.tecnico.toLowerCase().includes(q) ||
-        txtPlagas.includes(q);
-=======
   // 🌟 OBTENER LUGARES ÚNICOS PARA EL DROPDOWN
-=======
->>>>>>> origin/jhan_branch
   const lugaresUnicos = useMemo(() => {
     const lugares = reportes.map(r => r.lugar_produccion);
     return [...new Set(lugares)];
   }, [reportes]);
 
+  // ── Filtrado ──
   const filtered = useMemo(() => {
     return reportes.filter((i) => {
-<<<<<<< HEAD
->>>>>>> origin/jhan_branch
-      const matchLugar =
-        filterLugar === "Todos" || i.lugar_produccion === filterLugar;
-      const matchInicio = !filterFechaInicio || i.fecha >= filterFechaInicio;
-      const matchFin = !filterFechaFin || i.fecha <= filterFechaFin;
-      return matchLugar && matchInicio && matchFin;
-=======
       const q = search.toLowerCase();
-      // Búsqueda en texto de plagas
-      const txtPlagas = i.detalle_lotes?.map((l:any) => l.plagas.map((p:any) => p.nombre.toLowerCase()).join(' ')).join(' ') || '';
-      
+      const txtPlagas = i.detalle_lotes?.map((l: any) => l.plagas.map((p: any) => p.nombre.toLowerCase()).join(' ')).join(' ') || '';
+
       const matchSearch = !q || i.lugar_produccion.toLowerCase().includes(q) || i.tecnico.toLowerCase().includes(q) || txtPlagas.includes(q);
-      const matchLugar   = filterLugar === 'Todos' || i.lugar_produccion === filterLugar;
-      const matchInicio  = !filterFechaInicio || i.fecha >= filterFechaInicio;
-      const matchFin     = !filterFechaFin    || i.fecha <= filterFechaFin;
-      
+      const matchLugar  = filterLugar === 'Todos' || i.lugar_produccion === filterLugar;
+      const matchInicio = !filterFechaInicio || i.fecha >= filterFechaInicio;
+      const matchFin    = !filterFechaFin    || i.fecha <= filterFechaFin;
+
       return matchSearch && matchLugar && matchInicio && matchFin;
->>>>>>> origin/jhan_branch
     });
   }, [reportes, search, filterLugar, filterFechaInicio, filterFechaFin]);
 
@@ -199,7 +141,7 @@ export default function ReportsPage({
     const tableData: any[] = [];
     reportesAExportar.forEach(reporte => {
         reporte.detalle_lotes.forEach((lote: any) => {
-            const textoPlagas = lote.plagas.map((p:any) => `${p.nombre} (${p.cantidad})`).join(', ') || 'Ninguna';
+            const textoPlagas = lote.plagas.map((p: any) => `${p.nombre} (${p.cantidad})`).join(', ') || 'Ninguna';
             tableData.push([
                 reporte.fecha,
                 reporte.lugar_produccion,
@@ -264,7 +206,7 @@ export default function ReportsPage({
               <select value={filterLugar} onChange={(e) => setFilterLugar(e.target.value)} className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
                 <option value="Todos">Todos los lugares</option>
                 {lugaresUnicos.map((lugar, idx) => (
-                    <option key={idx} value={lugar}>{lugar}</option>
+                    <option key={idx} value={lugar as string}>{lugar as string}</option>
                 ))}
               </select>
             </div>
@@ -290,19 +232,7 @@ export default function ReportsPage({
             disabled={selectedIds.length === 0} 
             className="flex items-center gap-2 rounded-xl bg-emerald-700 px-8 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <Download size={16} />
-            Generar Reporte ({filteredInspecciones.length} registros)
-            <span className="ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs">
-              {exportFormat === 'pdf' ? 'PDF' : 'Excel'}
-            </span>
-=======
-            <Download size={18} /> Exportar Documento PDF
->>>>>>> origin/jhan_branch
-=======
             <Download size={18} /> Exportar Selección PDF
->>>>>>> origin/jhan_branch
           </button>
         </div>
 
@@ -407,7 +337,7 @@ export default function ReportsPage({
                                     <p className="text-xs font-bold uppercase text-slate-500 mb-2 flex items-center gap-1"><Bug size={14} className="text-rose-500"/> Plagas Detectadas</p>
                                     {lote.plagas.length === 0 ? <p className="text-sm text-slate-400 italic">Sin hallazgos.</p> : 
                                         <ul className="space-y-1">
-                                            {lote.plagas.map((p:any, i:number) => (
+                                            {lote.plagas.map((p: any, i: number) => (
                                                 <li key={i} className="text-sm font-medium text-slate-700 flex justify-between">
                                                     <span>{p.nombre}</span> <span className="font-bold text-rose-600">{p.cantidad} afectadas</span>
                                                 </li>

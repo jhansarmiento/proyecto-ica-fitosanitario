@@ -23,10 +23,8 @@ export const rolesApi = {
    * Crea un rol.
    *
    * @param {Pick<RolDTO, 'nombre_rol' | 'descripcion'>} body Datos del rol.
-   * @returns {Promise<{ message: string }>} Mensaje de resultado.
+   * @returns {Promise<ApiEnvelope<RolDTO>>} Rol creado.
    */
-  createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
-    return request<{ message: string }>('/roles', {
   createRole(body: Pick<RolDTO, 'nombre_rol' | 'descripcion'>) {
     return request<ApiEnvelope<RolDTO>>('/roles', {
       method: 'POST',
@@ -39,10 +37,8 @@ export const rolesApi = {
    *
    * @param {string} id Identificador del rol.
    * @param {Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>} body Campos editables.
-   * @returns {Promise<{ message: string }>} Mensaje de resultado.
+   * @returns {Promise<ApiEnvelope<RolDTO>>} Rol actualizado.
    */
-  updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
-    return request<{ message: string }>(`/roles/${id}`, {
   updateRole(id: string, body: Partial<Pick<RolDTO, 'nombre_rol' | 'descripcion'>>) {
     return request<ApiEnvelope<RolDTO>>(`/roles/${id}`, {
       method: 'PUT',
