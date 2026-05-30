@@ -352,3 +352,95 @@ export const finalizarInspeccion = async (req: any, res: Response): Promise<void
         res.status(500).json({ message: 'Error interno al guardar los datos de la inspección.' });
     }
 };
+
+export const getReportes = async (req: any, res: Response): Promise<void> => {
+    try {
+        const id_usuario = req.usuario.id;
+        const rol = req.usuario.rol?.toLowerCase();
+
+        // 🌟 1. LÓGICA DE PERMISOS (RBAC)
+        let whereLugar: any = {};
+        if (rol === 'productor') {
+            whereLugar.id_usuario_productor = id_usuario;
+        } else if (rol.includes('asistente')) {
+            whereLugar.id_asistente_asignado = id_usuario;
+        } // Administrador no tiene whereLugar, así que ve todo.
+
+        // 2. Traer Solicitudes REALIZADAS
+        const solicitudes = await models.SolicitudInspeccion.findAll({
+            where: { estado: 'REALIZADA' },
+            include: [{
+                association: 'lugarProduccion',
+                where: whereLugar,
+                include: [
+                    { association: 'predio' },
+                    { association: 'asistenteAsignado', attributes: ['nombre', 'apellidos'] }
+                ]
+            }],
+            order: [['fecha_programada_tecnico', 'DESC']]
+        });
+
+        const solicitudesIds = solicitudes.map((s:any) => s.id_solicitud_inspeccion);
+        if(solicitudesIds.length === 0) {
+            res.status(200).json({ data: [] });
+            return;
+        }
+
+        // 3. Traer Inspecciones, Hallazgos y Lotes físicos
+        const inspecciones = await models.InspeccionFitosanitaria.findAll({ where: { id_solicitud_inspeccion: solicitudesIds }});
+        const inspeccionesIds = inspecciones.map((i:any) => i.id_inspeccion_fitosanitaria);
+        const lotesIds = [...new Set(inspecciones.map((i:any) => i.id_lote))];
+
+        const hallazgos = inspeccionesIds.length > 0 ? await models.HallazgoPlaga.findAll({ where: { id_inspeccion_fitosanitaria: inspeccionesIds }}) : [];
+        const lotes = lotesIds.length > 0 ? await models.Lote.findAll({ where: { id_lote: lotesIds }}) : [];
+
+        // 4. Traer Catálogos
+        const especiesCat = catalogModels.EspecieVegetal ? await catalogModels.EspecieVegetal.findAll() : [];
+        const variedadesCat = catalogModels.VariedadEspecie ? await catalogModels.VariedadEspecie.findAll() : [];
+        const plagasCat = catalogModels.Plaga ? await catalogModels.Plaga.findAll() : [];
+
+        // 🌟 5. ENSAMBLAR EL REPORTE FINAL
+        const reportes = inspecciones.map((inspeccion: any) => {
+            const solicitud = solicitudes.find((s:any) => s.id_solicitud_inspeccion === inspeccion.id_solicitud_inspeccion);
+            const lugar = solicitud?.lugarProduccion;
+            const tecnico = lugar?.asistenteAsignado ? `${lugar.asistenteAsignado.nombre} ${lugar.asistenteAsignado.apellidos}` : 'Sin asignar';
+            
+            const lote = lotes.find((l:any) => l.id_lote === inspeccion.id_lote);
+            const variedad = lote ? variedadesCat.find((v:any) => String(v.id_variedad_especie) === String(lote.id_variedad_especie)) : null;
+            const especie = variedad ? especiesCat.find((e:any) => String(e.id_especie_vegetal) === String(variedad.id_especie_vegetal)) : null;
+
+            // Mapear Plagas y calcular porcentajes
+            const hallazgosLote = hallazgos.filter((h:any) => h.id_inspeccion_fitosanitaria === inspeccion.id_inspeccion_fitosanitaria);
+            let totalAfectadas = 0;
+
+            const plagasDetalle = hallazgosLote.map((h:any) => {
+                const plagaObj = plagasCat.find((p:any) => String(p.id_plaga) === String(h.id_plaga));
+                totalAfectadas += (h.cantidad_plantas_infestadas || 0);
+                return {
+                    nombre: plagaObj ? (plagaObj.nombre_comun) : 'Plaga N/D',
+                    cantidad: h.cantidad_plantas_infestadas
+                };
+            });
+
+            const porcentaje = inspeccion.cantidad_plantas > 0 ? ((totalAfectadas / inspeccion.cantidad_plantas) * 100).toFixed(2) : '0.00';
+
+            return {
+                id: inspeccion.id_inspeccion_fitosanitaria,
+                fecha: inspeccion.fecha_inspeccion ? new Date(inspeccion.fecha_inspeccion).toISOString().split('T')[0] : 'N/D',
+                lugar_produccion: lugar?.nombre_lugar_produccion || 'N/D',
+                lote: lote?.numero_lote || 'N/D',
+                cultivo: especie ? especie.nombre_comun : 'Cultivo N/D',
+                tecnico,
+                plantas_totales: inspeccion.cantidad_plantas || 0,
+                estado_fenologico: inspeccion.estado_fenologico || 'N/D',
+                plagas: plagasDetalle,
+                porcentaje_infestacion: parseFloat(porcentaje)
+            };
+        });
+
+        res.status(200).json({ data: reportes });
+    } catch (error) {
+        console.error('❌ Error al generar reportes:', error);
+        res.status(500).json({ message: 'Error al generar los reportes.' });
+    }
+};

@@ -108,4 +108,8 @@ export const fincaService = {
       body: JSON.stringify(payload)
     });
   },
+
+  getReportesFitosanitarios() {
+    return request<ApiEnvelope<any[]>>('/solicitudes/reportes/generales');
+  },
 };

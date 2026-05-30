@@ -136,8 +136,6 @@ export default function InspectionHistoryPage({
       // 🌟 LLAMADA DIRECTA: No necesitamos pasarle el ID, el Backend lo lee del Token JWT
       const res = await fincaService.getSolicitudesInspeccion();
       
-      console.log("✅ Datos recibidos del backend:", res.data);
-      
       const arregloDatos = Array.isArray(res.data) ? res.data : (res as any).data?.data ?? [];
       setSolicitudes(arregloDatos);
     } catch (err) {

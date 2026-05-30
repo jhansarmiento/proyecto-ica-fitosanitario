@@ -1,42 +1,11 @@
-import { useMemo, useState } from 'react';
-import { Download, FileSpreadsheet, FileText, Filter, Search, X, XCircle } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
-import type { SessionUser } from '../App';
-
-// ─── Tipos ────────────────────────────────────────────────────────────────────
-
-type EstadoInspeccion = 'REALIZADA' | 'PROGRAMADA' | 'PENDIENTE' | 'CANCELADA';
-
-type InspeccionReporte = {
-  id: string;
-  fechaInspeccion: string;
-  lugarProduccion: string;
-  municipio: string;
-  lote: string;
-  cultivo: string;
-  especieVegetal: string;
-  plagaDetectada: string;
-  porcentajeInfestacion: number;
-  tecnico: string;
-  estado: EstadoInspeccion;
-};
-
-// ─── Datos mock ───────────────────────────────────────────────────────────────
-
-const MOCK_INSPECCIONES: InspeccionReporte[] = [
-  { id: 'INS-2026-0041', fechaInspeccion: '2026-05-20', lugarProduccion: 'Predio Santa Isabel',   municipio: 'Palmira',     lote: 'L-02', cultivo: 'Tomate de mesa',    especieVegetal: 'Solanum lycopersicum',  plagaDetectada: 'Tuta absoluta',       porcentajeInfestacion: 38, tecnico: 'Carlos Mendoza',         estado: 'REALIZADA'  },
-  { id: 'INS-2026-0040', fechaInspeccion: '2026-05-18', lugarProduccion: 'Hacienda El Porvenir',  municipio: 'Rionegro',    lote: 'L-05', cultivo: 'Papa criolla',      especieVegetal: 'Solanum phureja',       plagaDetectada: 'Gusano blanco',       porcentajeInfestacion: 22, tecnico: 'Luisa F. Torres',        estado: 'REALIZADA'  },
-  { id: 'INS-2026-0039', fechaInspeccion: '2026-05-15', lugarProduccion: 'Finca La Aurora',       municipio: 'Chinchiná',   lote: 'L-01', cultivo: 'Café arábica',      especieVegetal: 'Coffea arabica',        plagaDetectada: 'Broca del café',      porcentajeInfestacion: 5,  tecnico: 'Andrés F. Gómez',        estado: 'REALIZADA'  },
-  { id: 'INS-2026-0038', fechaInspeccion: '2026-05-12', lugarProduccion: 'Predio Los Naranjos',   municipio: 'Lebrija',     lote: 'L-03', cultivo: 'Cítricos (naranja)', especieVegetal: 'Citrus sinensis',       plagaDetectada: 'Minador de la hoja',  porcentajeInfestacion: 45, tecnico: 'Sandra M. Ruiz',         estado: 'REALIZADA'  },
-  { id: 'INS-2026-0037', fechaInspeccion: '2026-05-10', lugarProduccion: 'Hacienda San Pedro',    municipio: 'Espinal',     lote: 'L-07', cultivo: 'Arroz',             especieVegetal: 'Oryza sativa',          plagaDetectada: 'Sogata',              porcentajeInfestacion: 18, tecnico: 'Carlos Mendoza',         estado: 'REALIZADA'  },
-  { id: 'INS-2026-0036', fechaInspeccion: '2026-05-08', lugarProduccion: 'Predio Villa Verde',    municipio: 'Fusagasugá',  lote: 'L-04', cultivo: 'Fresa',             especieVegetal: 'Fragaria × ananassa',  plagaDetectada: 'Ácaros',              porcentajeInfestacion: 30, tecnico: 'Luisa F. Torres',        estado: 'PROGRAMADA' },
-  { id: 'INS-2026-0035', fechaInspeccion: '2026-05-05', lugarProduccion: 'Finca El Paraíso',      municipio: 'Dagua',       lote: 'L-01', cultivo: 'Plátano dominico',  especieVegetal: 'Musa paradisiaca',      plagaDetectada: 'Picudo negro',        porcentajeInfestacion: 15, tecnico: 'Andrés F. Gómez',        estado: 'REALIZADA'  },
-  { id: 'INS-2026-0034', fechaInspeccion: '2026-05-02', lugarProduccion: 'Predio Santa Rosa',     municipio: 'Pasto',       lote: 'L-02', cultivo: 'Papa pastusa',      especieVegetal: 'Solanum tuberosum',     plagaDetectada: 'Polilla guatemalteca',porcentajeInfestacion: 8,  tecnico: 'Sandra M. Ruiz',         estado: 'REALIZADA'  },
-  { id: 'INS-2026-0033', fechaInspeccion: '2026-04-28', lugarProduccion: 'Hacienda La Esperanza', municipio: 'Montería',    lote: 'L-06', cultivo: 'Maíz amarillo',     especieVegetal: 'Zea mays',              plagaDetectada: 'Gusano cogollero',    porcentajeInfestacion: 52, tecnico: 'Carlos Mendoza',         estado: 'CANCELADA'  },
-  { id: 'INS-2026-0032', fechaInspeccion: '2026-04-25', lugarProduccion: 'Predio El Vergel',      municipio: 'Pereira',     lote: 'L-03', cultivo: 'Aguacate Hass',     especieVegetal: 'Persea americana',      plagaDetectada: 'Trips',               porcentajeInfestacion: 20, tecnico: 'Luisa F. Torres',        estado: 'PENDIENTE'  },
-];
-
-// ─── Props ────────────────────────────────────────────────────────────────────
+import { useEffect, useMemo, useState } from "react";
+import { Download, FileText, Filter, Search, XCircle } from "lucide-react";
+import DashboardLayout from "../components/layout/DashboardLayout";
+import type { DashboardViewKey } from "../types/dashboard.types";
+import type { SessionUser } from "../types/auth.types";
+import { fincaService } from "../services/finca.service";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 type ReportsPageProps = {
   sessionUser?: SessionUser;
@@ -48,14 +17,8 @@ type ReportsPageProps = {
   onGoApprovalPlaces?: () => void;
   onGoInspectionsAgenda?: () => void;
   onGoInspectionsHistory?: () => void;
-  onGoReports?: () => void;
   onLogout?: () => void;
 };
-
-// ─── KPI Card ─────────────────────────────────────────────────────────────────
-
-
-// ─── Página principal ─────────────────────────────────────────────────────────
 
 export default function ReportsPage({
   sessionUser,
@@ -69,211 +32,379 @@ export default function ReportsPage({
   onGoInspectionsHistory,
   onLogout,
 }: ReportsPageProps) {
+  const [reportes, setReportes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // ── Filtros ──
-  const [filterLugar,      setFilterLugar]      = useState('');
-  const [filterLote,       setFilterLote]       = useState('');
-  const [filterEspecie,    setFilterEspecie]    = useState('');
-  const [filterPlaga,      setFilterPlaga]      = useState('');
-  const [filterEstado,     setFilterEstado]     = useState<EstadoInspeccion | ''>('');
-  const [filterFechaInicio,setFilterFechaInicio]= useState('');
-  const [filterFechaFin,   setFilterFechaFin]   = useState('');
-  const [search,           setSearch]           = useState('');
+  const [filterLugar, setFilterLugar] = useState("");
+  const [filterLote, setFilterLote] = useState("");
+  const [filterEspecie, setFilterEspecie] = useState("");
+  const [filterFechaInicio, setFilterFechaInicio] = useState("");
+  const [filterFechaFin, setFilterFechaFin] = useState("");
+  const [search, setSearch] = useState("");
 
-  // ── Formato de exportación (radio) ──
-  const [exportFormat, setExportFormat] = useState<'pdf' | 'excel'>('pdf');
+  useEffect(() => {
+    const fetchReportes = async () => {
+      try {
+        setLoading(true);
+        const res = await fincaService.getReportesFitosanitarios();
+        setReportes(res.data || []);
+      } catch (error) {
+        console.error("Error al cargar reportes:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchReportes();
+  }, []);
 
-  // ── Navegación ──
   const handleNavigate = (view: DashboardViewKey) => {
     const map: Record<DashboardViewKey, (() => void) | undefined> = {
-      home:                 onGoHome,
-      users:                onGoUsers,
-      roles:                onGoRoles,
-      agricultural:         onGoAgricultural,
-      catalog:              onGoCatalog,
-      'approval-places':    onGoApprovalPlaces,
-      'inspections-agenda': onGoInspectionsAgenda,
-      'inspections-history':onGoInspectionsHistory,
-      reports:              undefined,
+      home: onGoHome,
+      users: onGoUsers,
+      roles: onGoRoles,
+      agricultural: onGoAgricultural,
+      catalog: onGoCatalog,
+      "approval-places": onGoApprovalPlaces,
+      "inspections-agenda": onGoInspectionsAgenda,
+      "inspections-history": onGoInspectionsHistory,
+      reports: undefined,
+      'mis-solicitudes': undefined,
     };
     map[view]?.();
   };
 
-  // ── Filtrado ──
+  // ── Filtrado Múltiple ──
   const filtered = useMemo(() => {
-    return MOCK_INSPECCIONES.filter((i) => {
+    return reportes.filter((i) => {
       const q = search.toLowerCase();
-      const matchSearch = !q || i.lugarProduccion.toLowerCase().includes(q) || i.lote.toLowerCase().includes(q) || i.cultivo.toLowerCase().includes(q) || i.plagaDetectada.toLowerCase().includes(q) || i.tecnico.toLowerCase().includes(q) || i.id.toLowerCase().includes(q);
-      const matchLugar   = !filterLugar   || i.lugarProduccion.toLowerCase().includes(filterLugar.toLowerCase());
-      const matchLote    = !filterLote    || i.lote.toLowerCase().includes(filterLote.toLowerCase());
-      const matchEspecie = !filterEspecie || i.especieVegetal.toLowerCase().includes(filterEspecie.toLowerCase()) || i.cultivo.toLowerCase().includes(filterEspecie.toLowerCase());
-      const matchPlaga   = !filterPlaga   || i.plagaDetectada.toLowerCase().includes(filterPlaga.toLowerCase());
-      const matchEstado  = !filterEstado  || i.estado === filterEstado;
-      const matchInicio  = !filterFechaInicio || i.fechaInspeccion >= filterFechaInicio;
-      const matchFin     = !filterFechaFin    || i.fechaInspeccion <= filterFechaFin;
-      return matchSearch && matchLugar && matchLote && matchEspecie && matchPlaga && matchEstado && matchInicio && matchFin;
+      // Búsqueda en texto de plagas
+      const txtPlagas = i.plagas
+        .map((p: any) => p.nombre.toLowerCase())
+        .join(" ");
+
+      const matchSearch =
+        !q ||
+        i.lugar_produccion.toLowerCase().includes(q) ||
+        i.lote.toLowerCase().includes(q) ||
+        i.cultivo.toLowerCase().includes(q) ||
+        i.tecnico.toLowerCase().includes(q) ||
+        txtPlagas.includes(q);
+      const matchLugar =
+        !filterLugar ||
+        i.lugar_produccion.toLowerCase().includes(filterLugar.toLowerCase());
+      const matchLote =
+        !filterLote || i.lote.toLowerCase().includes(filterLote.toLowerCase());
+      const matchEspecie =
+        !filterEspecie ||
+        i.cultivo.toLowerCase().includes(filterEspecie.toLowerCase());
+      const matchInicio = !filterFechaInicio || i.fecha >= filterFechaInicio;
+      const matchFin = !filterFechaFin || i.fecha <= filterFechaFin;
+
+      return (
+        matchSearch &&
+        matchLugar &&
+        matchLote &&
+        matchEspecie &&
+        matchInicio &&
+        matchFin
+      );
     });
-  }, [search, filterLugar, filterLote, filterEspecie, filterPlaga, filterEstado, filterFechaInicio, filterFechaFin]);
+  }, [
+    reportes,
+    search,
+    filterLugar,
+    filterLote,
+    filterEspecie,
+    filterFechaInicio,
+    filterFechaFin,
+  ]);
 
   const resetFilters = () => {
-    setFilterLugar(''); setFilterLote(''); setFilterEspecie(''); setFilterPlaga('');
-    setFilterEstado(''); setFilterFechaInicio(''); setFilterFechaFin(''); setSearch('');
+    setFilterLugar("");
+    setFilterLote("");
+    setFilterEspecie("");
+    setFilterFechaInicio("");
+    setFilterFechaFin("");
+    setSearch("");
   };
+  const hasActiveFilters =
+    filterLugar ||
+    filterLote ||
+    filterEspecie ||
+    filterFechaInicio ||
+    filterFechaFin ||
+    search;
 
-  const hasActiveFilters = filterLugar || filterLote || filterEspecie || filterPlaga || filterEstado || filterFechaInicio || filterFechaFin || search;
+  // 🌟 GENERADOR DE PDF PROFESIONAL
+  const exportarPDF = () => {
+    const doc = new jsPDF("landscape"); // Formato horizontal para que quepan las columnas
+
+    // Título y Cabeceras
+    doc.setFontSize(16);
+    doc.text("Reporte Oficial de Trazabilidad Fitosanitaria", 14, 15);
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(
+      `Generado el: ${new Date().toLocaleDateString()} - Sistema FitoGestor`,
+      14,
+      22,
+    );
+
+    // Mapeo de datos para la tabla
+    const tableData = filtered.map((r) => {
+      // Convertir el arreglo de plagas en un string legible "Broca (5), Roya (2)"
+      const textoPlagas =
+        r.plagas.map((p: any) => `${p.nombre} (${p.cantidad})`).join(", ") ||
+        "Sin hallazgos";
+
+      return [
+        r.fecha,
+        r.lugar_produccion,
+        r.lote,
+        r.cultivo,
+        r.tecnico,
+        r.plantas_totales.toString(),
+        textoPlagas,
+        `${r.porcentaje_infestacion}%`,
+      ];
+    });
+
+    // Inyectar tabla en el PDF
+    (doc as any).autoTable({
+      startY: 30,
+      head: [
+        [
+          "Fecha",
+          "Lugar de Producción",
+          "Lote",
+          "Cultivo",
+          "Técnico",
+          "Total Plantas",
+          "Plagas Halladas (Cant.)",
+          "% Infestación",
+        ],
+      ],
+      body: tableData,
+      theme: "grid",
+      headStyles: {
+        fillColor: [1, 92, 75],
+        textColor: [255, 255, 255],
+        fontStyle: "bold",
+      }, // Color Emerald-800
+      styles: { fontSize: 8, cellPadding: 3 },
+      columnStyles: { 6: { cellWidth: 50 } }, // Darle más espacio a las plagas
+    });
+
+    doc.save(`Reporte_FitoGestor_${new Date().getTime()}.pdf`);
+  };
 
   return (
     <DashboardLayout
       title="Reportes Fitosanitarios"
-      subtitle="Trazabilidad y análisis de inspecciones agrícolas"
+      subtitle="Trazabilidad y análisis oficial de inspecciones agrícolas"
       sessionUser={sessionUser}
       activeView="reports"
       onNavigate={handleNavigate}
       onLogout={onLogout}
     >
       <div className="space-y-6">
-
-        {/* ── Header ──
-        <div className="rounded-2xl bg-gradient-to-r from-emerald-900 to-emerald-700 p-6 text-white shadow-sm">
-          <div className="flex items-center gap-2">
-            <Leaf size={20} className="text-emerald-300" />
-            <h2 className="text-lg font-bold">Sistema de Trazabilidad Fitosanitaria</h2>
-          </div>
-          <p className="mt-1 max-w-xl text-sm text-emerald-100">
-            Aplica los filtros, selecciona el formato y genera el reporte oficial de inspecciones fitosanitarias.
-          </p>
-        </div> */}
-
-
         {/* ── Panel de filtros ── */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <Filter size={16} className="text-emerald-600" />
-              <h3 className="text-sm font-bold text-slate-700">Filtros de búsqueda</h3>
+              <h3 className="text-sm font-bold text-slate-700">
+                Filtros de Reporte
+              </h3>
             </div>
             {hasActiveFilters && (
-              <button type="button" onClick={resetFilters} className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50">
+              <button
+                onClick={resetFilters}
+                className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+              >
                 <XCircle size={13} /> Limpiar filtros
               </button>
             )}
           </div>
 
-          {/* Búsqueda global */}
-          <div className="mb-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 focus-within:border-emerald-400 focus-within:ring-2 focus-within:ring-emerald-100">
-            <Search size={16} className="shrink-0 text-slate-400" />
+          <div className="mb-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5">
+            <Search size={16} className="text-slate-400" />
             <input
               type="text"
-              placeholder="Buscar por lugar, lote, cultivo, plaga, técnico o ID..."
+              placeholder="Búsqueda global..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-transparent text-sm text-slate-700 placeholder-slate-400 outline-none"
             />
-            {search && (
-              <button type="button" onClick={() => setSearch('')}>
-                <X size={14} className="text-slate-400 hover:text-slate-600" />
-              </button>
-            )}
           </div>
 
-          {/* Grid de filtros */}
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
             <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Lugar de Producción</label>
-              <input type="text" placeholder="Ej: Predio Santa Isabel" value={filterLugar} onChange={(e) => setFilterLugar(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+                Lugar Producción
+              </label>
+              <input
+                type="text"
+                value={filterLugar}
+                onChange={(e) => setFilterLugar(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+              />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Lote</label>
-              <input type="text" placeholder="Ej: L-02" value={filterLote} onChange={(e) => setFilterLote(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+                Lote
+              </label>
+              <input
+                type="text"
+                value={filterLote}
+                onChange={(e) => setFilterLote(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+              />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Especie Vegetal / Cultivo</label>
-              <input type="text" placeholder="Ej: Tomate, Coffea arabica" value={filterEspecie} onChange={(e) => setFilterEspecie(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+                Cultivo
+              </label>
+              <input
+                type="text"
+                value={filterEspecie}
+                onChange={(e) => setFilterEspecie(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+              />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Plaga</label>
-              <input type="text" placeholder="Ej: Tuta absoluta" value={filterPlaga} onChange={(e) => setFilterPlaga(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+                Desde Fecha
+              </label>
+              <input
+                type="date"
+                value={filterFechaInicio}
+                onChange={(e) => setFilterFechaInicio(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+              />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Estado Inspección</label>
-              <select value={filterEstado} onChange={(e) => setFilterEstado(e.target.value as EstadoInspeccion | '')} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100">
-                <option value="">Todos los estados</option>
-                <option value="REALIZADA">Realizada</option>
-                <option value="PROGRAMADA">Programada</option>
-                <option value="PENDIENTE">Pendiente</option>
-                <option value="CANCELADA">Cancelada</option>
-              </select>
-            </div>
-            <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Fecha Inicio</label>
-              <input type="date" value={filterFechaInicio} onChange={(e) => setFilterFechaInicio(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
-            </div>
-            <div>
-              <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wide text-slate-500">Fecha Fin</label>
-              <input type="date" value={filterFechaFin} onChange={(e) => setFilterFechaFin(e.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100" />
+              <label className="mb-1 block text-[11px] font-bold uppercase text-slate-500">
+                Hasta Fecha
+              </label>
+              <input
+                type="date"
+                value={filterFechaFin}
+                onChange={(e) => setFilterFechaFin(e.target.value)}
+                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-emerald-400 outline-none"
+              />
             </div>
           </div>
         </div>
 
-        {/* ── Formato y generación ── */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-1 flex items-center gap-2">
-            <Download size={16} className="text-emerald-600" />
-            <h3 className="text-sm font-bold text-slate-700">Formato de exportación</h3>
+        {/* ── Exportador Exclusivo PDF ── */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+              <FileText className="text-rose-600" /> Reporte Oficial PDF
+            </h3>
+            <p className="text-sm text-slate-500">
+              Genera un documento oficial con los {filtered.length} lotes
+              listados en la vista previa.
+            </p>
           </div>
-          <p className="mb-5 text-xs text-slate-500">
-            Selecciona el formato en que deseas generar el reporte con los filtros aplicados.
-          </p>
-
-          {/* Radio buttons */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            {/* PDF */}
-            <label className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition select-none ${exportFormat === 'pdf' ? 'border-rose-400 bg-rose-50' : 'border-slate-200 bg-slate-50 hover:border-slate-300'}`}>
-              <input
-                type="radio"
-                name="exportFormat"
-                value="pdf"
-                checked={exportFormat === 'pdf'}
-                onChange={() => setExportFormat('pdf')}
-                className="h-4 w-4 accent-rose-500"
-              />
-              <FileText size={22} className={exportFormat === 'pdf' ? 'text-rose-500' : 'text-slate-400'} />
-              <div>
-                <p className={`text-sm font-bold ${exportFormat === 'pdf' ? 'text-rose-700' : 'text-slate-600'}`}>PDF</p>
-              </div>
-            </label>
-
-            {/* Excel */}
-            <label className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-4 transition select-none ${exportFormat === 'excel' ? 'border-emerald-400 bg-emerald-50' : 'border-slate-200 bg-slate-50 hover:border-slate-300'}`}>
-              <input
-                type="radio"
-                name="exportFormat"
-                value="excel"
-                checked={exportFormat === 'excel'}
-                onChange={() => setExportFormat('excel')}
-                className="h-4 w-4 accent-emerald-600"
-              />
-              <FileSpreadsheet size={22} className={exportFormat === 'excel' ? 'text-emerald-600' : 'text-slate-400'} />
-              <div>
-                <p className={`text-sm font-bold ${exportFormat === 'excel' ? 'text-emerald-700' : 'text-slate-600'}`}>Excel</p>
-              </div>
-            </label>
-          </div>
-
-
-          {/* Botón Generar */}
           <button
-            type="button"
-            className="flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
+            onClick={exportarPDF}
+            disabled={filtered.length === 0}
+            className="flex items-center gap-2 rounded-xl bg-emerald-700 px-8 py-3 text-sm font-bold text-white transition hover:bg-emerald-800 active:scale-95 disabled:opacity-50"
           >
-            <Download size={16} />
-            Generar Reporte
-            <span className="ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs">
-              {exportFormat === 'pdf' ? 'PDF' : 'Excel'}
-            </span>
+            <Download size={18} /> Exportar Documento PDF
           </button>
         </div>
 
+        {/* ── Tabla de Previsualización (CRÍTICO PARA UX) ── */}
+        <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+          <div className="bg-slate-50 px-5 py-3 border-b border-slate-100">
+            <h3 className="text-sm font-bold text-slate-700">
+              Vista Previa de Datos
+            </h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-white border-b border-slate-100 text-[11px] font-bold uppercase text-slate-500">
+                <tr>
+                  <th className="px-5 py-4">Lugar / Lote</th>
+                  <th className="px-5 py-4">Cultivo</th>
+                  <th className="px-5 py-4">Técnico</th>
+                  <th className="px-5 py-4">Estado Fenológico</th>
+                  <th className="px-5 py-4 bg-rose-50/50">Plagas Halladas</th>
+                  <th className="px-5 py-4 bg-rose-50/50">Infestación</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {loading ? (
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="p-8 text-center text-slate-500 animate-pulse"
+                    >
+                      Cargando datos...
+                    </td>
+                  </tr>
+                ) : null}
+                {!loading && filtered.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={6}
+                      className="p-8 text-center text-slate-500 italic"
+                    >
+                      No hay reportes que coincidan con los filtros.
+                    </td>
+                  </tr>
+                ) : null}
+                {filtered.map((r) => (
+                  <tr key={r.id} className="hover:bg-slate-50 transition">
+                    <td className="px-5 py-4">
+                      <p className="font-bold text-slate-800">
+                        {r.lugar_produccion}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Lote: {r.lote} • {r.fecha}
+                      </p>
+                    </td>
+                    <td className="px-5 py-4 font-medium text-slate-700">
+                      {r.cultivo}
+                    </td>
+                    <td className="px-5 py-4 text-slate-600">{r.tecnico}</td>
+                    <td className="px-5 py-4 text-slate-600">
+                      {r.estado_fenologico}
+                    </td>
+                    <td className="px-5 py-4 bg-rose-50/20">
+                      {r.plagas.length === 0 ? (
+                        <span className="text-slate-400 italic text-xs">
+                          Sin plagas
+                        </span>
+                      ) : (
+                        <div className="flex flex-col gap-1">
+                          {r.plagas.map((p: any, i: number) => (
+                            <span
+                              key={i}
+                              className="text-xs font-semibold text-rose-700"
+                            >
+                              {p.nombre}:{" "}
+                              <span className="text-slate-600">
+                                {p.cantidad} pl.
+                              </span>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-5 py-4 bg-rose-50/20 font-black text-rose-600">
+                      {r.porcentaje_infestacion}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   );
