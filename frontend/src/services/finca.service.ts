@@ -77,4 +77,24 @@ export const fincaService = {
       body: JSON.stringify(payload)
     });
   },
+
+  // ── INSPECCIONES ──
+  createSolicitudInspeccion(idLugarProduccion: string, payload: { fecha_tentativa_productor: string; observaciones: string }) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/${idLugarProduccion}/solicitudes`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  },
+
+  getSolicitudesInspeccion() {
+    return request<ApiEnvelope<any[]>>('/solicitudes');
+  },
+
+  programarInspeccion(idSolicitud: string, fechaProgramada: string) {
+    return request<ApiEnvelope<any>>(`/solicitudes/${idSolicitud}/programar`, {
+      method: 'PUT',
+      body: JSON.stringify({ fecha_programada_tecnico: fechaProgramada })
+    });
+  },
+  
 };

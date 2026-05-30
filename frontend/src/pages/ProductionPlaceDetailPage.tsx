@@ -4,6 +4,7 @@ import { ArrowLeft, MapPin, Warehouse } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import type { ProductionSite } from "./AgriculturalManagementPage";
 import type { SessionUser } from "../types/auth.types";
+import RequestInspectionModal from "../components/ui/RequestInspectionModal";
 
 type ProductionPlaceDetailPageProps = {
   sessionUser?: SessionUser;
@@ -37,14 +38,14 @@ const ProductionPlaceDetailPage = ({
   onLogout,
 }: ProductionPlaceDetailPageProps) => {
   const [activeTab, setActiveTab] = useState<"resumen" | "lotes">("resumen");
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
 
   // Validamos si el usuario actual es un Productor
   const esProductor = sessionUser?.rol?.toLowerCase() === "productor";
 
   const handleSolicitarInspeccion = () => {
-    alert(
-      `Iniciando solicitud de inspección fitosanitaria para el lugar: ${site?.nombre_lugar_produccion || "Zona Productiva"}`,
-    );
+    setIsRequestModalOpen(true);
   };
 
   return (
@@ -66,6 +67,19 @@ const ProductionPlaceDetailPage = ({
       onLogout={onLogout}
     >
       <section className="flex-1 p-1 sm:p-2">
+        {/* MENSAJE DE ÉXITO */}
+        {successMsg && (
+          <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700 font-semibold flex justify-between items-center">
+            {successMsg}
+            <button
+              onClick={() => setSuccessMsg("")}
+              className="text-emerald-500 hover:text-emerald-700 size={16}"
+            >
+              {" "}
+              X
+            </button>
+          </div>
+        )}
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="mb-2 flex items-center gap-2 text-sm text-slate-500">
@@ -298,6 +312,17 @@ const ProductionPlaceDetailPage = ({
             </div>
           </aside>
         </div>
+        <RequestInspectionModal
+          isOpen={isRequestModalOpen}
+          site={site}
+          onClose={() => setIsRequestModalOpen(false)}
+          onSuccess={() => {
+            setIsRequestModalOpen(false);
+            setSuccessMsg(
+              "¡Solicitud enviada al ICA con éxito! El asistente técnico será notificado.",
+            );
+          }}
+        />
       </section>
     </DashboardLayout>
   );

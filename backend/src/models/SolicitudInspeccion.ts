@@ -21,6 +21,11 @@ class SolicitudInspeccion extends Model {
             foreignKey: 'id_solicitud_inspeccion',
             as: 'inspeccionFitosanitaria',
         });
+        // Una solicitud de inspección pertenece a un lugar de producción
+        this.belongsTo(models.LugarProduccion, { 
+            foreignKey: 'id_lugar_produccion', 
+            as: 'lugarProduccion' 
+        });
     }
 }
 

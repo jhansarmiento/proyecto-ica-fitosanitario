@@ -6,6 +6,7 @@ import {
     aprobarLugarProduccion,
     rechazarLugarProduccion
 } from '../controllers/lugarProduccion.controller';
+import { createSolicitudInspeccion } from '../controllers/solicitud.controller';
 import { validarJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -18,5 +19,7 @@ router.get('/solicitudes-pendientes-lp', validarJWT as any, obtenerSolicitudesPe
 // Nuevos endpoints para aprobar/rechazar solicitudes desde el panel de administración
 router.patch('/:id/aprobar', validarJWT as any, aprobarLugarProduccion as any);
 router.patch('/:id/rechazar', validarJWT as any, rechazarLugarProduccion as any);
+// Endpoint para crear una solicitud de inspección desde la vista del productor
+router.post('/:id/solicitudes', createSolicitudInspeccion as any);
 
 export default router;

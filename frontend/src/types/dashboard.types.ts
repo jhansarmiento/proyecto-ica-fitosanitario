@@ -18,7 +18,8 @@ export type DashboardViewKey =
   | 'approval-places'
   | 'inspections-agenda'
   | 'inspections-history'
-  | 'reports';
+  | 'reports'
+  | 'mis-solicitudes';
 
   export interface DashboardLayoutProps {
   title: string;

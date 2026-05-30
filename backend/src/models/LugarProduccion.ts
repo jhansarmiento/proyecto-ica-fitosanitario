@@ -42,7 +42,12 @@ class LugarProduccion extends Model {
         this.hasMany(models.AutorizacionEspecie, {
             foreignKey: 'id_lugar_produccion',
             as: 'autorizacionEspecie',
-        })
+        });
+        // Un Lugar de Producción puede tener muchas Solicitudes de Inspección
+        this.hasMany(models.SolicitudInspeccion, {
+            foreignKey: 'id_lugar_produccion',
+            as: 'solicitudesInspeccion',
+        });
     }
 }
 

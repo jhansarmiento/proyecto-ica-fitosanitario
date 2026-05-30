@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { CalendarDays, Clock3, Filter, MapPin, Search, Sprout } from 'lucide-react';
-import DashboardLayout, { type DashboardViewKey } from '../components/layout/DashboardLayout';
-import type { SessionUser } from '../App';
+import DashboardLayout from '../components/layout/DashboardLayout';
+import type { DashboardViewKey } from '../types/dashboard.types';
+import type { SessionUser } from '../types/auth.types';
 
 type InspectionStatus = 'Pendiente' | 'En Progreso' | 'Ejecutada';
 

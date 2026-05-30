@@ -112,6 +112,7 @@ function DashboardLayout({
       setIsInspectionsOpen,
       onNavigate,
       onLogout,
+      sessionUser,
       menuItems: menuFiltrado, // Inyectamos la lista filtrada por rol
     }),
     [
@@ -121,6 +122,7 @@ function DashboardLayout({
       onNavigate,
       onLogout,
       menuFiltrado,
+      sessionUser,
     ],
   );
 
@@ -150,7 +152,7 @@ function DashboardLayout({
 
         <div className="flex min-w-0 flex-col">
           {/* Header */}
-          <header className="sticky top-0 z-10 flex min-h-[72px] flex-wrap items-center justify-between gap-4 border-b border-emerald-800/40 bg-emerald-900/95 px-4 py-3 text-white backdrop-blur sm:px-8">
+          <header className="sticky top-0 z-10 flex min-h-18 flex-wrap items-center justify-between gap-4 border-b border-emerald-800/40 bg-emerald-900/95 px-4 py-3 text-white backdrop-blur sm:px-8">
             <div className="flex items-center gap-3 min-w-0">
               <button
                 type="button"

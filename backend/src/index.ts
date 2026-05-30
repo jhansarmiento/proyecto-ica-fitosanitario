@@ -40,6 +40,7 @@ import loteRoutes from './routes/lote.routes';
 import especieRoutes from './routes/especie.routes';
 import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 
+import solicitudRoutes from './routes/solicitud.routes';
 
 
 const models: any = {
@@ -90,6 +91,8 @@ app.use('/api/lugares-produccion', loteRoutes);
 
 app.use('/api/especies-vegetales', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
+
+app.use('/api/solicitudes', solicitudRoutes);
 
 const startServer = async () => {
   try {
