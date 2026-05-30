@@ -70,4 +70,11 @@ export const fincaService = {
       body: JSON.stringify(payload)
     });
   },
+
+  updateLote(idLote: string, payload: any) {
+    return request<ApiEnvelope<any>>(`/lugares-produccion/lotes/${idLote}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    });
+  },
 };

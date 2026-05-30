@@ -98,3 +98,31 @@ export const getLotesPorLugar = async (req: Request, res: Response): Promise<voi
         res.status(500).json({ message: 'Error listando los lotes del lugar de producción.' });
     }
 }
+
+export const updateLote = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const id_lote = req.params.id_lote;
+        const payload = req.body;
+
+        // Buscamos el lote en la base de datos
+        const lote = await models.Lote.findByPk(id_lote);
+
+        if (!lote) {
+            res.status(404).json({ message: 'El lote solicitado no existe.' });
+            return;
+        }
+
+        // Actualizamos estrictamente los campos permitidos en la edición
+        await lote.update({
+            numero_lote: payload.numero_lote,
+            area_total: payload.area_total,
+            fecha_siembra: payload.fecha_siembra,
+            fecha_cosecha: payload.fecha_cosecha || null,
+        });
+
+        res.status(200).json({ message: 'Lote actualizado con éxito.', data: lote });
+    } catch (error) {
+        console.error('❌ Error actualizando lote:', error);
+        res.status(500).json({ message: 'Error interno actualizando el lote.' });
+    }
+};

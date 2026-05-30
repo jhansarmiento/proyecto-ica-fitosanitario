@@ -2,7 +2,7 @@
 import { CalendarDays, Leaf, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { LotDetail } from '../../pages/ProductionLotsPage';
-// import { fincaService } from '../../services/finca.service'; 
+import { fincaService } from '../../services/finca.service'; 
 
 type EditLotModalProps = {
   isOpen: boolean;
@@ -52,14 +52,9 @@ function EditLotModal({ isOpen, lot, onClose, onSuccess }: EditLotModalProps) {
         fecha_cosecha: fechaCosecha || null,
       };
 
-      // 💡 CORRECCIÓN FRONTEND: Imprimimos el payload para que TypeScript 
-      // detecte que sí estamos usando la variable.
-      console.log("Payload listo para el futuro endpoint PUT:", payload);
+      await fincaService.updateLote(lot.id_lote, payload);
     
-      // Simulación temporal de éxito mientras creamos la ruta PUT:
-      setTimeout(() => {
-        onSuccess(); // Dispara la recarga en la tabla padre
-      }, 500);
+      onSuccess(); // Cierra el modal y recarga la lista de lotes en el padre
 
     } catch (e: any) {
       setError(e.message || 'Error al actualizar el lote.');

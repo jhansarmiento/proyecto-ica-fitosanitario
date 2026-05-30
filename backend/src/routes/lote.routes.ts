@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createLote, getLotesPorLugar } from '../controllers/lote.controller';
+import { createLote, getLotesPorLugar, updateLote } from '../controllers/lote.controller';
 import { validarJWT } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -10,5 +10,6 @@ router.use(validarJWT as any);
 // Estas rutas se anidan bajo la URL del lugar de producción padre
 router.post('/:id/lotes', createLote as any);
 router.get('/:id/lotes', getLotesPorLugar as any);
+router.put('/lotes/:id_lote', updateLote as any);
 
 export default router;
