@@ -22,7 +22,16 @@ function RequestInspectionModal({
 
   const [fechaTentativa, setFechaTentativa] = useState("");
   const [observaciones, setObservaciones] = useState("");
-
+  const [totalLotes, setTotalLotes] = useState(site?.lotes_activos ?? 0);
+  // Consultamos el número real de lotes al cargar la vista
+  useEffect(() => {
+    if (site?.id_lugar_produccion) {
+      fincaService
+        .getLotesPorLugar(site.id_lugar_produccion)
+        .then((res) => setTotalLotes(res.data.length))
+        .catch(() => setTotalLotes(0));
+    }
+  }, [site?.id_lugar_produccion]);
   // Limpiar el estado cada vez que se abre/cierra
   useEffect(() => {
     if (!isOpen) {
@@ -110,7 +119,7 @@ function RequestInspectionModal({
               <div>
                 <p className="text-xs text-slate-500">Lotes a Inspeccionar</p>
                 <p className="font-semibold text-slate-800">
-                  {site.lotes_activos} Lotes Activos
+                  {totalLotes} Lotes Activos
                 </p>
               </div>
               <div className="sm:col-span-2">

@@ -197,12 +197,11 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
     }
 };
 
-// ─── 3. ENDPOINT PARA LISTAR SOLICITUDES PENDIENTES PARA EL ICA (GET) ──────────────────────
+// ─── 3. ENDPOINT PARA LISTAR SOLICITUDES PARA EL ICA (GET) ──────────────────────
 export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        // 1. Buscamos todas las solicitudes pendientes de la BD Operacional
+        // 🌟 1. Buscamos TODAS las solicitudes (Quitamos el where: 'PENDIENTE' para que sirvan los filtros del admin)
         const solicitudes = await models.LugarProduccion.findAll({
-            where: { estado: 'PENDIENTE' },
             include: [
                 {
                     model: models.Usuario,
@@ -211,46 +210,62 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
                 },
                 {
                     association: 'predio' // Trae los terrenos amarrados
+                },
+                {
+                    association: 'autorizacionEspecie' // 🌟 NUEVO: Trae las especies vinculadas a la solicitud
                 }
             ],
             order: [['fecha_solicitud', 'DESC']]
         });
 
-        // 2. Extraer todos los id_vereda únicos de todos los predios de la lista
+        // 2. Extraer todos los IDs únicos para hacer una sola consulta a los catálogos
         const allVeredaIds: string[] = [];
+        const allEspecieIds: string[] = [];
+
         solicitudes.forEach((sol: any) => {
             if (sol.predio) {
                 sol.predio.forEach((p: any) => {
                     if (p.id_vereda) allVeredaIds.push(p.id_vereda);
                 });
             }
+            if (sol.autorizacionEspecie) {
+                sol.autorizacionEspecie.forEach((e: any) => {
+                    if (e.id_especie_vegetal) allEspecieIds.push(e.id_especie_vegetal);
+                });
+            }
         });
+        
         const uniqueVeredaIds = [...new Set(allVeredaIds)];
+        const uniqueEspecieIds = [...new Set(allEspecieIds)];
 
-        // 3. Consultar las ubicaciones de las veredas en la BD de Catálogos 
-        // para obtener municipio y departamento, y mapearlo en un objeto de consulta rápida
-        const veredasCatalogo = await catalogmodels.Vereda.findAll({
-            where: { id_vereda: uniqueVeredaIds },
-            include: [
-                {
-                    model: catalogmodels.Municipio,
-                    as: 'municipio',
-                    include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
-                }
-            ]
-        });
+        // 3. Consultar Catálogos en paralelo
+        const [veredasCatalogo, especiesCatalogo] = await Promise.all([
+            catalogmodels.Vereda.findAll({
+                where: { id_vereda: uniqueVeredaIds },
+                include: [
+                    {
+                        model: catalogmodels.Municipio,
+                        as: 'municipio',
+                        include: [{ model: catalogmodels.Departamento, as: 'departamento' }]
+                    }
+                ]
+            }),
+            catalogmodels.EspecieVegetal.findAll({
+                where: { id_especie_vegetal: uniqueEspecieIds }
+            })
+        ]);
 
-        // Mapeamos los datos del catálogo en un Map O(1)
-        const geoMap = new Map<string, any>(
-            veredasCatalogo.map((v: any) => [v.id_vereda, v])
-        );
+        // Mapeamos los datos en mapas para búsqueda ultra rápida
+        const geoMap = new Map<string, any>(veredasCatalogo.map((v: any) => [String(v.id_vereda), v]));
+        const especiesMap = new Map<string, string>(especiesCatalogo.map((e: any) => [String(e.id_especie_vegetal), e.nombre_comun]));
 
-        // 4. Inyectar de forma transparente las ubicaciones del catálogo en cada predio
+        // 4. Inyectar nombres reales geográficos y vegetales
         const solicitudesEnriquecidas = solicitudes.map((sol: any) => {
             const solJson = sol.toJSON();
+            
             if (solJson.predio) {
                 solJson.predio = solJson.predio.map((p: any) => {
-                    const infoGeo = geoMap.get(p.id_vereda);
+                    const infoGeo = geoMap.get(String(p.id_vereda));
                     return {
                         ...p,
                         vereda: infoGeo?.nombre || 'N/D',
@@ -259,13 +274,23 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
                     };
                 });
             }
+            
+            // 🌟 NUEVO: Mapeo de especies
+            if (solJson.autorizacionEspecie) {
+                solJson.especies_nombres = solJson.autorizacionEspecie.map((e: any) => 
+                    especiesMap.get(String(e.id_especie_vegetal)) || 'Especie N/D'
+                );
+            } else {
+                solJson.especies_nombres = [];
+            }
+            
             return solJson;
         });
 
-        // Retornamos la respuesta enriquecida al frontend
+        // Retornamos la respuesta al frontend
         res.json({ data: solicitudesEnriquecidas });
     } catch (error) {
-        console.error('❌ Error al obtener solicitudes pendientes para el ICA:', error);
+        console.error('❌ Error al obtener solicitudes para el ICA:', error);
         res.status(500).json({ message: 'Error interno al cargar la bandeja de revisión fitosanitaria.' });
     }
 };

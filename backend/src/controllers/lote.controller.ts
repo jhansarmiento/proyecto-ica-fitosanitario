@@ -126,3 +126,26 @@ export const updateLote = async (req: Request, res: Response): Promise<void> => 
         res.status(500).json({ message: 'Error interno actualizando el lote.' });
     }
 };
+
+export const deleteLote = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const id_lote = req.params.id_lote;
+
+        // Buscamos el lote
+        const lote = await models.Lote.findByPk(id_lote);
+
+        if (!lote) {
+            res.status(404).json({ message: 'El lote solicitado no existe.' });
+            return;
+        }
+
+        // Eliminamos el lote de la base de datos
+        // Nota: Si tienes ON DELETE CASCADE en la BD, esto también borrará las inspecciones asociadas
+        await lote.destroy();
+
+        res.status(200).json({ message: 'Lote eliminado con éxito.' });
+    } catch (error) {
+        console.error('❌ Error eliminando lote:', error);
+        res.status(500).json({ message: 'Error interno al eliminar el lote.' });
+    }
+};

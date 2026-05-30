@@ -46,6 +46,7 @@ function NewLotModal({
   // Estados del Formulario (Paso 1)
   const [numero, setNumero] = useState("");
   const [areaHa, setAreaHa] = useState("");
+  const [cantidadPlantas, setCantidadPlantas] = useState(""); // 🌟 NUEVO ESTADO
   const [fechaSiembra, setFechaSiembra] = useState("");
   const [fechaCosecha, setFechaCosecha] = useState("");
   const [selectedPredioId, setSelectedPredioId] = useState("");
@@ -130,6 +131,7 @@ function NewLotModal({
       setStep(1);
       setNumero("");
       setAreaHa("");
+      setCantidadPlantas("");
       setFechaSiembra("");
       setFechaCosecha("");
       setSpeciesSearch("");
@@ -161,6 +163,7 @@ function NewLotModal({
   const canContinueStep1 =
     numero.trim().length >= 3 &&
     Number(areaHa) > 0 &&
+    Number(cantidadPlantas) > 0 &&
     fechaSiembra.trim().length > 0 &&
     selectedPredioId !== ""; // Validamos selección
   const canContinueStep2 = selectedSpeciesId !== null;
@@ -197,7 +200,7 @@ function NewLotModal({
         fecha_siembra: fechaSiembra,
         fecha_cosecha: fechaCosecha || null,
         estado: "ACTIVO",
-        cantidad_plantas: 0, // Ajusta si agregas el campo al paso 1
+        cantidad_plantas: Number(cantidadPlantas), // Ajusta si agregas el campo al paso 1
         id_variedad_especie: selectedVarietyId,
         // pasamos la FK directa
         id_lugar_produccion: idLugarProduccion,
@@ -350,6 +353,20 @@ function NewLotModal({
                         step="0.1"
                         className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
                         placeholder="Ej: 2.5"
+                      />
+                    </label>
+
+                    <label className="space-y-1.5">
+                      <span className="text-sm font-medium text-slate-700">
+                        Cantidad de Plantas *
+                      </span>
+                      <input
+                        type="number"
+                        value={cantidadPlantas}
+                        onChange={(e) => setCantidadPlantas(e.target.value)}
+                        min={1}
+                        className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+                        placeholder="Ej: 1500"
                       />
                     </label>
 

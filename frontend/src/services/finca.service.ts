@@ -78,6 +78,12 @@ export const fincaService = {
     });
   },
 
+  deleteLote(idLote: string) {
+    return request<{ message: string }>(`/lugares-produccion/lotes/${idLote}`, {
+      method: 'DELETE'
+    });
+  },
+
   // ── INSPECCIONES ──
   createSolicitudInspeccion(idLugarProduccion: string, payload: { fecha_tentativa_productor: string; observaciones: string }) {
     return request<ApiEnvelope<any>>(`/lugares-produccion/${idLugarProduccion}/solicitudes`, {

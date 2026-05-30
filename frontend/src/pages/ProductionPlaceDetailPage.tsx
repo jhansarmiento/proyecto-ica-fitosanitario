@@ -1,7 +1,8 @@
 // frontend/src/pages/ProductionPlaceDetailPage.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, MapPin, Warehouse } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
+import { fincaService } from "../services/finca.service";
 import type { ProductionSite } from "./AgriculturalManagementPage";
 import type { SessionUser } from "../types/auth.types";
 import RequestInspectionModal from "../components/ui/RequestInspectionModal";
@@ -40,6 +41,16 @@ const ProductionPlaceDetailPage = ({
   const [activeTab, setActiveTab] = useState<"resumen" | "lotes">("resumen");
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [totalLotes, setTotalLotes] = useState(site?.lotes_activos ?? 0);
+
+  // Consultamos el número real de lotes al cargar la vista
+  useEffect(() => {
+    if (site?.id_lugar_produccion) {
+      fincaService.getLotesPorLugar(site.id_lugar_produccion)
+        .then(res => setTotalLotes(res.data.length))
+        .catch(() => setTotalLotes(0));
+    }
+  }, [site?.id_lugar_produccion]);
 
   // Validamos si el usuario actual es un Productor
   const esProductor = sessionUser?.rol?.toLowerCase() === "productor";
@@ -137,7 +148,7 @@ const ProductionPlaceDetailPage = ({
             }}
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${activeTab === "lotes" ? "bg-emerald-900 text-white" : "text-slate-600 hover:bg-slate-100"}`}
           >
-            Lotes ({site?.lotes_activos ?? 0})
+            Lotes ({totalLotes})
           </button>
         </div>
 
@@ -267,7 +278,7 @@ const ProductionPlaceDetailPage = ({
             <div className="rounded-2xl bg-linear-to-r from-emerald-700 to-emerald-600 p-5 text-white shadow-md">
               <p className="text-sm text-emerald-100">Total Lotes</p>
               <p className="mt-1 text-4xl font-extrabold">
-                {site?.lotes_activos ?? 0}
+                {totalLotes}
               </p>
               {/* 🌟 SE ELIMINÓ EL TEXTO DE 'ÚLTIMA ACTUALIZACIÓN' */}
             </div>
@@ -286,7 +297,7 @@ const ProductionPlaceDetailPage = ({
                 <div className="flex items-center justify-between">
                   <p className="text-slate-600">Lotes Activos</p>
                   <p className="font-bold text-slate-900">
-                    {site?.lotes_activos ?? 0}
+                    {totalLotes}
                   </p>
                 </div>
                 <div className="flex items-center justify-between">

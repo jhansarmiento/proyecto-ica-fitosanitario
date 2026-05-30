@@ -39,6 +39,7 @@ interface BackendSolicitudItem {
   autorizacionEspecie?: {
     id_especie_vegetal: string;
   }[];
+  especies_nombres?: string[];
 }
 
 type AdminProductionApprovalPageProps = {
@@ -114,9 +115,9 @@ function AdminProductionApprovalPage({
             ? item.fecha_solicitud.split("T")[0]
             : "N/D",
           estado:
-            item.estado === "PENDIENTE"
+            item.estado?.toUpperCase() === "PENDIENTE"
               ? "Pendiente"
-              : item.estado === "APROBADO"
+              : item.estado?.toUpperCase() === "APROBADO"
                 ? "Aprobado"
                 : "Rechazado",
 
@@ -132,9 +133,7 @@ function AdminProductionApprovalPage({
             : 0,
           numeroICA: item.numero_registro_ica || "Sin Radicado",
           observaciones: item.observaciones_administrador || "",
-          especies: item.autorizacionEspecie?.map(
-            (e: any) => e.id_especie_vegetal,
-          ) || ["Estudio Fitosanitario"],
+          especies: item.especies_nombres || [],
           variedades: [],
           lotes: [],
 
@@ -547,6 +546,24 @@ function AdminProductionApprovalPage({
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* 🌟 NUEVO: LISTADO DE ESPECIES VEGETALES */}
+            <div className="mt-5 space-y-2">
+              <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                Especies Vegetales Autorizadas
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                 {selected.especies && selected.especies.length > 0 ? (
+                    selected.especies.map((esp, idx) => (
+                       <span key={idx} className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">
+                          {esp}
+                       </span>
+                    ))
+                 ) : (
+                    <span className="text-sm text-slate-500 italic">No se especificaron especies</span>
+                 )}
               </div>
             </div>
 
