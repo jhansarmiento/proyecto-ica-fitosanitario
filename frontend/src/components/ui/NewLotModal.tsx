@@ -576,9 +576,7 @@ function NewLotModal({
                   disabled={!canCreate || saving}
                   className="rounded-xl bg-emerald-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:bg-emerald-700/50"
                 >
-                  {saving
-                    ? "Guardando en BD..."
-                    : "Registrar Lote"}
+                  Registrar Lote
                 </button>
               )}
             </div>

@@ -111,12 +111,16 @@ const startServer = async () => {
     console.log('Modelos detectados por BD Catalógo:', Object.keys(sequelizeCatalog.models));
 
     // Sincronizamos las tablas de la base de datos operacional
-    await sequelize.sync({ alter: true });
-    console.log('📊 Tablas de BD Operacional sincronizadas');
+    // IMPORTANTE:
+    // Se desactiva `alter: true` para evitar conflictos con triggers en PostgreSQL
+    // (ej: trg_validar_area_lotes_vs_predios sobre lote.area_total).
+    // El ajuste de esquema debe realizarse por migraciones/SQL controlado.
+    await sequelize.sync();
+    console.log('📊 Tablas de BD Operacional sincronizadas (sin alter automático)');
 
     // Sincronizamos las tablas del catálogo
-    await sequelizeCatalog.sync({ alter: true });
-    console.log('📊 Tablas de BD Catalógo sincronizadas');
+    await sequelizeCatalog.sync();
+    console.log('📊 Tablas de BD Catalógo sincronizadas (sin alter automático)');
 
     // Inyectar roles, usuarios, predios, propietarios y geografía
     await seedRoles();

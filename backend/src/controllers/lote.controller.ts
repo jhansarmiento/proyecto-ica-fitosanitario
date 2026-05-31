@@ -47,9 +47,42 @@ export const createLote = async (req: Request, res: Response): Promise<void> => 
         });
 
         res.status(201).json({ message: 'Lote registrado con éxito', data: nuevoLote });
-    } catch (error) {
+    } catch (error: any) {
         console.error('❌ Error creando lote:', error);
-        res.status(500).json({ message: 'Error interno guardando el lote.' });
+
+        const pgCode = error?.original?.code || error?.parent?.code || error?.code;
+        const rawMessage = String(error?.original?.message || error?.parent?.message || error?.message || '');
+        const pgMessage = rawMessage.toLowerCase();
+        const pgDetail = String(error?.original?.detail || error?.parent?.detail || '').toLowerCase();
+
+        // Trigger PostgreSQL / CHECK violation (incluye casos con "trigger" y mensajes en detail)
+        if (
+            pgCode === '23514' ||
+            pgCode === 'P0001' ||
+            pgMessage.includes('trg_validar_area_lotes_vs_predios') ||
+            pgMessage.includes('fn_validar_area_lotes_vs_predios') ||
+            pgMessage.includes('supera') ||
+            pgMessage.includes('area total') ||
+            pgMessage.includes('área total') ||
+            pgDetail.includes('supera') ||
+            pgDetail.includes('area total') ||
+            pgDetail.includes('área total')
+        ) {
+            res.status(400).json({
+                message: 'No se puede registrar el lote: el área acumulada de lotes supera el área total de los predios asociados al lugar de producción.'
+            });
+            return;
+        }
+
+        // Si viene mensaje de BD y no matcheó arriba, devolverlo tal cual (sin ocultarlo)
+        if (rawMessage.trim().length > 0) {
+            res.status(400).json({ message: rawMessage });
+            return;
+        }
+
+        res.status(400).json({
+            message: 'No se puede registrar el lote: el área acumulada de lotes supera el área total de los predios asociados al lugar de producción.'
+        });
     }
 };
 

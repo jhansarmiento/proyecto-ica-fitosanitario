@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Calendar, CheckCircle2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Calendar, CheckCircle2, Search } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import InspectionDetailsModal from "../components/ui/InspectionDetailsModal";
 import { fincaService } from "../services/finca.service";
@@ -17,6 +17,11 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout, onStartInsp
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedReq, setSelectedReq] = useState<any>(null);
+
+  // Filtros para técnico
+  const [searchLugar, setSearchLugar] = useState("");
+  const [fechaFiltro, setFechaFiltro] = useState("");
+  const [soloHoy, setSoloHoy] = useState(false);
 
   const esTecnico =
     sessionUser?.rol?.toLowerCase().includes("asistente") ||
@@ -43,6 +48,39 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout, onStartInsp
     setIsModalOpen(true);
   };
 
+  const todayISO = new Date().toISOString().split("T")[0];
+
+  const solicitudesFiltradas = useMemo(() => {
+    const query = searchLugar.trim().toLowerCase();
+
+    return solicitudes.filter((sol) => {
+      const lugarNombre = String(sol.lugar_nombre || "").toLowerCase();
+      const lugarUbicacion = String(sol.lugar_ubicacion || "").toLowerCase();
+      const fechaProgramada = sol.fecha_programada
+        ? String(sol.fecha_programada).split("T")[0]
+        : "";
+      const fechaTentativa = sol.fecha_tentativa
+        ? String(sol.fecha_tentativa).split("T")[0]
+        : "";
+      const fechaComparar = fechaProgramada || fechaTentativa;
+
+      const matchLugar = query
+        ? lugarNombre.includes(query) || lugarUbicacion.includes(query)
+        : true;
+
+      const fechaObjetivo = soloHoy ? todayISO : fechaFiltro;
+      const matchFecha = fechaObjetivo ? fechaComparar === fechaObjetivo : true;
+
+      return matchLugar && matchFecha;
+    });
+  }, [solicitudes, searchLugar, fechaFiltro, soloHoy, todayISO]);
+
+  const limpiarFiltros = () => {
+    setSearchLugar("");
+    setFechaFiltro("");
+    setSoloHoy(false);
+  };
+
   return (
     <DashboardLayout
       title="Inspecciones"
@@ -62,13 +100,67 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout, onStartInsp
         </div>
       </div>
 
+      <div className="mb-5 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="relative md:col-span-2">
+            <Search
+              className="pointer-events-none absolute left-3 top-2.5 text-slate-400"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Buscar por lugar de producción o ubicación..."
+              value={searchLugar}
+              onChange={(e) => setSearchLugar(e.target.value)}
+              className="w-full rounded-xl border border-slate-300 py-2 pl-10 pr-3 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+            />
+          </div>
+
+          <input
+            type="date"
+            value={fechaFiltro}
+            onChange={(e) => {
+              setFechaFiltro(e.target.value);
+              if (soloHoy) setSoloHoy(false);
+            }}
+            className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100"
+          />
+
+          <div className="flex items-center justify-between gap-2">
+            <label className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700">
+              <input
+                type="checkbox"
+                checked={soloHoy}
+                onChange={(e) => {
+                  const checked = e.target.checked;
+                  setSoloHoy(checked);
+                  if (checked) setFechaFiltro("");
+                }}
+                className="h-4 w-4 rounded border-slate-300 text-emerald-700"
+              />
+              Solo del día
+            </label>
+            <button
+              type="button"
+              onClick={limpiarFiltros}
+              className="rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Limpiar
+            </button>
+          </div>
+        </div>
+        <p className="mt-3 text-xs text-slate-500">
+          Mostrando {solicitudesFiltradas.length} inspección(es)
+        </p>
+      </div>
+
       {loading ? (
         <div className="p-8 text-center text-slate-500 animate-pulse">
           Cargando solicitudes...
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {solicitudes.map((sol) => (
+          {solicitudesFiltradas.map((sol) => (
             <article
               key={sol.id_solicitud}
               className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -162,9 +254,9 @@ function InspectionRequestsPage({ sessionUser, onNavigate, onLogout, onStartInsp
               )}
             </article>
           ))}
-          {solicitudes.length === 0 && (
+          {solicitudesFiltradas.length === 0 && (
             <p className="text-slate-500 col-span-full">
-              No hay solicitudes registradas.
+              No hay inspecciones que coincidan con los filtros seleccionados.
             </p>
           )}
         </div>
