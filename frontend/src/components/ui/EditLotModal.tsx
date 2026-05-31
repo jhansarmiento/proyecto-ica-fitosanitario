@@ -188,16 +188,9 @@ function EditLotModal({ isOpen, lot, onClose, onSuccess }: EditLotModalProps) {
             </label>
           </div>
 
-          {/* 🌟 Footer con botón de Eliminar a la izquierda */}
-          <div className="mt-8 flex justify-between items-center border-t border-slate-100 pt-5">
-            <button
-              onClick={handleDelete}
-              disabled={loading}
-              className="text-sm font-bold text-rose-600 hover:text-rose-800 transition disabled:opacity-50"
-            >
-              Eliminar Lote
-            </button>
-            <div className="flex gap-3">
+          <div className="mt-2 flex justify-between items-center border-t border-slate-100 pt-5">
+
+            <div className="flex gap-90 ">
               <button
                 onClick={onClose}
                 disabled={loading}

@@ -1,6 +1,6 @@
 // frontend/src/pages/ProductionLotsPage.tsx
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Pencil, Plus, Search } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Pencil, Plus, Search, Trash2, X } from 'lucide-react';
 import NewLotModal from '../components/ui/NewLotModal';
 import EditLotModal from '../components/ui/EditLotModal';
 import DashboardLayout from '../components/layout/DashboardLayout';
@@ -49,6 +49,8 @@ function ProductionLotsPage({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedLot, setSelectedLot] = useState<LotDetail | null>(null);
+  const [deletingLot, setDeletingLot] = useState<LotDetail | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const estadoLugar = String(site?.estado || '').toLowerCase();
   const isLugarBloqueado = estadoLugar === 'pendiente' || estadoLugar === 'rechazado';
 
@@ -99,6 +101,26 @@ function ProductionLotsPage({
   const handleEditClick = (lot: LotDetail) => {
     setSelectedLot(lot);
     setIsEditLotOpen(true);
+  };
+
+  const handleDeleteClick = (lot: LotDetail) => {
+    setError('');
+    setDeletingLot(lot);
+  };
+
+  const confirmDeleteLot = async () => {
+    if (!deletingLot || deleting) return;
+    try {
+      setDeleting(true);
+      setError('');
+      await fincaService.deleteLote(deletingLot.id_lote);
+      setDeletingLot(null);
+      await loadLotes();
+    } catch (e: any) {
+      setError(e.message || 'Error al eliminar el lote.');
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -214,9 +236,22 @@ function ProductionLotsPage({
                          C: {lote.fecha_cosecha ?? '—'}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="flex justify-end gap-2 text-slate-500">
-                          <button type="button" onClick={() => handleEditClick(lote)} className="rounded-md p-1.5 transition hover:bg-slate-100 hover:text-emerald-700">
-                            <Pencil size={15} />
+                        <div className="flex justify-end gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleEditClick(lote)}
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700"
+                          >
+                            <Pencil size={14} />
+                            
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteClick(lote)}
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-700 transition hover:bg-rose-100"
+                          >
+                            <Trash2 size={14} />
+                            
                           </button>
                         </div>
                       </td>
@@ -235,6 +270,63 @@ function ProductionLotsPage({
           </div>
         )}
       </section>
+
+      {deletingLot && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 py-6 backdrop-blur-[1px]">
+          <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
+            <div className="flex items-center justify-between bg-rose-600 px-5 py-4 text-white">
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-rose-500 ring-1 ring-white/30">
+                  <AlertTriangle size={20} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold leading-none">Eliminar Lote</h3>
+                  <p className="mt-1 text-sm text-rose-100">Esta acción no se puede deshacer</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setDeletingLot(null)}
+                className="text-rose-100 transition hover:text-white"
+                disabled={deleting}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className="px-5 py-5 sm:px-6">
+              <p className="text-base text-slate-800">
+                ¿Estás seguro de que deseas eliminar el lote{' '}
+                <span className="font-bold">"{deletingLot.numero_lote}"</span>?
+              </p>
+              <p className="mt-2 text-sm text-slate-600">
+                Se eliminarán permanentemente sus datos asociados.
+              </p>
+
+              <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700">
+                Advertencia: Esta operación es irreversible.
+              </div>
+
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  onClick={() => setDeletingLot(null)}
+                  disabled={deleting}
+                  className="rounded-xl border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={confirmDeleteLot}
+                  disabled={deleting}
+                  className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-rose-700 disabled:opacity-50"
+                >
+                  <Trash2 size={15} />
+                  {deleting ? 'Eliminando...' : 'Sí, eliminar'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modales: Se les pasa loadLotes a onSuccess para que refresquen la tabla */}
       <NewLotModal 
