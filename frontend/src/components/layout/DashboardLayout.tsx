@@ -81,18 +81,20 @@ function DashboardLayout({
     activeView === "inspections-agenda" || activeView === "inspections-history",
   );
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [notifications, setNotifications] = useState<(NotificationItem & { leida?: boolean })[]>([]);
+  const [markingIds, setMarkingIds] = useState<Record<string, boolean>>({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const loadNotifications = async () => {
       try {
         const response = await notificacionService.getMisNotificaciones();
-        const mapped: NotificationItem[] = (response.data || []).map((n) => ({
+        const mapped: (NotificationItem & { leida?: boolean })[] = (response.data || []).map((n) => ({
           id: n.id_notificacion,
           tipo: n.tipo === "error" ? "urgent" : "info",
           mensaje: n.mensaje,
           horaRelativa: "Reciente",
+          leida: n.leida,
         }));
         setNotifications(mapped);
       } catch (error) {
@@ -104,7 +106,22 @@ function DashboardLayout({
     void loadNotifications();
   }, []);
 
-  const unreadCount = notifications.length;
+  const unreadNotifications = notifications.filter((n) => !n.leida);
+  const unreadCount = unreadNotifications.length;
+
+  const handleMarkAsRead = async (id: string) => {
+    try {
+      setMarkingIds((prev) => ({ ...prev, [id]: true }));
+      await notificacionService.marcarLeida(id);
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === id ? { ...n, leida: true } : n)),
+      );
+    } catch (error) {
+      console.error("Error marcando notificación como leída:", error);
+    } finally {
+      setMarkingIds((prev) => ({ ...prev, [id]: false }));
+    }
+  };
 
   // CENTRALIZACIÓN: Le pasamos 'menuItems' a la barra lateral para que oculte las vistas
   const sharedSidebarProps = useMemo(
@@ -198,22 +215,36 @@ function DashboardLayout({
                     </h3>
                   </div>
                   <div className="max-h-72 divide-y divide-slate-100 overflow-y-auto">
-                    {notifications.map((n) => (
-                      <article
-                        key={n.id}
-                        className="flex items-start gap-3 px-4 py-3"
-                      >
-                        <span
-                          className={`mt-2 h-2.5 w-2.5 shrink-0 rounded-full ${n.tipo === "urgent" ? "bg-rose-500" : "bg-blue-500"}`}
-                        />
-                        <div className="min-w-0">
-                          <p className="text-sm text-slate-800">{n.mensaje}</p>
-                          <p className="mt-1 text-xs text-slate-500">
-                            {n.horaRelativa}
-                          </p>
-                        </div>
-                      </article>
-                    ))}
+                    {unreadNotifications.length === 0 ? (
+                      <div className="px-4 py-6 text-sm text-slate-500">
+                        No tienes notificaciones pendientes.
+                      </div>
+                    ) : (
+                      unreadNotifications.map((n) => (
+                        <article
+                          key={n.id}
+                          className="flex items-start gap-3 px-4 py-3"
+                        >
+                          <span
+                            className={`mt-2 h-2.5 w-2.5 shrink-0 rounded-full ${n.tipo === "urgent" ? "bg-rose-500" : "bg-blue-500"}`}
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm text-slate-800">{n.mensaje}</p>
+                            <div className="mt-1 flex items-center justify-between gap-3">
+                              <p className="text-xs text-slate-500">{n.horaRelativa}</p>
+                              <button
+                                type="button"
+                                onClick={() => handleMarkAsRead(n.id)}
+                                disabled={!!markingIds[n.id]}
+                                className="rounded-md border border-emerald-200 bg-emerald-50 px-2 py-1 text-[11px] font-semibold text-emerald-700 hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-60"
+                              >
+                                {markingIds[n.id] ? "Marcando..." : "Marcar como leída"}
+                              </button>
+                            </div>
+                          </div>
+                        </article>
+                      ))
+                    )}
                   </div>
                 </div>
               )}

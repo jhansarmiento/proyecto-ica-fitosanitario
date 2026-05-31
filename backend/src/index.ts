@@ -44,6 +44,7 @@ import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 
 import solicitudRoutes from './routes/solicitud.routes';
 import notificacionRoutes from './routes/notificacion.routes';
+import catalogoRoutes from './routes/catalogo.routes';
 
 
 const models: any = {
@@ -99,6 +100,7 @@ app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 
 app.use('/api/solicitudes', solicitudRoutes);
 app.use('/api/notificaciones', notificacionRoutes);
+app.use('/api/catalogo', catalogoRoutes);
 
 const startServer = async () => {
   try {
@@ -112,8 +114,6 @@ const startServer = async () => {
 
     // Sincronizamos las tablas de la base de datos operacional
     // IMPORTANTE:
-    // Se desactiva `alter: true` para evitar conflictos con triggers en PostgreSQL
-    // (ej: trg_validar_area_lotes_vs_predios sobre lote.area_total).
     // El ajuste de esquema debe realizarse por migraciones/SQL controlado.
     await sequelize.sync();
     console.log('📊 Tablas de BD Operacional sincronizadas (sin alter automático)');

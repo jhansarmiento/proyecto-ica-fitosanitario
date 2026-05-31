@@ -6,7 +6,8 @@
     "direccion": "Km 5 Vía Bucaramanga",
     "area_total": 12.4,
     "nombre_vereda_busqueda": "El Solar",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "68001-002",
@@ -15,7 +16,8 @@
     "direccion": "Sector Alto del Solar",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "El Solar",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "68001-003",
@@ -24,7 +26,8 @@
     "direccion": "Camino Rural 7",
     "area_total": 9.2,
     "nombre_vereda_busqueda": "El Solar",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "68001-004",
@@ -33,7 +36,8 @@
     "direccion": "Vereda Central",
     "area_total": 8.2,
     "nombre_vereda_busqueda": "La Malaña",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "68001-005",
@@ -42,7 +46,8 @@
     "direccion": "Lote 12",
     "area_total": 25.1,
     "nombre_vereda_busqueda": "La Malaña",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "68001-006",
@@ -51,16 +56,18 @@
     "direccion": "Km 3 vía Girón",
     "area_total": 14.5,
     "nombre_vereda_busqueda": "La Malaña",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "68001-007",
     "numero_registro_ica": "ICA-1007",
     "nombre_predio": "El Paraíso",
     "direccion": "Sector Santa Rita",
-    "area_total": 15.0,
+    "area_total": 15,
     "nombre_vereda_busqueda": "Santa Rita",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "68001-008",
@@ -69,7 +76,8 @@
     "direccion": "Alto de la Vereda",
     "area_total": 11.8,
     "nombre_vereda_busqueda": "Santa Rita",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "68001-009",
@@ -78,7 +86,8 @@
     "direccion": "Camino de Tierra",
     "area_total": 22.3,
     "nombre_vereda_busqueda": "Santa Rita",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "68001-010",
@@ -87,7 +96,8 @@
     "direccion": "Vía principal",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "68001-011",
@@ -96,7 +106,8 @@
     "direccion": "Lote 28",
     "area_total": 7.5,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "68001-012",
@@ -105,7 +116,8 @@
     "direccion": "Sector Retiro",
     "area_total": 19.4,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "68001-013",
@@ -114,7 +126,8 @@
     "direccion": "Finca 5",
     "area_total": 13.2,
     "nombre_vereda_busqueda": "Retiro Chiquito",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "68001-014",
@@ -123,7 +136,8 @@
     "direccion": "Alto del Cerro",
     "area_total": 24.8,
     "nombre_vereda_busqueda": "Retiro Chiquito",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "68001-015",
@@ -132,7 +146,8 @@
     "direccion": "Vereda Baja",
     "area_total": 10.1,
     "nombre_vereda_busqueda": "Retiro Chiquito",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "68001-016",
@@ -141,7 +156,8 @@
     "direccion": "Km 8",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "El Cucharo",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "68001-017",
@@ -150,7 +166,8 @@
     "direccion": "Sector Central",
     "area_total": 8.9,
     "nombre_vereda_busqueda": "El Cucharo",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "68001-018",
@@ -159,7 +176,8 @@
     "direccion": "Camino de Herradura",
     "area_total": 21.5,
     "nombre_vereda_busqueda": "El Cucharo",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "68001-019",
@@ -168,7 +186,8 @@
     "direccion": "Vía a Piedecuesta",
     "area_total": 14.3,
     "nombre_vereda_busqueda": "La Pedregosa",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "68001-020",
@@ -177,7 +196,8 @@
     "direccion": "Lote 33",
     "area_total": 12.7,
     "nombre_vereda_busqueda": "La Pedregosa",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "68001-021",
@@ -186,7 +206,8 @@
     "direccion": "Sector Alto",
     "area_total": 26.4,
     "nombre_vereda_busqueda": "La Pedregosa",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "68276-022",
@@ -195,7 +216,8 @@
     "direccion": "Vereda Alta",
     "area_total": 5.7,
     "nombre_vereda_busqueda": "Casiano",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "68276-023",
@@ -204,7 +226,8 @@
     "direccion": "Lote 19",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "Casiano",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "68276-024",
@@ -213,7 +236,8 @@
     "direccion": "Camino Central",
     "area_total": 13.6,
     "nombre_vereda_busqueda": "Casiano",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "68276-025",
@@ -222,7 +246,8 @@
     "direccion": "Sector Norte",
     "area_total": 22.1,
     "nombre_vereda_busqueda": "Helechales",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "68276-026",
@@ -231,7 +256,8 @@
     "direccion": "Entrada principal",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "Helechales",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "68276-027",
@@ -240,7 +266,8 @@
     "direccion": "Vereda Baja",
     "area_total": 11.9,
     "nombre_vereda_busqueda": "Helechales",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "68276-028",
@@ -249,7 +276,8 @@
     "direccion": "Km 4",
     "area_total": 24.5,
     "nombre_vereda_busqueda": "Ruperto",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "68276-029",
@@ -258,7 +286,8 @@
     "direccion": "Sector Ruperto",
     "area_total": 9.7,
     "nombre_vereda_busqueda": "Ruperto",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "68276-030",
@@ -267,7 +296,8 @@
     "direccion": "Lote 8",
     "area_total": 15.2,
     "nombre_vereda_busqueda": "Ruperto",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "68276-031",
@@ -276,7 +306,8 @@
     "direccion": "Camino principal",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "Vericute",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "68276-032",
@@ -285,16 +316,18 @@
     "direccion": "Sector Central",
     "area_total": 7.8,
     "nombre_vereda_busqueda": "Vericute",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "68276-033",
     "numero_registro_ica": "ICA-1033",
     "nombre_predio": "El Progreso",
     "direccion": "Vereda Vericute",
-    "area_total": 21.0,
+    "area_total": 21,
     "nombre_vereda_busqueda": "Vericute",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "68276-034",
@@ -303,7 +336,8 @@
     "direccion": "Km 6",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "La Hormiga",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "68276-035",
@@ -312,7 +346,8 @@
     "direccion": "Sector Sur",
     "area_total": 10.5,
     "nombre_vereda_busqueda": "La Hormiga",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "68276-036",
@@ -321,7 +356,8 @@
     "direccion": "Lote 15",
     "area_total": 17.2,
     "nombre_vereda_busqueda": "La Hormiga",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "68307-037",
@@ -330,7 +366,8 @@
     "direccion": "Finca 3",
     "area_total": 10.3,
     "nombre_vereda_busqueda": "Acacias",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "68307-038",
@@ -339,7 +376,8 @@
     "direccion": "Vía principal",
     "area_total": 23.6,
     "nombre_vereda_busqueda": "Acacias",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "68307-039",
@@ -348,7 +386,8 @@
     "direccion": "Sector Acacias",
     "area_total": 12.8,
     "nombre_vereda_busqueda": "Acacias",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "68307-040",
@@ -357,7 +396,8 @@
     "direccion": "Bajo Girón",
     "area_total": 7.8,
     "nombre_vereda_busqueda": "Bocas",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "68307-041",
@@ -366,7 +406,8 @@
     "direccion": "Lote 22",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "Bocas",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "68307-042",
@@ -375,7 +416,8 @@
     "direccion": "Vereda Central",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "Bocas",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "68307-043",
@@ -384,7 +426,8 @@
     "direccion": "Sector Alto",
     "area_total": 28.1,
     "nombre_vereda_busqueda": "Carrizal",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "68307-044",
@@ -393,7 +436,8 @@
     "direccion": "Vía principal",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "El Recreo",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "68307-045",
@@ -402,7 +446,8 @@
     "direccion": "Lote 9",
     "area_total": 12.4,
     "nombre_vereda_busqueda": "El Recreo",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "68307-046",
@@ -411,7 +456,8 @@
     "direccion": "Camino Rural",
     "area_total": 20.3,
     "nombre_vereda_busqueda": "El Guamo",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "68307-047",
@@ -420,7 +466,8 @@
     "direccion": "Sector Guamo",
     "area_total": 9.8,
     "nombre_vereda_busqueda": "El Guamo",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "68307-048",
@@ -429,7 +476,8 @@
     "direccion": "Finca 14",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "El Guamo",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   },
   {
     "numero_predial": "68547-049",
@@ -438,7 +486,8 @@
     "direccion": "Sector Norte",
     "area_total": 30.5,
     "nombre_vereda_busqueda": "Sevilla",
-    "numero_identificacion_productor": null
+    "latitud": 4.98,
+    "longitud": -73.72
   },
   {
     "numero_predial": "68547-050",
@@ -447,7 +496,8 @@
     "direccion": "Km 7",
     "area_total": 14.2,
     "nombre_vereda_busqueda": "Sevilla",
-    "numero_identificacion_productor": null
+    "latitud": 4.99,
+    "longitud": -73.71
   },
   {
     "numero_predial": "68547-051",
@@ -456,7 +506,8 @@
     "direccion": "Vereda Central",
     "area_total": 21.9,
     "nombre_vereda_busqueda": "Sevilla",
-    "numero_identificacion_productor": null
+    "latitud": 5,
+    "longitud": -73.7
   },
   {
     "numero_predial": "68547-052",
@@ -465,7 +516,8 @@
     "direccion": "Lote 45",
     "area_total": 4.2,
     "nombre_vereda_busqueda": "Pajonal",
-    "numero_identificacion_productor": null
+    "latitud": 5.01,
+    "longitud": -73.69
   },
   {
     "numero_predial": "68547-053",
@@ -474,7 +526,8 @@
     "direccion": "Sector Pajonal",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "Pajonal",
-    "numero_identificacion_productor": null
+    "latitud": 5.02,
+    "longitud": -73.68
   },
   {
     "numero_predial": "68547-054",
@@ -483,7 +536,8 @@
     "direccion": "Camino de Tierra",
     "area_total": 15.8,
     "nombre_vereda_busqueda": "Pajonal",
-    "numero_identificacion_productor": null
+    "latitud": 5.03,
+    "longitud": -73.67
   },
   {
     "numero_predial": "68547-055",
@@ -492,7 +546,8 @@
     "direccion": "Vereda Alta",
     "area_total": 23.4,
     "nombre_vereda_busqueda": "Planadas",
-    "numero_identificacion_productor": null
+    "latitud": 5.04,
+    "longitud": -73.66
   },
   {
     "numero_predial": "68547-056",
@@ -501,7 +556,8 @@
     "direccion": "Lote 17",
     "area_total": 11.3,
     "nombre_vereda_busqueda": "Mensulí",
-    "numero_identificacion_productor": null
+    "latitud": 5.05,
+    "longitud": -73.65
   },
   {
     "numero_predial": "68547-057",
@@ -510,7 +566,8 @@
     "direccion": "Sector Central",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "Cristales",
-    "numero_identificacion_productor": null
+    "latitud": 5.06,
+    "longitud": -73.64
   },
   {
     "numero_predial": "68679-058",
@@ -519,7 +576,8 @@
     "direccion": "Vía principal",
     "area_total": 16.5,
     "nombre_vereda_busqueda": "Ojo de Agua",
-    "numero_identificacion_productor": null
+    "latitud": 5.07,
+    "longitud": -73.63
   },
   {
     "numero_predial": "68679-059",
@@ -528,7 +586,8 @@
     "direccion": "Finca 8",
     "area_total": 13.9,
     "nombre_vereda_busqueda": "Jarardita",
-    "numero_identificacion_productor": null
+    "latitud": 5.08,
+    "longitud": -73.62
   },
   {
     "numero_predial": "68679-060",
@@ -537,7 +596,8 @@
     "direccion": "Sector Bajo",
     "area_total": 24.2,
     "nombre_vereda_busqueda": "La Laja",
-    "numero_identificacion_productor": null
+    "latitud": 5.09,
+    "longitud": -73.61
   },
   {
     "numero_predial": "68679-061",
@@ -546,7 +606,8 @@
     "direccion": "Camino Rural",
     "area_total": 8.7,
     "nombre_vereda_busqueda": "Monas",
-    "numero_identificacion_productor": null
+    "latitud": 5.1,
+    "longitud": -73.6
   },
   {
     "numero_predial": "68679-062",
@@ -555,7 +616,8 @@
     "direccion": "Lote 21",
     "area_total": 17.4,
     "nombre_vereda_busqueda": "Versalles",
-    "numero_identificacion_productor": null
+    "latitud": 5.11,
+    "longitud": -73.59
   },
   {
     "numero_predial": "68679-063",
@@ -564,7 +626,8 @@
     "direccion": "Vereda El Carmen",
     "area_total": 12.1,
     "nombre_vereda_busqueda": "El Carmen",
-    "numero_identificacion_productor": null
+    "latitud": 5.12,
+    "longitud": -73.58
   },
   {
     "numero_predial": "68679-064",
@@ -573,7 +636,8 @@
     "direccion": "Sector Alto",
     "area_total": 20.8,
     "nombre_vereda_busqueda": "San Rafael",
-    "numero_identificacion_productor": null
+    "latitud": 5.13,
+    "longitud": -73.57
   },
   {
     "numero_predial": "68081-065",
@@ -582,7 +646,8 @@
     "direccion": "Vereda Central",
     "area_total": 35.2,
     "nombre_vereda_busqueda": "La Fortuna",
-    "numero_identificacion_productor": null
+    "latitud": 5.14,
+    "longitud": -73.56
   },
   {
     "numero_predial": "68081-066",
@@ -591,7 +656,8 @@
     "direccion": "Km 12",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "El Centro",
-    "numero_identificacion_productor": null
+    "latitud": 5.15,
+    "longitud": -73.55
   },
   {
     "numero_predial": "68081-067",
@@ -600,7 +666,8 @@
     "direccion": "Sector Petrolero",
     "area_total": 27.6,
     "nombre_vereda_busqueda": "San Silvestre",
-    "numero_identificacion_productor": null
+    "latitud": 5.16,
+    "longitud": -73.54
   },
   {
     "numero_predial": "68081-068",
@@ -609,7 +676,8 @@
     "direccion": "Vía Barrancabermeja",
     "area_total": 14.3,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 5.17,
+    "longitud": -73.53
   },
   {
     "numero_predial": "68081-069",
@@ -618,7 +686,8 @@
     "direccion": "Lote 30",
     "area_total": 11.5,
     "nombre_vereda_busqueda": "Campo Alegre",
-    "numero_identificacion_productor": null
+    "latitud": 5.18,
+    "longitud": -73.52
   },
   {
     "numero_predial": "68081-070",
@@ -627,7 +696,8 @@
     "direccion": "Sector Sur",
     "area_total": 22.4,
     "nombre_vereda_busqueda": "El Paraíso",
-    "numero_identificacion_productor": null
+    "latitud": 5.19,
+    "longitud": -73.51
   },
   {
     "numero_predial": "68081-071",
@@ -636,7 +706,8 @@
     "direccion": "Vereda Alta",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "Morro Hermoso",
-    "numero_identificacion_productor": null
+    "latitud": 5.2,
+    "longitud": -73.5
   },
   {
     "numero_predial": "68601-072",
@@ -645,7 +716,8 @@
     "direccion": "Vía principal",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "La Sabana",
-    "numero_identificacion_productor": null
+    "latitud": 5.21,
+    "longitud": -73.49
   },
   {
     "numero_predial": "68601-073",
@@ -654,7 +726,8 @@
     "direccion": "Sector Socorro",
     "area_total": 13.2,
     "nombre_vereda_busqueda": "El Roble",
-    "numero_identificacion_productor": null
+    "latitud": 5.22,
+    "longitud": -73.48
   },
   {
     "numero_predial": "68601-074",
@@ -663,7 +736,8 @@
     "direccion": "Lote 11",
     "area_total": 24.7,
     "nombre_vereda_busqueda": "Chaguacá",
-    "numero_identificacion_productor": null
+    "latitud": 5.23,
+    "longitud": -73.47
   },
   {
     "numero_predial": "68601-075",
@@ -672,7 +746,8 @@
     "direccion": "Camino Rural",
     "area_total": 10.9,
     "nombre_vereda_busqueda": "La Capilla",
-    "numero_identificacion_productor": null
+    "latitud": 5.24,
+    "longitud": -73.46
   },
   {
     "numero_predial": "68601-076",
@@ -681,7 +756,8 @@
     "direccion": "Sector Centro",
     "area_total": 15.6,
     "nombre_vereda_busqueda": "El Calvario",
-    "numero_identificacion_productor": null
+    "latitud": 5.25,
+    "longitud": -73.45
   },
   {
     "numero_predial": "68601-077",
@@ -690,7 +766,8 @@
     "direccion": "Vereda Alta",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "San Antonio",
-    "numero_identificacion_productor": null
+    "latitud": 5.26,
+    "longitud": -73.44
   },
   {
     "numero_predial": "68601-078",
@@ -699,7 +776,8 @@
     "direccion": "Finca 22",
     "area_total": 21.1,
     "nombre_vereda_busqueda": "El Paraíso",
-    "numero_identificacion_productor": null
+    "latitud": 5.27,
+    "longitud": -73.43
   },
   {
     "numero_predial": "68276-079",
@@ -708,7 +786,8 @@
     "direccion": "Vereda Alta",
     "area_total": 13.8,
     "nombre_vereda_busqueda": "El Tambo",
-    "numero_identificacion_productor": null
+    "latitud": 5.28,
+    "longitud": -73.42
   },
   {
     "numero_predial": "68276-080",
@@ -717,7 +796,8 @@
     "direccion": "Sector Montebello",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "Montebello",
-    "numero_identificacion_productor": null
+    "latitud": 5.29,
+    "longitud": -73.41
   },
   {
     "numero_predial": "68276-081",
@@ -726,7 +806,8 @@
     "direccion": "Camino Rural",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "Montebello",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "68307-082",
@@ -735,7 +816,8 @@
     "direccion": "Vereda Rionegro",
     "area_total": 22.7,
     "nombre_vereda_busqueda": "Rionegro",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "68307-083",
@@ -744,7 +826,8 @@
     "direccion": "Lote 16",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "Chocoita",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "68307-084",
@@ -753,7 +836,8 @@
     "direccion": "Sector Recreo",
     "area_total": 25.3,
     "nombre_vereda_busqueda": "El Recreo",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "68547-085",
@@ -762,7 +846,8 @@
     "direccion": "Km 9",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "Planadas",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "68547-086",
@@ -771,7 +856,8 @@
     "direccion": "Vereda Central",
     "area_total": 12.5,
     "nombre_vereda_busqueda": "Mensulí",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "68547-087",
@@ -780,7 +866,8 @@
     "direccion": "Sector Cristales",
     "area_total": 21.4,
     "nombre_vereda_busqueda": "Cristales",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "68547-088",
@@ -789,7 +876,8 @@
     "direccion": "Alto de Piedecuesta",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "La Cumbre",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "68547-089",
@@ -798,7 +886,8 @@
     "direccion": "Vía El Salado",
     "area_total": 15.1,
     "nombre_vereda_busqueda": "El Salado",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "68679-090",
@@ -807,7 +896,8 @@
     "direccion": "Sector Principal",
     "area_total": 23.6,
     "nombre_vereda_busqueda": "Ojo de Agua",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "68679-091",
@@ -816,7 +906,8 @@
     "direccion": "Lote 7",
     "area_total": 10.2,
     "nombre_vereda_busqueda": "Jarardita",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "68679-092",
@@ -825,7 +916,8 @@
     "direccion": "Camino de La Laja",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "La Laja",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "68679-093",
@@ -834,7 +926,8 @@
     "direccion": "Vereda Monas",
     "area_total": 14.3,
     "nombre_vereda_busqueda": "Monas",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "68679-094",
@@ -843,7 +936,8 @@
     "direccion": "Finca Versalles",
     "area_total": 26.8,
     "nombre_vereda_busqueda": "Versalles",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "68679-095",
@@ -852,7 +946,8 @@
     "direccion": "Sector El Carmen",
     "area_total": 12.9,
     "nombre_vereda_busqueda": "El Carmen",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "68679-096",
@@ -861,7 +956,8 @@
     "direccion": "Vereda San Rafael",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "San Rafael",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "68081-097",
@@ -870,7 +966,8 @@
     "direccion": "Km 5 Vía Barrancabermeja",
     "area_total": 31.4,
     "nombre_vereda_busqueda": "La Fortuna",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "68081-098",
@@ -879,7 +976,8 @@
     "direccion": "Sector Industrial",
     "area_total": 24.1,
     "nombre_vereda_busqueda": "El Centro",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "68081-099",
@@ -888,7 +986,8 @@
     "direccion": "Vereda San Silvestre",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "San Silvestre",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "68081-100",
@@ -897,7 +996,8 @@
     "direccion": "Lote 28",
     "area_total": 13.7,
     "nombre_vereda_busqueda": "Campo Alegre",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "68081-101",
@@ -906,7 +1006,8 @@
     "direccion": "Alto del Morro",
     "area_total": 28.5,
     "nombre_vereda_busqueda": "Morro Hermoso",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "68601-102",
@@ -915,7 +1016,8 @@
     "direccion": "Vía principal",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "La Sabana",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "68601-103",
@@ -924,7 +1026,8 @@
     "direccion": "Sector Chaguacá",
     "area_total": 20.4,
     "nombre_vereda_busqueda": "Chaguacá",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "68601-104",
@@ -933,7 +1036,8 @@
     "direccion": "Vereda La Capilla",
     "area_total": 11.6,
     "nombre_vereda_busqueda": "La Capilla",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "68601-105",
@@ -942,7 +1046,8 @@
     "direccion": "Sector Centro",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "El Calvario",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "68601-106",
@@ -951,7 +1056,8 @@
     "direccion": "Vereda Alta",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "San Antonio",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "68601-107",
@@ -960,7 +1066,8 @@
     "direccion": "Finca 22",
     "area_total": 21.1,
     "nombre_vereda_busqueda": "El Paraíso",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "05001-108",
@@ -969,7 +1076,8 @@
     "direccion": "Vía a San Cristóbal",
     "area_total": 25.4,
     "nombre_vereda_busqueda": "San Cristóbal",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "05001-109",
@@ -978,7 +1086,8 @@
     "direccion": "Sector Montañoso",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "San Cristóbal",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "05001-110",
@@ -987,7 +1096,8 @@
     "direccion": "Km 12 Vía Medellín",
     "area_total": 14.2,
     "nombre_vereda_busqueda": "San Cristóbal",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "05001-111",
@@ -996,7 +1106,8 @@
     "direccion": "Vereda Santa Elena",
     "area_total": 32.1,
     "nombre_vereda_busqueda": "Santa Elena",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "05001-112",
@@ -1005,7 +1116,8 @@
     "direccion": "Sector Altavista",
     "area_total": 21.5,
     "nombre_vereda_busqueda": "Altavista",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "05001-113",
@@ -1014,7 +1126,8 @@
     "direccion": "Finca 45",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "San Antonio de Prado",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "05001-114",
@@ -1023,7 +1136,8 @@
     "direccion": "Vía Palmitas",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "Palmitas",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "05001-115",
@@ -1032,7 +1146,8 @@
     "direccion": "Sector El Cerro",
     "area_total": 23.6,
     "nombre_vereda_busqueda": "El Cerro",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "05001-116",
@@ -1041,7 +1156,8 @@
     "direccion": "Camino Viejo",
     "area_total": 12.9,
     "nombre_vereda_busqueda": "La Honda",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "05266-117",
@@ -1050,7 +1166,8 @@
     "direccion": "Vereda Las Palmas Km 2",
     "area_total": 11.2,
     "nombre_vereda_busqueda": "Las Palmas",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "05266-118",
@@ -1059,7 +1176,8 @@
     "direccion": "Sector El Vallano",
     "area_total": 6.9,
     "nombre_vereda_busqueda": "El Vallano",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "05266-119",
@@ -1068,7 +1186,8 @@
     "direccion": "Finca Perico",
     "area_total": 24.8,
     "nombre_vereda_busqueda": "Perico",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "05266-120",
@@ -1077,7 +1196,8 @@
     "direccion": "Vereda Pantanillo",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "Pantanillo",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "05266-121",
@@ -1086,7 +1206,8 @@
     "direccion": "Sector Santa Catalina",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "Santa Catalina",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "05266-122",
@@ -1095,7 +1216,8 @@
     "direccion": "Km 4 Envigado",
     "area_total": 13.2,
     "nombre_vereda_busqueda": "El Chuscal",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "05266-123",
@@ -1104,16 +1226,18 @@
     "direccion": "Vereda La Soledad",
     "area_total": 20.5,
     "nombre_vereda_busqueda": "La Soledad",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "05615-124",
     "numero_registro_ica": "ICA-1124",
     "nombre_predio": "Llanogrande",
     "direccion": "Lote B-12",
-    "area_total": 40.0,
+    "area_total": 40,
     "nombre_vereda_busqueda": "Llanogrande",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "05615-125",
@@ -1122,7 +1246,8 @@
     "direccion": "Sector Abreo",
     "area_total": 17.3,
     "nombre_vereda_busqueda": "Abreo",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "05615-126",
@@ -1131,7 +1256,8 @@
     "direccion": "Vía Cuchillas",
     "area_total": 22.9,
     "nombre_vereda_busqueda": "Cuchillas",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "05615-127",
@@ -1140,7 +1266,8 @@
     "direccion": "Finca Cabeceras",
     "area_total": 14.6,
     "nombre_vereda_busqueda": "Cabeceras",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "05615-128",
@@ -1149,7 +1276,8 @@
     "direccion": "Sector Higuerón",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "Higuerón",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   },
   {
     "numero_predial": "05615-129",
@@ -1158,7 +1286,8 @@
     "direccion": "Vereda El Porvenir",
     "area_total": 25.1,
     "nombre_vereda_busqueda": "El Porvenir",
-    "numero_identificacion_productor": null
+    "latitud": 4.98,
+    "longitud": -73.72
   },
   {
     "numero_predial": "05615-130",
@@ -1167,7 +1296,8 @@
     "direccion": "Camino San Antonio",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "San Antonio",
-    "numero_identificacion_productor": null
+    "latitud": 4.99,
+    "longitud": -73.71
   },
   {
     "numero_predial": "05360-131",
@@ -1176,7 +1306,8 @@
     "direccion": "Vereda La María",
     "area_total": 12.8,
     "nombre_vereda_busqueda": "La María",
-    "numero_identificacion_productor": null
+    "latitud": 5,
+    "longitud": -73.7
   },
   {
     "numero_predial": "05360-132",
@@ -1185,7 +1316,8 @@
     "direccion": "Sector Los Gómez",
     "area_total": 21.3,
     "nombre_vereda_busqueda": "Los Gómez",
-    "numero_identificacion_productor": null
+    "latitud": 5.01,
+    "longitud": -73.69
   },
   {
     "numero_predial": "05360-133",
@@ -1194,7 +1326,8 @@
     "direccion": "Finca El Ajizal",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "El Ajizal",
-    "numero_identificacion_productor": null
+    "latitud": 5.02,
+    "longitud": -73.68
   },
   {
     "numero_predial": "05360-134",
@@ -1203,7 +1336,8 @@
     "direccion": "Vereda Los Olivares",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "Los Olivares",
-    "numero_identificacion_productor": null
+    "latitud": 5.03,
+    "longitud": -73.67
   },
   {
     "numero_predial": "05360-135",
@@ -1212,7 +1346,8 @@
     "direccion": "Sector La Tablaza",
     "area_total": 23.2,
     "nombre_vereda_busqueda": "La Tablaza",
-    "numero_identificacion_productor": null
+    "latitud": 5.04,
+    "longitud": -73.66
   },
   {
     "numero_predial": "05360-136",
@@ -1221,7 +1356,8 @@
     "direccion": "Camino El Tablón",
     "area_total": 17.1,
     "nombre_vereda_busqueda": "El Tablón",
-    "numero_identificacion_productor": null
+    "latitud": 5.05,
+    "longitud": -73.65
   },
   {
     "numero_predial": "05088-137",
@@ -1230,7 +1366,8 @@
     "direccion": "Vía Bello",
     "area_total": 14.5,
     "nombre_vereda_busqueda": "San Félix",
-    "numero_identificacion_productor": null
+    "latitud": 5.06,
+    "longitud": -73.64
   },
   {
     "numero_predial": "05088-138",
@@ -1239,7 +1376,8 @@
     "direccion": "Sector La Unión",
     "area_total": 19.6,
     "nombre_vereda_busqueda": "La Unión",
-    "numero_identificacion_productor": null
+    "latitud": 5.07,
+    "longitud": -73.63
   },
   {
     "numero_predial": "05088-139",
@@ -1248,7 +1386,8 @@
     "direccion": "Finca Tierradentro",
     "area_total": 26.3,
     "nombre_vereda_busqueda": "Tierradentro",
-    "numero_identificacion_productor": null
+    "latitud": 5.08,
+    "longitud": -73.62
   },
   {
     "numero_predial": "05088-140",
@@ -1257,7 +1396,8 @@
     "direccion": "Vereda Hato Viejo",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "Hato Viejo",
-    "numero_identificacion_productor": null
+    "latitud": 5.09,
+    "longitud": -73.61
   },
   {
     "numero_predial": "05088-141",
@@ -1266,7 +1406,8 @@
     "direccion": "Sector Potrerito",
     "area_total": 12.4,
     "nombre_vereda_busqueda": "Potrerito",
-    "numero_identificacion_productor": null
+    "latitud": 5.1,
+    "longitud": -73.6
   },
   {
     "numero_predial": "05088-142",
@@ -1275,7 +1416,8 @@
     "direccion": "Km 8 Vía Bello",
     "area_total": 23.7,
     "nombre_vereda_busqueda": "El Salado",
-    "numero_identificacion_productor": null
+    "latitud": 5.11,
+    "longitud": -73.59
   },
   {
     "numero_predial": "05088-143",
@@ -1284,7 +1426,8 @@
     "direccion": "Vereda La Pintada",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "La Pintada",
-    "numero_identificacion_productor": null
+    "latitud": 5.12,
+    "longitud": -73.58
   },
   {
     "numero_predial": "05129-144",
@@ -1293,7 +1436,8 @@
     "direccion": "Sector Caldas",
     "area_total": 21.5,
     "nombre_vereda_busqueda": "La Inmaculada",
-    "numero_identificacion_productor": null
+    "latitud": 5.13,
+    "longitud": -73.57
   },
   {
     "numero_predial": "05129-145",
@@ -1302,7 +1446,8 @@
     "direccion": "Vereda El Chumbimbe",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "El Chumbimbe",
-    "numero_identificacion_productor": null
+    "latitud": 5.14,
+    "longitud": -73.56
   },
   {
     "numero_predial": "05129-146",
@@ -1311,7 +1456,8 @@
     "direccion": "Finca San Andrés",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "San Andrés",
-    "numero_identificacion_productor": null
+    "latitud": 5.15,
+    "longitud": -73.55
   },
   {
     "numero_predial": "05129-147",
@@ -1320,7 +1466,8 @@
     "direccion": "Sector La Clara",
     "area_total": 14.1,
     "nombre_vereda_busqueda": "La Clara",
-    "numero_identificacion_productor": null
+    "latitud": 5.16,
+    "longitud": -73.54
   },
   {
     "numero_predial": "05129-148",
@@ -1329,7 +1476,8 @@
     "direccion": "Vía El Roble",
     "area_total": 25.6,
     "nombre_vereda_busqueda": "El Roble",
-    "numero_identificacion_productor": null
+    "latitud": 5.17,
+    "longitud": -73.53
   },
   {
     "numero_predial": "05129-149",
@@ -1338,7 +1486,8 @@
     "direccion": "Camino El Salto",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "El Salto",
-    "numero_identificacion_productor": null
+    "latitud": 5.18,
+    "longitud": -73.52
   },
   {
     "numero_predial": "05129-150",
@@ -1347,7 +1496,8 @@
     "direccion": "Vereda La Ceja",
     "area_total": 13.5,
     "nombre_vereda_busqueda": "La Ceja",
-    "numero_identificacion_productor": null
+    "latitud": 5.19,
+    "longitud": -73.51
   },
   {
     "numero_predial": "05212-151",
@@ -1356,7 +1506,8 @@
     "direccion": "Vereda El Cabuyal",
     "area_total": 20.4,
     "nombre_vereda_busqueda": "El Cabuyal",
-    "numero_identificacion_productor": null
+    "latitud": 5.2,
+    "longitud": -73.5
   },
   {
     "numero_predial": "05212-152",
@@ -1365,7 +1516,8 @@
     "direccion": "Sector La Unión",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "La Unión",
-    "numero_identificacion_productor": null
+    "latitud": 5.21,
+    "longitud": -73.49
   },
   {
     "numero_predial": "05212-153",
@@ -1374,7 +1526,8 @@
     "direccion": "Finca El Diamante",
     "area_total": 22.8,
     "nombre_vereda_busqueda": "El Diamante",
-    "numero_identificacion_productor": null
+    "latitud": 5.22,
+    "longitud": -73.48
   },
   {
     "numero_predial": "05212-154",
@@ -1383,7 +1536,8 @@
     "direccion": "Vereda San José",
     "area_total": 11.9,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 5.23,
+    "longitud": -73.47
   },
   {
     "numero_predial": "05212-155",
@@ -1392,7 +1546,8 @@
     "direccion": "Sector La Florida",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "La Florida",
-    "numero_identificacion_productor": null
+    "latitud": 5.24,
+    "longitud": -73.46
   },
   {
     "numero_predial": "05212-156",
@@ -1401,7 +1556,8 @@
     "direccion": "Vía El Rosario",
     "area_total": 24.2,
     "nombre_vereda_busqueda": "El Rosario",
-    "numero_identificacion_productor": null
+    "latitud": 5.25,
+    "longitud": -73.45
   },
   {
     "numero_predial": "05212-157",
@@ -1410,7 +1566,8 @@
     "direccion": "Camino El Piñal",
     "area_total": 16.3,
     "nombre_vereda_busqueda": "El Piñal",
-    "numero_identificacion_productor": null
+    "latitud": 5.26,
+    "longitud": -73.44
   },
   {
     "numero_predial": "05001-158",
@@ -1419,7 +1576,8 @@
     "direccion": "Sector Palmitas",
     "area_total": 27.1,
     "nombre_vereda_busqueda": "Palmitas",
-    "numero_identificacion_productor": null
+    "latitud": 5.27,
+    "longitud": -73.43
   },
   {
     "numero_predial": "05001-159",
@@ -1428,7 +1586,8 @@
     "direccion": "Vereda Alta",
     "area_total": 29.4,
     "nombre_vereda_busqueda": "Santa Elena",
-    "numero_identificacion_productor": null
+    "latitud": 5.28,
+    "longitud": -73.42
   },
   {
     "numero_predial": "05266-160",
@@ -1437,7 +1596,8 @@
     "direccion": "Km 5 Envigado",
     "area_total": 14.8,
     "nombre_vereda_busqueda": "Pantanillo",
-    "numero_identificacion_productor": null
+    "latitud": 5.29,
+    "longitud": -73.41
   },
   {
     "numero_predial": "05615-161",
@@ -1446,7 +1606,8 @@
     "direccion": "Aeropuerto Sector",
     "area_total": 45.2,
     "nombre_vereda_busqueda": "Llanogrande",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "05360-162",
@@ -1455,7 +1616,8 @@
     "direccion": "Vereda Los Gómez",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "Los Gómez",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "05088-163",
@@ -1464,7 +1626,8 @@
     "direccion": "Sector Tierradentro",
     "area_total": 23.9,
     "nombre_vereda_busqueda": "Tierradentro",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "05088-164",
@@ -1473,7 +1636,8 @@
     "direccion": "Vereda Potrerito",
     "area_total": 14.7,
     "nombre_vereda_busqueda": "Potrerito",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "05129-165",
@@ -1482,7 +1646,8 @@
     "direccion": "Sector La Clara",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "La Clara",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "05129-166",
@@ -1491,7 +1656,8 @@
     "direccion": "Vía Caldas",
     "area_total": 22.3,
     "nombre_vereda_busqueda": "El Roble",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "05129-167",
@@ -1500,7 +1666,8 @@
     "direccion": "Finca La Ceja",
     "area_total": 16.5,
     "nombre_vereda_busqueda": "La Ceja",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "05212-168",
@@ -1509,7 +1676,8 @@
     "direccion": "Vereda Principal",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "El Cabuyal",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "05212-169",
@@ -1518,7 +1686,8 @@
     "direccion": "Sector Diamante",
     "area_total": 24.1,
     "nombre_vereda_busqueda": "El Diamante",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "05212-170",
@@ -1527,7 +1696,8 @@
     "direccion": "Km 6 Copacabana",
     "area_total": 13.4,
     "nombre_vereda_busqueda": "La Florida",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "05212-171",
@@ -1536,7 +1706,8 @@
     "direccion": "Vereda El Rosario",
     "area_total": 21.7,
     "nombre_vereda_busqueda": "El Rosario",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "05212-172",
@@ -1545,7 +1716,8 @@
     "direccion": "Camino Rural",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "El Piñal",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "05001-173",
@@ -1554,7 +1726,8 @@
     "direccion": "Vereda Prado",
     "area_total": 28.6,
     "nombre_vereda_busqueda": "San Antonio de Prado",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "05001-174",
@@ -1563,7 +1736,8 @@
     "direccion": "Sector Montañoso",
     "area_total": 23.2,
     "nombre_vereda_busqueda": "Altavista",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "05266-175",
@@ -1572,7 +1746,8 @@
     "direccion": "Vereda Santa Catalina",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "Santa Catalina",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "05615-176",
@@ -1581,7 +1756,8 @@
     "direccion": "Vía Rionegro",
     "area_total": 26.4,
     "nombre_vereda_busqueda": "Higuerón",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "05360-177",
@@ -1590,7 +1766,8 @@
     "direccion": "Sector El Ajizal",
     "area_total": 20.1,
     "nombre_vereda_busqueda": "El Ajizal",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "05088-178",
@@ -1599,7 +1776,8 @@
     "direccion": "Vereda Hato Viejo",
     "area_total": 18.5,
     "nombre_vereda_busqueda": "Hato Viejo",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "05129-179",
@@ -1608,7 +1786,8 @@
     "direccion": "Finca Central",
     "area_total": 22.9,
     "nombre_vereda_busqueda": "San Andrés",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "05212-180",
@@ -1617,7 +1796,8 @@
     "direccion": "Sector El Piñal",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "El Piñal",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "05615-181",
@@ -1626,7 +1806,8 @@
     "direccion": "Vereda Cabeceras",
     "area_total": 24.8,
     "nombre_vereda_busqueda": "Cabeceras",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "05360-182",
@@ -1635,7 +1816,8 @@
     "direccion": "Sector La Tablaza",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "La Tablaza",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "05088-183",
@@ -1644,7 +1826,8 @@
     "direccion": "Vereda La Pintada",
     "area_total": 21.6,
     "nombre_vereda_busqueda": "La Pintada",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "05129-184",
@@ -1653,7 +1836,8 @@
     "direccion": "Km 10 Vía Caldas",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "El Salto",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "25899-185",
@@ -1662,7 +1846,8 @@
     "direccion": "Vereda El Abra",
     "area_total": 15.3,
     "nombre_vereda_busqueda": "El Abra",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "25899-186",
@@ -1671,7 +1856,8 @@
     "direccion": "Sector Montañoso",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "El Abra",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "25899-187",
@@ -1680,7 +1866,8 @@
     "direccion": "Km 5 Vía Zipaquirá",
     "area_total": 12.8,
     "nombre_vereda_busqueda": "El Abra",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "25899-188",
@@ -1689,7 +1876,8 @@
     "direccion": "Vereda Barandillas",
     "area_total": 14.7,
     "nombre_vereda_busqueda": "Barandillas",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "25899-189",
@@ -1698,7 +1886,8 @@
     "direccion": "Cerca a la Represa",
     "area_total": 21.4,
     "nombre_vereda_busqueda": "Barandillas",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "25899-190",
@@ -1707,7 +1896,8 @@
     "direccion": "Sector El Batán",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "Barandillas",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "25899-191",
@@ -1716,7 +1906,8 @@
     "direccion": "Vereda Río Frío",
     "area_total": 23.6,
     "nombre_vereda_busqueda": "Río Frío",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "25899-192",
@@ -1725,7 +1916,8 @@
     "direccion": "Finca San Jorge",
     "area_total": 16.2,
     "nombre_vereda_busqueda": "San Jorge",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "25899-193",
@@ -1734,7 +1926,8 @@
     "direccion": "Vía Venta Larga",
     "area_total": 18.5,
     "nombre_vereda_busqueda": "Venta Larga",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "25899-194",
@@ -1743,7 +1936,8 @@
     "direccion": "Sector El Batán",
     "area_total": 20.1,
     "nombre_vereda_busqueda": "El Batán",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "25899-195",
@@ -1752,7 +1946,8 @@
     "direccion": "Vereda Canica",
     "area_total": 13.9,
     "nombre_vereda_busqueda": "Canica",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "25269-196",
@@ -1761,7 +1956,8 @@
     "direccion": "Vereda Prado",
     "area_total": 11.4,
     "nombre_vereda_busqueda": "Prado",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "25269-197",
@@ -1770,7 +1966,8 @@
     "direccion": "Calle 4 Norte",
     "area_total": 8.8,
     "nombre_vereda_busqueda": "Pueblo Viejo",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "25269-198",
@@ -1779,7 +1976,8 @@
     "direccion": "Sector Mancilla",
     "area_total": 24.3,
     "nombre_vereda_busqueda": "Mancilla",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "25269-199",
@@ -1788,7 +1986,8 @@
     "direccion": "Vereda La Selva",
     "area_total": 19.6,
     "nombre_vereda_busqueda": "La Selva",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "25269-200",
@@ -1797,7 +1996,8 @@
     "direccion": "Finca Los Olivos",
     "area_total": 15.2,
     "nombre_vereda_busqueda": "Los Olivos",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "25269-201",
@@ -1806,7 +2006,8 @@
     "direccion": "Sector El Vino",
     "area_total": 22.7,
     "nombre_vereda_busqueda": "El Vino",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "25269-202",
@@ -1815,7 +2016,8 @@
     "direccion": "Vereda San José",
     "area_total": 17.4,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "25175-203",
@@ -1824,7 +2026,8 @@
     "direccion": "Avenida Chilacos",
     "area_total": 5.1,
     "nombre_vereda_busqueda": "Bojacá",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "25175-204",
@@ -1833,7 +2036,8 @@
     "direccion": "Vereda Fagua",
     "area_total": 14.8,
     "nombre_vereda_busqueda": "Fagua",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "25175-205",
@@ -1842,7 +2046,8 @@
     "direccion": "Camino de Piedra",
     "area_total": 2.3,
     "nombre_vereda_busqueda": "Tíquiza",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "25175-206",
@@ -1851,7 +2056,8 @@
     "direccion": "Sector Cerca de Piedra",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Cerca de Piedra",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "25175-207",
@@ -1860,7 +2066,8 @@
     "direccion": "Vereda Fonquetá",
     "area_total": 16.5,
     "nombre_vereda_busqueda": "Fonquetá",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "25175-208",
@@ -1869,7 +2076,8 @@
     "direccion": "Vereda El Rosal",
     "area_total": 13.2,
     "nombre_vereda_busqueda": "El Rosal",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   },
   {
     "numero_predial": "25175-209",
@@ -1878,7 +2086,8 @@
     "direccion": "Sector La Balsa",
     "area_total": 19.4,
     "nombre_vereda_busqueda": "La Balsa",
-    "numero_identificacion_productor": null
+    "latitud": 4.98,
+    "longitud": -73.72
   },
   {
     "numero_predial": "25175-210",
@@ -1887,7 +2096,8 @@
     "direccion": "Vereda Bojacá",
     "area_total": 22.1,
     "nombre_vereda_busqueda": "Bojacá",
-    "numero_identificacion_productor": null
+    "latitud": 4.99,
+    "longitud": -73.71
   },
   {
     "numero_predial": "25290-211",
@@ -1896,7 +2106,8 @@
     "direccion": "Vereda Chinauta",
     "area_total": 25.8,
     "nombre_vereda_busqueda": "Chinauta",
-    "numero_identificacion_productor": null
+    "latitud": 5,
+    "longitud": -73.7
   },
   {
     "numero_predial": "25290-212",
@@ -1905,7 +2116,8 @@
     "direccion": "Sector Bermejal",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "Bermejal",
-    "numero_identificacion_productor": null
+    "latitud": 5.01,
+    "longitud": -73.69
   },
   {
     "numero_predial": "25290-213",
@@ -1914,7 +2126,8 @@
     "direccion": "Finca Piamonte",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "Piamonte",
-    "numero_identificacion_productor": null
+    "latitud": 5.02,
+    "longitud": -73.68
   },
   {
     "numero_predial": "25290-214",
@@ -1923,7 +2136,8 @@
     "direccion": "Vereda La Aguadita",
     "area_total": 20.3,
     "nombre_vereda_busqueda": "La Aguadita",
-    "numero_identificacion_productor": null
+    "latitud": 5.03,
+    "longitud": -73.67
   },
   {
     "numero_predial": "25290-215",
@@ -1932,7 +2146,8 @@
     "direccion": "Sector Espinalito",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "Espinalito",
-    "numero_identificacion_productor": null
+    "latitud": 5.04,
+    "longitud": -73.66
   },
   {
     "numero_predial": "25290-216",
@@ -1941,7 +2156,8 @@
     "direccion": "Vereda El Triunfo",
     "area_total": 23.5,
     "nombre_vereda_busqueda": "El Triunfo",
-    "numero_identificacion_productor": null
+    "latitud": 5.05,
+    "longitud": -73.65
   },
   {
     "numero_predial": "25290-217",
@@ -1950,7 +2166,8 @@
     "direccion": "Camino San Rafael",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "San Rafael",
-    "numero_identificacion_productor": null
+    "latitud": 5.06,
+    "longitud": -73.64
   },
   {
     "numero_predial": "25754-218",
@@ -1959,7 +2176,8 @@
     "direccion": "Vereda Bosatama",
     "area_total": 12.6,
     "nombre_vereda_busqueda": "Bosatama",
-    "numero_identificacion_productor": null
+    "latitud": 5.07,
+    "longitud": -73.63
   },
   {
     "numero_predial": "25754-219",
@@ -1968,7 +2186,8 @@
     "direccion": "Sector Cascajal",
     "area_total": 21.4,
     "nombre_vereda_busqueda": "Cascajal",
-    "numero_identificacion_productor": null
+    "latitud": 5.08,
+    "longitud": -73.62
   },
   {
     "numero_predial": "25754-220",
@@ -1977,7 +2196,8 @@
     "direccion": "Vereda Alto de la Cruz",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "Alto de la Cruz",
-    "numero_identificacion_productor": null
+    "latitud": 5.09,
+    "longitud": -73.61
   },
   {
     "numero_predial": "25754-221",
@@ -1986,7 +2206,8 @@
     "direccion": "Sector Panamá",
     "area_total": 15.3,
     "nombre_vereda_busqueda": "Panamá",
-    "numero_identificacion_productor": null
+    "latitud": 5.1,
+    "longitud": -73.6
   },
   {
     "numero_predial": "25754-222",
@@ -1995,7 +2216,8 @@
     "direccion": "Vereda Villanueva",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "Villanueva",
-    "numero_identificacion_productor": null
+    "latitud": 5.11,
+    "longitud": -73.59
   },
   {
     "numero_predial": "25754-223",
@@ -2004,7 +2226,8 @@
     "direccion": "Sector El Vínculo",
     "area_total": 24.1,
     "nombre_vereda_busqueda": "El Vínculo",
-    "numero_identificacion_productor": null
+    "latitud": 5.12,
+    "longitud": -73.58
   },
   {
     "numero_predial": "25754-224",
@@ -2013,7 +2236,8 @@
     "direccion": "Vereda La Isla",
     "area_total": 13.7,
     "nombre_vereda_busqueda": "La Isla",
-    "numero_identificacion_productor": null
+    "latitud": 5.13,
+    "longitud": -73.57
   },
   {
     "numero_predial": "25430-225",
@@ -2022,7 +2246,8 @@
     "direccion": "Vereda La Esperanza",
     "area_total": 18.5,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 5.14,
+    "longitud": -73.56
   },
   {
     "numero_predial": "25430-226",
@@ -2031,7 +2256,8 @@
     "direccion": "Sector El Porvenir",
     "area_total": 16.2,
     "nombre_vereda_busqueda": "El Porvenir",
-    "numero_identificacion_productor": null
+    "latitud": 5.15,
+    "longitud": -73.55
   },
   {
     "numero_predial": "25430-227",
@@ -2040,7 +2266,8 @@
     "direccion": "Finca San Jorge",
     "area_total": 20.8,
     "nombre_vereda_busqueda": "San Jorge",
-    "numero_identificacion_productor": null
+    "latitud": 5.16,
+    "longitud": -73.54
   },
   {
     "numero_predial": "25430-228",
@@ -2049,7 +2276,8 @@
     "direccion": "Vereda El Estanque",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "El Estanque",
-    "numero_identificacion_productor": null
+    "latitud": 5.17,
+    "longitud": -73.53
   },
   {
     "numero_predial": "25430-229",
@@ -2058,7 +2286,8 @@
     "direccion": "Sector La Florida",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "La Florida",
-    "numero_identificacion_productor": null
+    "latitud": 5.18,
+    "longitud": -73.52
   },
   {
     "numero_predial": "25430-230",
@@ -2067,7 +2296,8 @@
     "direccion": "Camino El Volador",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "El Volador",
-    "numero_identificacion_productor": null
+    "latitud": 5.19,
+    "longitud": -73.51
   },
   {
     "numero_predial": "25430-231",
@@ -2076,7 +2306,8 @@
     "direccion": "Vereda El Pantano",
     "area_total": 15.8,
     "nombre_vereda_busqueda": "El Pantano",
-    "numero_identificacion_productor": null
+    "latitud": 5.2,
+    "longitud": -73.5
   },
   {
     "numero_predial": "25126-232",
@@ -2085,7 +2316,8 @@
     "direccion": "Vereda La Cabaña",
     "area_total": 18.4,
     "nombre_vereda_busqueda": "La Cabaña",
-    "numero_identificacion_productor": null
+    "latitud": 5.21,
+    "longitud": -73.49
   },
   {
     "numero_predial": "25126-233",
@@ -2094,7 +2326,8 @@
     "direccion": "Sector Tibito",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "Tibito",
-    "numero_identificacion_productor": null
+    "latitud": 5.22,
+    "longitud": -73.48
   },
   {
     "numero_predial": "25126-234",
@@ -2103,7 +2336,8 @@
     "direccion": "Vereda El Callejón",
     "area_total": 21.7,
     "nombre_vereda_busqueda": "El Callejón",
-    "numero_identificacion_productor": null
+    "latitud": 5.23,
+    "longitud": -73.47
   },
   {
     "numero_predial": "25126-235",
@@ -2112,7 +2346,8 @@
     "direccion": "Finca San Francisco",
     "area_total": 14.2,
     "nombre_vereda_busqueda": "San Francisco",
-    "numero_identificacion_productor": null
+    "latitud": 5.24,
+    "longitud": -73.46
   },
   {
     "numero_predial": "25126-236",
@@ -2121,7 +2356,8 @@
     "direccion": "Sector El Rosalito",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "El Rosalito",
-    "numero_identificacion_productor": null
+    "latitud": 5.25,
+    "longitud": -73.45
   },
   {
     "numero_predial": "25126-237",
@@ -2130,7 +2366,8 @@
     "direccion": "Vereda La Punta",
     "area_total": 17.3,
     "nombre_vereda_busqueda": "La Punta",
-    "numero_identificacion_productor": null
+    "latitud": 5.26,
+    "longitud": -73.44
   },
   {
     "numero_predial": "25126-238",
@@ -2139,7 +2376,8 @@
     "direccion": "Camino Los Arrayanes",
     "area_total": 23.1,
     "nombre_vereda_busqueda": "Los Arrayanes",
-    "numero_identificacion_productor": null
+    "latitud": 5.27,
+    "longitud": -73.43
   },
   {
     "numero_predial": "25899-239",
@@ -2148,7 +2386,8 @@
     "direccion": "Sector Venta Larga",
     "area_total": 20.6,
     "nombre_vereda_busqueda": "Venta Larga",
-    "numero_identificacion_productor": null
+    "latitud": 5.28,
+    "longitud": -73.42
   },
   {
     "numero_predial": "25269-240",
@@ -2157,7 +2396,8 @@
     "direccion": "Vereda La Selva",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "La Selva",
-    "numero_identificacion_productor": null
+    "latitud": 5.29,
+    "longitud": -73.41
   },
   {
     "numero_predial": "25175-241",
@@ -2166,7 +2406,8 @@
     "direccion": "Sector Tíquiza",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "Tíquiza",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "25290-242",
@@ -2175,7 +2416,8 @@
     "direccion": "Vereda Chinauta",
     "area_total": 26.4,
     "nombre_vereda_busqueda": "Chinauta",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "25754-243",
@@ -2184,7 +2426,8 @@
     "direccion": "Sector Cascajal",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "Cascajal",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "25430-244",
@@ -2193,7 +2436,8 @@
     "direccion": "Vereda El Volador",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "El Volador",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "25126-245",
@@ -2202,7 +2446,8 @@
     "direccion": "Finca Los Arrayanes",
     "area_total": 21.3,
     "nombre_vereda_busqueda": "Los Arrayanes",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "25290-246",
@@ -2211,7 +2456,8 @@
     "direccion": "Sector Piamonte",
     "area_total": 16.5,
     "nombre_vereda_busqueda": "Piamonte",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "25754-247",
@@ -2220,16 +2466,18 @@
     "direccion": "Vereda La Isla",
     "area_total": 14.8,
     "nombre_vereda_busqueda": "La Isla",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "76001-248",
     "numero_registro_ica": "ICA-1248",
     "nombre_predio": "Pance",
     "direccion": "Km 18 Vía al Mar",
-    "area_total": 55.0,
+    "area_total": 55,
     "nombre_vereda_busqueda": "Pance",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "76001-249",
@@ -2238,7 +2486,8 @@
     "direccion": "Sector Farallones",
     "area_total": 42.3,
     "nombre_vereda_busqueda": "Pance",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "76001-250",
@@ -2247,7 +2496,8 @@
     "direccion": "Vereda La Leonera",
     "area_total": 25.4,
     "nombre_vereda_busqueda": "La Leonera",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "76001-251",
@@ -2256,7 +2506,8 @@
     "direccion": "Sector Felidia",
     "area_total": 31.7,
     "nombre_vereda_busqueda": "Felidia",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "76001-252",
@@ -2265,7 +2516,8 @@
     "direccion": "Vereda Pichindé",
     "area_total": 28.9,
     "nombre_vereda_busqueda": "Pichindé",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "76001-253",
@@ -2274,7 +2526,8 @@
     "direccion": "Finca Villacarmelo",
     "area_total": 22.6,
     "nombre_vereda_busqueda": "Villacarmelo",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "76001-254",
@@ -2283,7 +2536,8 @@
     "direccion": "Sector El Saladito",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "El Saladito",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "76001-255",
@@ -2292,7 +2546,8 @@
     "direccion": "Vereda La Elvira",
     "area_total": 35.2,
     "nombre_vereda_busqueda": "La Elvira",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "76520-256",
@@ -2301,7 +2556,8 @@
     "direccion": "Lote central",
     "area_total": 12.9,
     "nombre_vereda_busqueda": "Rozo",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "76520-257",
@@ -2310,7 +2566,8 @@
     "direccion": "Vereda La Buitrera",
     "area_total": 24.5,
     "nombre_vereda_busqueda": "La Buitrera",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "76520-258",
@@ -2319,7 +2576,8 @@
     "direccion": "Sector Tienda Nueva",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "Tienda Nueva",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "76520-259",
@@ -2328,7 +2586,8 @@
     "direccion": "Finca La Zapata",
     "area_total": 21.7,
     "nombre_vereda_busqueda": "La Zapata",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "76520-260",
@@ -2337,7 +2596,8 @@
     "direccion": "Vereda El Placer",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "El Placer",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "76520-261",
@@ -2346,7 +2606,8 @@
     "direccion": "Camino La Trocha",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "La Trocha",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "76111-262",
@@ -2355,7 +2616,8 @@
     "direccion": "Hacienda La Unión",
     "area_total": 33.2,
     "nombre_vereda_busqueda": "La Habana",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "76111-263",
@@ -2364,7 +2626,8 @@
     "direccion": "Sector Alaska",
     "area_total": 27.8,
     "nombre_vereda_busqueda": "Alaska",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "76111-264",
@@ -2373,7 +2636,8 @@
     "direccion": "Vereda El Vínculo",
     "area_total": 24.6,
     "nombre_vereda_busqueda": "El Vínculo",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "76111-265",
@@ -2382,7 +2646,8 @@
     "direccion": "Finca Monterrey",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Monterrey",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "76111-266",
@@ -2391,7 +2656,8 @@
     "direccion": "Sector Quebrada Seca",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "Quebrada Seca",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "76111-267",
@@ -2400,7 +2666,8 @@
     "direccion": "Vereda El Llano",
     "area_total": 22.3,
     "nombre_vereda_busqueda": "El Llano",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "76111-268",
@@ -2409,7 +2676,8 @@
     "direccion": "Camino San Joaquín",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "San Joaquín",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "76834-269",
@@ -2418,7 +2686,8 @@
     "direccion": "Vía Monteloro",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "La Marina",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "76834-270",
@@ -2427,7 +2696,8 @@
     "direccion": "Sector Barragán",
     "area_total": 26.4,
     "nombre_vereda_busqueda": "Barragán",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "76834-271",
@@ -2436,7 +2706,8 @@
     "direccion": "Sector Santa Lucía",
     "area_total": 23.8,
     "nombre_vereda_busqueda": "Santa Lucía",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "76834-272",
@@ -2445,7 +2716,8 @@
     "direccion": "Vía Monteloro",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "Monteloro",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "76834-273",
@@ -2454,7 +2726,8 @@
     "direccion": "Sector Venus",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "Venus",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "76834-274",
@@ -2463,7 +2736,8 @@
     "direccion": "Finca El Aguacate",
     "area_total": 21.3,
     "nombre_vereda_busqueda": "El Aguacate",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "76147-275",
@@ -2472,7 +2746,8 @@
     "direccion": "Vereda Cauca",
     "area_total": 24.6,
     "nombre_vereda_busqueda": "Cauca",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "76147-276",
@@ -2481,7 +2756,8 @@
     "direccion": "Sector Modín",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Modín",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "76147-277",
@@ -2490,7 +2766,8 @@
     "direccion": "Vereda Coloradas",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "Coloradas",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "76147-278",
@@ -2499,7 +2776,8 @@
     "direccion": "Finca Piedra de Moler",
     "area_total": 20.7,
     "nombre_vereda_busqueda": "Piedra de Moler",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "76147-279",
@@ -2508,7 +2786,8 @@
     "direccion": "Sector Santa Ana",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "Santa Ana",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "76147-280",
@@ -2517,7 +2796,8 @@
     "direccion": "Vereda El Caimo",
     "area_total": 22.1,
     "nombre_vereda_busqueda": "El Caimo",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "76109-281",
@@ -2526,7 +2806,8 @@
     "direccion": "Vereda Pianguita",
     "area_total": 28.5,
     "nombre_vereda_busqueda": "Pianguita",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "76109-282",
@@ -2535,7 +2816,8 @@
     "direccion": "Sector San Cipriano",
     "area_total": 35.2,
     "nombre_vereda_busqueda": "San Cipriano",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "76109-283",
@@ -2544,7 +2826,8 @@
     "direccion": "Vereda La Barra",
     "area_total": 19.4,
     "nombre_vereda_busqueda": "La Barra",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "76109-284",
@@ -2553,7 +2836,8 @@
     "direccion": "Finca Anchicayá",
     "area_total": 24.7,
     "nombre_vereda_busqueda": "Anchicayá",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "76364-285",
@@ -2562,7 +2846,8 @@
     "direccion": "Vereda El Placer",
     "area_total": 17.3,
     "nombre_vereda_busqueda": "El Placer",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "76364-286",
@@ -2571,7 +2856,8 @@
     "direccion": "Sector San Antonio",
     "area_total": 21.6,
     "nombre_vereda_busqueda": "San Antonio",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "76364-287",
@@ -2580,7 +2866,8 @@
     "direccion": "Vereda La Troja",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "La Troja",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "76364-288",
@@ -2589,7 +2876,8 @@
     "direccion": "Finca El Limón",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "El Limón",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   },
   {
     "numero_predial": "76364-289",
@@ -2598,7 +2886,8 @@
     "direccion": "Vereda Villa Paz",
     "area_total": 23.4,
     "nombre_vereda_busqueda": "Villa Paz",
-    "numero_identificacion_productor": null
+    "latitud": 4.98,
+    "longitud": -73.72
   },
   {
     "numero_predial": "76364-290",
@@ -2607,7 +2896,8 @@
     "direccion": "Sector La Rivera",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "La Rivera",
-    "numero_identificacion_productor": null
+    "latitud": 4.99,
+    "longitud": -73.71
   },
   {
     "numero_predial": "76364-291",
@@ -2616,7 +2906,8 @@
     "direccion": "Finca Potrerito",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "Potrerito",
-    "numero_identificacion_productor": null
+    "latitud": 5,
+    "longitud": -73.7
   },
   {
     "numero_predial": "76111-292",
@@ -2625,7 +2916,8 @@
     "direccion": "Vereda San Joaquín",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "San Joaquín",
-    "numero_identificacion_productor": null
+    "latitud": 5.01,
+    "longitud": -73.69
   },
   {
     "numero_predial": "76834-293",
@@ -2634,7 +2926,8 @@
     "direccion": "Sector La Paila",
     "area_total": 20.9,
     "nombre_vereda_busqueda": "La Paila",
-    "numero_identificacion_productor": null
+    "latitud": 5.02,
+    "longitud": -73.68
   },
   {
     "numero_predial": "76147-294",
@@ -2643,7 +2936,8 @@
     "direccion": "Vereda La Isabela",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "La Isabela",
-    "numero_identificacion_productor": null
+    "latitud": 5.03,
+    "longitud": -73.67
   },
   {
     "numero_predial": "76109-295",
@@ -2652,7 +2946,8 @@
     "direccion": "Sector El Cucho",
     "area_total": 26.1,
     "nombre_vereda_busqueda": "El Cucho",
-    "numero_identificacion_productor": null
+    "latitud": 5.04,
+    "longitud": -73.66
   },
   {
     "numero_predial": "76109-296",
@@ -2661,7 +2956,8 @@
     "direccion": "Vereda Sabales",
     "area_total": 22.4,
     "nombre_vereda_busqueda": "Sabales",
-    "numero_identificacion_productor": null
+    "latitud": 5.05,
+    "longitud": -73.65
   },
   {
     "numero_predial": "76109-297",
@@ -2670,7 +2966,8 @@
     "direccion": "Finca El Naranjo",
     "area_total": 29.5,
     "nombre_vereda_busqueda": "El Naranjo",
-    "numero_identificacion_productor": null
+    "latitud": 5.06,
+    "longitud": -73.64
   },
   {
     "numero_predial": "76364-298",
@@ -2679,7 +2976,8 @@
     "direccion": "Sector Villa Paz",
     "area_total": 24.2,
     "nombre_vereda_busqueda": "Villa Paz",
-    "numero_identificacion_productor": null
+    "latitud": 5.07,
+    "longitud": -73.63
   },
   {
     "numero_predial": "08001-299",
@@ -2688,7 +2986,8 @@
     "direccion": "Km 5 Vía Barranquilla",
     "area_total": 12.4,
     "nombre_vereda_busqueda": "Juan Mina",
-    "numero_identificacion_productor": null
+    "latitud": 5.08,
+    "longitud": -73.62
   },
   {
     "numero_predial": "08001-300",
@@ -2697,7 +2996,8 @@
     "direccion": "Sector Juan Mina",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "Juan Mina",
-    "numero_identificacion_productor": null
+    "latitud": 5.09,
+    "longitud": -73.61
   },
   {
     "numero_predial": "08001-301",
@@ -2706,7 +3006,8 @@
     "direccion": "Vía Puerto",
     "area_total": 7.2,
     "nombre_vereda_busqueda": "La Playa",
-    "numero_identificacion_productor": null
+    "latitud": 5.1,
+    "longitud": -73.6
   },
   {
     "numero_predial": "08001-302",
@@ -2715,7 +3016,8 @@
     "direccion": "Sector La Playa",
     "area_total": 11.8,
     "nombre_vereda_busqueda": "La Playa",
-    "numero_identificacion_productor": null
+    "latitud": 5.11,
+    "longitud": -73.59
   },
   {
     "numero_predial": "08001-303",
@@ -2724,7 +3026,8 @@
     "direccion": "Vereda Las Flores",
     "area_total": 9.5,
     "nombre_vereda_busqueda": "Las Flores",
-    "numero_identificacion_productor": null
+    "latitud": 5.12,
+    "longitud": -73.58
   },
   {
     "numero_predial": "08001-304",
@@ -2733,7 +3036,8 @@
     "direccion": "Sector Palmarito",
     "area_total": 14.3,
     "nombre_vereda_busqueda": "Palmarito",
-    "numero_identificacion_productor": null
+    "latitud": 5.13,
+    "longitud": -73.57
   },
   {
     "numero_predial": "08001-305",
@@ -2742,7 +3046,8 @@
     "direccion": "Vereda El Morro",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "El Morro",
-    "numero_identificacion_productor": null
+    "latitud": 5.14,
+    "longitud": -73.56
   },
   {
     "numero_predial": "08001-306",
@@ -2751,7 +3056,8 @@
     "direccion": "Sector Puerto Giraldo",
     "area_total": 13.9,
     "nombre_vereda_busqueda": "Puerto Giraldo",
-    "numero_identificacion_productor": null
+    "latitud": 5.15,
+    "longitud": -73.55
   },
   {
     "numero_predial": "08758-307",
@@ -2760,7 +3066,8 @@
     "direccion": "Calle del Río",
     "area_total": 10.8,
     "nombre_vereda_busqueda": "Cabica",
-    "numero_identificacion_productor": null
+    "latitud": 5.16,
+    "longitud": -73.54
   },
   {
     "numero_predial": "08758-308",
@@ -2769,7 +3076,8 @@
     "direccion": "Vereda Cabica",
     "area_total": 16.2,
     "nombre_vereda_busqueda": "Cabica",
-    "numero_identificacion_productor": null
+    "latitud": 5.17,
+    "longitud": -73.53
   },
   {
     "numero_predial": "08758-309",
@@ -2778,7 +3086,8 @@
     "direccion": "Sector El Oasis",
     "area_total": 12.5,
     "nombre_vereda_busqueda": "El Oasis",
-    "numero_identificacion_productor": null
+    "latitud": 5.18,
+    "longitud": -73.52
   },
   {
     "numero_predial": "08758-310",
@@ -2787,7 +3096,8 @@
     "direccion": "Vereda La Central",
     "area_total": 14.7,
     "nombre_vereda_busqueda": "La Central",
-    "numero_identificacion_productor": null
+    "latitud": 5.19,
+    "longitud": -73.51
   },
   {
     "numero_predial": "08758-311",
@@ -2796,7 +3106,8 @@
     "direccion": "Sector La Esperanza",
     "area_total": 13.4,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 5.2,
+    "longitud": -73.5
   },
   {
     "numero_predial": "08758-312",
@@ -2805,7 +3116,8 @@
     "direccion": "Vereda El Poblado",
     "area_total": 11.9,
     "nombre_vereda_busqueda": "El Poblado",
-    "numero_identificacion_productor": null
+    "latitud": 5.21,
+    "longitud": -73.49
   },
   {
     "numero_predial": "08433-313",
@@ -2814,7 +3126,8 @@
     "direccion": "Sector La Aguada",
     "area_total": 15.6,
     "nombre_vereda_busqueda": "La Aguada",
-    "numero_identificacion_productor": null
+    "latitud": 5.22,
+    "longitud": -73.48
   },
   {
     "numero_predial": "08433-314",
@@ -2823,7 +3136,8 @@
     "direccion": "Vereda El Espinal",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "El Espinal",
-    "numero_identificacion_productor": null
+    "latitud": 5.23,
+    "longitud": -73.47
   },
   {
     "numero_predial": "08433-315",
@@ -2832,7 +3146,8 @@
     "direccion": "Sector Caracolí",
     "area_total": 12.3,
     "nombre_vereda_busqueda": "Caracolí",
-    "numero_identificacion_productor": null
+    "latitud": 5.24,
+    "longitud": -73.46
   },
   {
     "numero_predial": "08433-316",
@@ -2841,7 +3156,8 @@
     "direccion": "Vereda Caimital",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "Caimital",
-    "numero_identificacion_productor": null
+    "latitud": 5.25,
+    "longitud": -73.45
   },
   {
     "numero_predial": "08573-317",
@@ -2850,7 +3166,8 @@
     "direccion": "Vía Salgar",
     "area_total": 5.4,
     "nombre_vereda_busqueda": "Sabanilla",
-    "numero_identificacion_productor": null
+    "latitud": 5.26,
+    "longitud": -73.44
   },
   {
     "numero_predial": "08573-318",
@@ -2859,7 +3176,8 @@
     "direccion": "Sector Lagos de Caujaral",
     "area_total": 16.2,
     "nombre_vereda_busqueda": "Sabanilla",
-    "numero_identificacion_productor": null
+    "latitud": 5.27,
+    "longitud": -73.43
   },
   {
     "numero_predial": "08573-319",
@@ -2868,7 +3186,8 @@
     "direccion": "Vereda Salgar",
     "area_total": 13.5,
     "nombre_vereda_busqueda": "Salgar",
-    "numero_identificacion_productor": null
+    "latitud": 5.28,
+    "longitud": -73.42
   },
   {
     "numero_predial": "08573-320",
@@ -2877,16 +3196,18 @@
     "direccion": "Sector El Castillo",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "El Castillo",
-    "numero_identificacion_productor": null
+    "latitud": 5.29,
+    "longitud": -73.41
   },
   {
     "numero_predial": "08078-321",
     "numero_registro_ica": "ICA-1321",
     "nombre_predio": "Pital de Megua",
     "direccion": "Vereda Pital de Megua",
-    "area_total": 21.0,
+    "area_total": 21,
     "nombre_vereda_busqueda": "Pital de Megua",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "08078-322",
@@ -2895,7 +3216,8 @@
     "direccion": "Calle Principal",
     "area_total": 19.4,
     "nombre_vereda_busqueda": "Sibarco",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "08078-323",
@@ -2904,7 +3226,8 @@
     "direccion": "Vereda Campeche",
     "area_total": 14.8,
     "nombre_vereda_busqueda": "Campeche",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "08078-324",
@@ -2913,7 +3236,8 @@
     "direccion": "Sector La Esperanza",
     "area_total": 16.5,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "08078-325",
@@ -2922,7 +3246,8 @@
     "direccion": "Vereda El Desorden",
     "area_total": 12.9,
     "nombre_vereda_busqueda": "El Desorden",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "08078-326",
@@ -2931,7 +3256,8 @@
     "direccion": "Sector El Silencio",
     "area_total": 15.2,
     "nombre_vereda_busqueda": "El Silencio",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "08078-327",
@@ -2940,7 +3266,8 @@
     "direccion": "Vereda La Concha",
     "area_total": 13.7,
     "nombre_vereda_busqueda": "La Concha",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "08638-328",
@@ -2949,7 +3276,8 @@
     "direccion": "Vereda Agua Fría",
     "area_total": 18.4,
     "nombre_vereda_busqueda": "Agua Fría",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "08638-329",
@@ -2958,7 +3286,8 @@
     "direccion": "Sector El Palmar",
     "area_total": 14.6,
     "nombre_vereda_busqueda": "El Palmar",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "08638-330",
@@ -2967,7 +3296,8 @@
     "direccion": "Vereda La Ceiba",
     "area_total": 17.1,
     "nombre_vereda_busqueda": "La Ceiba",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "08137-331",
@@ -2976,7 +3306,8 @@
     "direccion": "Vereda El Limón",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "El Limón",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "08137-332",
@@ -2985,7 +3316,8 @@
     "direccion": "Sector La Peña",
     "area_total": 12.8,
     "nombre_vereda_busqueda": "La Peña",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "08137-333",
@@ -2994,7 +3326,8 @@
     "direccion": "Vereda San Pablo",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "San Pablo",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "08137-334",
@@ -3003,7 +3336,8 @@
     "direccion": "Sector El Jobo",
     "area_total": 14.2,
     "nombre_vereda_busqueda": "El Jobo",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "15001-335",
@@ -3012,7 +3346,8 @@
     "direccion": "Vereda Soracá",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "Soracá",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "15001-336",
@@ -3021,7 +3356,8 @@
     "direccion": "Sector Alto Tunja",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "Soracá",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "15001-337",
@@ -3030,7 +3366,8 @@
     "direccion": "Vereda Chiriví",
     "area_total": 14.2,
     "nombre_vereda_busqueda": "Chiriví",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "15001-338",
@@ -3039,7 +3376,8 @@
     "direccion": "Sector La Esperanza",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "15001-339",
@@ -3048,7 +3386,8 @@
     "direccion": "Vereda El Rosal",
     "area_total": 15.3,
     "nombre_vereda_busqueda": "El Rosal",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "15001-340",
@@ -3057,7 +3396,8 @@
     "direccion": "Sector Tibasosa",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "Tibasosa",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "15212-341",
@@ -3066,7 +3406,8 @@
     "direccion": "Vereda La Balsa",
     "area_total": 21.4,
     "nombre_vereda_busqueda": "La Balsa",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "15212-342",
@@ -3075,7 +3416,8 @@
     "direccion": "Sector El Cocuy",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "El Cocuy",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "15212-343",
@@ -3084,7 +3426,8 @@
     "direccion": "Vereda San Antonio",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "San Antonio",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "15212-344",
@@ -3093,7 +3436,8 @@
     "direccion": "Sector El Porvenir",
     "area_total": 14.8,
     "nombre_vereda_busqueda": "El Porvenir",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "15667-345",
@@ -3102,7 +3446,8 @@
     "direccion": "Vereda Tópaga",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "Tópaga",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "15667-346",
@@ -3111,7 +3456,8 @@
     "direccion": "Sector Mongua",
     "area_total": 15.1,
     "nombre_vereda_busqueda": "Mongua",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "15667-347",
@@ -3120,7 +3466,8 @@
     "direccion": "Vereda Nobsa",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "Nobsa",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "15667-348",
@@ -3129,7 +3476,8 @@
     "direccion": "Sector Firavitoba",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "Firavitoba",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "15667-349",
@@ -3138,7 +3486,8 @@
     "direccion": "Vereda Pesca",
     "area_total": 14.9,
     "nombre_vereda_busqueda": "Pesca",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "15667-350",
@@ -3147,7 +3496,8 @@
     "direccion": "Sector Cuitiva",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "Cuitiva",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "15176-351",
@@ -3156,7 +3506,8 @@
     "direccion": "Vereda San José",
     "area_total": 17.2,
     "nombre_vereda_busqueda": "San José",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "15176-352",
@@ -3165,7 +3516,8 @@
     "direccion": "Sector El Arenal",
     "area_total": 15.8,
     "nombre_vereda_busqueda": "El Arenal",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "15176-353",
@@ -3174,7 +3526,8 @@
     "direccion": "Vereda La Cumbre",
     "area_total": 20.1,
     "nombre_vereda_busqueda": "La Cumbre",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "15176-354",
@@ -3183,7 +3536,8 @@
     "direccion": "Sector El Roble",
     "area_total": 13.6,
     "nombre_vereda_busqueda": "El Roble",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "15518-355",
@@ -3192,7 +3546,8 @@
     "direccion": "Vereda Las Piedras",
     "area_total": 18.4,
     "nombre_vereda_busqueda": "Las Piedras",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "15518-356",
@@ -3201,7 +3556,8 @@
     "direccion": "Sector Sotaquirá",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "Sotaquirá",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "15518-357",
@@ -3210,7 +3566,8 @@
     "direccion": "Vereda Tuta",
     "area_total": 14.7,
     "nombre_vereda_busqueda": "Tuta",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "15518-358",
@@ -3219,7 +3576,8 @@
     "direccion": "Sector Sáchica",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "Sáchica",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "15518-359",
@@ -3228,7 +3586,8 @@
     "direccion": "Vereda Toca",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "Toca",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "15518-360",
@@ -3237,7 +3596,8 @@
     "direccion": "Sector Oicatá",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "Oicatá",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "15407-361",
@@ -3246,7 +3606,8 @@
     "direccion": "Vereda Santa Sofía",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Santa Sofía",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "15407-362",
@@ -3255,7 +3616,8 @@
     "direccion": "Sector Sutamarchán",
     "area_total": 16.3,
     "nombre_vereda_busqueda": "Sutamarchán",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "15407-363",
@@ -3264,7 +3626,8 @@
     "direccion": "Vereda Ráquira",
     "area_total": 20.7,
     "nombre_vereda_busqueda": "Ráquira",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "15407-364",
@@ -3273,7 +3636,8 @@
     "direccion": "Sector Tinjacá",
     "area_total": 14.5,
     "nombre_vereda_busqueda": "Tinjacá",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "15646-365",
@@ -3282,7 +3646,8 @@
     "direccion": "Vereda Ventaquemada",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "Ventaquemada",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "15646-366",
@@ -3291,7 +3656,8 @@
     "direccion": "Sector Tuta Alto",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "Tuta Alto",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "15646-367",
@@ -3300,7 +3666,8 @@
     "direccion": "Vereda El Hatillo",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "El Hatillo",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "15646-368",
@@ -3309,7 +3676,8 @@
     "direccion": "Sector La Pradera",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "La Pradera",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   },
   {
     "numero_predial": "15518-359",
@@ -3318,7 +3686,8 @@
     "direccion": "Vereda Toca",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "Toca",
-    "numero_identificacion_productor": null
+    "latitud": 4.98,
+    "longitud": -73.72
   },
   {
     "numero_predial": "15518-360",
@@ -3327,7 +3696,8 @@
     "direccion": "Sector Oicatá",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "Oicatá",
-    "numero_identificacion_productor": null
+    "latitud": 4.99,
+    "longitud": -73.71
   },
   {
     "numero_predial": "15407-361",
@@ -3336,7 +3706,8 @@
     "direccion": "Vereda Santa Sofía",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Santa Sofía",
-    "numero_identificacion_productor": null
+    "latitud": 5,
+    "longitud": -73.7
   },
   {
     "numero_predial": "15407-362",
@@ -3345,7 +3716,8 @@
     "direccion": "Sector Sutamarchán",
     "area_total": 16.3,
     "nombre_vereda_busqueda": "Sutamarchán",
-    "numero_identificacion_productor": null
+    "latitud": 5.01,
+    "longitud": -73.69
   },
   {
     "numero_predial": "15407-363",
@@ -3354,7 +3726,8 @@
     "direccion": "Vereda Ráquira",
     "area_total": 20.7,
     "nombre_vereda_busqueda": "Ráquira",
-    "numero_identificacion_productor": null
+    "latitud": 5.02,
+    "longitud": -73.68
   },
   {
     "numero_predial": "15407-364",
@@ -3363,7 +3736,8 @@
     "direccion": "Sector Tinjacá",
     "area_total": 14.5,
     "nombre_vereda_busqueda": "Tinjacá",
-    "numero_identificacion_productor": null
+    "latitud": 5.03,
+    "longitud": -73.67
   },
   {
     "numero_predial": "15646-365",
@@ -3372,7 +3746,8 @@
     "direccion": "Vereda Ventaquemada",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "Ventaquemada",
-    "numero_identificacion_productor": null
+    "latitud": 5.04,
+    "longitud": -73.66
   },
   {
     "numero_predial": "15646-366",
@@ -3381,7 +3756,8 @@
     "direccion": "Sector Tuta Alto",
     "area_total": 17.6,
     "nombre_vereda_busqueda": "Tuta Alto",
-    "numero_identificacion_productor": null
+    "latitud": 5.05,
+    "longitud": -73.65
   },
   {
     "numero_predial": "15646-367",
@@ -3390,7 +3766,8 @@
     "direccion": "Vereda El Hatillo",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "El Hatillo",
-    "numero_identificacion_productor": null
+    "latitud": 5.06,
+    "longitud": -73.64
   },
   {
     "numero_predial": "15646-368",
@@ -3399,7 +3776,8 @@
     "direccion": "Sector La Pradera",
     "area_total": 18.2,
     "nombre_vereda_busqueda": "La Pradera",
-    "numero_identificacion_productor": null
+    "latitud": 5.07,
+    "longitud": -73.63
   },
   {
     "numero_predial": "13001-369",
@@ -3408,7 +3786,8 @@
     "direccion": "Vereda Bayunca",
     "area_total": 22.4,
     "nombre_vereda_busqueda": "Bayunca",
-    "numero_identificacion_productor": null
+    "latitud": 5.08,
+    "longitud": -73.62
   },
   {
     "numero_predial": "13001-370",
@@ -3417,7 +3796,8 @@
     "direccion": "Sector Bayunca",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "Bayunca",
-    "numero_identificacion_productor": null
+    "latitud": 5.09,
+    "longitud": -73.61
   },
   {
     "numero_predial": "13001-371",
@@ -3426,7 +3806,8 @@
     "direccion": "Vereda Puerto Badel",
     "area_total": 25.1,
     "nombre_vereda_busqueda": "Puerto Badel",
-    "numero_identificacion_productor": null
+    "latitud": 5.1,
+    "longitud": -73.6
   },
   {
     "numero_predial": "13001-372",
@@ -3435,7 +3816,8 @@
     "direccion": "Sector Punta Canoa",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "Punta Canoa",
-    "numero_identificacion_productor": null
+    "latitud": 5.11,
+    "longitud": -73.59
   },
   {
     "numero_predial": "13001-373",
@@ -3444,7 +3826,8 @@
     "direccion": "Vereda Santa Rosa",
     "area_total": 16.8,
     "nombre_vereda_busqueda": "Santa Rosa",
-    "numero_identificacion_productor": null
+    "latitud": 5.12,
+    "longitud": -73.58
   },
   {
     "numero_predial": "13001-374",
@@ -3453,7 +3836,8 @@
     "direccion": "Sector Turbaco",
     "area_total": 21.5,
     "nombre_vereda_busqueda": "Turbaco",
-    "numero_identificacion_productor": null
+    "latitud": 5.13,
+    "longitud": -73.57
   },
   {
     "numero_predial": "13430-375",
@@ -3462,7 +3846,8 @@
     "direccion": "Vereda El Retiro",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "El Retiro",
-    "numero_identificacion_productor": null
+    "latitud": 5.14,
+    "longitud": -73.56
   },
   {
     "numero_predial": "13430-376",
@@ -3471,7 +3856,8 @@
     "direccion": "Sector La Peña",
     "area_total": 15.4,
     "nombre_vereda_busqueda": "La Peña",
-    "numero_identificacion_productor": null
+    "latitud": 5.15,
+    "longitud": -73.55
   },
   {
     "numero_predial": "13430-377",
@@ -3480,7 +3866,8 @@
     "direccion": "Vereda San Sebastián",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "San Sebastián",
-    "numero_identificacion_productor": null
+    "latitud": 5.16,
+    "longitud": -73.54
   },
   {
     "numero_predial": "13430-378",
@@ -3489,7 +3876,8 @@
     "direccion": "Sector El Carmen",
     "area_total": 14.6,
     "nombre_vereda_busqueda": "El Carmen",
-    "numero_identificacion_productor": null
+    "latitud": 5.17,
+    "longitud": -73.53
   },
   {
     "numero_predial": "13838-379",
@@ -3498,7 +3886,8 @@
     "direccion": "Vereda El Pueblito",
     "area_total": 16.3,
     "nombre_vereda_busqueda": "El Pueblito",
-    "numero_identificacion_productor": null
+    "latitud": 5.18,
+    "longitud": -73.52
   },
   {
     "numero_predial": "13838-380",
@@ -3507,7 +3896,8 @@
     "direccion": "Sector La Cordialidad",
     "area_total": 18.1,
     "nombre_vereda_busqueda": "La Cordialidad",
-    "numero_identificacion_productor": null
+    "latitud": 5.19,
+    "longitud": -73.51
   },
   {
     "numero_predial": "13838-381",
@@ -3516,7 +3906,8 @@
     "direccion": "Vereda Arjona",
     "area_total": 20.4,
     "nombre_vereda_busqueda": "Arjona",
-    "numero_identificacion_productor": null
+    "latitud": 5.2,
+    "longitud": -73.5
   },
   {
     "numero_predial": "13838-382",
@@ -3525,7 +3916,8 @@
     "direccion": "Sector Clemencia",
     "area_total": 15.7,
     "nombre_vereda_busqueda": "Clemencia",
-    "numero_identificacion_productor": null
+    "latitud": 5.21,
+    "longitud": -73.49
   },
   {
     "numero_predial": "13244-383",
@@ -3534,7 +3926,8 @@
     "direccion": "Vereda San Benito",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "San Benito",
-    "numero_identificacion_productor": null
+    "latitud": 5.22,
+    "longitud": -73.48
   },
   {
     "numero_predial": "13244-384",
@@ -3543,7 +3936,8 @@
     "direccion": "Sector La Matanza",
     "area_total": 16.2,
     "nombre_vereda_busqueda": "La Matanza",
-    "numero_identificacion_productor": null
+    "latitud": 5.23,
+    "longitud": -73.47
   },
   {
     "numero_predial": "13244-385",
@@ -3552,7 +3946,8 @@
     "direccion": "Vereda El Hobo",
     "area_total": 19.5,
     "nombre_vereda_busqueda": "El Hobo",
-    "numero_identificacion_productor": null
+    "latitud": 5.24,
+    "longitud": -73.46
   },
   {
     "numero_predial": "13244-386",
@@ -3561,7 +3956,8 @@
     "direccion": "Sector San Jacinto",
     "area_total": 17.3,
     "nombre_vereda_busqueda": "San Jacinto",
-    "numero_identificacion_productor": null
+    "latitud": 5.25,
+    "longitud": -73.45
   },
   {
     "numero_predial": "13490-387",
@@ -3570,7 +3966,8 @@
     "direccion": "Vereda Pinillos",
     "area_total": 21.6,
     "nombre_vereda_busqueda": "Pinillos",
-    "numero_identificacion_productor": null
+    "latitud": 5.26,
+    "longitud": -73.44
   },
   {
     "numero_predial": "13490-388",
@@ -3579,7 +3976,8 @@
     "direccion": "Sector Talaigua",
     "area_total": 15.8,
     "nombre_vereda_busqueda": "Talaigua",
-    "numero_identificacion_productor": null
+    "latitud": 5.27,
+    "longitud": -73.43
   },
   {
     "numero_predial": "13052-389",
@@ -3588,7 +3986,8 @@
     "direccion": "Vereda La Concepción",
     "area_total": 18.4,
     "nombre_vereda_busqueda": "La Concepción",
-    "numero_identificacion_productor": null
+    "latitud": 5.28,
+    "longitud": -73.42
   },
   {
     "numero_predial": "13052-390",
@@ -3597,7 +3996,8 @@
     "direccion": "Sector El Cedro",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "El Cedro",
-    "numero_identificacion_productor": null
+    "latitud": 5.29,
+    "longitud": -73.41
   },
   {
     "numero_predial": "13442-391",
@@ -3606,7 +4006,8 @@
     "direccion": "Vereda San Francisco",
     "area_total": 17.2,
     "nombre_vereda_busqueda": "San Francisco",
-    "numero_identificacion_productor": null
+    "latitud": 4.5,
+    "longitud": -74.2
   },
   {
     "numero_predial": "13442-392",
@@ -3615,7 +4016,8 @@
     "direccion": "Sector Santa Lucía",
     "area_total": 14.5,
     "nombre_vereda_busqueda": "Santa Lucía",
-    "numero_identificacion_productor": null
+    "latitud": 4.51,
+    "longitud": -74.19
   },
   {
     "numero_predial": "13442-393",
@@ -3624,7 +4026,8 @@
     "direccion": "Vereda Soplaviento",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "Soplaviento",
-    "numero_identificacion_productor": null
+    "latitud": 4.52,
+    "longitud": -74.18
   },
   {
     "numero_predial": "13442-394",
@@ -3633,7 +4036,8 @@
     "direccion": "Sector Calamar",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "Calamar",
-    "numero_identificacion_productor": null
+    "latitud": 4.53,
+    "longitud": -74.17
   },
   {
     "numero_predial": "13430-395",
@@ -3642,7 +4046,8 @@
     "direccion": "Vereda La Esperanza",
     "area_total": 18.3,
     "nombre_vereda_busqueda": "La Esperanza",
-    "numero_identificacion_productor": null
+    "latitud": 4.54,
+    "longitud": -74.16
   },
   {
     "numero_predial": "13430-396",
@@ -3651,7 +4056,8 @@
     "direccion": "Sector Bocas del Rosario",
     "area_total": 21.2,
     "nombre_vereda_busqueda": "Bocas del Rosario",
-    "numero_identificacion_productor": null
+    "latitud": 4.55,
+    "longitud": -74.15
   },
   {
     "numero_predial": "13244-397",
@@ -3660,7 +4066,8 @@
     "direccion": "Vereda María La Baja",
     "area_total": 17.9,
     "nombre_vereda_busqueda": "María La Baja",
-    "numero_identificacion_productor": null
+    "latitud": 4.56,
+    "longitud": -74.14
   },
   {
     "numero_predial": "13244-398",
@@ -3669,7 +4076,8 @@
     "direccion": "Sector San Juan",
     "area_total": 15.6,
     "nombre_vereda_busqueda": "San Juan Nepomuceno",
-    "numero_identificacion_productor": null
+    "latitud": 4.57,
+    "longitud": -74.13
   },
   {
     "numero_predial": "13490-399",
@@ -3678,7 +4086,8 @@
     "direccion": "Vereda Guaranda",
     "area_total": 20.5,
     "nombre_vereda_busqueda": "Guaranda",
-    "numero_identificacion_productor": null
+    "latitud": 4.58,
+    "longitud": -74.12
   },
   {
     "numero_predial": "13490-400",
@@ -3687,7 +4096,8 @@
     "direccion": "Sector Margarita",
     "area_total": 18.1,
     "nombre_vereda_busqueda": "Margarita",
-    "numero_identificacion_productor": null
+    "latitud": 4.59,
+    "longitud": -74.11
   },
   {
     "numero_predial": "13052-401",
@@ -3696,7 +4106,8 @@
     "direccion": "Vereda El Olivo",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "El Olivo",
-    "numero_identificacion_productor": null
+    "latitud": 4.6,
+    "longitud": -74.1
   },
   {
     "numero_predial": "13052-402",
@@ -3705,7 +4116,8 @@
     "direccion": "Sector Las Mercedes",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "Las Mercedes",
-    "numero_identificacion_productor": null
+    "latitud": 4.61,
+    "longitud": -74.09
   },
   {
     "numero_predial": "47001-403",
@@ -3714,7 +4126,8 @@
     "direccion": "Vereda Minca",
     "area_total": 28.5,
     "nombre_vereda_busqueda": "Minca",
-    "numero_identificacion_productor": null
+    "latitud": 4.62,
+    "longitud": -74.08
   },
   {
     "numero_predial": "47001-404",
@@ -3723,7 +4136,8 @@
     "direccion": "Sector Montañoso",
     "area_total": 24.7,
     "nombre_vereda_busqueda": "Minca",
-    "numero_identificacion_productor": null
+    "latitud": 4.63,
+    "longitud": -74.07
   },
   {
     "numero_predial": "47001-405",
@@ -3732,7 +4146,8 @@
     "direccion": "Vereda Bonda",
     "area_total": 19.3,
     "nombre_vereda_busqueda": "Bonda",
-    "numero_identificacion_productor": null
+    "latitud": 4.64,
+    "longitud": -74.06
   },
   {
     "numero_predial": "47001-406",
@@ -3741,7 +4156,8 @@
     "direccion": "Sector Taganga",
     "area_total": 15.8,
     "nombre_vereda_busqueda": "Taganga",
-    "numero_identificacion_productor": null
+    "latitud": 4.65,
+    "longitud": -74.05
   },
   {
     "numero_predial": "47170-407",
@@ -3750,7 +4166,8 @@
     "direccion": "Vereda Orihueca",
     "area_total": 22.1,
     "nombre_vereda_busqueda": "Orihueca",
-    "numero_identificacion_productor": null
+    "latitud": 4.66,
+    "longitud": -74.04
   },
   {
     "numero_predial": "47170-408",
@@ -3759,7 +4176,8 @@
     "direccion": "Sector El Copey",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "El Copey",
-    "numero_identificacion_productor": null
+    "latitud": 4.67,
+    "longitud": -74.03
   },
   {
     "numero_predial": "47170-409",
@@ -3768,7 +4186,8 @@
     "direccion": "Vereda La Florida",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "La Florida",
-    "numero_identificacion_productor": null
+    "latitud": 4.68,
+    "longitud": -74.02
   },
   {
     "numero_predial": "47170-410",
@@ -3777,7 +4196,8 @@
     "direccion": "Sector San Ángel",
     "area_total": 20.9,
     "nombre_vereda_busqueda": "San Ángel",
-    "numero_identificacion_productor": null
+    "latitud": 4.69,
+    "longitud": -74.01
   },
   {
     "numero_predial": "47245-411",
@@ -3786,7 +4206,8 @@
     "direccion": "Vereda Guamal",
     "area_total": 17.5,
     "nombre_vereda_busqueda": "Guamal",
-    "numero_identificacion_productor": null
+    "latitud": 4.7,
+    "longitud": -74
   },
   {
     "numero_predial": "47245-412",
@@ -3795,7 +4216,8 @@
     "direccion": "Sector Pijiño",
     "area_total": 19.2,
     "nombre_vereda_busqueda": "Pijiño",
-    "numero_identificacion_productor": null
+    "latitud": 4.71,
+    "longitud": -73.99
   },
   {
     "numero_predial": "47288-413",
@@ -3804,7 +4226,8 @@
     "direccion": "Vereda Aracataca",
     "area_total": 23.8,
     "nombre_vereda_busqueda": "Aracataca",
-    "numero_identificacion_productor": null
+    "latitud": 4.72,
+    "longitud": -73.98
   },
   {
     "numero_predial": "47288-414",
@@ -3813,7 +4236,8 @@
     "direccion": "Sector El Retén",
     "area_total": 16.1,
     "nombre_vereda_busqueda": "El Retén",
-    "numero_identificacion_productor": null
+    "latitud": 4.73,
+    "longitud": -73.97
   },
   {
     "numero_predial": "47288-415",
@@ -3822,7 +4246,8 @@
     "direccion": "Vereda Sitio Nuevo",
     "area_total": 18.7,
     "nombre_vereda_busqueda": "Sitio Nuevo",
-    "numero_identificacion_productor": null
+    "latitud": 4.74,
+    "longitud": -73.96
   },
   {
     "numero_predial": "47288-416",
@@ -3831,7 +4256,8 @@
     "direccion": "Sector Pivijay",
     "area_total": 21.3,
     "nombre_vereda_busqueda": "Pivijay",
-    "numero_identificacion_productor": null
+    "latitud": 4.75,
+    "longitud": -73.95
   },
   {
     "numero_predial": "47960-417",
@@ -3840,7 +4266,8 @@
     "direccion": "Vereda Orihueca",
     "area_total": 24.5,
     "nombre_vereda_busqueda": "Orihueca",
-    "numero_identificacion_productor": null
+    "latitud": 4.76,
+    "longitud": -73.94
   },
   {
     "numero_predial": "47960-418",
@@ -3849,7 +4276,8 @@
     "direccion": "Sector Sevilla",
     "area_total": 19.8,
     "nombre_vereda_busqueda": "Sevilla",
-    "numero_identificacion_productor": null
+    "latitud": 4.77,
+    "longitud": -73.93
   },
   {
     "numero_predial": "47960-419",
@@ -3858,7 +4286,8 @@
     "direccion": "Vereda Copey",
     "area_total": 17.2,
     "nombre_vereda_busqueda": "Copey",
-    "numero_identificacion_productor": null
+    "latitud": 4.78,
+    "longitud": -73.92
   },
   {
     "numero_predial": "47960-420",
@@ -3867,7 +4296,8 @@
     "direccion": "Sector San Pedro",
     "area_total": 20.4,
     "nombre_vereda_busqueda": "San Pedro",
-    "numero_identificacion_productor": null
+    "latitud": 4.79,
+    "longitud": -73.91
   },
   {
     "numero_predial": "47545-421",
@@ -3876,7 +4306,8 @@
     "direccion": "Vereda Remolino",
     "area_total": 15.9,
     "nombre_vereda_busqueda": "Remolino",
-    "numero_identificacion_productor": null
+    "latitud": 4.8,
+    "longitud": -73.9
   },
   {
     "numero_predial": "47545-422",
@@ -3885,7 +4316,8 @@
     "direccion": "Sector Salamina",
     "area_total": 18.6,
     "nombre_vereda_busqueda": "Salamina",
-    "numero_identificacion_productor": null
+    "latitud": 4.81,
+    "longitud": -73.89
   },
   {
     "numero_predial": "47545-423",
@@ -3894,7 +4326,8 @@
     "direccion": "Vereda Sitionuevo",
     "area_total": 16.7,
     "nombre_vereda_busqueda": "Sitionuevo",
-    "numero_identificacion_productor": null
+    "latitud": 4.82,
+    "longitud": -73.88
   },
   {
     "numero_predial": "47545-424",
@@ -3903,7 +4336,8 @@
     "direccion": "Sector Chivolo",
     "area_total": 19.1,
     "nombre_vereda_busqueda": "Chivolo",
-    "numero_identificacion_productor": null
+    "latitud": 4.83,
+    "longitud": -73.87
   },
   {
     "numero_predial": "47245-425",
@@ -3912,7 +4346,8 @@
     "direccion": "Vereda San Zenón",
     "area_total": 17.4,
     "nombre_vereda_busqueda": "San Zenón",
-    "numero_identificacion_productor": null
+    "latitud": 4.84,
+    "longitud": -73.86
   },
   {
     "numero_predial": "47245-426",
@@ -3921,7 +4356,8 @@
     "direccion": "Sector Nueva Granada",
     "area_total": 20.2,
     "nombre_vereda_busqueda": "Nueva Granada",
-    "numero_identificacion_productor": null
+    "latitud": 4.85,
+    "longitud": -73.85
   },
   {
     "numero_predial": "47245-427",
@@ -3930,7 +4366,8 @@
     "direccion": "Vereda Pinto",
     "area_total": 15.3,
     "nombre_vereda_busqueda": "Pinto",
-    "numero_identificacion_productor": null
+    "latitud": 4.86,
+    "longitud": -73.84
   },
   {
     "numero_predial": "47245-428",
@@ -3939,7 +4376,8 @@
     "direccion": "Sector Sabanas",
     "area_total": 18.9,
     "nombre_vereda_busqueda": "Sabanas de San Ángel",
-    "numero_identificacion_productor": null
+    "latitud": 4.87,
+    "longitud": -73.83
   },
   {
     "numero_predial": "47555-429",
@@ -3948,7 +4386,8 @@
     "direccion": "Vereda Ariguani",
     "area_total": 19.7,
     "nombre_vereda_busqueda": "Ariguani",
-    "numero_identificacion_productor": null
+    "latitud": 4.88,
+    "longitud": -73.82
   },
   {
     "numero_predial": "47555-430",
@@ -3957,7 +4396,8 @@
     "direccion": "Sector Chivolo",
     "area_total": 16.4,
     "nombre_vereda_busqueda": "Chivolo",
-    "numero_identificacion_productor": null
+    "latitud": 4.89,
+    "longitud": -73.81
   },
   {
     "numero_predial": "47555-431",
@@ -3966,7 +4406,8 @@
     "direccion": "Vereda El Difícil",
     "area_total": 21.2,
     "nombre_vereda_busqueda": "El Difícil",
-    "numero_identificacion_productor": null
+    "latitud": 4.9,
+    "longitud": -73.8
   },
   {
     "numero_predial": "47555-432",
@@ -3975,7 +4416,8 @@
     "direccion": "Sector Remolino",
     "area_total": 17.8,
     "nombre_vereda_busqueda": "Remolino",
-    "numero_identificacion_productor": null
+    "latitud": 4.91,
+    "longitud": -73.79
   },
   {
     "numero_predial": "47960-433",
@@ -3984,7 +4426,8 @@
     "direccion": "Vereda Tucurinca",
     "area_total": 20.5,
     "nombre_vereda_busqueda": "Tucurinca",
-    "numero_identificacion_productor": null
+    "latitud": 4.92,
+    "longitud": -73.78
   },
   {
     "numero_predial": "47960-434",
@@ -3993,7 +4436,8 @@
     "direccion": "Sector La Sabana",
     "area_total": 18.1,
     "nombre_vereda_busqueda": "La Sabana",
-    "numero_identificacion_productor": null
+    "latitud": 4.93,
+    "longitud": -73.77
   },
   {
     "numero_predial": "47545-435",
@@ -4002,7 +4446,8 @@
     "direccion": "Vereda Nueva Granada",
     "area_total": 16.9,
     "nombre_vereda_busqueda": "Nueva Granada",
-    "numero_identificacion_productor": null
+    "latitud": 4.94,
+    "longitud": -73.76
   },
   {
     "numero_predial": "47001-436",
@@ -4011,7 +4456,8 @@
     "direccion": "Vereda Machete",
     "area_total": 23.4,
     "nombre_vereda_busqueda": "Machete",
-    "numero_identificacion_productor": null
+    "latitud": 4.95,
+    "longitud": -73.75
   },
   {
     "numero_predial": "47001-437",
@@ -4020,7 +4466,8 @@
     "direccion": "Sector Ciénaga",
     "area_total": 19.6,
     "nombre_vereda_busqueda": "Ciénaga",
-    "numero_identificacion_productor": null
+    "latitud": 4.96,
+    "longitud": -73.74
   },
   {
     "numero_predial": "47001-438",
@@ -4029,6 +4476,7 @@
     "direccion": "Vereda Fundación",
     "area_total": 22.8,
     "nombre_vereda_busqueda": "Fundación",
-    "numero_identificacion_productor": null
+    "latitud": 4.97,
+    "longitud": -73.73
   }
 ]

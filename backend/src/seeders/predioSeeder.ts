@@ -44,9 +44,10 @@ export const seedPropietariosYPredios = async () => {
                     numero_registro_ica: data.numero_registro_ica,
                     nombre_predio: data.nombre_predio,
                     direccion: data.direccion,
+                    latitud: data.latitud ?? null,
+                    longitud: data.longitud ?? null,
                     area_total: data.area_total,
                     id_vereda: veredaAleatoria.id_vereda,
-                    numero_identificacion_productor: data.numero_identificacion_productor ?? null,
                     id_propietario: propietarioAleatorio.id_propietario,
                     id_lugar_produccion: null // <--- IMPORTANTE: Queda vacío por ahora
                 }

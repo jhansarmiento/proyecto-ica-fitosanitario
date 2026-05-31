@@ -73,10 +73,6 @@ Predio.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        numero_identificacion_productor: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
         id_lugar_produccion: {
             type: DataTypes.UUID,
             allowNull: true,

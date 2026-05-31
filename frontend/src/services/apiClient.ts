@@ -3,8 +3,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 export async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
-    // Recuperamos el token que guardamos en el Login con la mutación snake_case
-    const token = localStorage.getItem('token');
+    // Recuperamos token desde localStorage o sessionStorage
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
     // Enviamos la solicitud
     const response = await fetch(`${API_BASE_URL}${path}`, {
