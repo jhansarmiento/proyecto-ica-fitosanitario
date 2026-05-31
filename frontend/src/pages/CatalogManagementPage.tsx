@@ -426,14 +426,14 @@ export default function CatalogManagementPage({
       </section>
 
       {sp && (
-        <div className="fixed inset-0 z-[70] grid place-items-center bg-slate-900/70 p-4 backdrop-blur-sm" onClick={() => setSp(null)}>
-          <div className="w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-white shadow-[0_24px_70px_rgba(2,6,23,.5)]" onClick={(e) => e.stopPropagation()}>
-            <div className="relative h-44 bg-cover bg-center px-6 py-5 text-white md:h-48" style={{ backgroundImage: `url(${sp.imagen})` }}>
+        <div className="fixed inset-0 z-[70] grid place-items-center bg-slate-900/70 p-3 sm:p-4 backdrop-blur-sm" onClick={() => setSp(null)}>
+          <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl border border-white/20 bg-white shadow-[0_24px_70px_rgba(2,6,23,.5)]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative h-36 bg-cover bg-center px-4 py-4 text-white sm:h-44 sm:px-6 sm:py-5 md:h-48" style={{ backgroundImage: `url(${sp.imagen})` }}>
               <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(2,6,23,.85)_10%,rgba(2,6,23,.58)_50%,rgba(2,6,23,.4)_100%)]" />
               <button onClick={() => setSp(null)} className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/35 bg-white/20 text-white hover:bg-white/30"><X size={17} /></button>
-              <div className="relative z-[1] mt-8 max-w-2xl">
-                <h3 className="text-5xl font-extrabold leading-[.95] tracking-tight">{sp.nombreComun}</h3>
-                <p className="mt-1 text-2xl italic text-slate-100">{sp.nombreCientifico}</p>
+              <div className="relative z-[1] mt-4 max-w-2xl sm:mt-8">
+                <h3 className="break-words text-2xl font-extrabold leading-[.95] tracking-tight sm:text-4xl lg:text-5xl">{sp.nombreComun}</h3>
+                <p className="mt-1 break-words text-base italic text-slate-100 sm:text-xl lg:text-2xl">{sp.nombreCientifico}</p>
               </div>
             </div>
             <div className="grid gap-4 bg-gradient-to-b from-white to-slate-50 p-5 lg:grid-cols-12">
@@ -447,7 +447,7 @@ export default function CatalogManagementPage({
               </section>
               <section className="space-y-3 lg:col-span-7">
                 <article className="rounded-xl border border-white/70 bg-white/85 p-4 shadow-[0_8px_20px_rgba(2,6,23,.07)]">
-                  <h4 className="text-xl font-bold tracking-tight text-slate-900">Variedades Asociadas</h4>
+                  <h4 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">Variedades Asociadas</h4>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {sp.variedades.map((v) => (
                       <span key={v} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700">{v}</span>
@@ -455,16 +455,16 @@ export default function CatalogManagementPage({
                   </div>
                 </article>
                 <article className="rounded-xl border border-white/70 bg-white/90 p-4 shadow-[0_8px_20px_rgba(2,6,23,.07)]">
-                  <h4 className="text-xl font-bold tracking-tight text-slate-900">Plagas Relacionadas</h4>
+                  <h4 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">Plagas Relacionadas</h4>
                   <div className="mt-3 space-y-2.5">
                     {sp.plagas.map((p) => (
                       <div key={p.id_plaga} className="rounded-xl border border-slate-200 bg-gradient-to-r from-white to-slate-50 px-3.5 py-3 hover:border-emerald-200 hover:shadow-sm">
-                        <div className="flex items-center justify-between gap-3">
+                        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                           <div>
                             <p className="text-sm font-semibold text-slate-900">{p.nombre_comun}</p>
                             <p className="text-xs italic text-slate-500">{p.nombre_cientifico}</p>
                           </div>
-                          <button onClick={() => { const f = pests.find((x) => x.id_plaga === p.id_plaga); if (f) setPt(f); }} className="inline-flex items-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">Ver detalle <ArrowUpRight size={12} /></button>
+                          <button onClick={() => { const f = pests.find((x) => x.id_plaga === p.id_plaga); if (f) setPt(f); }} className="inline-flex w-full items-center justify-center gap-1 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 sm:w-auto">Ver detalle <ArrowUpRight size={12} /></button>
                         </div>
                       </div>
                     ))}
@@ -477,21 +477,21 @@ export default function CatalogManagementPage({
       )}
 
       {pt && (
-        <div className="fixed inset-0 z-[75] grid place-items-center bg-slate-900/70 p-4 backdrop-blur-sm" onClick={() => setPt(null)}>
-          <div className="w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-white shadow-[0_24px_70px_rgba(2,6,23,.5)]" onClick={(e) => e.stopPropagation()}>
-            <div className="relative h-44 bg-cover bg-center px-6 py-5 text-white md:h-48" style={{ backgroundImage: `url(${pt.imagen_plaga})` }}>
+        <div className="fixed inset-0 z-[75] grid place-items-center bg-slate-900/70 p-3 sm:p-4 backdrop-blur-sm" onClick={() => setPt(null)}>
+          <div className="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-2xl border border-white/20 bg-white shadow-[0_24px_70px_rgba(2,6,23,.5)]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative h-36 bg-cover bg-center px-4 py-4 text-white sm:h-44 sm:px-6 sm:py-5 md:h-48" style={{ backgroundImage: `url(${pt.imagen_plaga})` }}>
               <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(2,6,23,.85)_10%,rgba(2,6,23,.58)_50%,rgba(2,6,23,.4)_100%)]" />
               <button onClick={() => setPt(null)} className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/35 bg-white/20 text-white hover:bg-white/30"><X size={17} /></button>
-              <div className="relative z-[1] mt-8 max-w-2xl">
-                <h3 className="text-5xl font-extrabold leading-[.95] tracking-tight">{pt.nombre_comun}</h3>
-                <p className="mt-1 text-2xl italic text-slate-100">{pt.nombre_cientifico}</p>
+              <div className="relative z-[1] mt-4 max-w-2xl sm:mt-8">
+                <h3 className="break-words text-2xl font-extrabold leading-[.95] tracking-tight sm:text-4xl lg:text-5xl">{pt.nombre_comun}</h3>
+                <p className="mt-1 break-words text-base italic text-slate-100 sm:text-xl lg:text-2xl">{pt.nombre_cientifico}</p>
 
               </div>
             </div>
             <div className="grid gap-4 bg-gradient-to-b from-white to-slate-50 p-5 lg:grid-cols-12">
               <div className="space-y-3 lg:col-span-8">
-                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Nombre Cientifico</p><div className="mt-3 flex flex-wrap gap-2">{pt.nombre_cientifico}</div></article>
-                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Tipo de Plaga</p><div className="mt-3 flex flex-wrap gap-2">{pt.tipo_plaga ?? 'N/A'}</div></article>
+                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Nombre Cientifico</p><div className="mt-3 flex flex-wrap gap-2 break-words">{pt.nombre_cientifico}</div></article>
+                <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Tipo de Plaga</p><div className="mt-3 flex flex-wrap gap-2 break-words">{pt.tipo_plaga ?? 'N/A'}</div></article>
                 <article className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Especies afectadas</p><div className="mt-3 flex flex-wrap gap-2">{pt.especiesAfectadas.map((s) => <span key={s} className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700">{s}</span>)}</div></article>
               </div>
               {/* <div className="space-y-3 lg:col-span-4">
