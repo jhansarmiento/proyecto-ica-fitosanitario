@@ -1,5 +1,5 @@
 // frontend/src/components/ui/NewProductionPlaceModal.tsx
-import { Search, Warehouse, X } from "lucide-react";
+import { Search, Warehouse, X, ImageOff } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { fincaService } from "../../services/finca.service";
 import type { PredioUI, EspecieUI } from "../../types/finca.types";
@@ -72,6 +72,8 @@ function NewProductionPlaceModal({
           nombre_comun: e.nombre_comun,
           nombre_cientifico: e.nombre_especie,
           ciclo_cultivo: e.ciclo_cultivo,
+          imagen_referencia: e.imagen_especie_vegetal ||
+            "",
         }));
         setSpecies(mappedSpecies);
       } catch (e: any) {
@@ -455,13 +457,37 @@ function NewProductionPlaceModal({
                         key={sp.id_especie_vegetal}
                         className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition ${checked ? "border-emerald-300 bg-emerald-50 shadow-sm" : "border-slate-200 bg-white hover:border-emerald-200"}`}
                       >
-                        <div>
-                          <p className="text-2xl font-semibold text-slate-800">
-                            {sp.nombre_comun}
-                          </p>
-                          <p className="text-sm italic text-slate-600">
-                            {sp.nombre_cientifico}
-                          </p>
+                        <div className="flex items-center gap-3">
+                          <div className="h-16 w-16 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                            {sp.imagen_referencia ? (
+                              <img
+                                src={sp.imagen_referencia}
+                                alt={sp.nombre_comun}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                                onError={(ev) => {
+                                  ev.currentTarget.style.display = "none";
+                                  const fallback = ev.currentTarget.nextElementSibling as HTMLElement | null;
+                                  if (fallback) fallback.style.display = "flex";
+                                }}
+                              />
+                            ) : null}
+                            <div
+                              className="flex h-full w-full items-center justify-center gap-1 text-[10px] font-semibold text-slate-500"
+                              style={{ display: sp.imagen_referencia ? "none" : "flex" }}
+                            >
+                              <ImageOff size={12} />
+                              Sin imagen
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-2xl font-semibold text-slate-800">
+                              {sp.nombre_comun}
+                            </p>
+                            <p className="text-sm italic text-slate-600">
+                              {sp.nombre_cientifico}
+                            </p>
+                          </div>
                         </div>
                         <input
                           type="checkbox"

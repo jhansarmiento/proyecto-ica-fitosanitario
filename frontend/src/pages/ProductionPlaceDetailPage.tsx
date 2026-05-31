@@ -55,7 +55,12 @@ const ProductionPlaceDetailPage = ({
   // Validamos si el usuario actual es un Productor
   const esProductor = sessionUser?.rol?.toLowerCase() === "productor";
 
+  const estadoLugar = String(site?.estado || "").toLowerCase();
+  const isLugarBloqueado =
+    estadoLugar === "pendiente" || estadoLugar === "rechazado";
+
   const handleSolicitarInspeccion = () => {
+    if (isLugarBloqueado) return;
     setIsRequestModalOpen(true);
   };
 
@@ -118,7 +123,13 @@ const ProductionPlaceDetailPage = ({
               <button
                 type="button"
                 onClick={handleSolicitarInspeccion}
-                className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95"
+                disabled={isLugarBloqueado}
+                title={
+                  isLugarBloqueado
+                    ? "Solo lugares Activos pueden solicitar inspección"
+                    : ""
+                }
+                className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-95 disabled:cursor-not-allowed disabled:bg-slate-400"
               >
                 Solicitar Inspección Fitosanitaria
               </button>
@@ -131,6 +142,12 @@ const ProductionPlaceDetailPage = ({
             </button> */}
           </div>
         </div>
+
+        {isLugarBloqueado && (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
+            Solo lugares en estado Activo pueden solicitar inspección.
+          </div>
+        )}
 
         <div className="mb-5 inline-flex rounded-2xl border border-slate-200 bg-white p-1">
           <button

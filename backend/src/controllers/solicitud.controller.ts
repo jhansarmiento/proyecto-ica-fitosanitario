@@ -9,10 +9,18 @@ export const createSolicitudInspeccion = async (req: Request, res: Response): Pr
         const id_lugar_produccion = req.params.id; // Lo sacamos de la URL
         const payload = req.body;
 
-        // 1. Verificamos que el lugar exista
+        // 1. Verificamos que el lugar exista y esté habilitado para solicitar inspección
         const lugar = await models.LugarProduccion.findByPk(id_lugar_produccion);
         if (!lugar) {
             res.status(404).json({ message: 'Lugar de producción no encontrado.' });
+            return;
+        }
+
+        const estadoLugar = String((lugar as any).estado || '').toLowerCase();
+        if (estadoLugar === 'pendiente' || estadoLugar === 'rechazado') {
+            res.status(409).json({
+                message: 'No se puede solicitar inspección: el lugar de producción está en estado Pendiente o Rechazado.'
+            });
             return;
         }
 

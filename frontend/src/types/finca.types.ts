@@ -52,6 +52,7 @@ export interface EspecieUI {
   nombre_comun: string;
   nombre_cientifico: string;
   ciclo_cultivo: string;
+  imagen_referencia?: string;
 }
 
 export interface LoteUI {

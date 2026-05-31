@@ -49,6 +49,8 @@ function ProductionLotsPage({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedLot, setSelectedLot] = useState<LotDetail | null>(null);
+  const estadoLugar = String(site?.estado || '').toLowerCase();
+  const isLugarBloqueado = estadoLugar === 'pendiente' || estadoLugar === 'rechazado';
 
   // ─── CARGA DE DATOS REALES ──────────────────────────────────────────────────
   const loadLotes = async () => {
@@ -156,7 +158,9 @@ function ProductionLotsPage({
           <button
             type="button"
             onClick={() => setIsNewLotOpen(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800"
+            disabled={isLugarBloqueado}
+            title={isLugarBloqueado ? 'Solo lugares Activos pueden crear lotes' : ''}
+            className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
             <Plus size={16} />
             Crear Lote
@@ -164,6 +168,11 @@ function ProductionLotsPage({
         </div>
 
         {error && <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">{error}</div>}
+        {isLugarBloqueado && (
+          <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
+            Solo lugares en estado Activo pueden crear lotes.
+          </div>
+        )}
 
         {/* Tabla de Lotes */}
         {loading ? (

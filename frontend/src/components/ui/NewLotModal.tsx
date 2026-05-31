@@ -1,5 +1,5 @@
 // frontend/src/components/ui/NewLotModal.tsx
-import { CalendarDays, Leaf, Search, X } from "lucide-react";
+import { CalendarDays, ImageOff, Leaf, Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { fincaService } from "../../services/finca.service";
 import type { EspecieUI } from "../../types/finca.types";
@@ -85,6 +85,13 @@ function NewLotModal({
             nombre_comun: e.nombre_comun,
             nombre_cientifico: e.nombre_especie || "N/A",
             ciclo_cultivo: e.ciclo_cultivo || "General",
+            imagen_referencia:
+              e.imagen_especie_vegetal ||
+              e.imagen ||
+              e.imagen_referencia ||
+              e.imagen_url ||
+              e.foto ||
+              "",
           })),
         );
 
@@ -446,13 +453,37 @@ function NewLotModal({
                               : "border-slate-200 bg-white hover:border-emerald-200"
                           }`}
                         >
-                          <div>
-                            <p className="text-xl font-bold text-slate-800">
-                              {sp.nombre_comun}
-                            </p>
-                            <p className="text-sm italic text-slate-600">
-                              {sp.nombre_cientifico}
-                            </p>
+                          <div className="flex items-center gap-3">
+                            <div className="h-16 w-16 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                              {sp.imagen_referencia ? (
+                                <img
+                                  src={sp.imagen_referencia}
+                                  alt={sp.nombre_comun}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                  onError={(ev) => {
+                                    ev.currentTarget.style.display = "none";
+                                    const fallback = ev.currentTarget.nextElementSibling as HTMLElement | null;
+                                    if (fallback) fallback.style.display = "flex";
+                                  }}
+                                />
+                              ) : null}
+                              <div
+                                className="flex h-full w-full items-center justify-center gap-1 text-[10px] font-semibold text-slate-500"
+                                style={{ display: sp.imagen_referencia ? "none" : "flex" }}
+                              >
+                                <ImageOff size={12} />
+                                Sin imagen
+                              </div>
+                            </div>
+                            <div>
+                              <p className="text-xl font-bold text-slate-800">
+                                {sp.nombre_comun}
+                              </p>
+                              <p className="text-sm italic text-slate-600">
+                                {sp.nombre_cientifico}
+                              </p>
+                            </div>
                           </div>
                           <span className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700 uppercase">
                             {sp.ciclo_cultivo}

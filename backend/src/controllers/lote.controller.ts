@@ -13,10 +13,18 @@ export const createLote = async (req: Request, res: Response): Promise<void> => 
             return;
         }
 
-        // 2. Validamos que el lugar de producción exista
+        // 2. Validamos que el lugar de producción exista y esté habilitado
         const lugar = await models.LugarProduccion.findByPk(id_lugar_produccion);
         if (!lugar) {
             res.status(404).json({ message: 'El lugar de producción solicitado no existe.' });
+            return;
+        }
+
+        const estadoLugar = String((lugar as any).estado || '').toLowerCase();
+        if (estadoLugar === 'pendiente' || estadoLugar === 'rechazado') {
+            res.status(409).json({
+                message: 'No se puede crear lote: el lugar de producción está en estado Pendiente o Rechazado.'
+            });
             return;
         }
 
