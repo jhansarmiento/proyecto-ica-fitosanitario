@@ -24,6 +24,7 @@ import Propietario from './models/Propietario';
 import Predio from './models/Predio';
 import SolicitudInspeccion from './models/SolicitudInspeccion';
 import PasswordResetToken from './models/PasswordResetToken';
+import Notificacion from './models/Notificacion';
 
 // Modelos de BD Catalogo
 import './catalogIndex';
@@ -42,6 +43,7 @@ import especieRoutes from './routes/especie.routes';
 import autorizacionEspecieRoutes from './routes/autorizacionEspecie.routes';
 
 import solicitudRoutes from './routes/solicitud.routes';
+import notificacionRoutes from './routes/notificacion.routes';
 
 
 const models: any = {
@@ -57,6 +59,7 @@ const models: any = {
     Predio,
     SolicitudInspeccion,
     PasswordResetToken,
+    Notificacion,
 }
 
 Object.values(models).forEach((model: any) => {
@@ -95,6 +98,7 @@ app.use('/api/especies-vegetales', especieRoutes);
 app.use('/api/autorizaciones-especie', autorizacionEspecieRoutes);
 
 app.use('/api/solicitudes', solicitudRoutes);
+app.use('/api/notificaciones', notificacionRoutes);
 
 const startServer = async () => {
   try {

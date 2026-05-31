@@ -46,11 +46,16 @@ function EditUserModal({ isOpen, user, roles, onClose, onSave }: EditUserModalPr
   // ¿El rol seleccionado es ASISTENTE?
   const isAsistente = useMemo(() => {
     if (!form.rol) return false;
-    // form.rol puede ser el nombre (viene del listado) o un id (si se cambia en el modal)
+    // form.rol puede ser id o nombre según origen del dato
     const byId = roles.find((r) => r.id === form.rol);
     const byName = roles.find((r) => r.nombreRol === form.rol);
     const found = byId ?? byName;
-    return found?.nombreRol?.toUpperCase().includes('ASISTENTE') ?? false;
+    const normalized = (found?.nombreRol ?? form.rol)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+    return normalized.includes('asistente tecnico');
   }, [form.rol, roles]);
 
   const visibleSteps = isAsistente ? ALL_STEPS : STEPS_NO_ICA;
@@ -276,7 +281,7 @@ function EditUserModal({ isOpen, user, roles, onClose, onSave }: EditUserModalPr
             </>
           )}
 
-          {/* Paso 3 — Registro ICA (solo ASISTENTE) */}
+          {/* Paso 3 — Registro ICA (solo ASISTENTE TECNICO) */}
           {logicalStep === 3 && (
             <>
               <h4 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-slate-800">

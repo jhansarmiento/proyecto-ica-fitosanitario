@@ -2,38 +2,33 @@
 import { Response } from 'express';
 import sequelize from '../config/database';
 import models from '../index';
-import catalogmodels from '../catalogIndex'; 
+import catalogmodels from '../catalogIndex';
 import Predio from '../models/Predio';
 import type { IVeredaGeografica } from '../types/infoGeo.interface';
 import { AuthenticatedRequest } from '../types/usuario.types';
 
 // ─── 1. ENDPOINT PARA CREAR LUGAR DE PRODUCCIÓN (POST) ────────────────────────
 export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
-    // Iniciamos una transacción atómica de Sequelize
     const t = await sequelize.transaction();
 
     try {
         const { nombre_lugar_produccion, predios_ids, especies } = req.body;
-        const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
+        const id_usuario_productor = req.usuario?.id;
 
-        // Regla de negocio pre-condición: Debe tener al menos un predio asociado
         if (!predios_ids || predios_ids.length === 0) {
             res.status(400).json({ message: 'Un lugar de producción debe tener al menos un predio asociado.' });
             return;
         }
 
-
         // ─── VALIDACIÓN DE CONTIGÜIDAD (MISMO DEPARTAMENTO) ───────────────────
-        // 1. Buscamos los predios seleccionados en la BD Operacional para obtener sus id_vereda
         const prediosBase = await Predio.findAll({
             where: { id_predio: predios_ids }
         });
 
-        const idVeredas = prediosBase.map(p => p.id_vereda)
+        const idVeredas = prediosBase.map(p => p.id_vereda);
 
-        // 2. Consultamos el árbol geográfico en la BD de Catálogos
         const veredasGeograficas = await catalogmodels.Vereda.findAll({
-            where: { id_vereda: idVeredas},
+            where: { id_vereda: idVeredas },
             include: [
                 {
                     model: catalogmodels.Municipio,
@@ -46,45 +41,38 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
             ]
         }) as unknown as IVeredaGeografica[];
 
-        // 3. Extraemos los IDs de los departamentos a los que pertenecen las veredas
         const departamentosIds = veredasGeograficas
             .map(v => v.municipio?.departamento?.id_departamento)
-            .filter(Boolean)
+            .filter(Boolean);
 
-        // Usamos un Set para eliminar duplicados. Si el tamaño es mayor a 1, significa que hay más de un departamento.
         const departamentosUnicos = [...new Set(departamentosIds)];
 
         if (departamentosUnicos.length > 1) {
-            // Cancelamos el flujo antes de tocar la base de datos
-            res.status(400).json({ 
-                message: 'Criterio de aceptación ICA rechazado: Todos los predios asociados deben pertenecer al mismo departamento para garantizar la contigüidad.' 
+            res.status(400).json({
+                message: 'Criterio de aceptación ICA rechazado: Todos los predios asociados deben pertenecer al mismo departamento para garantizar la contigüidad.'
             });
             return;
         }
 
-        // Generamos un Radicado Único Temporal (Ej: RAD-83726-2026)
         const anioActual = new Date().getFullYear();
         const numeroRadicadoProvisional = `ICA-LP-${Math.floor(10000 + Math.random() * 90000)}-${anioActual}`;
 
-        // 1. Crear el Lugar de Producción con su radicado provisional y estado pendiente
         const nuevoLugar = await models.LugarProduccion.create({
             nombre_lugar_produccion,
-            numero_registro_ica: numeroRadicadoProvisional, // Se guarda el radicado automáticamente
+            numero_registro_ica: numeroRadicadoProvisional,
             id_usuario_productor,
             estado: 'PENDIENTE',
             fecha_solicitud: new Date()
         }, { transaction: t });
 
-        // 2. Asociar los predios existentes actualizando su FK externa
         await models.Predio.update(
             { id_lugar_produccion: nuevoLugar.id_lugar_produccion },
-            { 
+            {
                 where: { id_predio: predios_ids },
-                transaction: t 
+                transaction: t
             }
         );
 
-        // 3. Registrar las proyecciones de capacidad por cada especie vegetal seleccionada
         if (especies && especies.length > 0) {
             const autorizaciones = especies.map((esp: any) => ({
                 id_lugar_produccion: nuevoLugar.id_lugar_produccion,
@@ -95,10 +83,8 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
             await models.AutorizacionEspecie.bulkCreate(autorizaciones, { transaction: t });
         }
 
-        // Si todo el circuito se ejecutó sin errores, consolidamos los datos permanentemente
         await t.commit();
 
-        // Devolvemos una respuesta exitosa con el número de radicado provisional para seguimiento
         res.status(201).json({
             message: 'Solicitud de lugar de producción creada con éxito y enviada a revisión ICA.',
             id_lugar_produccion: nuevoLugar.id_lugar_produccion,
@@ -106,7 +92,6 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
         });
 
     } catch (error) {
-        // Si algo falla en cualquier punto, devolvemos la BD al estado original de forma segura
         await t.rollback();
         console.error('❌ Error transaccional al crear lugar de producción:', error);
         res.status(500).json({ message: 'Error interno al procesar la creación del lugar de producción.' });
@@ -116,23 +101,21 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
 // ─── 2. ENDPOINT PARA LISTAR LUGARES DEL PRODUCTOR (GET) ──────────────────────
 export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const id_usuario_productor = req.usuario?.id; // Extraído de forma segura desde el middleware de autenticación
-        // 1. Traemos los lugares del productor con sus relaciones crudas de la BD Operacional
+        const id_usuario_productor = req.usuario?.id;
         const lugares = await models.LugarProduccion.findAll({
             where: { id_usuario_productor },
             include: [
-                { association: 'predio' }, // Trae los predios vinculados
-                { association: 'autorizacionEspecie' }, // Trae las especies lógicas autorizadas
-                { 
-                    model: models.Usuario, 
-                    as: 'asistenteAsignado', 
-                    attributes: ['nombre', 'apellidos'] 
+                { association: 'predio' },
+                { association: 'autorizacionEspecie' },
+                {
+                    model: models.Usuario,
+                    as: 'asistenteAsignado',
+                    attributes: ['nombre', 'apellidos']
                 }
             ],
             order: [['fecha_solicitud', 'DESC']]
         });
 
-        // 2. Recolectamos todos los id_vereda para buscar sus nombres en el Catálogo
         const veredaIds: string[] = [];
         lugares.forEach((l: any) => {
             if (l.predio) {
@@ -141,9 +124,9 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
                 });
             }
         });
+
         const uniqueVeredaIds = [...new Set(veredaIds)];
-        
-        // 3. Consulta al Catálogo Geográfico (Mapeo Completo)
+
         let geoMap = new Map<string, any>();
         if (uniqueVeredaIds.length > 0) {
             const veredasCatalogo = await catalogmodels.Vereda.findAll({
@@ -156,37 +139,31 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
                     }
                 ]
             });
-            geoMap = new Map<string, any>(
-                veredasCatalogo.map((v: any) => [v.id_vereda, v])
-            );
+            geoMap = new Map<string, any>(veredasCatalogo.map((v: any) => [v.id_vereda, v]));
         }
 
-        // 4. Estampamos las cadenas de texto geográficas en cada predio del objeto
         const lugaresEnriquecidos = lugares.map((l: any) => {
             const lugarJson = l.toJSON();
 
-            // Formateamos el nombre del asistente real
             const nombreAsistente = lugarJson.asistenteAsignado
                 ? `${lugarJson.asistenteAsignado.nombre} ${lugarJson.asistenteAsignado.apellidos}`
                 : 'Pendiente de asignación';
-        
 
             if (lugarJson.predio) {
                 lugarJson.predio = lugarJson.predio.map((p: any) => {
                     const infoGeo = geoMap.get(p.id_vereda);
                     return {
                         ...p,
-                        // 💡 CORRECCIÓN: Si el catálogo falla, usamos el dato guardado en texto plano (si existe)
                         vereda: infoGeo?.nombre || p.vereda || 'N/D',
                         municipio: infoGeo?.municipio?.nombre || p.municipio || 'N/D',
                         departamento: infoGeo?.municipio?.departamento?.nombre || p.departamento || 'N/D'
                     };
                 });
             }
-            
+
             return {
                 ...lugarJson,
-                nombre_asistente_real: nombreAsistente // Mandamos el string listo al frontend
+                nombre_asistente_real: nombreAsistente
             };
         });
 
@@ -198,9 +175,8 @@ export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res:
 };
 
 // ─── 3. ENDPOINT PARA LISTAR SOLICITUDES PARA EL ICA (GET) ──────────────────────
-export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+export const obtenerSolicitudesPendientesICA = async (_req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        // 🌟 1. Buscamos TODAS las solicitudes (Quitamos el where: 'PENDIENTE' para que sirvan los filtros del admin)
         const solicitudes = await models.LugarProduccion.findAll({
             include: [
                 {
@@ -208,40 +184,33 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
                     as: 'productor',
                     attributes: ['nombre', 'apellidos', 'numero_identificacion', 'correo_electronico', 'telefono']
                 },
-                {
-                    association: 'predio' // Trae los terrenos amarrados
-                },
-                {
-                    association: 'autorizacionEspecie' // 🌟 NUEVO: Trae las especies vinculadas a la solicitud
-                }
+                { association: 'predio' },
+                { association: 'autorizacionEspecie' }
             ],
             order: [['fecha_solicitud', 'DESC']]
         });
 
-        // 2. Extraer todos los IDs únicos para hacer una sola consulta a los catálogos
+        const normalizarId = (value: unknown) =>
+            String(value ?? '').toLowerCase().replace(/[{}]/g, '').trim();
+
         const allVeredaIds: string[] = [];
         const allEspecieIds: string[] = [];
 
         solicitudes.forEach((sol: any) => {
-            if (sol.predio) {
-                sol.predio.forEach((p: any) => {
-                    if (p.id_vereda) allVeredaIds.push(p.id_vereda);
-                });
-            }
-            if (sol.autorizacionEspecie) {
-                sol.autorizacionEspecie.forEach((e: any) => {
-                    if (e.id_especie_vegetal) allEspecieIds.push(e.id_especie_vegetal);
-                });
-            }
+            (sol.predio || []).forEach((p: any) => {
+                if (p.id_vereda) allVeredaIds.push(p.id_vereda);
+            });
+            (sol.autorizacionEspecie || []).forEach((e: any) => {
+                if (e.id_especie_vegetal) allEspecieIds.push(e.id_especie_vegetal);
+            });
         });
-        
+
         const uniqueVeredaIds = [...new Set(allVeredaIds)];
         const uniqueEspecieIds = [...new Set(allEspecieIds)];
 
-        // 3. Consultar Catálogos en paralelo
         const [veredasCatalogo, especiesCatalogo] = await Promise.all([
             catalogmodels.Vereda.findAll({
-                where: { id_vereda: uniqueVeredaIds },
+                where: uniqueVeredaIds.length > 0 ? { id_vereda: uniqueVeredaIds } : undefined,
                 include: [
                     {
                         model: catalogmodels.Municipio,
@@ -250,22 +219,47 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
                     }
                 ]
             }),
-            catalogmodels.EspecieVegetal.findAll({
-                where: { id_especie_vegetal: uniqueEspecieIds }
-            })
+            uniqueEspecieIds.length > 0
+                ? catalogmodels.EspecieVegetal.findAll({
+                    where: { id_especie_vegetal: uniqueEspecieIds }
+                })
+                : Promise.resolve([])
         ]);
 
-        // Mapeamos los datos en mapas para búsqueda ultra rápida
-        const geoMap = new Map<string, any>(veredasCatalogo.map((v: any) => [String(v.id_vereda), v]));
-        const especiesMap = new Map<string, string>(especiesCatalogo.map((e: any) => [String(e.id_especie_vegetal), e.nombre_comun]));
+        const geoMap = new Map<string, any>(
+            (veredasCatalogo as any[]).map((v: any) => [normalizarId(v.id_vereda), v])
+        );
 
-        // 4. Inyectar nombres reales geográficos y vegetales
+        const especiesMap = new Map<string, string>(
+            (especiesCatalogo as any[]).map((e: any) => [
+                normalizarId(e.id_especie_vegetal),
+                e.nombre_especie || e.nombre_comun || ''
+            ])
+        );
+
+        // Respaldo desde JSON local de catálogos
+        let catalogJsonEspecies: any[] = [];
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const data = require('../data/catalogos_fitosanitarios.json');
+            catalogJsonEspecies = Array.isArray(data?.especies_vegetales) ? data.especies_vegetales : [];
+        } catch (_e) {
+            catalogJsonEspecies = [];
+        }
+
+        const especiesJsonMap = new Map<string, string>(
+            catalogJsonEspecies.map((cj: any) => [
+                normalizarId(cj.id_especie_vegetal),
+                cj.nombre_especie || cj.nombre_comun || ''
+            ])
+        );
+
         const solicitudesEnriquecidas = solicitudes.map((sol: any) => {
             const solJson = sol.toJSON();
-            
+
             if (solJson.predio) {
                 solJson.predio = solJson.predio.map((p: any) => {
-                    const infoGeo = geoMap.get(String(p.id_vereda));
+                    const infoGeo = geoMap.get(normalizarId(p.id_vereda));
                     return {
                         ...p,
                         vereda: infoGeo?.nombre || 'N/D',
@@ -274,20 +268,36 @@ export const obtenerSolicitudesPendientesICA = async (req: AuthenticatedRequest,
                     };
                 });
             }
-            
-            // 🌟 NUEVO: Mapeo de especies
-            if (solJson.autorizacionEspecie) {
-                solJson.especies_nombres = solJson.autorizacionEspecie.map((e: any) => 
-                    especiesMap.get(String(e.id_especie_vegetal)) || 'Especie N/D'
-                );
-            } else {
-                solJson.especies_nombres = [];
-            }
-            
+
+            const autorizaciones = Array.isArray(solJson.autorizacionEspecie) ? solJson.autorizacionEspecie : [];
+            const especiesResueltas = autorizaciones.map((e: any) => {
+                const idNorm = normalizarId(e.id_especie_vegetal);
+
+                const nombreCatalogDb = especiesMap.get(idNorm);
+                if (nombreCatalogDb && String(nombreCatalogDb).trim()) return String(nombreCatalogDb).trim();
+
+                const nombreCatalogJson = especiesJsonMap.get(idNorm);
+                if (nombreCatalogJson && String(nombreCatalogJson).trim()) return String(nombreCatalogJson).trim();
+
+                const relacion = e.especieVegetal || e.EspecieVegetal || e.especie || null;
+                const nombreRelacion = relacion?.nombre || relacion?.nombre_especie || relacion?.nombre_comun;
+                if (nombreRelacion && String(nombreRelacion).trim()) return String(nombreRelacion).trim();
+
+                // Fallback obligatorio para no dejar vacío
+                return `Especie ID: ${String(e.id_especie_vegetal || '').trim()}`;
+            });
+
+            solJson.especies_nombres = [...new Set(especiesResueltas.filter((n: string) => !!String(n).trim()))];
+
+            console.log('🌿 Solicitud especies debug:', {
+                id_lugar_produccion: solJson.id_lugar_produccion,
+                autorizacion_count: autorizaciones.length,
+                especies_nombres: solJson.especies_nombres
+            });
+
             return solJson;
         });
 
-        // Retornamos la respuesta al frontend
         res.json({ data: solicitudesEnriquecidas });
     } catch (error) {
         console.error('❌ Error al obtener solicitudes para el ICA:', error);
@@ -301,7 +311,6 @@ export const aprobarLugarProduccion = async (req: AuthenticatedRequest, res: Res
         const { id } = req.params;
         const { numero_registro_ica_oficial, id_asistente_asignado } = req.body;
 
-        // Regla de negocio: Validar parámetros obligatorios, se debe asignar un asistente técnico para aprobar
         if (!id_asistente_asignado) {
             res.status(400).json({ message: 'Criterio ICA rechazado: Es obligatorio asignar un asistente técnico calificado para aprobar el lugar.' });
             return;
@@ -313,16 +322,28 @@ export const aprobarLugarProduccion = async (req: AuthenticatedRequest, res: Res
             return;
         }
 
-        // Actualización física del estado del trámite
         await lugar.update({
             estado: 'APROBADO',
             numero_registro_ica: numero_registro_ica_oficial,
             id_asistente_asignado: id_asistente_asignado,
             fecha_aprobacion: new Date(),
-            id_admin_aprobador: req.usuario?.id // Auditoría de quién aprobó
+            id_admin_aprobador: req.usuario?.id
         });
 
-        res.json({ 
+        await models.Notificacion.create({
+            id_usuario_destino: lugar.getDataValue('id_usuario_productor'),
+            titulo: 'Solicitud de lugar aprobada',
+            mensaje: `Tu lugar de producción "${lugar.getDataValue('nombre_lugar_produccion')}" fue aprobado. Registro ICA: ${numero_registro_ica_oficial}.`,
+            tipo: 'success',
+            leida: false,
+            metadata: {
+                id_lugar_produccion: lugar.getDataValue('id_lugar_produccion'),
+                estado: 'APROBADO'
+            }
+        });
+        console.log('🔔 Notificación creada (APROBADO) para usuario:', lugar.getDataValue('id_usuario_productor'));
+
+        res.json({
             message: 'Lugar de producción aprobado con éxito. Se ha emitido el Registro oficial del ICA y asignado el asistente técnico.',
             registro_oficial: numero_registro_ica_oficial
         });
@@ -354,6 +375,19 @@ export const rechazarLugarProduccion = async (req: AuthenticatedRequest, res: Re
             observaciones_administrador: observaciones.trim(),
             id_admin_aprobador: req.usuario?.id
         });
+
+        await models.Notificacion.create({
+            id_usuario_destino: lugar.getDataValue('id_usuario_productor'),
+            titulo: 'Solicitud de lugar rechazada',
+            mensaje: `Tu lugar de producción "${lugar.getDataValue('nombre_lugar_produccion')}" fue rechazado. Observación: ${observaciones.trim()}`,
+            tipo: 'error',
+            leida: false,
+            metadata: {
+                id_lugar_produccion: lugar.getDataValue('id_lugar_produccion'),
+                estado: 'RECHAZADO'
+            }
+        });
+        console.log('🔔 Notificación creada (RECHAZADO) para usuario:', lugar.getDataValue('id_usuario_productor'));
 
         res.json({ message: 'La solicitud ha sido rechazada formalmente con las observaciones adjuntas.' });
     } catch (error) {

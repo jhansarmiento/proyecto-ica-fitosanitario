@@ -530,7 +530,7 @@ function NewProductionPlaceModal({
 
                 <label className="space-y-1.5 sm:col-span-2">
                   <span className="text-sm font-medium text-slate-700">
-                    Capacidad Estimada de Producción Anual (Tons)
+                    Capacidad Estimada de Producción Anual (Kg)
                   </span>
                   <input
                     type="number"

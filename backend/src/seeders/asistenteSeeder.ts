@@ -7,8 +7,8 @@ dotenv.config();
 export const seedAsistentes = async () => {
     try {
         // 1. Buscamos el rol ASISTENTE 
-        const rolAsistente = await models.Rol.findOne({ where: { nombre_rol: 'ASISTENTE' } });
-        if (!rolAsistente) throw new Error('❌ No se encontró el rol ASISTENTE en la base de datos');
+        const rolAsistente = await models.Rol.findOne({ where: { nombre_rol: 'Asistente Tecnico' } });
+        if (!rolAsistente) throw new Error('❌ No se encontró el rol Asistente Tecnico en la base de datos');
 
         const plainPassword = process.env.DEFAULT_TECNICO_PASSWORD || 'tecnico123';
         const passwordHash = await bcrypt.hash(plainPassword, 10);

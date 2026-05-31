@@ -40,6 +40,12 @@ class Usuario extends Model {
       foreignKey: 'id_asistente_tecnico',
       as: 'solicitudInspeccion',
     });
+
+    // Un Usuario puede tener muchas notificaciones
+    this.hasMany(models.Notificacion, {
+      foreignKey: 'id_usuario_destino',
+      as: 'notificaciones',
+    });
   }
 }
 

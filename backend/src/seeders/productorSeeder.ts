@@ -8,8 +8,8 @@ dotenv.config();
 export const seedProductores = async () => {
     try {
         // 1. Buscamos el rol PRODUCTOR
-        const rolProductor = await Rol.findOne({ where: { nombre_rol: 'PRODUCTOR' } });
-        if (!rolProductor) throw new Error('❌ No se encontró el rol PRODUCTOR');
+        const rolProductor = await Rol.findOne({ where: { nombre_rol: 'Productor' } });
+        if (!rolProductor) throw new Error('❌ No se encontró el rol Productor');
 
         const plainPassword = process.env.DEFAULT_PROD_PASSWORD || 'productor123';
         const passwordHash = await bcrypt.hash(plainPassword, 10);

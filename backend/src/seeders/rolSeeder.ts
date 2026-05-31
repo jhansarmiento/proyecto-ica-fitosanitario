@@ -3,9 +3,9 @@ import models from '../index';
 export const seedRoles = async () => {
     try {
         const roles = [
-            { nombre_rol: 'ADMIN', descripcion: 'Control total del sistema e informes' },
-            { nombre_rol: 'PRODUCTOR', descripcion: 'Dueño de lugares de producción y lotes' },
-            { nombre_rol: 'ASISTENTE', descripcion: 'Técnico encargado de las inspecciones fitosanitarias' }
+            { nombre_rol: 'Administrador', descripcion: 'Control total del sistema e informes' },
+            { nombre_rol: 'Productor', descripcion: 'Dueño de lugares de producción y lotes' },
+            { nombre_rol: 'Asistente Tecnico', descripcion: 'Técnico encargado de las inspecciones fitosanitarias' }
         ];
 
         console.log('⏳ Inyectando roles...');

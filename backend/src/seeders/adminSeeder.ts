@@ -8,8 +8,8 @@ dotenv.config();
 export const seedAdmins = async () => {
     try {
         // 1. Corregimos el nombre del campo: de nombre_rol a nombreRol
-        const rolAdmin = await Rol.findOne({ where: { nombre_rol: 'ADMIN' } });
-        if (!rolAdmin) throw new Error('❌ No se encontró el rol ADMIN en la DB');
+        const rolAdmin = await Rol.findOne({ where: { nombre_rol: 'Administrador' } });
+        if (!rolAdmin) throw new Error('❌ No se encontró el rol Administrador en la DB');
 
         const plainPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'admin123';
         const passwordHash = await bcrypt.hash(plainPassword, 10);

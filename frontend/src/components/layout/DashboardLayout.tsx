@@ -1,5 +1,5 @@
 // src/components/layout/DashboardLayout.tsx
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Bell, Menu } from "lucide-react";
 import { SidebarContent } from "./SidebarContent";
 import type {
@@ -7,21 +7,7 @@ import type {
   NotificationItem,
   NavigationItem,
 } from "../../types/dashboard.types";
-
-const notificationsSeed: NotificationItem[] = [
-  {
-    id: "N-1",
-    tipo: "urgent",
-    mensaje: "Alerta de plaga detectada en lote 2 de Predio Santa Isabel.",
-    horaRelativa: "Hace 10 min",
-  },
-  {
-    id: "N-2",
-    tipo: "info",
-    mensaje: "Nueva inspección programada en Predio El Porvenir.",
-    horaRelativa: "Hace 25 min",
-  },
-];
+import { notificacionService } from "../../services/notificacion.service";
 
 // MAPA CENTRALIZADO DE ACCESOS
 const MENU_ITEMS: NavigationItem[] = [
@@ -95,9 +81,28 @@ function DashboardLayout({
     activeView === "inspections-agenda" || activeView === "inspections-history",
   );
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, _setNotifications] =
-    useState<NotificationItem[]>(notificationsSeed);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      try {
+        const response = await notificacionService.getMisNotificaciones();
+        const mapped: NotificationItem[] = (response.data || []).map((n) => ({
+          id: n.id_notificacion,
+          tipo: n.tipo === "error" ? "urgent" : "info",
+          mensaje: n.mensaje,
+          horaRelativa: "Reciente",
+        }));
+        setNotifications(mapped);
+      } catch (error) {
+        console.error("Error cargando notificaciones:", error);
+        setNotifications([]);
+      }
+    };
+
+    void loadNotifications();
+  }, []);
 
   const unreadCount = notifications.length;
 
