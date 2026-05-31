@@ -65,6 +65,7 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
   const [ingresoContrasena, setIngresoContrasena] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   /** Controla si el texto de la contraseña es visible o está enmascarado. */
   const [showPassword, setShowPassword] = useState(false);
 
@@ -90,13 +91,23 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
       const { token, usuario } = response;
 
       // 3. Almacenamos el token JWT en el navegador para autenticar futuras consultas
-      localStorage.setItem("token", token);
-      localStorage.setItem('user', JSON.stringify({
-        id: usuario.id_usuario,
-        nombre: usuario.nombre,
-        apellidos: usuario.apellidos,
-        rol: usuario.rol
-      }));
+      if (rememberMe) {
+        localStorage.setItem("token", token);
+        localStorage.setItem('user', JSON.stringify({
+          id: usuario.id_usuario,
+          nombre: usuario.nombre,
+          apellidos: usuario.apellidos,
+          rol: usuario.rol
+        }));
+      } else {
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem('user', JSON.stringify({
+          id: usuario.id_usuario,
+          nombre: usuario.nombre,
+          apellidos: usuario.apellidos,
+          rol: usuario.rol
+        }));
+      }
 
       // 4. Enviamos al estado global del Frontend lo que espera recibir
       onLoginSuccess?.({
@@ -204,7 +215,12 @@ function LoginPage({ onLoginSuccess, onGoRegister }: LoginPageProps) {
               />
 
               <div className="my-0.5 flex flex-wrap items-center justify-between gap-2">
-                <CheckboxField id="remember" label="Recordarme" />
+                <CheckboxField
+                  id="remember"
+                  label="Recordarme"
+                  checked={rememberMe}
+                  onChange={setRememberMe}
+                />
                 <button
                   type="button"
                   onClick={() => setIsForgotOpen(true)}
