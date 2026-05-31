@@ -74,8 +74,8 @@ export function SidebarContent({
 
       <nav className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1">
         
-        {/* ── ADMINISTRADOR: Inicio ── */}
-        {isAdmin && (
+        {/* ── TODOS LOS ROLES: Inicio ── */}
+        {(isAdmin || isProductor || isAsistente) && (
             <button type="button" onClick={() => navigate("home")} className="w-full">
             <SidebarItem label="Inicio" active={activeView === "home"} icon={<Home size={20} />} />
             </button>
