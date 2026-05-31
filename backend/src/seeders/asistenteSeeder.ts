@@ -1,19 +1,17 @@
 import bcrypt from 'bcrypt';
-import models from '../index'; // Tu archivo central de modelos index.ts
+import models from '../index';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 export const seedAsistentes = async () => {
     try {
-        // 1. Buscamos el rol ASISTENTE 
         const rolAsistente = await models.Rol.findOne({ where: { nombre_rol: 'Asistente Tecnico' } });
         if (!rolAsistente) throw new Error('❌ No se encontró el rol Asistente Tecnico en la base de datos');
 
         const plainPassword = process.env.DEFAULT_TECNICO_PASSWORD || 'tecnico123';
         const passwordHash = await bcrypt.hash(plainPassword, 10);
 
-        // 2. Definimos los asistentes usando la estructura snake_case de tu nuevo diagrama
         const asistentesParaCrear = [
             {
                 ingreso_usuario: 'tecnico_andino',
@@ -60,19 +58,17 @@ export const seedAsistentes = async () => {
         console.log('⏳ Precargando asistentes técnicos profesionales...');
 
         for (const asistente of asistentesParaCrear) {
-            // 3. Ajustamos las llaves para que coincidan EXACTAMENTE con el modelo Usuario.ts
             await models.Usuario.findOrCreate({
                 where: { ingreso_usuario: asistente.ingreso_usuario },
                 defaults: {
                     ...asistente,
                     ingreso_contrasena: passwordHash,
-                    id_rol: rolAsistente.id_rol // Asegúrate de usar el nombre exacto de la PK de tu tabla Rol
+                    id_rol: rolAsistente.id_rol
                 }
             });
         }
 
         console.log('✅ Precarga de asistentes técnicos completada con éxito.');
-
     } catch (error) {
         console.error('❌ Error en la precarga de asistentes:', error);
     }

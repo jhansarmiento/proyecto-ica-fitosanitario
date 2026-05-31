@@ -20,6 +20,14 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
             return;
         }
 
+        // Verificar que el usuario del token aún existe en la BD
+        const usuarioExiste = await models.Usuario.findByPk(id_usuario_productor);
+        if (!usuarioExiste) {
+            await t.rollback();
+            res.status(401).json({ message: 'Sesión inválida. Por favor cierra sesión y vuelve a ingresar.' });
+            return;
+        }
+
         // ─── VALIDACIÓN DE CONTIGÜIDAD (MISMO DEPARTAMENTO) ───────────────────
         const prediosBase = await Predio.findAll({
             where: { id_predio: predios_ids }
@@ -102,6 +110,13 @@ export const crearLugarProduccion = async (req: AuthenticatedRequest, res: Respo
 export const obtenerLugaresDelProductor = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
         const id_usuario_productor = req.usuario?.id;
+        console.log('🔍 GET lugares - id_usuario_productor del token:', id_usuario_productor);
+
+        if (!id_usuario_productor) {
+            res.status(401).json({ message: 'Sesión inválida. Por favor cierra sesión y vuelve a ingresar.' });
+            return;
+        }
+
         const lugares = await models.LugarProduccion.findAll({
             where: { id_usuario_productor },
             include: [

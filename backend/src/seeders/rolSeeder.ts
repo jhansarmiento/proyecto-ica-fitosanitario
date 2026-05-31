@@ -11,13 +11,9 @@ export const seedRoles = async () => {
         console.log('⏳ Inyectando roles...');
 
         for (const r of roles) {
-            const [rol] = await models.Rol.findOrCreate({
-                where: { 
-                    nombre_rol: r.nombre_rol 
-                },
-                defaults: { 
-                    descripcion: r.descripcion 
-                }
+            await models.Rol.findOrCreate({
+                where: { nombre_rol: r.nombre_rol },
+                defaults: { descripcion: r.descripcion }
             });
         }
 
