@@ -384,9 +384,7 @@ export default function RegisterProductorPage({ onGoLogin, onRegisterSuccess }: 
         {/* ── Panel izquierdo ── */}
         <section className="flex flex-col justify-center gap-8 lg:pr-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-white/95 shadow-md">
-              <Sprout size={24} className="text-emerald-800" />
-            </div>
+            <img src="/logo.png" alt="FitoGestor Logo" className="h-12 w-12 rounded-[14px] shadow-md object-cover" />
             <span className="text-[2.9rem] font-bold tracking-tight">FitoGestor</span>
           </div>
 

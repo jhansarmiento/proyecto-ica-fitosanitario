@@ -52,9 +52,7 @@ export function SidebarContent({
   return (
     <div className="relative z-10 flex h-full flex-col">
       <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-        <div className="h-12 w-12 rounded-xl bg-white/95 shadow-md flex items-center justify-center">
-            <span className="text-emerald-900 font-black text-2xl">FG</span>
-        </div>
+        <img src="/logo.png" alt="FitoGestor Logo" className="h-12 w-12 rounded-xl shadow-md object-cover" />
         <div>
           <p className="text-2xl font-bold leading-none">FitoGestor</p>
           <p className="mt-1 text-sm text-emerald-100/90">
