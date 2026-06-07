@@ -65,22 +65,6 @@ function EditLotModal({ isOpen, lot, onClose, onSuccess }: EditLotModalProps) {
     }
   };
 
-  const handleDelete = async () => {
-    const confirmar = window.confirm(
-      "¿Estás seguro de que deseas eliminar este lote? Esta acción no se puede deshacer y borrará permanentemente sus datos.",
-    );
-    if (confirmar) {
-      try {
-        setLoading(true);
-        await fincaService.deleteLote(lot.id_lote);
-        onSuccess(); // Cierra y refresca la tabla
-      } catch (error: any) {
-        setError(error.message || "Error al eliminar el lote.");
-        setLoading(false);
-      }
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-4 py-6 backdrop-blur-[1px]">
       <div className="w-full max-w-2xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-black/5">
